@@ -18,6 +18,8 @@ else ifeq ($(ODROID),1)
   CFLAGS += -mcpu=cortex-a9 -mfpu=neon -mfloat-abi=hard -ftree-vectorize -ffast-math -DODROID
 else ifeq ($(linux_x86),1)
   target := linux_x86
+  CFLAGS += -m32
+  LDFLAGS += -m32
 else
   target := macosx_x86
   steamworks := true
