@@ -62,7 +62,7 @@ void	DrawTri_ZColorFog(UCHAR* pDstOffset,long lDstP,
 	pt2.x.frac = 
 	pt3.x.frac = USHORT(32768); // offset each by 1/2
 
-	/*
+#if 0
 	// Catch the special case of a single pixel
 	// This is really only useful for POSTAL TM, where polygons are tiny:
 	if (pt1.x.mod == pt2.x.mod)	// hierarchal check to save time:
@@ -93,11 +93,11 @@ void	DrawTri_ZColorFog(UCHAR* pDstOffset,long lDstP,
 			return;	// DONE THE FAST WAY!
 			}
 		}
-		*/
+#endif
 
+#if 0
 	// Let's assess general categories:
 	// Single points:
-	/*
 	short sAbort = TRUE;
 	if (pt1.x.mod == pt2.x.mod)
 		{
@@ -127,11 +127,11 @@ void	DrawTri_ZColorFog(UCHAR* pDstOffset,long lDstP,
 		}
 
 	if (sAbort == TRUE) return; // isolate the effect!
-	*/
+#endif
 
 	// Now let's try simply not drawing horiz or verical strips at all:
 	// Vertical strips:
-	/*
+#if 0
 	if ( (pt1.x.mod == pt2.x.mod)
 		&& (pt1.x.mod == pt3.x.mod) )
 		{
@@ -146,8 +146,8 @@ void	DrawTri_ZColorFog(UCHAR* pDstOffset,long lDstP,
 		// Hstrip:
 		return;
 		}
-		*/
-	
+#endif
+
 	// sort the triangles and choose which mirror case to render.
 
 	// Sort points lowest to highest by y-value:

@@ -39,7 +39,7 @@
 	short	GetWidth(char* pszString); // see m_sNumChar,ms_szLineText,ms_sCharPosX
 	RFont* GetFont() { return m_pfnCurFont; }
 	short SetColumn(short sX,short sY,short sW,short sH);
-//****************************************************** QUICK CHECK */
+****************************************************** QUICK CHECK */
 
 #include "BLIT.H"
 //====================

@@ -536,8 +536,9 @@ public:
 #endif
 
 
+#if 0
 		
-	/* This update saves search space, but is too slow on update
+	// This update saves search space, but is too slow on update
 	void Update(CSmash* pSmash)	// In:  CSmash to be updated
 		{
 		ASSERT(pSmash);
@@ -637,5 +638,5 @@ public:
 		if (m_link3.m_pLast) Add(m_link3.m_pLast,&m_link1);
 		if (m_link4.m_pLast) Add(m_link4.m_pLast,&m_link1);
 		}
-	*/
+	#endif
 

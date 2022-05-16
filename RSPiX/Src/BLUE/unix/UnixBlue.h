@@ -92,9 +92,11 @@ extern long macReserveMemBytes;
 	#define TRACE			STRACE("%s(%d):", __FILE__, __LINE__),STRACE
 
 	// ASSERT macro, the preferred method of asserting that expressions are true.
-	//#define ASSERT(a)		while (!(a))  \
-	//								if (rspAssert(__FILE__, __LINE__, #a) == 0)  \
-	//									break
+	/*
+	#define ASSERT(a)		while (!(a))  \
+									if (rspAssert(__FILE__, __LINE__, #a) == 0)  \
+										break
+	*/
     #define ASSERT SDL_assert
 #else
 	// This causes the compiler to "optimize" out the data and the function call.

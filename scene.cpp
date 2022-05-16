@@ -341,7 +341,7 @@
 #define SCREEN_DIAMETER_FOR_3D	(MODEL_DIAMETER * SCREEN2MODEL_RATIO)	
 
 short	gsGlobalBrightnessPerLightAttribute = 5;  
-/* short gsGlobalLightingAdjustment = 128; /* neutral center */
+// short gsGlobalLightingAdjustment = 128; // neutral center
 // NOTE: This max value completely depends on the actual lighting effect curve:
 // it should be set near the bright spot of the curve.
 short gsGlobalLightingAdjustment = 128; // NEUTRAL BABY!

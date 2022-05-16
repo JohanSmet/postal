@@ -24,7 +24,7 @@
 This header depends on the rest QuickMath, but is not necessary
 for use of Quickmath, and deals primarily with high speed fraction
 operations.
-/*****************************************************************
+*****************************************************************
 Hungarian:	fr = either generic fraction or signed 16 (S16 + S16 [ / U16] )
 				pfr = pointer to fraction
 				frS32 = (S32 + S32 [ / U32] )
@@ -45,7 +45,7 @@ signed or unsigned.
 NOTE: Some functions can take a long AS an frS16.  Understand that this is
 a memory cast as a frS16 and does NOT represent the actual long "value"!
 Use Get and Set "Value" functions to translate integers to fixed point!
-/*****************************************************************
+*****************************************************************
 RFracS32 { mod, frac, set }
 RFracS16 { mod, frac, set }
 RFracU16 { mod, frac, set }
@@ -59,14 +59,14 @@ inline void rspfrSetValue(&frDst,double dVal,short sDen)
 inline void rspMakeProper(&frU16Dst,usNum,usDen)
 inline RFracU16* rspfrU16Strafe256(usNum,usDen) // gives 0..255 * fraction!
 
-//*********************** HIGH INTENSITY SPEED! ***********************
+*********************** HIGH INTENSITY SPEED! ***********************
 inline void rspfrAdd32(&lVal,&lNum,&lDel,&lInc,&lDen,&lAdd,PROPER,POSITIVE)
 inline void rspfrAdd32(&lVal,&lNum,&lDel,&lInc,&lDen,&lAdd,IMPROPER,POSITIVE)
 inline void rspfrAdd32(&lVal,&lNum,&lDel,&lInc,&lDen,&lAdd,IMPROPER,POSITIVE)
 inline void rspfrAdd32(&lVal,&lNum,&lDel,&lInc,&lDen,&lAdd,PROPER,NEGATIVE)
 inline void rspfrAdd32(&lVal,&lNum,&lDel,&lInc,&lDen,&lAdd,IMPROPER,NEGATIVE)
 inline void rspfrAdd32(&lVal,&lNum,&lDel,&lInc,&lDen,&lPixSize)
-/****************************************************************/
+****************************************************************/
 
   typedef union
 	{

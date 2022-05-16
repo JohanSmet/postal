@@ -42,7 +42,7 @@ of integer degrees, from 0-359 inclusive.
 				T = a single templated type
 				-64 = enhanced 64-bit math mode...
 
-/*****************************************************************
+*****************************************************************
 inline void rspMod360(&sDeg) // USE BEFORE ALL CALLS IF IN QUESTION!
 inline void rspMod(&sValue,&sRange) 
 
@@ -60,9 +60,9 @@ inline float rspfCos(sDeg)
 
 inline short rspSqrt(long lVal)
 
-/*****************************************************************
+*****************************************************************
 
-/****************************************************************/
+****************************************************************/
 const short csNumRotSteps = 360;
 extern double SINQ[csNumRotSteps],COSQ[csNumRotSteps];
 extern float fSINQ[csNumRotSteps],fCOSQ[csNumRotSteps];

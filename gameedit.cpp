@@ -6923,7 +6923,7 @@ static void DelClass(	// Returns nothing.
 
 ////////////////////////////////////////////////////////////////////////////////
 // Delete all but the pylons, bouys, soundthings and soundrelays.
-// This is useful for making a template of a level that is already fully \
+// This is useful for making a template of a level that is already fully 
 // populated.
 ////////////////////////////////////////////////////////////////////////////////
 static void DelMost(	// Returns nothing.
