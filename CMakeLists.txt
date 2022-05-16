@@ -186,7 +186,7 @@ target_sources(${TARGET_POSTAL} PRIVATE
 )
 
 target_compile_options(${TARGET_POSTAL} PRIVATE -fsigned-char)
-target_compile_options(${TARGET_POSTAL} PRIVATE -w)
+target_compile_options(${TARGET_POSTAL} PRIVATE -Werror)
 
 target_compile_definitions(${TARGET_POSTAL} PRIVATE PLATFORM_UNIX)
 target_compile_definitions(${TARGET_POSTAL} PRIVATE LOCALE=US)
