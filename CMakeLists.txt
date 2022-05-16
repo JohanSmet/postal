@@ -188,7 +188,15 @@ target_sources(${TARGET_POSTAL} PRIVATE
 target_compile_options(${TARGET_POSTAL} PRIVATE -fsigned-char)
 target_compile_options(${TARGET_POSTAL} PRIVATE -Werror)
 
+# platform detection - it's a bit unconventional:
+#	- PLATFORM_UNIX is defined for all platforms - probably because the SDL port works on all supported platforms
+#	- PLATFORM_MACOSX is defined only on Mac OS X
+#	- PLATFORM_IOS is also used in the code (once) but we don't support it, yet
 target_compile_definitions(${TARGET_POSTAL} PRIVATE PLATFORM_UNIX)
+if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+	target_compile_definitions(${TARGET_POSTAL} PRIVATE PLATFORM_MACOSX)
+endif()
+
 target_compile_definitions(${TARGET_POSTAL} PRIVATE LOCALE=US)
 target_compile_definitions(${TARGET_POSTAL} PRIVATE TARGET=POSTAL_2015)
 target_compile_definitions(${TARGET_POSTAL} PRIVATE ALLOW_TWINSTICK)
