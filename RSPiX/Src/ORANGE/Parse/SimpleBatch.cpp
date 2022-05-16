@@ -145,7 +145,7 @@ BEGIN_LOOP:
 			}
 
 		// Check for string changes....
-		if (c == m_cStringContext)
+		if (c == m_cStringContext) {
 			if (sInString)  // end the string
 				{
 				m_pszTokenList[m_sNumTokens][sTokenChar] = '\0';
@@ -162,6 +162,7 @@ BEGIN_LOOP:
 				m_sLinePos[m_sNumTokens] = sLinePos;
 				continue; // KEEP SCANNING!
 				}
+		}
 
 		// 5) Add to token
 		if (sMidToken) // continue to add onto existing token
