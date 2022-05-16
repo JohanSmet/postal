@@ -196,8 +196,12 @@ target_sources(${TARGET_POSTAL} PRIVATE
 	WishPiX/Spry/spry.cpp
 )
 
-target_compile_options(${TARGET_POSTAL} PRIVATE -fsigned-char)
-target_compile_options(${TARGET_POSTAL} PRIVATE -Werror)
+if (MSVC)
+	target_compile_options(${TARGET_POSTAL} PRIVATE /W4)
+else()
+	target_compile_options(${TARGET_POSTAL} PRIVATE -fsigned-char)
+	target_compile_options(${TARGET_POSTAL} PRIVATE -Werror)
+endif()
 
 target_compile_definitions(${TARGET_POSTAL} PRIVATE ${PLATFORM_DETECTION})
 target_compile_definitions(${TARGET_POSTAL} PRIVATE LOCALE=US)
@@ -222,6 +226,12 @@ target_include_directories(${TARGET_POSTAL} PRIVATE
 	RSPiX/Src/GREEN/Image
 	WishPiX
 	WishPiX/Spry
+	${SDL2_INCLUDE_DIRS}
 )
 
 target_link_libraries(${TARGET_POSTAL} PRIVATE ${SDL2_LIBRARIES})
+
+if (MSVC)
+	# link winsock on windows
+	target_link_libraries(${TARGET_POSTAL} PRIVATE ws2_32)
+endif()
