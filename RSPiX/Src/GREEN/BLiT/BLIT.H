@@ -101,7 +101,7 @@ pntBuf.GetCell(sASCII,sW,sH); // Sets (sW,sH) to size of character
 pntBuf.SetColumn(sX,sY,sW,sH,pimDst); // Autowrap is crude right now
 pntBuf.Clear(); // Clear the print buffer early
 
-//******************************************************************/
+********************************************************************/
 
 // Depends only on image
 #ifndef BLIT_H
@@ -370,7 +370,7 @@ const	short	TXT_ITALIC = 2;
 const	short	TXT_WIDE = 4;
 const short cgsMAX_FONT_SIZE = 256; // may need to adjust!
 
-/*
+#if 0
 class	RPrint
 	{
 public:
@@ -468,7 +468,7 @@ public: // for development ONLY
 			short sDen = 1);
 
 	};
-*/
+#endif
 
 typedef class CStrafe
 	{
