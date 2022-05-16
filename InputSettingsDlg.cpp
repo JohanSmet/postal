@@ -493,6 +493,9 @@ inline void ListenForInput(	// Returns nothing.
 			pie->sUsed	= TRUE;
 
 			break;
+
+		default:
+			break;
 		}
 
 	// If still listening . . .
@@ -570,6 +573,8 @@ inline void ListenForInput(	// Returns nothing.
 						
 						pgui->SetText("%s", g_apszMouseButtonDescriptions[MouseBitfieldToIndex(ms_sMouseButtons)]);
 						pgui->Compose();
+						break;
+					default:
 						break;
 					}
 				break;
@@ -666,6 +671,8 @@ inline void ListenForInput(	// Returns nothing.
 #endif	// defined(ALLOW_JOYSTICK)
 						break;
 						}
+					default:
+						break;
 					}
 				break;
 			}

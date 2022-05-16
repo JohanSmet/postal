@@ -516,6 +516,9 @@ void CBarrel::Update(void)
 
 				break;
 
+			default:
+				break;
+
 		}
 
 		// Update sphere.

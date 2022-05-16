@@ -406,6 +406,7 @@ void CFlagbase::Update(void)
 //-----------------------------------------------------------------------
 
 				case CFlagbase::State_Dead:
+				{
 					CHood*	phood	= m_pRealm->m_phood;
 					// Render current dead frame into background to stay.
 					m_pRealm->m_scene.DeadRender3D(
@@ -415,6 +416,10 @@ void CFlagbase::Update(void)
 
 					delete this;
 					return;
+					break;
+				}
+
+				default:
 					break;
 
 

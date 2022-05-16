@@ -995,7 +995,7 @@ void CBand::Update(void)
 // Dead - paste yourself in the background and delete yourself
 //-----------------------------------------------------------------------
 
-			case State_Dead:
+			case State_Dead: {
 				GameMessage msg;
 				msg.msg_Death.eType = typeDeath;
 				msg.msg_Death.sPriority = 0;
@@ -1006,6 +1006,10 @@ void CBand::Update(void)
 				delete this;
 				return;
 
+				break;
+			 }
+
+			default:
 				break;
 
 		}

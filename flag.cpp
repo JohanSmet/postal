@@ -519,6 +519,7 @@ void CFlag::Update(void)
 //-----------------------------------------------------------------------
 
 				case CFlag::State_Dead:
+				{
 					CHood*	phood	= m_pRealm->m_phood;
 					// Render current dead frame into background to stay.
 					m_pRealm->m_scene.DeadRender3D(
@@ -528,12 +529,13 @@ void CFlag::Update(void)
 
 					delete this;
 					return;
-					break;
+				}
 
+			default:
+				break;
 
 		}
 
-	
 		// Update sphere.
 		m_smash.m_sphere.sphere.X			= m_dX;
 		m_smash.m_sphere.sphere.Y			= m_dY;
