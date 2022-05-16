@@ -272,6 +272,7 @@ using namespace std;
 // to it because you can't overload functions based soley on return type.
 struct GenericCreateResFunc
 	{
+	virtual ~GenericCreateResFunc() {}
 	virtual short operator()(void** ppT)
 		{
 		*ppT = 0;
@@ -294,6 +295,8 @@ struct CreateResFunc : GenericCreateResFunc
 // destroy a specific type of resource.  The function simply does a "delete". 
 struct GenericDestroyResFunc
 	{
+	virtual ~GenericDestroyResFunc() {}
+
 	virtual void operator()(void* /*pT*/)
 		{  }
 	};
@@ -310,6 +313,7 @@ struct DestroyResFunc : GenericDestroyResFunc
 // load a specific type of resource.  The function uses rspAnyLoad().
 struct GenericLoadResFunc
 	{
+	virtual ~GenericLoadResFunc() {}
 	virtual short operator()(void* /*pT*/, RFile* /*pfile*/)
 		{ return -1; }	// generic version should never be called!
 	};
