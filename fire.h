@@ -97,7 +97,7 @@ class CFire : public CThing
 
 	typedef unsigned char FireAnim;
 
-	typedef enum
+	enum
 	{
 		LargeFire,
 		SmallFire,

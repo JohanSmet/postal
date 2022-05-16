@@ -173,7 +173,7 @@ class NetMsg
 
 		// Message types.  Do NOT change the order without making the same changes
 		// to the CNetMsgr static array of info corersponding to these values!!!
-		typedef enum
+		enum
 			{
 			NOTHING,				// 0
 			STAT,					// 1
@@ -214,7 +214,7 @@ class NetMsg
 			};
 
 		// Reasons client can't join
-		typedef enum
+		enum
 			{
 			TooManyPlayers,
 			BandwidthTooLow,
@@ -222,14 +222,14 @@ class NetMsg
 			};
 
 		// Reasons why game was aborted
-		typedef enum
+		enum
 			{
 			UserAbortedGame,
 			ErrorAbortedGame
 			};
 
 		// Reasons for errors
-		typedef enum
+		enum Error
 			{
 			NoError,
 			ReceiveError,
@@ -252,10 +252,10 @@ class NetMsg
 			ClientPlatformMismatchError,
 			// Keep this as last value
 			NumErrors
-			} Error;
+			};
 
 		// Reasons for status
-		typedef enum
+		enum Status
 			{
 			NoStatus,
 			Opened,
@@ -264,7 +264,7 @@ class NetMsg
 			JoinAccepted,
 			// Keep this as last value
 			NumStatii
-			} Status;
+			};
 
 
 		//------------------------------------------------------------------------------
@@ -1263,7 +1263,7 @@ class CNetMsgr
 	//------------------------------------------------------------------------------
 	public:
 		// Miscellaneous values
-		typedef enum
+		enum
 			{
 			MagicNum				= 0x5655595a,					// Magic number
 			MacVersionBit		= 0x1000,						// Bit that indicates a Mac platform.
@@ -1272,7 +1272,7 @@ class CNetMsgr
 			};
 
 		// States
-		typedef enum
+		enum State
 			{
 			Disconnected,			// Becomes "Connecting" when Connect() is called
 
@@ -1283,7 +1283,7 @@ class CNetMsgr
 										// Becomes "Disconnecting" if clean disconnect is performed
 
 			Disconnecting			// Becomes "Disconnected" when disconnection process finishes
-			} State;
+			} ;
 
 		// Info about a message
 		typedef void (*FUNC_READ)(NetMsg* pmsg, CBufQ* pBuf);	// Pointer to read function

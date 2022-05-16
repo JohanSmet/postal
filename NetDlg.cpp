@@ -489,9 +489,9 @@ typedef enum
 
 
 // GUI/Var Link
-typedef struct
+struct GuiLink
 	{
-	typedef enum
+	enum Type
 		{
 		Long,
 		ULong,
@@ -502,7 +502,7 @@ typedef struct
 		String,
 		Bool,
 		Gui
-		} Type;
+		};
 
 	long	lId;	// ID of GUI to link to.
 	Type	type;
@@ -524,7 +524,7 @@ typedef struct
 	void*	pvLink;
 #endif
 
-	} GuiLink;
+	};
 
 //////////////////////////////////////////////////////////////////////////////
 // Module specific (static) variables / Instantiate class statics.

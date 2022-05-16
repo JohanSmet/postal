@@ -86,7 +86,7 @@ class Net
 	// The primary reason for moving these into their own file was to get around
 	// some inter-dependancies that came up when they were part of other files.
 	//------------------------------------------------------------------------------
-	typedef enum
+	enum
 		{
 		// Maximum number of ID's.  Can't be more than 16 right now because
 		// some bit masks are hardwired to 16-bits, which is 1 bit per player.
@@ -258,7 +258,7 @@ class Net
 	//------------------------------------------------------------------------------
 	// These are the various bandwidths we support
 	//------------------------------------------------------------------------------
-	typedef enum
+	enum Bandwidth
 		{
 		FirstBandwidth = 0,
 
@@ -273,7 +273,7 @@ class Net
 
 		// Number of entries
 		NumBandwidths
-		} Bandwidth;
+		};
 
 	// In a namespace this data is extern, but in a class it's static
 	#ifdef WIN32

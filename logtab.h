@@ -448,27 +448,27 @@ class CLogTab
 	// Types, enums, etc.
 	//------------------------------------------------------------------------------
 	public:
-		typedef enum
+		enum
 			{
 			MaxVars = 32,			// Limited only by memory considerations
 			MaxRows = 100,			// Limited only by memory considerations
 			MaxTextLen = 32		// A reasonable value
 			};
 
-		typedef enum
+		enum Operand
 			{
 			Equal,
 			Not,
 			Less,
 			Greater,
 			DontCare
-			} Operand;
+			};
 
-		typedef struct
+		struct Cell
 			{
 			Operand operand;
 			short sEntry;
-			} Cell;
+			};
 
 	//------------------------------------------------------------------------------
 	// Variables

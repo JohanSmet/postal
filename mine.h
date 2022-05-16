@@ -78,7 +78,7 @@ class CMine : public CWeapon
 
 	typedef unsigned char MineType;
 
-	typedef enum
+	enum
 	{
 		ProximityMine = 3,
 		TimedMine,
