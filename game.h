@@ -294,7 +294,7 @@ extern void Game_AudioOptionsChoice(	// Returns nothing.
 ////////////////////////////////////////////////////////////////////////////////
 
 extern short Game_SavePlayersGame(	// Returns SUCCESS if all goes well
-				char* pszSaveName,		// In:  Name of the save file
+				const char* pszSaveName,		// In:  Name of the save file
 				short sDifficulty);		// In:  Current realm difficulty.
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -336,9 +336,9 @@ extern void SeedRandom(
 ////////////////////////////////////////////////////////////////////////////////
 extern int SynchLog(		// Result of expr.
 	double	expr,			// In:  Expression to evaluate.
-	char*		pszFile,		// In:  Calling file.
+	const char*		pszFile,		// In:  Calling file.
 	long		lLine,		// In:  Calling line.
-	char*		pszExpr,		// In:  Original C++ source expression.
+	const char*		pszExpr,		// In:  Original C++ source expression.
 	U32		u32User);	// In:  A user value that is intended to be consistent.
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -406,29 +406,29 @@ extern void PalTranOff(void);
 
 extern char* FullPath(									// Returns full path in system format
 	short sPathType,										// In:  PATH_CD, PATH_HD, or PATH_VD
-	char* pszPartialPath);								// In:  Partial path in RSPiX format
+	const char* pszPartialPath);								// In:  Partial path in RSPiX format
 
 extern char* FullPathCD(								// Returns full path in system format
-	char* pszPartialPath);								// In:  Partial path in RSPiX format
+	const char* pszPartialPath);								// In:  Partial path in RSPiX format
 
 extern char* FullPathHD(								// Returns full path in system format
 	const char* pszPartialPath);						// In:  Partial path in RSPiX format
 
 extern char* FullPathVD(								// Returns full path in system format
-	char* pszPartialPath);								// In:  Partial path in RSPiX format
+	const char* pszPartialPath);								// In:  Partial path in RSPiX format
 
 extern char* FullPathSound(							// Returns full path in system format
-	char* pszPartialPath);								// In:  Partial path in RSPiX format
+	const char* pszPartialPath);								// In:  Partial path in RSPiX format
 
 extern char* FullPathGame(								// Returns full path in system format
-	char* pszPartialPath);								// In:  Partial path in RSPiX format
+	const char* pszPartialPath);								// In:  Partial path in RSPiX format
 
 extern char* FullPathHoods(							// Returns full path in system format
-	char* pszPartialPath);								// In:  Partial path in RSPiX format
+	const char* pszPartialPath);								// In:  Partial path in RSPiX format
 
 extern char* FullPathCustom(							// Returns full path in system format
-	char*	pszFullPath,									// In:  Full path in in RSPiX format.
-	char* pszPartialPath);								// In:  Partial path in RSPiX format.
+	const char*	pszFullPath,									// In:  Full path in in RSPiX format.
+	const char* pszPartialPath);								// In:  Partial path in RSPiX format.
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -450,12 +450,12 @@ short CorrectifyBasePath(								// Returns 0 if successfull, non-zero otherwise
 ////////////////////////////////////////////////////////////////////////////////
 extern short SubPathOpenBox(		// Returns 0 on success, negative on error, 1 if 
 											// not subpathable (i.e., returned path is full path).
-	char*	pszFullPath,				// In:  Full path to be relative to.
-	char* pszBoxTitle,				// In:  Title of box.
-	char*	pszDefFileName,			// In:  Default filename.
+	const char*	pszFullPath,				// In:  Full path to be relative to.
+	const char* pszBoxTitle,				// In:  Title of box.
+	const char*	pszDefFileName,			// In:  Default filename.
 	char* pszChosenFileName,		// Out: User's choice.
 	short sStrSize,					// In:  Amount of memory pointed to by pszChosenFileName.
-	char*	pszFilter = NULL);		// In:  If not NULL, '.' delimited extension based filename
+	const char*	pszFilter = NULL);		// In:  If not NULL, '.' delimited extension based filename
 											//	filter specification.  Ex: ".cpp.h.exe.lib" or "cpp.h.exe.lib"
 											// Note: Cannot use '.' in filter.  Preceding '.' ignored.
 

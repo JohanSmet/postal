@@ -91,8 +91,8 @@ void rspSetWin32StaticColors(
 extern short rspMsgBox(	// Returns one of the macro defined RSP_MB_RET_*.
 	USHORT usFlags,		// |'ed RSP_MB_BUT/ICO_* representing buttons and icons
 								// desired.
-	char *pszTitle,		// Title for box.
-	char *pszFrmt,			// Format of string (sprintf flags).
+	const char *pszTitle,		// Title for box.
+	const char *pszFrmt,			// Format of string (sprintf flags).
 	...);						// Various crap to represent sprintf flags.
 
 ////////////////////////////////////////////////////////////////////////////////

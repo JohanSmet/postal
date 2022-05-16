@@ -219,7 +219,7 @@ bool	CBand::ms_bDonePlaying	= false;
 
 /// Standing Animation Files
 // An array of pointers to resource names (one for each channel of the animation)
-static char* ms_apszStandResNames[] = 
+static const char* ms_apszStandResNames[] = 
 {
 	"3d/bandg_stand.sop",
 	"3d/bandg_stand.mesh",
@@ -233,7 +233,7 @@ static char* ms_apszStandResNames[] =
 
 /// Running Animation Files
 // An array of pointers to resource names (one for each channel of the animation)
-static char* ms_apszRunResNames[] = 
+static const char* ms_apszRunResNames[] = 
 {
 	"3d/bandg_run.sop",
 	"3d/bandg_run.mesh",
@@ -247,7 +247,7 @@ static char* ms_apszRunResNames[] =
 
 /// Throwing Animation Files 
 // An array of pointers to resource names (one for each channel of the animation)
-static char* ms_apszMarchResNames[] = 
+static const char* ms_apszMarchResNames[] = 
 {
 	"3d/bandg_march.sop",
 	"3d/bandg_march.mesh",
@@ -261,7 +261,7 @@ static char* ms_apszMarchResNames[] =
 
 // Shot Animation Files
 // An array of pointers to resource names (one for each channel of the animation)
-static char* ms_apszShotResNames[] = 
+static const char* ms_apszShotResNames[] = 
 {
 	"3d/bandg_shot.sop",
 	"3d/bandg_shot.mesh",
@@ -275,7 +275,7 @@ static char* ms_apszShotResNames[] =
 
 /// Blown up Animation Files
 // An array of pointers to resource names (one for each channel of the animation)
-static char* ms_apszBlownupResNames[] =
+static const char* ms_apszBlownupResNames[] =
 {
 	"3d/bandg_blownup.sop",
 	"3d/bandg_blownup.mesh",
@@ -289,7 +289,7 @@ static char* ms_apszBlownupResNames[] =
 
 /// OnFire Animation Files
 // An array of pointers to resource names (one for each channel of the animation)
-static char* ms_apszOnFireResNames[] =
+static const char* ms_apszOnFireResNames[] =
 {
 	"3d/bandg_onfire.sop",
 	"3d/bandg_onfire.mesh",

@@ -191,7 +191,7 @@ class RIff : public RFile
 		// Examples: ".WAVE." puts you inside the "WAVE" FORM.  ".WAVE" 
 		// puts you at the "WAVE" FORM.  The path "." puts you above the "RIFF" 
 		// or "AIFF" chunk.
-		short Find(char* pszPath);	// Returns 0 on success.
+		short Find(const char* pszPath);	// Returns 0 on success.
 
 		// Move from current chunk to the next chunk at this level.  This must 
 		// be called before calling Get* functions after an Open.  You
@@ -234,12 +234,12 @@ class RIff : public RFile
 	public:	// Static
 		// Create FCC code for an IFF file based on a 4-character string
 		// Platform independent.  Open IFF files as ENDIAN_BIG.
-		static ULONG IffStr2FCC(char* pszFCC)
+		static ULONG IffStr2FCC(const char* pszFCC)
 			{ return (pszFCC[0] << 24) | (pszFCC[1] << 16) | (pszFCC[2] << 8) | (pszFCC[3]); }
 			
 		// Create FCC code for an RIFF file based on a 4-characater string
 		// Platform independent.  Open RIFF files as ENDIAN_LITTLE.
-		static ULONG RiffStr2FCC(char* pszFCC)
+		static ULONG RiffStr2FCC(const char* pszFCC)
 			{ return (pszFCC[3] << 24) | (pszFCC[2] << 16) | (pszFCC[1] << 8) | (pszFCC[0]); }
 
 		// Create 4-character string for an IFF file based on FCC.

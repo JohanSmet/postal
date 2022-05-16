@@ -111,7 +111,7 @@ short CFlag::ms_sFileCount;
 
 /// Throwing Animation Files ////////////////////////////////////////////////////
 // An array of pointers to resource names (one for each channel of the animation)
-static char* ms_apszRedResNames[] = 
+static const char* ms_apszRedResNames[] = 
 {
 	"3d/rflag.sop",
 	"3d/rflag.mesh",
@@ -123,7 +123,7 @@ static char* ms_apszRedResNames[] =
 	NULL
 };
 
-static char* ms_apszBlueResNames[] = 
+static const char* ms_apszBlueResNames[] = 
 {
 	"3d/bflag.sop",
 	"3d/bflag.mesh",

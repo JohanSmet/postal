@@ -226,7 +226,7 @@ static SampleMaster::SoundInstance  ms_siEndingAudio;
 static bool	ms_bDisableRipcordStaticLogo	= false;
 
 // These are the images (in the order) to display.
-static char*	ms_apszFiles[]	=
+static const char*	ms_apszFiles[]	=
 	{
 	// Even the rating disclaimer is too violent for some countries.
 	#if VIOLENT_LOCALE
@@ -268,8 +268,8 @@ static void TitleRFileCallback(long lBytes)
 // Returns true if the specified string is in the comma separated list.
 ////////////////////////////////////////////////////////////////////////////////
 static bool IsInList(	// Returns true if in list.  false otherwise.
-	char*	pszSearchFor,	// In:  String to search for in pszSearchIn.
-	char*	pszSearchIn)	// In:  Comma delimited list of strings to search in for
+	const char*	pszSearchFor,	// In:  String to search for in pszSearchIn.
+	const char*	pszSearchIn)	// In:  Comma delimited list of strings to search in for
 								// pszSearchFor.
 	{
 	bool	bFound	= false;	// Assume not found.
@@ -300,7 +300,7 @@ static bool IsInList(	// Returns true if in list.  false otherwise.
 // Loads, displays, and disgards image from specified file.
 ////////////////////////////////////////////////////////////////////////////////
 static short DisplayImage(	// Returns nothing.
-	char*	pszImageFile)		// Filename of image (relative path).
+	const char*	pszImageFile)		// Filename of image (relative path).
 	{
 	// Store the original callback.
 	RFile::CritiCall	criticallRestore	= RFile::ms_criticall;

@@ -95,7 +95,7 @@ short WriteTimeStamp(char *pszCaller,						// Name of calling routine
 							U16 u16PackageID/*=0*/)				// Uniquely identifiable package id																		//		True if receiving, false if sending
 	{	
 	short sResult = 0;
-	char *szCallerMsg;
+	const char *szCallerMsg;
 	char szTime[256]; 
 	char szSeq[256];
 	char szNum[256];

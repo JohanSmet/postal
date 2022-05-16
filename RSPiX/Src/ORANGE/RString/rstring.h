@@ -71,7 +71,7 @@ class RString
 		// there is no buffer, a string's buffer pointer is set equal to this
 		// value.  This makes it a bit faster to cast an RStrng as a char*.  Lots
 		// of work to go through for a small gain, but I liked the idea!
-		static char* ms_pszEmpty;
+		static char ms_pszEmpty[1];
 
 	//---------------------------------------------------------------------------
 	// Private helpers

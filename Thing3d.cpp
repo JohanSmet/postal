@@ -325,7 +325,7 @@ const CThing3d::Point2D		CThing3d::ms_apt2dAttribCheckHuge[]		=
 	};
 
 
-char* CThing3d::ms_apszStateNames[] = 
+const char* CThing3d::ms_apszStateNames[] = 
 {
 	"State_Idle",
 	"State_Shot",
@@ -1852,7 +1852,7 @@ void CThing3d::PlaySample(									// Returns nothing.
 // Start a CAnimThing.
 ////////////////////////////////////////////////////////////////////////////////
 CAnimThing* CThing3d::StartAnim(		// Returns ptr to CAnimThing on success; NULL otherwise.
-	char* pszAnimResName,				// In:  Animation's resource name.
+	const char* pszAnimResName,				// In:  Animation's resource name.
 	short	sX,								// In:  Position.
 	short	sY,								// In:  Position.
 	short	sZ,								// In:  Position.

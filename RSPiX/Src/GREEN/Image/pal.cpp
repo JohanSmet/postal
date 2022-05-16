@@ -109,7 +109,7 @@
 // corresponding place in this array.  
 // Note that this uses END_REG_PAL enum item to size the array.
 
-char* RPal::ms_astrTypeNames[END_REG_PAL] = 
+const char* RPal::ms_astrTypeNames[END_REG_PAL] = 
 {
 	"Same Type",
 	"PDIB BGRA 8888 (RGBQUAD)",
@@ -272,7 +272,7 @@ short RPal::CreatePalette(
 
 short RPal::GetPalEntrySize(Type type)
 {
- 	if (type < END_REG_PAL)
+	if (type < END_REG_PAL)
 		return ms_asPalEntrySizes[type];
 	else
 	{
@@ -497,7 +497,7 @@ RPal::Type RPal::Convert(Type typeNew)
 //
 //////////////////////////////////////////////////////////////////////
 
-short RPal::Save(char* pszFilename)
+short RPal::Save(const char* pszFilename)
 {
 	RFile cf;
 	short sReturn = SUCCESS;
@@ -596,7 +596,7 @@ short RPal::Save(RFile* pcf)
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-short RPal::Load(char* pszFilename)
+short RPal::Load(const char* pszFilename)
 {
 	RFile cf;
 	short sReturn = SUCCESS;

@@ -216,7 +216,7 @@ RMsgBox::~RMsgBox()
 RBtn* RMsgBox::AddButton(	// Returns allocated GUI item on success.
 									// Do NOT delete this item; it will be deleted
 									// by a RemoveAll() call.
-	char* pszText,				// Text for btn item.
+	const char* pszText,				// Text for btn item.
 	short	sX,					// X position in RMsgBox dlg.
 	short	sY,					// Y position in RMsgBox dlg.
 	ULONG	ulId,				// ID to return if this item is chosen.
@@ -265,7 +265,7 @@ RBtn* RMsgBox::AddButton(	// Returns allocated GUI item on success.
 RTxt* RMsgBox::AddText(	// Returns allocated GUI item on success.
 								// Do NOT delete this item; it will be deleted
 								// by a RemoveAll() call.
-	char* pszText,			// Text for txt item.
+	const char* pszText,			// Text for txt item.
 	short	sX,				// X position in RMsgBox dlg.
 	short	sY,				// Y position in RMsgBox dlg.
 	ULONG	ulId,				// ID to return if this item is chosen.
@@ -314,7 +314,7 @@ RTxt* RMsgBox::AddText(	// Returns allocated GUI item on success.
 REdit* RMsgBox::AddEdit(	// Returns allocated GUI item on success.
 									// Do NOT delete this item; it will be deleted
 									// by a RemoveAll() call.
-	char* pszText,				// Text for edit item.
+	const char* pszText,				// Text for edit item.
 	short	sX,					// X position in RMsgBox dlg.
 	short	sY,					// Y position in RMsgBox dlg.
 	ULONG	ulId,				// ID to return if this item is chosen.
@@ -637,7 +637,7 @@ void RMsgBox::ItemBtnUpCall(RGuiItem* pgui)
 ////////////////////////////////////////////////////////////////////////
 short RMsgBox::AddItem(	// Returns 0 on success.
 	RGuiItem* pgui,		// Item to add.
-	char* pszText,			// Text for item.
+	const char* pszText,			// Text for item.
 	short	sX,				// X position in RMsgBox dlg.
 	short	sY,				// Y position in RMsgBox dlg.
 	ULONG	ulId,				// ID to return if this item is chosen.

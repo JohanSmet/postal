@@ -563,10 +563,10 @@ class CRealm
 		static short ms_asAttribToLayer[LayerAttribMask + 1];
 		
 		// Names of layers.  Use Layer enum values to index.
-		static char* ms_apszLayerNames[TotalLayers];
+		static const char* ms_apszLayerNames[TotalLayers];
 
 		// 2D resource paths.
-		static char* ms_apsz2dResPaths[Num2dPaths];
+		static const char* ms_apsz2dResPaths[Num2dPaths];
 
 
 	//---------------------------------------------------------------------------

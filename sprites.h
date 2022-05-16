@@ -151,7 +151,7 @@ class CSprite
 		short m_sOutFlags;										// Sprite's output flags
 		CThing*	m_pthing;										// Owner of this sprite (for debugging).
 
-		char*	m_pszText;											// Point this at your text.
+		const char*	m_pszText;											// Point this at your text.
 																		// DO NOT strcpy/cat/etc to this until
 																		// you've pointed it at some memory!!!
 

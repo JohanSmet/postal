@@ -330,7 +330,7 @@ class RImage
 		// you need to also insert that name into the corresponding place
 		//	in this array in image.cpp.  
 		// Note that this uses END_OF_TYPES enum item to size the array.
-		static char* ms_astrTypeNames[END_OF_TYPES];
+		static const char* ms_astrTypeNames[END_OF_TYPES];
 
 	private:
 		RPal*			m_pPalMem;		// Pointer to Image allocated palette
@@ -354,7 +354,7 @@ class RImage
 
 		// Constructor that allocates a buffer and loads a bitmap
 		// Same as calling LoadDib(pszFilename, ulType)
-		RImage(char* pszFilename);
+		RImage(const char* pszFilename);
 
 		// General Destructor
 		~RImage();
@@ -412,7 +412,7 @@ class RImage
 
 		// Saves the current image in DIB format to pszFileName.
 		// Returns 0 on success.
-		short SaveDib(char* pszFileName);
+		short SaveDib(const char* pszFileName);
 
 		// Saves the current image ind DIB format to an open RFile
 		short SaveDib(RFile* pcf);
@@ -421,7 +421,7 @@ class RImage
 		// This version takes a filename and saves the file.  If the
 		// Image type has m_pSpecial data to save then there should be
 		// a special save function registered in the RImageSpecialFunc class
-		short Save(char* pszFilename) const;
+		short Save(const char* pszFilename) const;
 
 		// This version takes an open RFile pointer and writes
 		// to the file.  This may be useful if you have m_pSpecial data, you
@@ -432,7 +432,7 @@ class RImage
 
 		// Load the standard image formats, ie. those that do not
 		// include m_pSpecial data
-		short Load(char* pszFilename);
+		short Load(const char* pszFilename);
 
 		// This version takes an open RFile pointer and reads the
 		// standard image from the file.  This may be useful if you
@@ -458,7 +458,7 @@ class RImage
 
 	private:
 		// Loads a DIB into a standard RImage format.
-		short	LoadDib(char* pszFilename);
+		short	LoadDib(const char* pszFilename);
 
 		// Loads a DIB from an open RFile
 		short LoadDib(RFile* pcf);

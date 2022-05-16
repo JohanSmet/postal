@@ -1590,7 +1590,7 @@ static short ShowRealmStatistics(	// Returns 0 on success.
 // Init load/save counter.  You should call KillFileCounter() after
 // done with the file access.
 static void InitFileCounter(			// Returns nothing.
-	char*	pszDescriptionFrmt);			// In:  sprintf format for description of 
+	const char*	pszDescriptionFrmt);			// In:  sprintf format for description of 
 												// operation.
 
 // Kill load/save counter.  Can be called multiple times w/o corresponding
@@ -7405,7 +7405,7 @@ static void MyRFileCallback(long lBytes)
 // done with the file access.
 ////////////////////////////////////////////////////////////////////////////////
 static void InitFileCounter(			// Returns nothing.
-	char*	pszDescriptionFrmt)			// In:  sprintf format for description of 
+	const char*	pszDescriptionFrmt)			// In:  sprintf format for description of 
 												// operation.
 	{
 	// Make sure string (with some digits) will fit . . .

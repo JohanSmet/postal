@@ -146,7 +146,7 @@ CSettings::~CSettings()
 //
 ////////////////////////////////////////////////////////////////////////////////
 short CSettings::LoadPrefs(					// Returns 0 if successfull, non-zero otherwise
-	char* pszFile)									// In:  Name of prefs file
+	const char* pszFile)									// In:  Name of prefs file
 	{
 	short sResult = 0;
 
@@ -204,7 +204,7 @@ short CSettings::LoadPrefs(					// Returns 0 if successfull, non-zero otherwise
 //
 ////////////////////////////////////////////////////////////////////////////////
 short CSettings::SavePrefs(					// Returns 0 if successfull, non-zero otherwise
-	char* pszFile)									// In:  Name of prefs file
+	const char* pszFile)									// In:  Name of prefs file
 	{
 	short sResult = 0;
 
@@ -271,7 +271,7 @@ short CSettings::SavePrefs(					// Returns 0 if successfull, non-zero otherwise
 //
 ////////////////////////////////////////////////////////////////////////////////
 short CSettings::LoadGame(						// Returns 0 if successfull, non-zero otherwise
-	char* pszFile)									// In:  Name of prefs file
+	const char* pszFile)									// In:  Name of prefs file
 	{
 	short sResult = 0;
 
@@ -324,7 +324,7 @@ short CSettings::LoadGame(						// Returns 0 if successfull, non-zero otherwise
 //
 ////////////////////////////////////////////////////////////////////////////////
 short CSettings::SaveGame(						// Returns 0 if successfull, non-zero otherwise
-	char* pszFile)									// In:  Name of prefs file
+	const char* pszFile)									// In:  Name of prefs file
 	{
 	short sResult = 0;
 

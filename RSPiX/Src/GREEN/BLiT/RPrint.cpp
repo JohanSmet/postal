@@ -213,10 +213,10 @@ char* RPrint::ScanLine(char* pszInput)
 // (ScanLine, for example, eats whitespace characters
 // and partial words which GetWidth would include!)
 //
-short RPrint::GetWidth(char* pszInput)
+short RPrint::GetWidth(const char* pszInput)
 	{
 	short sFirst = TRUE;
-	char* pLast = pszInput;
+	const char* pLast = pszInput;
 	short i=0;
 	short sX = 0; // for this version
 	short sLeft,sW,sRight;
@@ -406,7 +406,7 @@ void	RPrint::DrawText()
 	}
 
 // Attempting to pass on
-char* RPrint::print(char* pszFormat,...)
+char* RPrint::print(const char* pszFormat,...)
 	{
 	//char szInput[4096];
 
@@ -419,7 +419,7 @@ char* RPrint::print(char* pszFormat,...)
 	}
 
 // Attempting to pass on
-char* RPrint::print(short sX,short sY,char* pszFormat,...)
+char* RPrint::print(short sX,short sY,const char* pszFormat,...)
 	{
 	//char szInput[4096];
 
@@ -435,7 +435,7 @@ char* RPrint::print(short sX,short sY,char* pszFormat,...)
 	}
 
 // Attempting to pass on
-char* RPrint::print(RImage* pimDst,short sX,short sY,char* pszFormat,...)
+char* RPrint::print(RImage* pimDst,short sX,short sY,const char* pszFormat,...)
 	{
 	//char szInput[4096];
 

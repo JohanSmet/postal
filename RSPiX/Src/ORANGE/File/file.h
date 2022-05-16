@@ -722,14 +722,14 @@ class RFile
 template <class ClassType>
 #ifdef _DEBUG
 short RFileEZLoadDebug(
-	char* FILE_MACRO,
+	const char* FILE_MACRO,
 	long LINE_MACRO,
 #else
 short RFileEZLoad(
 #endif
 	ClassType* pObject,
-	char* pszName,
-	char* pszMode,
+	const char* pszName,
+	const char* pszMode,
 	RFile::Endian endian)
 	{
 	short sResult = 0;
@@ -804,8 +804,8 @@ short RFileEZSaveDebug(
 short RFileEZSave(
 #endif
 	ClassType* pObject,
-	char* pszName, 
-	char* pszMode,
+	const char* pszName, 
+	const char* pszMode,
 	RFile::Endian endian)
 	{
 	short sResult = 0;

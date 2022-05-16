@@ -398,7 +398,7 @@ short CRealm::ms_sFileCount;
 short CRealm::ms_asAttribToLayer[CRealm::LayerAttribMask + 1];
 
 // Names of layers.  Use Layer enum values to index.
-char* CRealm::ms_apszLayerNames[TotalLayers]	=
+const char* CRealm::ms_apszLayerNames[TotalLayers]	=
 	{
 	"Background",
 
@@ -453,7 +453,7 @@ char* CRealm::ms_apszLayerNames[TotalLayers]	=
 // These are the various 2d paths that we currently support.  Eventually, if
 // there's more than two, this can be presented in listbox form (instead of
 // checkbox form).
-char*	CRealm::ms_apsz2dResPaths[Num2dPaths]	=
+const char*	CRealm::ms_apsz2dResPaths[Num2dPaths]	=
 	{
 	"2d/Top/",
 	"2d/Side/",
@@ -2310,7 +2310,7 @@ const char* CRealm::Make2dResPath(	// Returns a ptr to an internal static buffer
 	ASSERT(m_s2dResPathIndex < NUM_ELEMENTS(ms_apsz2dResPaths) );
 
 	// Get resource path.
-	char*	pszPath	= ms_apsz2dResPaths[m_s2dResPathIndex];
+	const char*	pszPath	= ms_apsz2dResPaths[m_s2dResPathIndex];
 	
 	ASSERT(strlen(pszPath) + strlen(pszResName) < sizeof(szFullPath) );
 

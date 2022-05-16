@@ -386,7 +386,7 @@ static short sDestroyMem(void **hMem);
 // corresponding place in this array.  
 // Note that this uses END_OF_TYPES enum item to size the array.
 
-char* RImage::ms_astrTypeNames[END_OF_TYPES] = 
+const char* RImage::ms_astrTypeNames[END_OF_TYPES] = 
 {
 	"Same Type", 
 	"BMP8", 
@@ -686,7 +686,7 @@ RImage::RImage(ULONG ulNewSize)
 //
 //////////////////////////////////////////////////////////////////////
 
-RImage::RImage(char* pszFilename)
+RImage::RImage(const char* pszFilename)
 {
 	// Initialize member variables to zero
 	InitMembers();
@@ -1340,7 +1340,7 @@ RImage::Type RImage::Convert(Type type)
 //
 //////////////////////////////////////////////////////////////////////
 
-short RImage::LoadDib(char* pszFilename)
+short RImage::LoadDib(const char* pszFilename)
 {
 	RFile cf;
 	short sReturn = SUCCESS;
@@ -1693,6 +1693,9 @@ short RImage::LoadDib(RFile* pcf)
 					sRes = 2;
 					}
 				break;
+
+			default:
+				break;
 			}
 	}
 	else
@@ -1723,7 +1726,7 @@ short RImage::LoadDib(RFile* pcf)
 //
 //////////////////////////////////////////////////////////////////////
 
-short RImage::SaveDib(char* pszFilename)
+short RImage::SaveDib(const char* pszFilename)
 {
 	RFile cf;
 	short sReturn = SUCCESS;
@@ -2004,7 +2007,7 @@ short RImage::SaveDib(RFile* pcf)
 //
 //////////////////////////////////////////////////////////////////////
 
-short RImage::Save(char* pszFilename) const
+short RImage::Save(const char* pszFilename) const
 {
 	RFile cf;
 	short sReturn = SUCCESS;
@@ -2298,7 +2301,7 @@ short RImage::WritePixelData(RFile* pcf) const
 //
 //////////////////////////////////////////////////////////////////////
 
-short RImage::Load(char* pszFilename)
+short RImage::Load(const char* pszFilename)
 {
 	RFile cf;
 	short sReturn = SUCCESS;

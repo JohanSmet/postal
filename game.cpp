@@ -956,7 +956,7 @@ static void EnumExistingSaveGames(Menu *menu)
 // this function is called.
 //
 ////////////////////////////////////////////////////////////////////////////////
-extern void TheGame(void)
+void TheGame(void)
 	{
 	short sResult = 0;
 
@@ -2252,14 +2252,14 @@ static short GetRealmToRecord(	// Returns 0 on success, negative on error, 1 if
 // Get a subpath relative to the specified game path.
 //
 ////////////////////////////////////////////////////////////////////////////////
-extern short SubPathOpenBox(		// Returns 0 on success, negative on error, 1 if 
+short SubPathOpenBox(		// Returns 0 on success, negative on error, 1 if 
 											// not subpathable (i.e., returned path is full path).
-	char*	pszFullPath,				// In:  Full path to be relative to (system format).
-	char* pszBoxTitle,				// In:  Title of box.
-	char*	pszDefFileName,			// In:  Default filename (system format).
+	const char*	pszFullPath,				// In:  Full path to be relative to (system format).
+	const char* pszBoxTitle,				// In:  Title of box.
+	const char*	pszDefFileName,			// In:  Default filename (system format).
 	char* pszChosenFileName,		// Out: User's choice (system format).
 	short sStrSize,					// In:  Amount of memory pointed to by pszChosenFileName.
-	char*	pszFilter /*= NULL*/)	// In:  If not NULL, '.' delimited extension based filename
+	const char*	pszFilter /*= NULL*/)	// In:  If not NULL, '.' delimited extension based filename
 											//	filter specification.  Ex: ".cpp.h.exe.lib" or "cpp.h.exe.lib"
 											// Note: Cannot use '.' in filter.  Preceding '.' ignored.
 	{
@@ -2703,7 +2703,7 @@ static short UnloadAssets(void)
 // Callback for the "Start Single Player Game" menu
 //
 ////////////////////////////////////////////////////////////////////////////////
-extern void Game_StartSinglePlayerGame(
+void Game_StartSinglePlayerGame(
 	short sMenuItem)
 	{
 
@@ -2803,7 +2803,7 @@ extern void Game_StartSinglePlayerGame(
 // Callback for the "Start MultiPlayer Game" menu
 //
 ////////////////////////////////////////////////////////////////////////////////
-extern bool Game_StartMultiPlayerGame(
+bool Game_StartMultiPlayerGame(
 	short sMenuItem)
 	{
 	bool bAccept = true;
@@ -2832,7 +2832,7 @@ extern bool Game_StartMultiPlayerGame(
 // Callback for the "Join MultiPlayer Game" menu
 //
 ////////////////////////////////////////////////////////////////////////////////
-extern void Game_JoinMultiPlayerGame(
+void Game_JoinMultiPlayerGame(
 	short sMenuItem)
 	{
 	switch (sMenuItem)
@@ -2863,7 +2863,7 @@ extern void Game_JoinMultiPlayerGame(
 // Callback for the "Host MultiPlayer Game" menu
 //
 ////////////////////////////////////////////////////////////////////////////////
-extern void Game_HostMultiPlayerGame(
+void Game_HostMultiPlayerGame(
 	short sMenuItem)
 	{
 	switch (sMenuItem)
@@ -2888,7 +2888,7 @@ extern void Game_HostMultiPlayerGame(
 // Callback for the "Start Demo Game" menu
 //
 ////////////////////////////////////////////////////////////////////////////////
-extern void Game_StartDemoGame(
+void Game_StartDemoGame(
 	short sMenuItem)
 	{
 	char*	pszDemoFile	= NULL;
@@ -2946,7 +2946,7 @@ extern void Game_StartDemoGame(
 // Callback for the "Buy" option on the Main Menu
 //
 ////////////////////////////////////////////////////////////////////////////////
-extern void Game_Buy(void)
+void Game_Buy(void)
 	{
 	rspMsgBox(RSP_MB_ICN_INFO | RSP_MB_BUT_OK, APP_NAME, g_pszBuy);
 
@@ -2964,7 +2964,7 @@ extern void Game_Buy(void)
 // Callback for the "Editor" option on the Main Menu
 //
 ////////////////////////////////////////////////////////////////////////////////
-extern void Game_StartEditor(void)
+void Game_StartEditor(void)
 	{
 	#if defined(EDITOR_DISABLED)
 		rspMsgBox(RSP_MB_ICN_INFO | RSP_MB_BUT_OK, APP_NAME, g_pszEditorDisabled);
@@ -2986,7 +2986,7 @@ extern void Game_StartEditor(void)
 // Callback for the "Controls" menu.
 //
 ////////////////////////////////////////////////////////////////////////////////
-extern void Game_ControlsMenu(
+void Game_ControlsMenu(
 	short sMenuItem)
 	{
 	// Only do this if we're not currently in an action . . .
@@ -3027,7 +3027,7 @@ extern void Game_ControlsMenu(
 // Callback for "Audio Options" menu.
 //
 ////////////////////////////////////////////////////////////////////////////////
-extern void Game_AudioOptionsChoice(	// Returns nothing.
+void Game_AudioOptionsChoice(	// Returns nothing.
 	short sMenuItem)							// In:  Chosen item.
 	{
 	switch (sMenuItem)
@@ -3045,7 +3045,7 @@ extern void Game_AudioOptionsChoice(	// Returns nothing.
 // Callback for the "Start Challenge" menu.
 //
 ////////////////////////////////////////////////////////////////////////////////
-extern void Game_StartChallengeGame(	// Returns nothing.
+void Game_StartChallengeGame(	// Returns nothing.
 	short sMenuItem)							// In:  Chosen menu item.
 	{
 	char*	pszRealmFile	= NULL;
@@ -3151,7 +3151,7 @@ extern void Game_StartChallengeGame(	// Returns nothing.
 // Callback for the Main Menu init/kill.
 //
 ////////////////////////////////////////////////////////////////////////////////
-extern void Game_InitMainMenu(	// Returns nothing.
+void Game_InitMainMenu(	// Returns nothing.
 	short sInit)						// In:  TRUE, if initializing; FALSE, if killing.
 	{
 	// If initializing the menu . . .
@@ -3173,8 +3173,8 @@ extern void Game_InitMainMenu(	// Returns nothing.
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-extern short Game_SavePlayersGame(
-				char* pszSaveName,		// In:  Name of the save file
+short Game_SavePlayersGame(
+				const char* pszSaveName,		// In:  Name of the save file
 				short sDifficulty)		// In:  Current realm difficulty.
 {
 	RFile rf;
@@ -3207,7 +3207,7 @@ extern short Game_SavePlayersGame(
 //								  
 ////////////////////////////////////////////////////////////////////////////////
 
-extern short Game_LoadPlayersGame(
+short Game_LoadPlayersGame(
 				char* pszSaveName,		// In:  Name of the saved game file to open
 				short* psDifficulty,		// Out: Saved game realm difficulty.
 				ACTION* paction)			// Out: Saved game action.
@@ -4254,7 +4254,7 @@ static char m_acFullPath[RSP_MAX_PATH + RSP_MAX_PATH];
 
 extern char* FullPath(									// Returns full path in system format
 	short sPathType,										// In:  PATH_CD, PATH_HD, or PATH_VD
-	char* pszPartialPath)								// In:  Partial path in RSPiX format
+	const char* pszPartialPath)								// In:  Partial path in RSPiX format
 	{
 	// Start with the specified base path (copy the string from the game settings)
 	if (sPathType == GAME_PATH_CD)
@@ -4282,7 +4282,7 @@ extern char* FullPath(									// Returns full path in system format
 
 
 extern char* FullPathCD(								// Returns full path in system format
-	char* pszPartialPath)								// In:  Partial path in RSPiX format
+	const char* pszPartialPath)								// In:  Partial path in RSPiX format
 	{
 	// Start with proper base path
 	ASSERT(strlen(g_GameSettings.m_pszCDPath) < RSP_MAX_PATH);
@@ -4334,7 +4334,7 @@ extern char* FullPathHD(								// Returns full path in system format
 
 
 extern char* FullPathVD(								// Returns full path in system format
-	char* pszPartialPath)								// In:  Partial path in RSPiX format
+	const char* pszPartialPath)								// In:  Partial path in RSPiX format
 	{
 	// Start with proper base path
 	ASSERT(strlen(g_GameSettings.m_pszVDPath) < RSP_MAX_PATH);
@@ -4360,7 +4360,7 @@ extern char* FullPathVD(								// Returns full path in system format
 
 
 extern char* FullPathSound(								// Returns full path in system format
-	char* pszPartialPath)								// In:  Partial path in RSPiX format
+	const char* pszPartialPath)								// In:  Partial path in RSPiX format
 	{
 	// Start with proper base path
 	ASSERT(strlen(g_GameSettings.m_pszSoundPath) < RSP_MAX_PATH);
@@ -4386,7 +4386,7 @@ extern char* FullPathSound(								// Returns full path in system format
 
 
 extern char* FullPathGame(								// Returns full path in system format
-	char* pszPartialPath)								// In:  Partial path in RSPiX format
+	const char* pszPartialPath)								// In:  Partial path in RSPiX format
 	{
 	// Start with proper base path
 	ASSERT(strlen(g_GameSettings.m_pszGamePath) < RSP_MAX_PATH);
@@ -4411,7 +4411,7 @@ extern char* FullPathGame(								// Returns full path in system format
 	}
 
 extern char* FullPathHoods(								// Returns full path in system format
-	char* pszPartialPath)								// In:  Partial path in RSPiX format
+	const char* pszPartialPath)								// In:  Partial path in RSPiX format
 	{
 	// Start with proper base path
 	ASSERT(strlen(g_GameSettings.m_pszHoodsPath) < RSP_MAX_PATH);
@@ -4437,8 +4437,8 @@ extern char* FullPathHoods(								// Returns full path in system format
 
 
 extern char* FullPathCustom(							// Returns full path in system format
-	char*	pszFullPath,									// In:  Full path in in RSPiX format.
-	char* pszPartialPath)								// In:  Partial path in RSPiX format.
+	const char*	pszFullPath,									// In:  Full path in in RSPiX format.
+	const char* pszPartialPath)								// In:  Partial path in RSPiX format.
 	{
 	char*	pszFullSystemPath	= rspPathToSystem(pszFullPath);
 	// Start with proper base path

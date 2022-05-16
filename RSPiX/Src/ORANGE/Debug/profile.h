@@ -396,7 +396,7 @@ public:
 
 extern	RProfile	rspProfileInstance; // The one global instance
 
-inline void rspProfileOptimizeOut(char* a) {} // used to trick the compiler
+inline void rspProfileOptimizeOut(const char* a) {} // used to trick the compiler
 inline void rspProfileOptimizeOut() {} // used to trick the compiler
 
 #ifdef	RSP_PROFILE_ON

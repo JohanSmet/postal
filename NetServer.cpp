@@ -921,7 +921,7 @@ void CNetServer::SetupGame(
 void CNetServer::StartGame(
 	Net::ID idServer,										// In:  Server's client's ID
 	short sRealmNum,										// In:  Realm number
-	char* pszRealmFile,									// In:  Realm file name
+	const char* pszRealmFile,									// In:  Realm file name
 	short sDifficulty,									// In:  Difficulty
 	short sRejuvenate,									// In:  Rejuvenate flag
 	short sTimeLimit,										// In:  Time limit in minutes, or negative if none

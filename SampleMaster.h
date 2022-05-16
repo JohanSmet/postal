@@ -269,7 +269,7 @@
 typedef struct
 	{
 	USHORT	usDescFlags;	// Use | to combine SMDF_* flags.
-	char*		pszId;
+	const char*		pszId;
 	} SampleMasterID;
 
 // This is a trick so we can force the sounds to catelogue themselves for the organ:
@@ -383,7 +383,7 @@ class SampleMaster
 		//////////////////////////////////////////////////////////////
 		// These are the names for the corresponding SoundCategory
 		// used as an index.
-		static char* ms_apszSoundCategories[MAX_NUM_SOUND_CATEGORIES];
+		static const char* ms_apszSoundCategories[MAX_NUM_SOUND_CATEGORIES];
 
 		//////////////////////////////////////////////////////////////
 		// These are the default volumes for each category in each

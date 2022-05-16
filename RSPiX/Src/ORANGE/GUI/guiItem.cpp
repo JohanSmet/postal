@@ -449,7 +449,7 @@ RPrint		RGuiItem::ms_print;			// This is the main RPrint that all
 RGuiItem*	RGuiItem::ms_pguiFocus	= NULL;	// Higher level APIs can use this
 															// as their current point of 
 															// input focus.
-char*			RGuiItem::ms_apszTypes[NumGuiTypes]	=	// Array of strings 
+const char*			RGuiItem::ms_apszTypes[NumGuiTypes]	=	// Array of strings 
 																	// indexed by type.
 	{
 	"GuiItem",
@@ -972,7 +972,7 @@ void RGuiItem::Erase(	// Returns nothing.
 //
 ////////////////////////////////////////////////////////////////////////
 void RGuiItem::SetText(	
-	char* pszFrmt,	// sprintf formatted format string.
+	const char* pszFrmt,	// sprintf formatted format string.
 	...)				// Corresponding good stuff.
 	{
 	va_list val;
@@ -986,7 +986,7 @@ void RGuiItem::SetText(
 ////////////////////////////////////////////////////////////////////////
 short RGuiItem::SetText(	// Returns 0 if item found, non-zero otherwise.
 	long	lId,					// Child item ID (can identify this item).
-	char* pszFrmt,				// sprintf formatted format string.
+	const char* pszFrmt,				// sprintf formatted format string.
 	...)							// Corresponding good stuff.
 	{
 	short	sRes	= 0;	// Assume success.
@@ -1666,6 +1666,8 @@ void RGuiItem::OnGainFocus(void)
 		case Child:
 			SetFocus(m_listguiChildren.GetHead() );
 			break;
+		default:
+			break;
 		}
 	}
 
@@ -1846,7 +1848,7 @@ void RGuiItem::ReleaseRes(void)
 //
 ////////////////////////////////////////////////////////////////////////
 short RGuiItem::Load(	// Returns 0 on success.
-	char* pszFileName)	// Name of file to load from.
+	const char* pszFileName)	// Name of file to load from.
 	{
 	short	sRes	= 0;	// Assume success.
 
@@ -1951,7 +1953,7 @@ short RGuiItem::Load(	// Returns 0 on success.
 ////////////////////////////////////////////////////////////////////////
 RGuiItem* RGuiItem::LoadInstantiate(	// Returns newly allocated GUI item
 													// on success or NULL on failure.
-	char*	pszFileName)						// Name of file to instantiate from.
+	const char*	pszFileName)						// Name of file to instantiate from.
 	{
 	RGuiItem*	pgui	= NULL;	// Assume nothing.
 
@@ -2262,7 +2264,7 @@ short RGuiItem::ReadMembers(	// Returns 0 on success.
 //
 ////////////////////////////////////////////////////////////////////////
 short RGuiItem::Save(	// Returns 0 on success.
-	char* pszFileName)	// Name of file to save to.
+	const char* pszFileName)	// Name of file to save to.
 	{
 	short	sRes	= 0;	// Assume success.
 

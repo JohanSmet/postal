@@ -109,7 +109,7 @@ char* Debug_FileName(char* pszPath)
 // Output a formatted debug string to the debug terminal/window.
 //
 ///////////////////////////////////////////////////////////////////////////////
-void rspTrace(char *frmt, ... )
+void rspTrace(const char *frmt, ... )
 	{
 	static short	sSem	= 0;
 

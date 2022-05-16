@@ -199,7 +199,7 @@ long CGrenade::ms_lReseekTime = 1000;					// Do a 'find' again
 long CGrenade::ms_lGrenadeFuseTime = 1500;			// Time from throw to blow
 long CGrenade::ms_lSmokeInterval		= 100;			// Time between smokes.
 
-char*	CGrenade::ms_apszResNames[CGrenade::NumStyles]	= // Res names indexed Style.
+const char*	CGrenade::ms_apszResNames[CGrenade::NumStyles]	= // Res names indexed Style.
 	{
 	"3d/grenade",		// Grenade.
 	"3d/dynamite",		// Dynamite.

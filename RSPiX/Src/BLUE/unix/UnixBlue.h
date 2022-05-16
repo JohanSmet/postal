@@ -110,16 +110,16 @@ extern long macReserveMemBytes;
 // Trace works like printf, but sends output to debug window.  This is rarely
 // called directly.  Instead, use the TRACE() macro so that the TRACE is
 // automatically removed in "release" versions of the program.
-extern void rspTrace(char* szFrmt, ...);
+extern void rspTrace(const char* szFrmt, ...);
 
 // Assert checks the expression and, if it is zero, displays an alert box
 // and waits for the user to select ABORT, RETRY or IGNORE.  This is rarely
 // called directly.  Instead, use the ASSERT() macro so that the ASSERT is
 // automatically removed in "release" versions of the program.
 extern short rspAssert(	// Returns result.
-	char* pszFile,			// Source file.
+	const char* pszFile,			// Source file.
 	short sLine,			// Source line.
-	char* pszExpr);		// String representing expression.
+	const char* pszExpr);		// String representing expression.
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -629,7 +629,7 @@ extern void rspUnlockSound(void);
 ////////////////////////////////////////////////////////////////////////////////
 
 extern void rspSetApplicationName(
-	char* pszName);								// In: Application name
+	const char* pszName);								// In: Application name
 
 
 ////////////////////////////////////////////////////////////////////////////////

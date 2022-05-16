@@ -177,7 +177,7 @@ typedef struct
 
 typedef struct
 	{
-	char*			pszFile;				// Filespec of image for background of menu or NULL.
+	const char*			pszFile;				// Filespec of image for background of menu or NULL.
 	U32			u32BackColor;		// Background color.
 	short			sSetStartIndex;	// Starting index of palette entries to set.
 	short			sSetNumEntries;	// Number of palette entries to set.
@@ -192,7 +192,7 @@ typedef struct
 
 typedef struct
 	{
-	char*	pszFile;				// Filespec of font to use for menu item text.
+	const char*	pszFile;				// Filespec of font to use for menu item text.
 	short	sHeight;				// Height to use for menu item text.
 	U32	u32ForeColor;		// Color or color index for font to use for menu item
 									// text.
@@ -202,8 +202,8 @@ typedef struct
 
 typedef struct
 	{
-	char*	pszHeaderText;		// Header text.
-	char*	pszFontFile;		// Filespec of font to use for menu header text.
+	const char*	pszHeaderText;		// Header text.
+	const char*	pszFontFile;		// Filespec of font to use for menu header text.
 	short	sHeight;				// Height to use for menu header text.
 	U32	u32ForeColor;		// Color or color index for font to use for menu header
 									// text.
@@ -213,7 +213,7 @@ typedef struct
 
 typedef struct
 	{
-	char*	pszFile;			// Filespec of indicator image to use for current
+	const char*	pszFile;			// Filespec of indicator image to use for current
 								// selection.
 	RImage::Type	type;	// New type to convert image to after load or 
 								// RImage::NOT_SUPPORTED to skip conversion.
@@ -252,7 +252,7 @@ typedef struct
 
 typedef struct
 	{
-	char*			pszText;		// Text for menu item.
+	const char*		pszText;		// Text for menu item.
 	short			sEnabled;	// TRUE if item is enabled, FALSE if disabled.
 	Menu*			pmenu;		// Menu this item leads to or NULL.
 	RGuiItem*	pgui;			// GuiItem to appear after text.

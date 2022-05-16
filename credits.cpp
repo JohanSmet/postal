@@ -625,7 +625,7 @@ short	CFileTextInput::ParseTextInput(FILE* fp)
 	m_bf.clear();
 	m_bf.m_fp = fp;
 	m_bf.configure(" \t,;=({[",";/)}]",'`','/');
-	char* pszToken;
+	const char* pszToken;
 	//gpCurStream = new CTextStream;
 
 	short sGlobalY = 0;

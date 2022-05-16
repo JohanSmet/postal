@@ -331,7 +331,7 @@ short RIff::Close(void)
 // or "AIFF" chunk.
 //
 //////////////////////////////////////////////////////////////////////////////
-short RIff::Find(char* pszPath)	// Returns 0 on success.
+short RIff::Find(const char* pszPath)	// Returns 0 on success.
 	{
 	short	sRes	= 0;	// Assume success.
 

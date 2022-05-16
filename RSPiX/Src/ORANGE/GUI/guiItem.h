@@ -278,13 +278,13 @@ class RGuiItem : public RProps <U32, U32>
 
 		// Set the text that represents this item.
 		void SetText(	
-			char* pszFrmt,	// sprintf formatted format string.
+			const char* pszFrmt,	// sprintf formatted format string.
 			...);				// Corresponding good stuff.
 
 		// Set the text that represents the specified child item.
 		short SetText(		// Returns 0 if item found, non-zero otherwise.
 			long	lId,		// Child item ID (can identify this item).
-			char* pszFrmt,	// sprintf formatted format string.
+			const char* pszFrmt,	// sprintf formatted format string.
 			...);				// Corresponding good stuff.
 
 		// Set the justification of m_pprint to the current RGuiItem member 
@@ -478,7 +478,7 @@ class RGuiItem : public RProps <U32, U32>
 		// that type before loading.  Useful for loading generic *.GUI files.
 		// See LoadInstance(char*).
 		short Load(					// Returns 0 on success.
-			char* pszFileName);	// Name of file to load from.
+			const char* pszFileName);	// Name of file to load from.
 
 		// This will load the GUI tree (i.e., 'this' item and its children).
 		// If you override this function, you should call this base version
@@ -494,7 +494,7 @@ class RGuiItem : public RProps <U32, U32>
 		// This will open the specified file with write access in an RFile and
 		// pass it to Save(RFile*).
 		short Save(					// Returns 0 on success.
-			char* pszFileName);	// Name of file to save to.
+			const char* pszFileName);	// Name of file to save to.
 
 		// This will save the GUI tree (i.e., 'this' item and its children).
 		// If you override this function, you should call this base version
@@ -594,7 +594,7 @@ class RGuiItem : public RProps <U32, U32>
 		// file.
 		static RGuiItem* LoadInstantiate(	// Returns newly allocated GUI item
 														// on success or NULL on failure.
-			char*	pszFileName);					// Name of file to instantiate from.
+			const char*	pszFileName);					// Name of file to instantiate from.
 
 		// Instantiate a GUI tree from a file.  Allocates a GUI item of the
 		// proper (specified in the file) type and loads it using the specified
@@ -1009,7 +1009,7 @@ class RGuiItem : public RProps <U32, U32>
 		static RGuiItem*	ms_pguiFocus;		// Higher level APIs can use this as
 														// their current point of input
 														// focus.
-		static char*		ms_apszTypes[NumGuiTypes];	// Array of strings 
+		static const char*	ms_apszTypes[NumGuiTypes];	// Array of strings 
 																	// indexed by type.
 	};
 

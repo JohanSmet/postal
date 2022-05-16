@@ -73,7 +73,7 @@ public:
 		m_sCurToken = -2; // for user convenience!
 		}
 
-	void init(char* pszFileName,char* pszSeparators = " \t,",char* pszSpecialCharacters=NULL,
+	void init(const char* pszFileName,const char* pszSeparators = " \t,",const char* pszSpecialCharacters=NULL,
 		char	cString = '"',char cComment = '*',short sCharEOL=1,short sLowFilter=32,short sHighFilter=128)
 		{
 		clear();
@@ -93,7 +93,7 @@ public:
 		if (pszSeparators) strcpy(m_pszSeparators,pszSeparators);
 		}
 
-	void configure(char* pszSeparators = " \t,",char* pszSpecialCharacters=NULL,
+	void configure(const char* pszSeparators = " \t,",const char* pszSpecialCharacters=NULL,
 		char	cString = '"',char cComment = '*',short sCharEOL=1,short sLowFilter=32,short sHighFilter=128)
 		{
 		m_sCharEOL = sCharEOL;
@@ -112,13 +112,13 @@ public:
 		configure();
 		}
 
-	RBatch(char* pszFileName,char* pszSeparators = " \t,",char* pszSpecialCharacters = NULL,
+	RBatch(const char* pszFileName,const char* pszSeparators = " \t,",const char* pszSpecialCharacters = NULL,
 		char	cString = '"',char cComment = '*',short sCharEOL=1,short sLowFilter=32,short sHighFilter=128)
 		{
 		init(pszFileName,pszSeparators,pszSpecialCharacters,cString,cComment,sCharEOL,sLowFilter,sHighFilter);
 		}
 
-	short open(char* pszFileName)
+	short open(const char* pszFileName)
 		{
 		if (m_fp == NULL)
 			{
@@ -177,10 +177,10 @@ public:
 
 	// If you care nothing of the concept of file lines except for
 	// reporting errors, you may take advantage of this function:
-	char* NextToken();
+	const char* NextToken();
 
 	// creates an error message
-	char* CreateError(short sToken = -1);
+	const char* CreateError(short sToken = -1);
 	};
 
 //=====================

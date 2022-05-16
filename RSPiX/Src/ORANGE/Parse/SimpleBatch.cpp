@@ -187,7 +187,7 @@ BEGIN_LOOP:
 		return -1;
 	}
 
-char* RBatch::CreateError(short sToken)
+const char* RBatch::CreateError(short sToken)
 	{
 	if (m_fp == NULL)
 		{
@@ -214,7 +214,7 @@ char* RBatch::CreateError(short sToken)
 // Returns NULL if EOF
 // MUST ADVANCE WHEN CALLED AND SIT THERE!!!!!
 //
-char* RBatch::NextToken()
+const char* RBatch::NextToken()
 	{
 	if (m_sCurToken == -2) // first time:
 		{

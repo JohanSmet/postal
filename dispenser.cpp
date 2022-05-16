@@ -675,7 +675,7 @@ short CDispenser::EditNew(									// Returns 0 if successfull, non-zero otherwi
 inline void SetLogicText(	// Returns nothing.
 	RGuiItem*	pguiRoot,	// In:  Root item.
 	long			lId,			// In:  ID of item to update text.
-	char*			pszText,		// In:  New text or NULL for none and to disable lIdEdit.
+	const char*		pszText,		// In:  New text or NULL for none and to disable lIdEdit.
 	long			lIdEdit)		// In:  Item to enable or disable.
 	{
 	RGuiItem*	pguiEdit	= pguiRoot->GetItemFromId(lIdEdit);

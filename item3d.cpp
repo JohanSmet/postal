@@ -132,7 +132,7 @@
 short CItem3d::ms_sFileCount;
 
 // Array of known animation base names.
-char*	CItem3d::ms_apszKnownAnimBaseNames[CItem3d::NumTypes]	=
+const char*	CItem3d::ms_apszKnownAnimBaseNames[CItem3d::NumTypes]	=
 	{
 	"None",				// None.
 	"Custom",			// Custom.
@@ -142,7 +142,7 @@ char*	CItem3d::ms_apszKnownAnimBaseNames[CItem3d::NumTypes]	=
 	};
 
 // Array of known animation descriptions.
-char*	CItem3d::ms_apszKnownAnimDescriptions[CItem3d::NumTypes]	=
+const char*	CItem3d::ms_apszKnownAnimDescriptions[CItem3d::NumTypes]	=
 	{
 	"None",
 	"Custom",
@@ -151,7 +151,7 @@ char*	CItem3d::ms_apszKnownAnimDescriptions[CItem3d::NumTypes]	=
 	"Sax",
 	};
 
-static char* ms_apszResExtensions[NUM_RES_NAMES]	=
+static const char* ms_apszResExtensions[NUM_RES_NAMES]	=
 	{
 	"sop",
 	"mesh",
@@ -700,7 +700,7 @@ short CItem3d::Setup(			// Returns 0 on success.
 	short sY,						// In: Starting Y position
 	short sZ,						// In: Starting Z position
 	ItemType type,					// In:  Known item type or Custom.
-	char*	pszCustomBaseName /*= NULL*/,	// In:  Required if type == Custom.
+	const char*	pszCustomBaseName /*= NULL*/,	// In:  Required if type == Custom.
 													// Base name for custom type resources.
 	U16	u16IdParentInstance /*= CIdBank::IdNil*/)	// In:  Parent instance ID.
 	{

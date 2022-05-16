@@ -54,19 +54,19 @@ class CSettings
 	public:
 		// Read settings that are stored in preference file
 		static short LoadPrefs(
-			char* pszFile);
+			const char* pszFile);
 
 		// Write settings that are stored in preference file
 		static short SavePrefs(
-			char* pszFile);
+			const char* pszFile);
 
 		// Load settings that are stored in game file
 		static short LoadGame(
-			char* pszFile);
+			const char* pszFile);
 
 		// Save settings that are stored in game file
 		static short SaveGame(
-			char* pszFile);
+			const char* pszFile);
 
 		// Temporarily set settings for demo mode
 		static short PreDemo(

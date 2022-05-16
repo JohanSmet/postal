@@ -153,8 +153,8 @@ class CInputSettings : CSettings
 		// Game play input information.
 		typedef struct
 			{
-			char*	pszDescription;	// Description of key.
-			char*	pszSaveName;		// Name for INI.
+			const char*	pszDescription;	// Description of key.
+			const char*	pszSaveName;		// Name for INI.
 			U8		u8DefaultKey;		// Default rspScanKeys val (RSP_SK_*).
 			short	sDefMouseButtons;	// Default rspGetMouse psButtons mask (MouseButtons).
 			short	sDefJoyButtons;	// Default rspGetJoyState buttons mask (JoyButtons).
