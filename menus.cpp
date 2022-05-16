@@ -742,7 +742,7 @@ static const char*			ms_apszDifficultyDescriptions[]	=
 
 
 // Main menu
-extern Menu	menuMain =
+Menu	menuMain =
 	{
 	MAIN_MENU_ID,
 
@@ -841,7 +841,7 @@ extern Menu	menuMain =
 	};
 
 // Verify exit menu
-extern Menu	menuVerifyExit =
+Menu	menuVerifyExit =
 	{
 	VERIFY_EXIT_MENU_ID,
 
@@ -923,7 +923,7 @@ extern Menu	menuVerifyExit =
 	};
 
 // Verify exit menu
-extern Menu	g_menuVerifyQuitGame =
+Menu	g_menuVerifyQuitGame =
 	{
 	VERIFY_QUIT_GAME_MENU_ID,
 
@@ -1005,7 +1005,7 @@ extern Menu	g_menuVerifyQuitGame =
 	};
 
 // Client game menu
-extern Menu	menuClientGame =
+Menu	menuClientGame =
 	{
 	CLIENT_GAME_MENU_ID,
 
@@ -1088,7 +1088,7 @@ extern Menu	menuClientGame =
 	};
 
 // Editor menu
-extern Menu	menuEditor =
+Menu	menuEditor =
 	{
 	EDITOR_MENU_ID,
 
@@ -1170,7 +1170,7 @@ extern Menu	menuEditor =
 	};
 
 // Options menu.
-extern Menu	menuOptions =
+Menu	menuOptions =
 	{
 	OPTIONS_MENU_ID,
 
@@ -1262,7 +1262,7 @@ extern Menu	menuOptions =
 
 
 // Options menu.
-extern Menu	menuPlayOptions =
+Menu	menuPlayOptions =
 	{
 	PLAYOPTIONS_MENU_ID,
 
@@ -1343,7 +1343,7 @@ extern Menu	menuPlayOptions =
 	};
 
 // Postal music organ:
-extern Menu menuOrgan = 
+Menu menuOrgan = 
 	{
 	ORGAN_MENU_ID,
 	// Position info.
@@ -1428,7 +1428,7 @@ extern Menu menuOrgan =
 	};
 
 // Audio Options menu.
-extern Menu	menuAudioOptions =
+Menu	menuAudioOptions =
 	{
 	AUDIO_MENU_ID,
 
@@ -1511,7 +1511,7 @@ extern Menu	menuAudioOptions =
 
 
 // Video Options menu.
-extern Menu	menuVideoOptions =
+Menu	menuVideoOptions =
 	{
 	VIDEO_MENU_ID,
 
@@ -1592,7 +1592,7 @@ extern Menu	menuVideoOptions =
 	};
 
 // Controls menu.
-extern Menu	menuControls =
+Menu	menuControls =
 	{
 	CONTROLS_MENU_ID,
 
@@ -1684,7 +1684,7 @@ extern Menu	menuControls =
 	};
 
 // Keyboard menu.
-extern Menu	menuKeyboard =
+Menu	menuKeyboard =
 	{
 	KEYBOARD_MENU_ID,
 
@@ -1812,7 +1812,7 @@ extern Menu	menuKeyboard =
 	};
 
 // Mouse menu.
-extern Menu	menuMouse =
+Menu	menuMouse =
 	{
 	MOUSE_MENU_ID,
 
@@ -1940,7 +1940,7 @@ extern Menu	menuMouse =
 	};
 
 // Joystick menu.
-extern Menu	menuJoystick =
+Menu	menuJoystick =
 	{
 	JOYSTICK_MENU_ID,
 
@@ -2068,7 +2068,7 @@ extern Menu	menuJoystick =
 	};
 
 // Features menu.
-extern Menu	menuFeatures =
+Menu	menuFeatures =
 	{
 	FEATURES_MENU_ID,
 
@@ -2153,7 +2153,7 @@ extern Menu	menuFeatures =
 	};
 
 // Rotation menu.
-extern Menu	menuRotation =
+Menu	menuRotation =
 	{
 	ROTATION_MENU_ID,
 
@@ -2239,7 +2239,7 @@ extern Menu	menuRotation =
 	};
 
 // Volumes menu.
-extern Menu	menuVolumes =
+Menu	menuVolumes =
 	{
 	VOLUME_MENU_ID,
 
@@ -2349,7 +2349,7 @@ extern Menu	menuVolumes =
 	};
 
 // Start menu.
-extern Menu	menuStart =
+Menu	menuStart =
 	{
 	START_MENU_ID,
 
@@ -2434,7 +2434,7 @@ extern Menu	menuStart =
 	};
 
 // Single player start menu.
-extern Menu	menuStartSingle =
+Menu	menuStartSingle =
 	{
 	START_SINGLE_MENU_ID,
 
@@ -2523,7 +2523,7 @@ extern Menu	menuStartSingle =
 	};
 
 // Single player start menu.
-extern Menu	menuChallenge =
+Menu	menuChallenge =
 	{
 	CHALLENGE_MENU_ID,
 
@@ -2608,7 +2608,7 @@ extern Menu	menuChallenge =
 	};
 
 // Multiplayer start menu.
-extern Menu	menuStartMulti =
+Menu	menuStartMulti =
 	{
 	START_MULTI_MENU_ID,
 
@@ -2691,7 +2691,7 @@ extern Menu	menuStartMulti =
 	};
 
 // Join Multiplayer menu.
-extern Menu	menuJoinMulti =
+Menu	menuJoinMulti =
 	{
 	JOIN_MULTI_MENU_ID,
 
@@ -2773,7 +2773,7 @@ extern Menu	menuJoinMulti =
 	};
 
 // Join Multiplayer menu.
-extern Menu	menuHostMulti =
+Menu	menuHostMulti =
 	{
 	HOST_MULTI_MENU_ID,
 
@@ -2854,7 +2854,7 @@ extern Menu	menuHostMulti =
 	};
 
 // Single player start menu.
-extern Menu	menuStartDemo =
+Menu	menuStartDemo =
 	{
 	START_DEMO_MENU_ID,
 
@@ -2937,7 +2937,7 @@ extern Menu	menuStartDemo =
 	};
 
 // Multiplayer options menu.
-extern Menu	menuMultiOptions =
+Menu	menuMultiOptions =
 	{
 	MULTIPLAYER_OPTIONS_MENU_ID,
 
@@ -4144,7 +4144,7 @@ short SetUpRotationScrollBar(		// Returns 0 on success.
 	ValType*	pvtRotationVal,		// In:  Rotation value to tune via scrollbar.
 	Menu*		pmenu,					// In:  Menu.
 	short		sChoiceIndex,			// In:  Index of choice.
-	char*		pszResName)				// In:  Resource name.
+	const char*	pszResName)				// In:  Resource name.
 	{
 	short	sRes	= 0;	// Assume success.
 
@@ -4941,7 +4941,7 @@ static void RotationScrollUpdateShort(	// Returns nothing.
 #if 1 //PLATFORM_UNIX
 static bool PickFileMenuChoice(Menu *pmenuCurrent, short sMenuItem);
 
-extern Menu	g_menuPickFile =
+Menu	g_menuPickFile =
 	{
 	PICK_FILE_MENU_ID,
 
