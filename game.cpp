@@ -4052,6 +4052,8 @@ extern void SeedRand(
 // It seems that this only works in debug mode.  In release, the linker
 // generates a fatal "multiple definitions of rand()" error.  For now, only
 // do this in debug mode.
+// JS - this also fails on MSVC 2019 in debug mode - disabled for now
+#if 0
 #ifdef _DEBUG
 #ifndef PLATFORM_UNIX
 extern int rand(void)
@@ -4064,7 +4066,7 @@ extern int rand(void)
 	}
 #endif
 #endif
-
+#endif
 
 ////////////////////////////////////////////////////////////////////////////////
 //
