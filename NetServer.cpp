@@ -127,7 +127,7 @@ void CNetServer::Shutdown(void)
 ////////////////////////////////////////////////////////////////////////////////
 void CNetServer::Update(void)
 	{
-	short sResult = 0;
+	// short sResult = 0;
 
 	//------------------------------------------------------------------------------
 	// Accept new clients

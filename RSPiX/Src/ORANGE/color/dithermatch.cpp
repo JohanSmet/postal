@@ -94,7 +94,7 @@ short	rspDither(
 #endif
 
 	short sRet = 0;
-	long	lPalOffset = lInc * sStartMap;
+	// long	lPalOffset = lInc * sStartMap;
 	long	lLastTime = rspGetMilliseconds();
 
 	//--------- Set up receiving vessel:
@@ -117,7 +117,7 @@ short	rspDither(
 		}
 
 	//--------- Begin:
-	long lErrorRed = 0,lErrorGreen = 0,lErrorBlue = 0;
+	// long lErrorRed = 0,lErrorGreen = 0,lErrorBlue = 0;
 
 	short i,j;
 	long lSrcP = pimSrc->m_lPitch;
@@ -361,7 +361,7 @@ short	rspSimpleMap(
 #endif
 
 	short sRet = 0;
-	long	lPalOffset = lInc * sStartMap;
+	// long	lPalOffset = lInc * sStartMap;
 	long	lLastTime = rspGetMilliseconds();
 
 	//--------- Set up receiving vessel:
@@ -384,7 +384,7 @@ short	rspSimpleMap(
 		}
 
 	//--------- Begin:
-	long lErrorRed = 0,lErrorGreen = 0,lErrorBlue = 0;
+	// long lErrorRed = 0,lErrorGreen = 0,lErrorBlue = 0;
 
 	short i,j;
 	long lSrcP = pimSrc->m_lPitch;
@@ -477,7 +477,7 @@ short	rspDither(
 #endif
 
 	short sRet = 0;
-	long	lPalOffset = lInc * sStartMap;
+	// long	lPalOffset = lInc * sStartMap;
 	long	lLastTime = rspGetMilliseconds();
 
 	//--------- Set up receiving vessel:
@@ -499,7 +499,7 @@ short	rspDither(
 		(*func)(double(0.0));
 		}
 
-	long lErrorRed = 0,lErrorGreen = 0,lErrorBlue = 0;
+	// long lErrorRed = 0,lErrorGreen = 0,lErrorBlue = 0;
 
 	short i,j;
 	long lSrcP = pimSrc->m_lPitch;
@@ -774,7 +774,7 @@ short	rspDither(
 #endif
 
 	short sRet = 0;
-	long	lPalOffset = lInc * sStartMap;
+	// long	lPalOffset = lInc * sStartMap;
 	long	lLastTime = rspGetMilliseconds();
 
 	//--------- Set up receiving vessel:
@@ -797,7 +797,7 @@ short	rspDither(
 		}
 
 	//--------- Begin:
-	long lErrorRed = 0,lErrorGreen = 0,lErrorBlue = 0;
+	// long lErrorRed = 0,lErrorGreen = 0,lErrorBlue = 0;
 
 	short i,j;
 	long lSrcP = pimSrc->m_lPitch;
@@ -1055,7 +1055,7 @@ short	rspSimpleMap(
 #endif
 
 	short sRet = 0;
-	long	lPalOffset = lInc * sStartMap;
+	// long	lPalOffset = lInc * sStartMap;
 	long	lLastTime = rspGetMilliseconds();
 
 	//--------- Set up receiving vessel:
@@ -1078,7 +1078,7 @@ short	rspSimpleMap(
 		}
 
 	//--------- Begin:
-	long lErrorRed = 0,lErrorGreen = 0,lErrorBlue = 0;
+	// long lErrorRed = 0,lErrorGreen = 0,lErrorBlue = 0;
 
 	short i,j;
 	long lSrcP = pimSrc->m_lPitch;

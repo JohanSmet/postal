@@ -190,7 +190,7 @@ void RMeter::Compose(				// Returns nothing.
 	RImage*	pimDst /*= NULL*/)	// In: Destination.  NULL == use 
 											// internal m_im.
 	{
-	short	sRes	= 0;	// Assume success.
+	// short	sRes	= 0;	// Assume success.
 
 	if (pimDst == NULL)
 		{

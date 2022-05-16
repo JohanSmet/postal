@@ -1953,11 +1953,12 @@ extern void GameEdit(
 			rspSetMouseCursorShowLevel(1);
 
 			// User must load an existing realm or start a new one to go any further
-			bool bGoEdit = false;
+			// bool bGoEdit = false;
 			bool bExit = false;
 
 			// Set currently select thing to default value
-			CThing::ClassIDType idCurrent = DEFAULT_THING_ID;
+			// CThing::ClassIDType idCurrent = DEFAULT_THING_ID;
+
 			// Clear mouse and keyboard events
 			rspClearAllInputEvents();
 
@@ -4343,10 +4344,10 @@ static void PlayRealm(
 							INFO_STATUS_RECT_W,
 							INFO_STATUS_RECT_H);
 
-						long	lLastDispTime			= 0;
-						long	lFramesTime				= 0;
-						long	lUpdateDisplayTime	= 0;
-						long	lNumFrames				= 0;
+						// long	lLastDispTime			= 0;
+						// long	lFramesTime				= 0;
+						// long	lUpdateDisplayTime		= 0;
+						// long	lNumFrames				= 0;
 
 						RPrint	printDisp;
 						printDisp.SetFont(DISP_INFO_FONT_H, &g_fontBig);

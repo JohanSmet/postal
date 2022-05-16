@@ -564,7 +564,7 @@ static long			ms_lNumConsoleEntries		= 0;			// Track number of chat items.
 static bool			ms_bGotSetupMsg = false;
 static short		ms_sSetupRealmNum = 0;
 static char			ms_szSetupRealmFile[Net::MaxRealmNameSize];
-static long			ms_lSetupLastChatComplaint = 0;
+// static long			ms_lSetupLastChatComplaint = 0;
 
 static long			ms_lNextOptionsUpdateTime;		// Next time to send an options update.
 
@@ -2781,7 +2781,7 @@ extern short DoNetGameDialog(							// Returns 0 if successfull, non-zero otherw
 										else
 											{
 											// Assume no problems
-											short sProblem = 0;
+											// short sProblem = 0;
 
 											// Process messages from server
 											pclient->GetMsg(&msg);

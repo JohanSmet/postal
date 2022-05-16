@@ -151,6 +151,7 @@ const char*	CItem3d::ms_apszKnownAnimDescriptions[CItem3d::NumTypes]	=
 	"Sax",
 	};
 
+/*
 static const char* ms_apszResExtensions[NUM_RES_NAMES]	=
 	{
 	"sop",
@@ -160,6 +161,7 @@ static const char* ms_apszResExtensions[NUM_RES_NAMES]	=
 	"bounds",
 	"floor",
 	};
+*/
 
 ////////////////////////////////////////////////////////////////////////////////
 // Load object (should call base class version!)

@@ -950,7 +950,7 @@ short RMixBuf::Mix(	ULONG		ulStartPos,
 				// Offset high by 128 to represent signed upper bytes
 				short*	psHighTable = 128 + CDVA::ms_asHighByte[sCurVolume];
 				// The assembler doesn't know the offset is signed
-				short*	psASMHighTable = CDVA::ms_asHighByte[sCurVolume];
+				// short*	psASMHighTable = CDVA::ms_asHighByte[sCurVolume];
 				// Low byte is by nature unsigned, so no offset
 				// This is packed into the same table, offset by DVA_SIZE entries
 				short*	psLowTable = CDVA::ms_asHighByte[DVA_SIZE + sCurVolume];

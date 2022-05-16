@@ -139,7 +139,7 @@ short RFont::Add(RFile* pcf)
 			pcf->Read(&ucASCII);
 			pim->Load(pcf);
 			AddLetter(pim,(short)ucASCII);
-			long lBogus = pcf->Tell();
+			/*long lBogus = */pcf->Tell();
 			}
 		}
 

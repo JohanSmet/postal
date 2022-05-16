@@ -1235,8 +1235,8 @@ void RGuiItem::SetVisible(		// Returns nothing.
 ////////////////////////////////////////////////////////////////////////
 void RGuiItem::SetParent(RGuiItem* pguiParent)
 	{
-	short	sDifX	= 0;	// Difference in top level x positioning.
-	short	sDifY	= 0;	// Difference in top level y positioning.
+	// short	sDifX	= 0;	// Difference in top level x positioning.
+	// short	sDifY	= 0;	// Difference in top level y positioning.
 
 	// If there is an old . . .
 	if (m_pguiParent != NULL)

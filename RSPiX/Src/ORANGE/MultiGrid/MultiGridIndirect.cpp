@@ -307,7 +307,7 @@ short RMultiGridIndirect::AddFSPR1(RImage* pimSrc,short sLogX,short sLogY,
 		ASSERT(!m_pmg->m_sIsCompressed);
 		ASSERT(usValueOR < 32768);
 		//-------------- half clipping ------------
-		USHORT* pusAttrib = (USHORT*) m_pmg->m_psGrid;
+		// USHORT* pusAttrib = (USHORT*) m_pmg->m_psGrid;
 		short sW = m_sTileW,sH = m_sTileH;
 
 		if (sClip)

@@ -938,7 +938,7 @@ short CFireball::Setup(									// Returns 0 if successfull, non-zero otherwise
 short CFireball::Init(void)
 {
 	short sResult = SUCCESS;
-	CAlphaAnim* pAnim = NULL;
+	// CAlphaAnim* pAnim = NULL;
 
 
 	// Update sphere

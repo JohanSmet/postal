@@ -891,7 +891,7 @@ short CDoofus::Load(										// Returns 0 if successfull, non-zero otherwise
 			case 1:
 				// Get the instance ID for the NavNet
 				U16 u16Data;
-				short sres = pFile->Read(&u16Data);
+				/* short sres = */ pFile->Read(&u16Data);
 				m_u16NavNetID = u16Data;
 				break;
 		}
@@ -1440,7 +1440,7 @@ bool CDoofus::TryClearShot(double dRot, short sVariance)
 	{
 		short sTries = 0;
 		short sX, sY, sZ;
-		CThing* pthing = NULL;
+		// CThing* pthing = NULL;
 		double dRotAttempt = dRot;
 
 		// Do a translation to the weapon position so that it is at the correct

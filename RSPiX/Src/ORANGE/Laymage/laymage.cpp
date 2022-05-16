@@ -274,7 +274,7 @@ short RLaymage::SetPSD(char* pszFilename)
 {
 	RFile cf;
 	RFile cfChannel;
-	short sReturn = SUCCESS;
+	// short sReturn = SUCCESS;
 	short i;
 
 	strcpy(m_szPhotoshopFilename, pszFilename);
@@ -334,7 +334,7 @@ short RLaymage::LoadPSD(char* pszFilename)
 {
 	RFile cf;
 	RFile cfChannel;
-	short sReturn = SUCCESS;
+	// short sReturn = SUCCESS;
 	short i;
 
 	strcpy(m_szPhotoshopFilename, pszFilename);
@@ -401,7 +401,7 @@ short RLaymage::ReadPSDHeader(char* pszFilename)
 {
 	RFile cf;
 	RFile cfChannel;
-	short sReturn = SUCCESS;
+	// short sReturn = SUCCESS;
 	ULONG ulData;
 	USHORT usData;
 
@@ -547,7 +547,7 @@ short RLaymage::ReadLayer(short sRequestedLayer)
 {
 	RFile cf;
 	RFile cfChannel;
-	short sReturn = SUCCESS;
+	// short sReturn = SUCCESS;
 	short i;
 
 	if (cf.Open(m_szPhotoshopFilename, "rb", RFile::BigEndian) != SUCCESS)
@@ -697,7 +697,7 @@ short RLaymage::ReadLayerInfo(short sLayerNum, RFile* pcfLayer,
 	USHORT usData;
 	UCHAR ucData;
 	short asChannelID[LAYMAGE_MAXCHANNELS];
-	USHORT usNextChannel = 0;
+	// USHORT usNextChannel = 0;
 	USHORT usNumChannels = 0;
 	ULONG ulTop;
 	ULONG ulBottom;

@@ -213,6 +213,7 @@ static const char* ms_apszBaseDieResNames[] =
 
 
 // These are the points that are checked on the attribute map relative to his origin
+/*
 static RP3d ms_apt3dAttribCheck[] =
 {
 	{-6, 0, -6},
@@ -222,7 +223,7 @@ static RP3d ms_apt3dAttribCheck[] =
 	{ 0, 0,  6},
 	{ 6, 0,  6},
 };
-
+*/
 
 ////////////////////////////////////////////////////////////////////////////////
 // Load object (should call base class version!)
@@ -564,7 +565,7 @@ void CSentry::Resume(void)
 ////////////////////////////////////////////////////////////////////////////////
 void CSentry::Update(void)
 {
-	short sHeight = m_sPrevHeight;
+	// short sHeight = m_sPrevHeight;
 	long lThisTime;
 	long lTimeDifference;
 	long lSqDistanceToDude = 0;

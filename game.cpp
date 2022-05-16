@@ -765,7 +765,7 @@ static long m_lRandom = 1;
 static RFile* m_pfileRandom = 0;
 
 // Used by if-logging schtuff.
-static long	ms_lSynchLogSeq	= 0;
+// static long	ms_lSynchLogSeq	= 0;
 
 static RFile	ms_fileSynchLog;
 
@@ -1323,8 +1323,8 @@ static short GameCore(void)		// Returns 0 on success.
 	{
 	short sResult = 0;
 	USHORT usDemoCount = 0;
-	bool	bMPath = false,
-			bMPathServer = false;
+//	bool	bMPath = false,
+//			bMPathServer = false;
 
 #ifdef CHECK_EXPIRATION_DATE
 	#ifdef WIN32
@@ -2093,7 +2093,7 @@ static short GameCore(void)		// Returns 0 on success.
 
 					// Display option dialog to let user choose a realm file
 					#if 1 //PLATFORM_UNIX
-                    char tmp[RSP_MAX_PATH];
+                    // char tmp[RSP_MAX_PATH];
 					if (PickFile("Choose Game Slot", EnumExistingSaveGames, szFileSaved, sizeof(szFileSaved)) == 0)
                     {
 #ifdef MOBILE

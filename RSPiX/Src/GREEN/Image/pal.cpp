@@ -637,9 +637,9 @@ short RPal::Load(const char* pszFilename)
 short RPal::Load(RFile* pcf)
 {	
 	short sReturn = SUCCESS;
-	ULONG ulFileType = 0;
-	ULONG ulFileVersion = 0;
-	USHORT usFlag = 2;
+	// ULONG ulFileType = 0;
+	// ULONG ulFileVersion = 0;
+	// USHORT usFlag = 2;
 
 	if (pcf && pcf->IsOpen())
 	{

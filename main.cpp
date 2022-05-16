@@ -398,6 +398,7 @@ static void assert_types_are_sane(void)
     ASSERT(sizeof (U64) == 8);
 
     U32 val = 0x02000001;
+	(void) val;
 #if SYS_ENDIAN_BIG
     ASSERT(*((U8*) &val) == 0x02);
 #else

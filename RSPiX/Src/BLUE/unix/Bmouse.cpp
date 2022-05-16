@@ -86,7 +86,7 @@ extern void rspGetMouse(
 
     if (!mouse_grabbed)
     {
-        int w, h;
+        // int w, h;
         SET(psX, 0);
         SET(psY, 0);
         SET(psButton, 0);

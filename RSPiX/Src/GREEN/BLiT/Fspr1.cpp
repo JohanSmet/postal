@@ -467,7 +467,7 @@ short		ConvertFromFSPR1(RImage* pImage)
 //
 short		LoadFSPR1(RImage* pImage, RFile* pcf)
 	{
-	long	lBogus1	= pcf->Tell();
+	/* long	lBogus1	= */ pcf->Tell();
 
 	//------------------
 	// Initial Security:
@@ -1439,8 +1439,8 @@ short rspBlit(
 	// transfer colors:
 	UCHAR	ucForeColor = (UCHAR) ulForeColor;
 
-	short sW = sDstW; // clippng parameters...
-	short sH = sDstH; // clippng parameters...
+	//short sW = sDstW; // clippng parameters...
+	//short sH = sDstH; // clippng parameters...
 	long	lDstP = pimDst->m_lPitch;
 
 	//**************  INSERT BUFFER HOOKS HERE!  ************************

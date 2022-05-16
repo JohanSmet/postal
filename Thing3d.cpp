@@ -1504,7 +1504,7 @@ void CThing3d::GetFloorAttributes(	// Returns nothing.
 	{
 	U16	u16CurAttrib;
 	U16	u16CombinedAttrib	= 0;
-	short	sLightTally			= 0;
+	// short	sLightTally			= 0;
 	short	sMaxHeight			= -32767;
 	short	sCurHeight;
 

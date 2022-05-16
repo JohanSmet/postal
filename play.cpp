@@ -3461,7 +3461,7 @@ class CPlayInput : public CPlay
 				// User save choice.
 				case MenuActionSaveGame:
 					{
-					short sResult;
+					// short sResult;
 					// Static so dialog will "remember" the previously-used name
 					static char	szFile[RSP_MAX_PATH]	= "";
 

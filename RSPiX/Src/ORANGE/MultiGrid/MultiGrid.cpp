@@ -280,7 +280,7 @@ short	RMultiGrid::AllocGrid(short sScaleW, short sScaleH)
 	//--------------------------------------------- Allocate the Tile Lists:
 	long	lShortTileSize = long(sScaleW) * sScaleH;
 	long	lByteTileSize = lShortTileSize << 1;
-	long	lLongTileSize = lShortTileSize >> 1;
+	// long	lLongTileSize = lShortTileSize >> 1;
 	// Initial Max
 	short		sMaxNumTiles = MIN((long)32767, (long)1 + long(sGridW) * (long)sGridH);
 
@@ -385,7 +385,7 @@ short RMultiGrid::Compress(
 	short	sExtraW = m_sWidth - (sWholeGridW << m_sShiftX);
 	short	sExtraH = m_sHeight - (sWholeGridH << m_sShiftY);
 
-	short sMaxTile = MIN((long)32767, (long)1 + long(sGridW) * (long)sGridH);
+	// short sMaxTile = MIN((long)32767, (long)1 + long(sGridW) * (long)sGridH);
 	short	sShortSize = (m_sMaskX+1)*(m_sMaskY+1);
 	short sNumMatches = 0;
 

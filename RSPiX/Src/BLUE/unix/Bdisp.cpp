@@ -58,7 +58,7 @@ typedef union { struct { Uint8 b; Uint8 g; Uint8 r; Uint8 a; }; Uint32 argb; } A
 static ArgbColor	apeApp[256];				// App's palette.  The palette
 														// entries the App actually set.
 
-static ArgbColor	apeMapped[256];			// Tweaked palette.
+// static ArgbColor	apeMapped[256];			// Tweaked palette.
 														// This is the palette updated to
 														// the hardware.  apeApp is trans-
 														// lated through au8MapRed, Green,
@@ -365,7 +365,7 @@ extern short rspSuggestVideoMode(		// Returns 0 if successfull, non-zero otherwi
 	short	sRes	= 0;	// Assume success.
 
 	// Store video mode that the app is currently iterating.
-	PVIDEO_MODE	pvmOldModeQuery	= slvmModes.GetCurrent();
+	// PVIDEO_MODE	pvmOldModeQuery	= slvmModes.GetCurrent();
 
 	rspQueryVideoModeReset();
 

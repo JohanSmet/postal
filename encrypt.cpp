@@ -113,7 +113,7 @@ void MakeCRCTable();
 //////////////////////////////////////////////////////////////////////////////////////
 short Encrypt(char* szInputString,char* szOutputString,short sSourceLength)
 	{
-	short		rc=0,				// assume success
+	short		// rc=0,				// assume success
 				sIndex=0,
 				sStartIndex=GetRandom()%KEY_LENGTH,
 				sCurrentKey=GetRandom()%NUM_KEYS,

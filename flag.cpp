@@ -353,7 +353,7 @@ short CFlag::Shutdown(void)							// Returns 0 if successfull, non-zero otherwis
 ////////////////////////////////////////////////////////////////////////////////
 void CFlag::Update(void)
 {
-	short sHeight = m_sPrevHeight;
+	// short sHeight = m_sPrevHeight;
 	long lThisTime;
 	long lTimeDifference;
 	CSmash* pSmashed = NULL;
@@ -367,7 +367,7 @@ void CFlag::Update(void)
 		m_lAnimTime += lTimeDifference;
 
 		// Calculate elapsed time in seconds
-		double dSeconds = (double)(lThisTime - m_lPrevTime) / 1000.0;
+		// double dSeconds = (double)(lThisTime - m_lPrevTime) / 1000.0;
 
 		// Check for new messages that may change the state
 		ProcessMessages();
@@ -637,7 +637,6 @@ short CFlag::EditModify(void)
 	short sResult = 0;
 	U16 u16OrigColor = m_u16FlagColor;
 
-	RGuiItem* pGuiItem = NULL;
 	RGuiItem* pguiRoot = RGuiItem::LoadInstantiate(FullPathVD("res/editor/flag.gui"));
 	if (pguiRoot != NULL)
 	{

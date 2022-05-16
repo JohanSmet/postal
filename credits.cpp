@@ -1046,7 +1046,7 @@ short Credits(SampleMasterID* pMusic,
 							char*	pszBackground,
 							char* pszCredits)					
 {
-	short sResult = 0;
+	// short sResult = 0;
 
 #ifdef SHOW_EXIT_SCREEN
 	

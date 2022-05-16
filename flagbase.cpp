@@ -104,6 +104,7 @@ static const char* ms_apszBlueResNames[] =
 
 
 // These are the points that are checked on the attribute map relative to his origin
+/*
 static RP3d ms_apt3dAttribCheck[] =
 {
 	{-6, 0, -6},
@@ -113,7 +114,7 @@ static RP3d ms_apt3dAttribCheck[] =
 	{ 0, 0,  6},
 	{ 6, 0,  6},
 };
-
+*/
 
 ////////////////////////////////////////////////////////////////////////////////
 // Load object (should call base class version!)
@@ -327,10 +328,10 @@ short CFlagbase::Shutdown(void)							// Returns 0 if successfull, non-zero othe
 ////////////////////////////////////////////////////////////////////////////////
 void CFlagbase::Update(void)
 {
-	short sHeight = m_sPrevHeight;
+	// short sHeight = m_sPrevHeight;
 	long lThisTime;
 	long lTimeDifference;
-	long lSqDistanceToDude = 0;
+	// long lSqDistanceToDude = 0;
 	CSmash* pSmashed = NULL;
 
 	if (!m_sSuspend)
@@ -340,7 +341,7 @@ void CFlagbase::Update(void)
 		lTimeDifference = lThisTime - m_lPrevTime;
 
 		// Calculate elapsed time in seconds
-		double dSeconds = (double)(lThisTime - m_lPrevTime) / 1000.0;
+		// double dSeconds = (double)(lThisTime - m_lPrevTime) / 1000.0;
 
 		// Check for new messages that may change the state
 		ProcessMessages();
@@ -527,7 +528,7 @@ short CFlagbase::EditModify(void)
 {
 	short sResult = 0;
 	U16 u16OrigColor = m_u16Color;
-	RGuiItem* pGuiItem = NULL;
+
 	RGuiItem* pguiRoot = RGuiItem::LoadInstantiate(FullPathVD("res/editor/flagbase.gui"));
 	if (pguiRoot != NULL)
 	{

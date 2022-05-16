@@ -3475,7 +3475,7 @@ static bool StartDemoMenu(	// Returns true to accept, false to deny choice.
 	{
 	bool	bAcceptChoice	= true;	// Assume accepting.
 
-	bool	bPlay	= false;
+	// bool	bPlay	= false;
 
 	// Audible Feedback.
 	if (sMenuItem == -1)

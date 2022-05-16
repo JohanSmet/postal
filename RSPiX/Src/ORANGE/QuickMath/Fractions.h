@@ -179,7 +179,7 @@ inline RFracU16* rspfrU16Strafe256(USHORT usNum,USHORT usDen)
 	RFracU16 u16fInc;
 	rspMakeProper(u16fInc,usNum,usDen); // the 2 part mod
 
-	ULONG ulNumInc = 0;
+	// ULONG ulNumInc = 0;
 	for (short i = 1; i < 256 ; i++)
 		{
 		pu16fNew[i].mod = pu16fNew[i-1].mod + u16fInc.mod;

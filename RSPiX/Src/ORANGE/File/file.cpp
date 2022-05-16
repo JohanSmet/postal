@@ -330,7 +330,7 @@ static void locateCorrectCase(char *buf)
 {
 #if PLATFORM_UNIX
 	char *ptr = buf;
-	char *prevptr = buf;
+	// char *prevptr = buf;
 
 	while ((ptr = strchr(ptr + 1, '/')))
 	{

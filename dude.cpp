@@ -4458,7 +4458,7 @@ void CDude::GetWeaponInfo(		// Returns nothing.
 	short**			ppsNum)		// Out: Ptr to the weapon's counter.
 	{
 	static short sSafetyNum	= 0;
-	short	*psNumLeft	= &sSafetyNum;
+	// short	*psNumLeft	= &sSafetyNum;
 	// Switch on weapon type . . .
 	switch (weapon)
 		{
@@ -5425,16 +5425,16 @@ void CDude::ShowTarget()
 		// sAngle must be between 0 and 359.
 		short sRotY = rspMod360((short) m_dRot);
 		short sRangeXZ = 100;
-		short sRadius = 20;
+		// short sRadius = 20;
 
 		float	fRateX = COSQ[sRotY] * sRangeXZ;
 		float	fRateZ = -SINQ[sRotY] * sRangeXZ;
-		float	fRateY = 0.0;	// If we ever want vertical movement . . .
+		// float	fRateY = 0.0;	// If we ever want vertical movement . . .
 
 		// Set initial position to first point to check (NEVER checks original position).
-		float	fPosX = m_dX + fRateX;
-		float	fPosY = m_dY + fRateY;
-		float	fPosZ = m_dZ + fRateZ;
+		// float	fPosX = m_dX + fRateX;
+		// float	fPosY = m_dY + fRateY;
+		// float	fPosZ = m_dZ + fRateZ;
 
 		if (m_TargetSprite.m_psprParent)
 			m_TargetSprite.m_psprParent->RemoveChild(&m_TargetSprite);
