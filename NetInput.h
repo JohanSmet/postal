@@ -181,13 +181,12 @@ class CNetInput
 		////////////////////////////////////////////////////////////////////////////////
 		void Reset(void)
 			{
-			short i = 0;
 			// Clear the entire window to "invalid" values
-			for (i = 0; i < Size; i++)
+			for (unsigned short i = 0; i < Size; i++)
 				m_aInputs[i] = Invalid;
 
 			// Clear the entire window to initail values *SPA !!Eventually should input from prefs!!
-			for (i = 0; i < Size; i++)
+			for (unsigned short i = 0; i < Size; i++)
 				m_aFrameTimes[i] = 100;
 
 			// Start the frame at 0.  The oldest value always lags by a fixed distance.

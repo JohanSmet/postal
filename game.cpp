@@ -800,11 +800,11 @@ static void GameEndingSequence(void);
 
 static short GetRealmToRecord(
 	char* pszRealmFile,
-	short sMaxFileLen);
+	size_t sMaxFileLen);
 
 static short GetDemoFile(
 	char* pszDemoFile,
-	short sMaxFileLen);
+	size_t sMaxFileLen);
 
 // Callback gets called when OS is about to switch app into the background
 static void BackgroundCall(void);
@@ -2215,7 +2215,7 @@ static void ResetDemoTimer(void)
 static short GetRealmToRecord(	// Returns 0 on success, negative on error, 1 if      
 											// not subpathable (i.e., returned path is full path).
 	char* pszRealmFile,				
-	short sMaxFileLen)
+	size_t sMaxFileLen)
 	{
 	short sResult = 0;
 
@@ -2266,7 +2266,7 @@ short SubPathOpenBox(		// Returns 0 on success, negative on error, 1 if
 	short	sResult;
 
 	char	szBasePath[RSP_MAX_PATH];
-	long	lBasePathLen	= strlen(pszFullPath);
+	size_t	lBasePathLen	= strlen(pszFullPath);
 	if (lBasePathLen < sizeof(szBasePath) )
 		{
 		strcpy(szBasePath, pszFullPath);
@@ -2337,7 +2337,7 @@ short SubPathOpenBox(		// Returns 0 on success, negative on error, 1 if
 ////////////////////////////////////////////////////////////////////////////////
 static short GetDemoFile(
 	char* pszDemoFile,
-	short sMaxFileLen)
+	size_t sMaxFileLen)
 	{
 	short sResult = 0;
 	
@@ -2562,10 +2562,9 @@ static short OpenSaks(void)
 						{ 22050, 16 },
 					};
 
-			short	sModeIndex;
 			bool	bSakFound	= false;
 
-			for (sModeIndex = 0; sModeIndex < NUM_ELEMENTS(amodes) && bSakFound == false; sModeIndex++)
+			for (size_t sModeIndex = 0; sModeIndex < NUM_ELEMENTS(amodes) && bSakFound == false; sModeIndex++)
 				{
 				// Get the appropriate sample SAK name.
 				GetSoundPaths(amodes[sModeIndex].lSamplesPerSec, amodes[sModeIndex].lBitsPerSample, szSamplesSakSubPath, szSamplesNoSakFullPath);
@@ -4478,7 +4477,7 @@ extern char* FullPathCustom(							// Returns full path in system format
 ////////////////////////////////////////////////////////////////////////////////
 short CorrectifyBasePath(								// Returns 0 if successfull, non-zero otherwise
 	char* pszBasePath,									// I/O: Base path to be corrected
-	short sMaxPathLen)									// In:  Maximum length of base path
+	size_t sMaxPathLen)									// In:  Maximum length of base path
 	{
 	short sResult = 0;
 

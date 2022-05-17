@@ -199,15 +199,14 @@ bool CNetMsgr::GetMsg(									// True if message was available, false otherwise
 					if (lMsgSize == -1)
 						{
 						// Check if at least enough is available (beyond the ucMsg byte we got)
-						if (lGetable >= sizeof(ucMsg) + sizeof(lMsgSize) )
+						if (lGetable >= (long) (sizeof(ucMsg) + sizeof(lMsgSize)) )
 							{
 							// Get the message size.  We assume this will always succeed because
 							// we were just told that enough was available.
 							m_bufIn.Get(&lMsgSize);
 
 							// Undo the get of lMsgSize.
-							short	sInc;
-							for (sInc = 0; sInc < sizeof(lMsgSize); sInc++)
+							for (size_t sInc = 0; sInc < sizeof(lMsgSize); sInc++)
 								{
 								m_bufIn.UnGet();
 								}

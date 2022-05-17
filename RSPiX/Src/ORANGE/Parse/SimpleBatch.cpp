@@ -23,7 +23,7 @@ char	RBatch::ms_Error[256];
 short RBatch::GetLine()
 	{
 	m_sNumTokens = 0;
-	short i;
+	size_t i;
 	for (i=0; i < SB_MAX_TOKENS; i++)
 		{
 		m_pszTokenList[i][0] = '\0';

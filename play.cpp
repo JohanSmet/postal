@@ -5474,7 +5474,7 @@ extern short Play_GetRealmInfo(						// Returns 0 if successfull, 1 if no such r
 			// Realm not found
 			sResult = 1;
 			}
-		else if ((strlen(szText) + 1) <= sMaxFileLen)
+		else if ((strlen(szText) + 1) <= (size_t) sMaxFileLen)
 			{
 			// Return the file name
 			strcpy(pszFile, szText);
@@ -5638,12 +5638,12 @@ void Play_GetApplicationDescriptor(			// Returns nothing.
 	#endif
 
 #ifdef _DEBUG
-	if (strlen(pszText) + strlen(DEBUG_STR) < sMaxBytes)
+	if (strlen(pszText) + strlen(DEBUG_STR) < (size_t) sMaxBytes)
 		{
 		strcat(pszText, DEBUG_STR);
 		}
 #else
-	if (strlen(pszText) + strlen(RELEASE_STR) < sMaxBytes)
+	if (strlen(pszText) + strlen(RELEASE_STR) < (size_t) sMaxBytes)
 		{
 		strcat(pszText, RELEASE_STR);
 		}

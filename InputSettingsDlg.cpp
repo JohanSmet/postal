@@ -452,8 +452,7 @@ static bool IsMappable(	// Returns true, if mappable, false otherwise.
 	{
 	bool	bMappable	= true;
 
-	short	sIndex;
-	for (sIndex = 0; sIndex < NUM_ELEMENTS(ms_au8UnmappableKeys); sIndex++)
+	for (size_t sIndex = 0; sIndex < NUM_ELEMENTS(ms_au8UnmappableKeys); sIndex++)
 		{
 		// If this is the specified key . . .
 		if (ms_au8UnmappableKeys[sIndex] == u8Key)

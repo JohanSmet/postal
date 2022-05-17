@@ -137,10 +137,9 @@ short CMenuSettings::LoadPrefs(
 	short sResult = 0;
 
 	// Check for entries for all our menus.
-	short	sMenu;
 	short	sMenuItem;
 	char	szSection[256];
-	for (sMenu = 0; sMenu < NUM_ELEMENTS(ms_apmenus); sMenu++)
+	for (size_t sMenu = 0; sMenu < NUM_ELEMENTS(ms_apmenus); sMenu++)
 		{
 		// Create section name.
 		sprintf(szSection, "Menu %s", ms_apmenus[sMenu]->menuheader.pszHeaderText);

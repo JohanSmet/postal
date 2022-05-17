@@ -441,7 +441,7 @@ extern char* FullPathCustom(							// Returns full path in system format
 ////////////////////////////////////////////////////////////////////////////////
 short CorrectifyBasePath(								// Returns 0 if successfull, non-zero otherwise
 	char* pszBasePath,									// I/O: Base path to be corrected
-	short sMaxPathLen);									// In:  Maximum length of base path
+	size_t sMaxPathLen);								// In:  Maximum length of base path
 
 ////////////////////////////////////////////////////////////////////////////////
 //

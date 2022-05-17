@@ -578,8 +578,7 @@ extern void ClearLocalInput(void)
 	memset(rspGetKeyStatusArray(), 0, 128);
 
 	// Clear cheats.
-	short	i;
-	for (i = 0; i < NUM_ELEMENTS(ms_acheats); i++)
+	for (size_t i = 0; i < NUM_ELEMENTS(ms_acheats); i++)
 		{
 		ms_acheats[i].sCurrentIndex	= 0;
 		}
@@ -608,7 +607,7 @@ static void FindCheatCombos(	// Returns nothing.
 				lKey	= toupper(lKey);
 
 			Cheat*	pcheat	= ms_acheats;
-			for (i = 0; i < NUM_ELEMENTS(ms_acheats); i++, pcheat++)
+			for (size_t i = 0; i < NUM_ELEMENTS(ms_acheats); i++, pcheat++)
 				{
 				// Been a while since last input?  We should/need to use rspGetMiliseconds() for
 				// consistency.  This should offer no danger to synchronization as this is part

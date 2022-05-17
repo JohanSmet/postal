@@ -2342,7 +2342,7 @@ long RFile::Write16(	// Returns number of 16 bit items written.
 			pu8Dst	= ms_au8SwapBuf;
 			for (
 				lDst = 0L; 
-				lSrc < lNum && lDst < sizeof(ms_au8SwapBuf); 
+				lSrc < lNum && lDst < (long) sizeof(ms_au8SwapBuf); 
 				lDst += sizeof(U16), lSrc++, pu8Src += sizeof(U16), pu8Dst += sizeof(U16) )
 				{
 				*(pu8Dst	+ 1)	= *(pu8Src + 0);
@@ -2396,7 +2396,7 @@ long RFile::Write24(	// Returns number of 24 bit items written.
 			pu8Dst	= ms_au8SwapBuf;
 			for (
 				lDst = 0L; 
-				lSrc < lNum && lDst < sizeof(ms_au8SwapBuf); 
+				lSrc < lNum && lDst < (long) sizeof(ms_au8SwapBuf); 
 				lDst += sizeof(RPixel24), lSrc++, pu8Src += sizeof(RPixel24), pu8Dst += sizeof(RPixel24) )
 				{
 				*(pu8Dst	+ 2)	= *(pu8Src + 0);
@@ -2451,7 +2451,7 @@ long RFile::Write32(	// Returns number of 32 bit items written.
 			pu8Dst	= ms_au8SwapBuf;
 			for (
 				lDst = 0L; 
-				lSrc < lNum && lDst < sizeof(ms_au8SwapBuf); 
+				lSrc < lNum && lDst < (long) sizeof(ms_au8SwapBuf); 
 				lDst += sizeof(U32), lSrc++, pu8Src += sizeof(U32), pu8Dst += sizeof(U32) )
 				{
 				*(pu8Dst	+ 3)	= *(pu8Src + 0);
@@ -2506,7 +2506,7 @@ long RFile::Write64(	// Returns number of 64 bit items written.
 			pu8Dst	= ms_au8SwapBuf;
 			for (
 				lDst = 0L; 
-				lSrc < lNum && lDst < sizeof(ms_au8SwapBuf); 
+				lSrc < lNum && lDst < (long) sizeof(ms_au8SwapBuf); 
 				lDst += sizeof(U64), lSrc++, pu8Src += sizeof(U64), pu8Dst += sizeof(U64) )
 				{
 				*(pu8Dst	+ 0)	= *(pu8Src + 7);

@@ -2331,8 +2331,7 @@ void CRealm::CreateLayerMap(void)
 	// If table needs to be built . . .
 	if (ms_asAttribToLayer[0] != LayerSprite16)
 		{
-		long	l;
-		for (l = 0; l < NUM_ELEMENTS(ms_asAttribToLayer); l++)
+		for (size_t l = 0; l < NUM_ELEMENTS(ms_asAttribToLayer); l++)
 			{
 			if (l & 0x0001)
 				ms_asAttribToLayer[l]	= LayerSprite1;

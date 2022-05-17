@@ -1175,7 +1175,7 @@ void CNetClient::ReceiveFromPeers(void)
 		if (serr == 0)
 			{
 			// Make sure size is within proper range
-			if ((lReceived >= PEER_MSG_HEADER_SIZE) && (lReceived <= PEER_MSG_MAX_SIZE))
+			if ((lReceived >= PEER_MSG_HEADER_SIZE) && (lReceived <= (long) PEER_MSG_MAX_SIZE))
 				{
 
 				// Get the id from the message

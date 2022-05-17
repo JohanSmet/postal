@@ -301,8 +301,7 @@ extern short MouseButtonDescriptionToMask(	// Returns 0 on success.  Returns
 	{
 	short	sRes	= 1;	// Assume failure.
 
-	short	sButtonIndex;
-	for (sButtonIndex = 0; sButtonIndex < NUM_ELEMENTS(g_apszMouseButtonDescriptions); sButtonIndex++)
+	for (size_t sButtonIndex = 0; sButtonIndex < NUM_ELEMENTS(g_apszMouseButtonDescriptions); sButtonIndex++)
 		{
 		if (rspStricmp(pszButtonDescriptor, g_apszMouseButtonDescriptions[sButtonIndex]) == 0)
 			{
@@ -328,7 +327,7 @@ extern short JoyButtonDescriptionToMask(	// Returns 0 on success.  Returns
 	short	sRes	= 1;	// Assume failure.
 
 	short	sButtonIndex;
-	for (sButtonIndex = 0; sButtonIndex < NUM_ELEMENTS(g_apszJoyButtonDescriptions); sButtonIndex++)
+	for (size_t sButtonIndex = 0; sButtonIndex < NUM_ELEMENTS(g_apszJoyButtonDescriptions); sButtonIndex++)
 		{
 		if (rspStricmp(pszButtonDescriptor, g_apszJoyButtonDescriptions[sButtonIndex]) == 0)
 			{

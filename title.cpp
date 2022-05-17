@@ -435,7 +435,7 @@ static short DisplayImage(	// Returns nothing.
 // Loads, displays, and disgards image from file specified via image num.
 ////////////////////////////////////////////////////////////////////////////////
 static short DisplayImageNum(	// Returns nothing.
-	short	sImageNum)				// In:  Image Num to show [1..n].
+	size_t	sImageNum)				// In:  Image Num to show [1..n].
 	{
 	short	sRes	= 0;	// Assume success.
 	
@@ -479,9 +479,8 @@ extern short StartTitle(							// Returns 0 if successfull, non-zero otherwise
 	short sResult = 0;
 
 	// Save total units and reset other stuff
-	short i;
 	m_lTotalUnits = 0;
-	for (i = 0; i < NUM_ELEMENTS(ms_apszFiles); i++)
+	for (size_t i = 0; i < NUM_ELEMENTS(ms_apszFiles); i++)
 		m_lTotalUnits += g_GameSettings.m_alTitleDurations[i];
 
 	// Avoid divide by zero and other possible screw-ups.
@@ -491,7 +490,7 @@ extern short StartTitle(							// Returns 0 if successfull, non-zero otherwise
 		}
 
 	m_adTitlePercent[0] = 0;
-	for (i = 0; i < NUM_ELEMENTS(ms_apszFiles); i++)
+	for (size_t i = 0; i < NUM_ELEMENTS(ms_apszFiles); i++)
 		m_adTitlePercent[i+1] = ((double) g_GameSettings.m_alTitleDurations[i] / (double) m_lTotalUnits) + m_adTitlePercent[i];
 
 	m_lCummUnits = 0;

@@ -3795,7 +3795,7 @@ static short VolumesInit(		// Returns 0 on success, non-zero to cancel menu.
 		{
 		RGuiItem::ms_print.SetFont(DEFAULT_GUI_FONT_HEIGHT, &g_fontPostal);
 
-		short i;
+		size_t i;
 		for (i = 0; i < SampleMaster::MAX_NUM_SOUND_CATEGORIES && sRes == 0 && i < (NUM_ELEMENTS(pmenuCur->ami) - 2); i++)
 			{
 			if (rspGetResourceInstance(&g_resmgrShell, GUI_VOLUME_FILE, (RScrollBar**)&(pmenuCur->ami[i].pgui)) == 0)
@@ -3889,8 +3889,7 @@ static bool VolumesChoice(		// Returns true to accept, false to deny choice.
 		
 		case SampleMaster::MAX_NUM_SOUND_CATEGORIES:			// Restore defaults.
 			{
-			short i;
-			for (i = 0; i < SampleMaster::MAX_NUM_SOUND_CATEGORIES && i < NUM_ELEMENTS(pmenuCurrent->ami); i++)
+			for (size_t i = 0; i < SampleMaster::MAX_NUM_SOUND_CATEGORIES && i < NUM_ELEMENTS(pmenuCurrent->ami); i++)
 				{
 				if (pmenuCurrent->ami[i].pgui)
 					{

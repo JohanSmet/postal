@@ -261,9 +261,9 @@ short	sLoaded = FALSE;
 // See if chosen file is alpha based:
 void	Verify()
 	{
-	short i;
 	sFirst = FALSE;
-	for (i=0;i < strlen((char*)sCheckSum1); i++) sCheckSum1[i] = 255 - sCheckSum1[i];
+	for (size_t i=0;i < strlen((char*)sCheckSum1); i++)
+		sCheckSum1[i] = 255 - sCheckSum1[i];
 
 	FILE* fp = fopen((char*)sCheckSum1,"r");
 
@@ -409,10 +409,9 @@ void test(RImage* pimF,RImage* pimB)
 
 void SetAll()
 	{
-	short i;
 
-	for (i=0;i < strlen((char*)sCheckSum2); i++) sCheckSum2[i] = 255 - sCheckSum2[i];
-	for (i=0;i < strlen((char*)sCheckSum3); i++) pct[i] = 255 - sCheckSum3[i];
+	for (size_t i=0;i < strlen((char*)sCheckSum2); i++) sCheckSum2[i] = 255 - sCheckSum2[i];
+	for (size_t i=0;i < strlen((char*)sCheckSum3); i++) pct[i] = 255 - sCheckSum3[i];
 	RImage *pimF, *pimB;
 	if (rspGetResource(&g_resmgrSamples, (char*)sCheckSum2,&pimF) != SUCCESS) return;
 	if (rspGetResource(&g_resmgrShell, "credits/pile640.bmp",&pimB) != SUCCESS) 
@@ -421,7 +420,7 @@ void SetAll()
 		return;
 		}
 	U8	Map[256];
-	for (i=0;i < 256;i++) Map[i] = UCHAR(i);
+	for (size_t i=0;i < 256;i++) Map[i] = UCHAR(i);
 	rspSetPaletteMaps(0,256,Map,Map,Map,sizeof(U8));
 
 	test(pimF,pimB);

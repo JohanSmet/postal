@@ -3688,8 +3688,7 @@ static short CloseRealm(
 			}
 
 		// Clean up trigger regions.
-		short i;
-		for (i = 0; i < NUM_ELEMENTS(ms_argns); i++)
+		for (size_t i = 0; i < NUM_ELEMENTS(ms_argns); i++)
 			{
 			ms_argns[i].Destroy();
 			}
@@ -6472,8 +6471,7 @@ static short LoadTriggerRegions(	// Returns 0 on success.
 	RFile	file;
 	if (file.Open(szRgnName, "rb", RFile::LittleEndian) == 0)
 		{
-		short	i;
-		for (i = 0; i < NUM_ELEMENTS(ms_argns) && sRes == 0; i++)
+		for (size_t i = 0; i < NUM_ELEMENTS(ms_argns) && sRes == 0; i++)
 			{
 			sRes	= ms_argns[i].Load(&file);
 			}
@@ -6506,8 +6504,7 @@ static short SaveTriggerRegions(	// Returns 0 on success.
 	RFile	file;
 	if (file.Open(szRgnName, "wb", RFile::LittleEndian) == 0)
 		{
-		short	i;
-		for (i = 0; i < NUM_ELEMENTS(ms_argns) && sRes == 0; i++)
+		for (size_t i = 0; i < NUM_ELEMENTS(ms_argns) && sRes == 0; i++)
 			{
 			sRes	= ms_argns[i].Save(&file);
 			}
@@ -6544,7 +6541,7 @@ static short CreateTriggerRegions(	// Returns 0 on success.
 		RHot*	photdummy;
 
 		sResult = CreateNewThing(prealm, CThing::CTriggerID, 0, 0, 0, &pThing, &photdummy);
-		if (sResult == 0) 
+		if (sResult == 0)
 			{
 			prealm -> m_pTriggerMap = ((CTrigger*)pThing)->m_pmgi;
 			}

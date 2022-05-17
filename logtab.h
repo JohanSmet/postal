@@ -412,7 +412,7 @@ short CLogTabVar<usertype>::ValToText(				// Returns 0 if successfull, non-zero 
 		// If value is in range, lookup its string equivalent
 		if ((sVal >= 0) && (sVal < m_sNumStrings))
 			{
-			if (strlen(m_papszStrings[sVal]) < sMaxText)
+			if (strlen(m_papszStrings[sVal]) < (size_t) sMaxText)
 				strcpy(pszText, m_papszStrings[sVal]);
 			else
 				{
