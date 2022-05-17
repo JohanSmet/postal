@@ -3408,6 +3408,7 @@ void GameEndingSequence(void)
 // Returns a ptr to just the portion of the file path that specifies the file
 // name (excluding the path).
 ////////////////////////////////////////////////////////////////////////////////
+/*
 static char* GetFileNameFromPath(	// Returns file name.
 	char*	pszFullPath)					// In:  File's full path.
 	{
@@ -3421,7 +3422,7 @@ static char* GetFileNameFromPath(	// Returns file name.
 
 	return (pszIndex + 1);
 	}
-
+*/
 ////////////////////////////////////////////////////////////////////////////////
 // Opens the synchronization log with the specified access flags if in a 
 // TRACENASSERT mode and synchronization logging is enabled.

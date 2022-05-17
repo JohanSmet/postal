@@ -2009,6 +2009,7 @@ static short OnJoinedMsg(	// Returns 0 on success.
 // Player has changed info
 //
 //////////////////////////////////////////////////////////////////////////////
+#if 0
 static short OnChangedMsg(	// Returns 0 on success.
 	CNetClient*	pnet,			// In:  Network interface.
 	NetMsg*		pmsg)			// In:  Changed msg
@@ -2021,7 +2022,7 @@ static short OnChangedMsg(	// Returns 0 on success.
 
 	return sRes;
 	}
-
+#endif
 
 //////////////////////////////////////////////////////////////////////////////
 //

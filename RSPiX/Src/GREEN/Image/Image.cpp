@@ -371,9 +371,9 @@
 
 
 // Local function prototypes
-static short sCreateMem(void **hMem,ULONG ulSize);
-static short sCreateAlignedMem(void **hMem, void **hData, ULONG ulSize);
-static short sDestroyMem(void **hMem);
+//static short sCreateMem(void **hMem,ULONG ulSize);
+//static short sCreateAlignedMem(void **hMem, void **hData, ULONG ulSize);
+//static short sDestroyMem(void **hMem);
 
 
 //////////////////////////////////////////////////////////////////////

@@ -367,6 +367,7 @@ static short SetupVideo(					// Returns 0 on success.
 // Allocates a chunk and resizes so that we may be able to have some large
 // blocks of contiguous memory.
 ////////////////////////////////////////////////////////////////////////////////
+/*
 static char* CreateChunk(	// Returns the memory ptr that will hold the chunk
 									// in place.  Needs to be freed with free() when done
 									// with the chunk.
@@ -384,7 +385,7 @@ static char* CreateChunk(	// Returns the memory ptr that will hold the chunk
 		return pcOrig;
 		}
 	}
-
+*/
 
 static void assert_types_are_sane(void)
 {

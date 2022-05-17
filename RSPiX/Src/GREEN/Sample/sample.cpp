@@ -199,6 +199,7 @@ void RSample::Reset(void)
 // Returns size of chunk on success.
 //
 ///////////////////////////////////////////////////////////////////////////////
+#if 0
 static long IffReadUntil(char* pcForm, FILE* fsIn)
 	{
 	long lRes = 0;
@@ -241,6 +242,7 @@ static long IffReadUntil(char* pcForm, FILE* fsIn)
 
 	return lRes;
 	}
+#endif
 
 ///////////////////////////////////////////////////////////////////////////////
 //

@@ -504,9 +504,9 @@ static bool VerifyExitMenuChoice(	// Returns true to accept, false to deny choic
 	Menu*	pmenuCurrent,			// Current menu.
 	short	sMenuItem);				// Item chosen.
 
-static bool ClientGameMenuChoice(	// Returns true to accept, false to deny choice.
-	Menu*	pmenuCurrent,			// Current menu.
-	short	sMenuItem);				// Item chosen.
+//static bool ClientGameMenuChoice(	// Returns true to accept, false to deny choice.
+	//Menu*	pmenuCurrent,			// Current menu.
+	//short	sMenuItem);				// Item chosen.
 
 static bool EditorMenuChoice(	// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,			// Current menu.
@@ -3107,6 +3107,7 @@ static bool VerifyExitMenuChoice(	// Returns true to accept, false to deny choic
 	return bAcceptChoice;
 	}
 
+#if 0
 static bool ClientGameMenuChoice(	// Returns true to accept, false to deny choice.
 	Menu*	/*pmenuCurrent*/,		// Current menu.
 	short	sMenuItem)				// Item chosen.
@@ -3132,6 +3133,7 @@ static bool ClientGameMenuChoice(	// Returns true to accept, false to deny choic
 
 	return bAcceptChoice;
 	}
+#endif
 
 ////////////////////////////////////////////////////////////////////////////////
 //

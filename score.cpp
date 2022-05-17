@@ -328,14 +328,14 @@ static short GuiGetRes(		// Returns 0 on success; non-zero on failure.
 // EditInputUserFeedback -- Whines when the user causes an input 
 // disgruntlement.
 //////////////////////////////////////////////////////////////////////////////
-
+/*
 static void EditInputUserFeedback(	// Called when a user input notification
 												// should occur.
 	REdit*	pedit)						// In:  Edit field.
 	{
 	PlaySample(g_smidEmptyWeapon, SampleMaster::UserFeedBack);
 	}
-
+*/
 ////////////////////////////////////////////////////////////////////////////////
 //
 // Callback from RProcessGui for system update.

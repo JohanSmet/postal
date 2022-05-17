@@ -1391,7 +1391,7 @@ static void DrawBouyLink(		// Returns nothing.
 static void AddNewLine(short sX0, short sY0, short sX1, short sY1);
 
 // Writes out a log of connected bouys.  This is for debugging only
-static void NetLog(CNavigationNet* pNavNet);
+//static void NetLog(CNavigationNet* pNavNet);
 
 // UpdateNetLines - build the full list of link lines from the
 // navigation net.  This function can be used after the bouys have
@@ -1598,10 +1598,10 @@ static void InitFileCounter(			// Returns nothing.
 static void KillFileCounter(void);	// Returns nothing.
 
 // Callback from realm during time intensive operations.
-static bool RealmOpProgress(			// Returns true to continue; false to
+//static bool RealmOpProgress(			// Returns true to continue; false to
 												// abort operation.
-	short	sLastItemProcessed,			// In:  Number of items processed so far.
-	short	sTotalItemsToProcess);		// In:  Total items to process.
+	//short	sLastItemProcessed,			// In:  Number of items processed so far.
+	//short	sTotalItemsToProcess);		// In:  Total items to process.
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -5790,9 +5790,9 @@ static void AddNewLine(short sX0, short sY0, short sX1, short sY1)
 // Write a NavNet log file to display the connections.- for debugging purposes
 ////////////////////////////////////////////////////////////////////////////////
 
+/*
 static void NetLog(CNavigationNet* pNavNet)
 {
-/*
 	ofstream txtout;
 	ofstream routeout;
 	CNavigationNet::nodeMap::iterator ibouy;
@@ -5848,8 +5848,8 @@ static void NetLog(CNavigationNet* pNavNet)
 	{
 		TRACE("NetLog: Error opening log file for output\n");
 	}
-*/
 }
+*/
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -7714,6 +7714,7 @@ static short ShowRealmStatistics(	// Returns 0 on success.
 ////////////////////////////////////////////////////////////////////////////////
 // Callback from realm during time intensive operations.
 ////////////////////////////////////////////////////////////////////////////////
+#if 0
 static bool RealmOpProgress(			// Returns true to continue; false to
 												// abort operation.
 	short	sLastItemProcessed,			// In:  Number of items processed so far.
@@ -7823,6 +7824,8 @@ static bool RealmOpProgress(			// Returns true to continue; false to
 
 	return bContinue;
 	}
+
+#endif
 
 
 #endif // !defined(EDITOR_DISABLED)
