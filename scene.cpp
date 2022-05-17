@@ -1008,8 +1008,7 @@ if (g_bSceneDontBlit == false)
 				{
 				if (psprParent->m_pthing)
 					{
-					sprintf(szMsg, "%s, child of %s with ID %d,",
-						szMsg,
+					sprintf(szMsg + strlen(szMsg), ", child of %s with ID %d,",
 						CThing::ms_aClassInfo[psprParent->m_pthing->GetClassID()].pszClassName,
 						psprParent->m_pthing->GetInstanceID());
 					}

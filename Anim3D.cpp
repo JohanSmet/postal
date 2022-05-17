@@ -301,7 +301,7 @@ short CAnim3D::Get(					// Returns 0 on success.
 	sprintf(szVerbedBaseName, "%s_%s", pszBaseFileName, pszVerb);
 
 	short	sRes;
-	char	szResName[RSP_MAX_PATH];
+	char	szResName[RSP_MAX_PATH*2];
 	sprintf(szResName, "%s.sop", szVerbedBaseName);
 	sRes	=  rspGetResource(&g_resmgrGame, szResName, &m_psops);
 	if (sRes == 0)

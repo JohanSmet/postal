@@ -379,7 +379,7 @@ short RPrefs::Write()
 					pTmp = (pTmp != NULL) ? pTmp + 1 : acTmpFileName;
 					for (long lCount = 0; !bGotTmp && (lCount < 9999999L); lCount++)
 						{
-						sprintf(pTmp, "t%0.7ld.tmp", (long)lCount);
+						sprintf(pTmp, "t%07ld.tmp", (long)lCount);
 						FILE* fpTmp = fopen(FindCorrectFile(acTmpFileName, "r"), "r");
 						if (fpTmp != NULL)
 							fclose(fpTmp);
@@ -1109,7 +1109,7 @@ short RPrefs::GetVal(							// Returns 0 if successfull, non-zero otherwise
 	ASSERT(pszVariable);
 	ASSERT(s32Value);
 
-	sprintf(pszDefault, "%ld", (int)s32Default);
+	sprintf(pszDefault, "%d", (int)s32Default);
 	m_sErrorStatus = GetVal(pszSection, pszVariable, pszDefault, pszValue);
 	if (m_sErrorStatus == 0)
 		{
@@ -1140,7 +1140,7 @@ short RPrefs::GetVal(							// Returns 0 if successfull, non-zero otherwise
 	ASSERT(pszVariable);
 	ASSERT(u32Value);
 
-	sprintf(pszDefault, "%lu", (unsigned)u32Default);
+	sprintf(pszDefault, "%u", (unsigned)u32Default);
 	m_sErrorStatus = GetVal(pszSection, pszVariable, pszDefault, pszValue);
 	if (m_sErrorStatus == 0)
 		{

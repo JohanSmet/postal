@@ -356,7 +356,7 @@ extern const char *FindCorrectFile(const char *_pszName, const char *pszMode)
 
     static bool initialized = false;
     static bool nohomedir = false;
-    static char prefpath[PATH_MAX];
+    static char prefpath[PATH_MAX*2];
     if (!initialized)
     {
         TRACE("FindCorrectFile initializing...\n");
@@ -452,7 +452,7 @@ extern const char *FindCorrectFile(const char *_pszName, const char *pszMode)
         initialized = true;
     }
 
-    static char finalname[PATH_MAX];
+    static char finalname[PATH_MAX*3];
     static bool bail_early = true;
 
     if (nohomedir)

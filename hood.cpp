@@ -1031,8 +1031,8 @@ short CHood::GetResources(void)						// Returns 0 if successfull, non-zero other
 		// Free any resources that might have been loaded by a previous (unsuccessfull) attempt
 		FreeResources();
 
-		char	szFileName[RSP_MAX_PATH];			// Temp storage to create filenames.
-		char	szBasePath[RSP_MAX_PATH];			// Temp storage of file path.
+		char	szFileName[RSP_MAX_PATH*4];			// Temp storage to create filenames.
+		char	szBasePath[RSP_MAX_PATH*3];			// Temp storage of file path.
 		
 		// Create the real base file path.
 		sprintf(szBasePath, "hoods/%s/%s", m_acBaseName, m_acBaseName);
@@ -1079,7 +1079,7 @@ short CHood::GetResources(void)						// Returns 0 if successfull, non-zero other
 		for (lIndex	= 0; lIndex < MaxLayers; lIndex++)
 			{
 			// Make alpha layer name.
-			sprintf(szFileName, "%s%02da.say", szBasePath, lIndex);
+			sprintf(szFileName, "%s%02lda.say", szBasePath, lIndex);
 			// Load & convert . . .
 			if (SpryLoadConv(&(m_pRealm->m_resmgr), m_apspryAlphas + lIndex, szFileName, RImage::FSPR8) == 0)
 				{
@@ -1087,7 +1087,7 @@ short CHood::GetResources(void)						// Returns 0 if successfull, non-zero other
 				}
 
 			// Make opaque layer name.
-			sprintf(szFileName, "%s%02do.say", szBasePath, lIndex);
+			sprintf(szFileName, "%s%02ldo.say", szBasePath, lIndex);
 			// Load & convert . . .
 			if (SpryLoadConv(&(m_pRealm->m_resmgr), m_apspryOpaques + lIndex, szFileName, RImage::FSPR8) == 0)
 				{

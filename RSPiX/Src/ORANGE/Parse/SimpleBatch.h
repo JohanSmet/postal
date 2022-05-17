@@ -170,7 +170,7 @@ public:
 		clear();
 		}
 //--------------- STATIC SPACE -------------
-	static	char	ms_Error[256];
+	static	char	ms_Error[1024];
 //--------------- MEMBER FUNCTIONS -------------
 	// returns the number of tokens found, or -1 for EOF
 	short GetLine();

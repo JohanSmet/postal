@@ -17,7 +17,7 @@
 //
 #include "SimpleBatch.h"
 
-char	RBatch::ms_Error[256];
+char	RBatch::ms_Error[1024];
 
 // returns the number of tokens found, or -1 for EOF
 short RBatch::GetLine()
@@ -196,7 +196,7 @@ const char* RBatch::CreateError(short sToken)
 		return ms_Error;
 		}
 
-	char	temp[256] = "\0";
+	char	temp[386] = "\0";
 
 	if ((sToken != -1) && (sToken < m_sNumTokens))
 		{

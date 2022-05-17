@@ -2530,7 +2530,7 @@ static short OpenSaks(void)
 		if (sInSoundMode)
 			{
 			char	szSoundQuality[256];
-			sprintf(szSoundQuality, "%.3f kHz, %hd Bit",
+			sprintf(szSoundQuality, "%.3f kHz, %hd Bit (%s)",
 				(float)lSamplesPerSec/(float)1000,
 				(short)lSrcBitsPerSample,
 				(MAIN_AUDIO_CHANNELS == 1) ? "Mono" : "Stereo");

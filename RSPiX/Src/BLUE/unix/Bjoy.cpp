@@ -506,7 +506,7 @@ extern U32 JoyIndexToBitfield(short index)
 	}
 
 	if (index != 0 || result != 0)
-		printf("JoyIndexToBitfield(%i) = %i\n", index, result);
+		printf("JoyIndexToBitfield(%i) = %li\n", index, result);
 
 	return result;
 }
