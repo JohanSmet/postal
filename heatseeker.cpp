@@ -293,7 +293,7 @@ short CHeatseeker::Save(										// Returns 0 if successfull, non-zero otherwis
 ////////////////////////////////////////////////////////////////////////////////
 void CHeatseeker::Update(void)
 {
-	USHORT usAttrib;
+	// USHORT usAttrib;
 	short sHeight;
 	double dNewX;
 	double dNewZ;
@@ -354,7 +354,7 @@ void CHeatseeker::Update(void)
 
 				// Check for obstacles
 				sHeight = m_pRealm->GetHeight((short) dNewX, (short) dNewZ);
-				usAttrib = m_pRealm->GetFloorAttribute((short) dNewX, (short) dNewZ);
+				// usAttrib = m_pRealm->GetFloorAttribute((short) dNewX, (short) dNewZ);
 
 				short	sRealmH	= m_pRealm->GetRealmHeight();
 				short	sRealmW	= m_pRealm->GetRealmWidth();

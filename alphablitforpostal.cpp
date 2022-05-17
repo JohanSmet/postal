@@ -322,15 +322,15 @@ void test(RImage* pimF,RImage* pimB)
 	// Wait until user input
 	bool bContinue = TRUE;
 
-	long	lTime = rspGetMilliseconds();
+	// long	lTime = rspGetMilliseconds();
 	long lKey = 0;
-	long lPrevTime = lTime;
+	// long lPrevTime = lTime;
 	rspSetMouse(sCenterX,sCenterY);
 
 	while (bContinue)
 		{
-		lPrevTime = lTime;
-		lTime = rspGetMilliseconds();
+		// lPrevTime = lTime;
+		// lTime = rspGetMilliseconds();
 
 		rspGetKey(&lKey);
 		if (lKey == RSP_SK_ESCAPE) bContinue = FALSE;

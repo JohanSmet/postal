@@ -610,7 +610,7 @@ void PlaySample(												// Returns nothing.
 	bool bPurgeSample /* = false */)						// In:  Call ReleaseAndPurge rather than Release after playing
 	{
 	short	sError	= 0;					// Assume no error.
-	RSnd*		psnd	= &ms_sndFailure;	// Default to failure case.
+	// RSnd*		psnd	= &ms_sndFailure;	// Default to failure case.
 	if (psi) *psi = 0;					// Default to failure case.
 
 	if (id.pszId != NULL && CAN_PLAY_SAMPLE(id) )
@@ -652,7 +652,7 @@ void PlaySample(												// Returns nothing.
 					ms_asndChannels[i].m_sTypeVolume, lLoopStartTime, lLoopEndTime) == 0)
 					{
 					// Success.  Give user access to this channel.
-					psnd	= &(ms_asndChannels[i]);
+					// psnd	= &(ms_asndChannels[i]);
 					// Set return ID so user can tweak the volume:
 					ms_aSoundInstances[i] += NUM_CHANNELS;	// It is a new sound now!
 					// Reserve the lower mask bits for the channel number

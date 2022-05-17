@@ -278,11 +278,11 @@ void CFirestream::Resume(void)
 ////////////////////////////////////////////////////////////////////////////////
 void CFirestream::Update(void)
 {
-	long lThisTime;
+	//long lThisTime;
 
 	if (!m_sSuspend)
 	{
-		lThisTime = m_pRealm->m_time.GetGameTime();
+		//lThisTime = m_pRealm->m_time.GetGameTime();
 
 		// See if we killed ourselves
 		if (ProcessFireballMessages() == State_Deleted)

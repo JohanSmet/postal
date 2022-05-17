@@ -245,9 +245,9 @@ short RMultiGridIndirect::AddFSPR1(RImage* pimSrc,short sLogX,short sLogY,
 	sX2 = (sLogX + sClipW + m_sTileW - 2) & ~(m_sTileW-1);
 	sY2 = (sLogY + sClipH + m_sTileH - 2) & ~(m_sTileH-1);
 
-	short sTileX,sTileY,sTileW,sTileH;
-	sTileX = sX / m_sTileW;
-	sTileY = sY / m_sTileH;
+	short /*sTileX,sTileY,*/sTileW,sTileH;
+	//sTileX = sX / m_sTileW;
+	//sTileY = sY / m_sTileH;
 	sTileW = (sX2 - sX + 1) / m_sTileW;
 	sTileH = (sY2 - sY + 1) / m_sTileH;
 

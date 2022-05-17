@@ -636,7 +636,7 @@ short	CFileTextInput::ParseTextInput(FILE* fp)
  
 	short sCurFontSize = 0;
 	short	sCurTabX = 0;
-	CTextPhrase::Justify eCurJust = CTextPhrase::Left;
+	//CTextPhrase::Justify eCurJust = CTextPhrase::Left;
 	short sCurColor = 255;
 
 	CTextChunk*	pChunk = new CTextChunk;
@@ -697,12 +697,12 @@ short	CFileTextInput::ParseTextInput(FILE* fp)
 			{
 			pCurPhrase->m_sLocalX = sCurTabX = atoi(m_bf.NextToken());
 
-			switch	(*pszToken)
+			/*switch	(*pszToken)
 				{
 				case 'l': eCurJust = pCurPhrase->m_eJust = CTextPhrase::Left; break;
 				case 'r': eCurJust = pCurPhrase->m_eJust = CTextPhrase::Right; break;
 				case 'c': eCurJust = pCurPhrase->m_eJust = CTextPhrase::Center; break;
-				}
+				} */
 			continue;
 			}
 		//-----------------------------------------------------

@@ -1576,10 +1576,10 @@ void CBand::AlertBand(void)
 {
 	CThing* pThing;
 	GameMessage msg;
-	GameMessage msgStopSound;
+	// GameMessage msgStopSound;
 
-	msgStopSound.msg_ObjectDelete.eType = typeObjectDelete;
-	msgStopSound.msg_ObjectDelete.sPriority = 0;
+	// msgStopSound.msg_ObjectDelete.eType = typeObjectDelete;
+	// msgStopSound.msg_ObjectDelete.sPriority = 0;
 
 	msg.msg_Panic.eType = typePanic;
 	msg.msg_Panic.sPriority = 0;

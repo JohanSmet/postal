@@ -313,7 +313,7 @@ short CRocket::Save(										// Returns 0 if successfull, non-zero otherwise
 ////////////////////////////////////////////////////////////////////////////////
 void CRocket::Update(void)
 {
-	USHORT usAttrib;
+	// USHORT usAttrib;
 	short sHeight;
 	double dNewX;
 	double dNewZ;
@@ -394,7 +394,7 @@ void CRocket::Update(void)
 
 				// Check for obstacles
 				sHeight = m_pRealm->GetHeight((short) dNewX, (short) dNewZ);
-				usAttrib = m_pRealm->GetFloorAttribute((short) dNewX, (short) dNewZ);
+				// usAttrib = m_pRealm->GetFloorAttribute((short) dNewX, (short) dNewZ);
 
 				// If the new position's height is too high, the new position is a ways
 				// off screen, or the path to the new position is not clear of terrain . . .

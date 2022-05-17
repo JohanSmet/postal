@@ -1854,16 +1854,16 @@ void CDoofus::Logic_Writhing(void)
 void CDoofus::Logic_Guard(void)
 {
 	long lThisTime;
-	long lTimeDifference;
-	double dSeconds;
+//	long lTimeDifference;
+//	double dSeconds;
 
 	// Get new time
 	lThisTime = m_pRealm->m_time.GetGameTime();
-	lTimeDifference = lThisTime - m_lPrevTime;
+//	lTimeDifference = lThisTime - m_lPrevTime;
 	m_eCurrentAction = Action_Guard;
 
 	// Calculate the elapsed time in seconds
-	dSeconds = (double)(lThisTime - m_lPrevTime) / 1000.0;
+//	dSeconds = (double)(lThisTime - m_lPrevTime) / 1000.0;
 
 //	if (m_panimCur != &m_animStand)
 //	{

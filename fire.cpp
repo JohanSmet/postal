@@ -628,7 +628,7 @@ short CFire::Setup(									// Returns 0 if successfull, non-zero otherwise
 short CFire::Init(void)
 {
 	short sResult = SUCCESS;
-	CAlphaAnim* pAnim = NULL;
+	[[maybe_unused]] CAlphaAnim* pAnim = NULL;
 
 	if (m_pAnimChannel != NULL)
 	{
@@ -717,7 +717,7 @@ short CFire::Smokeout(void)
 	sResult = GetResources();
 
 	// Reset timers
-	CAlphaAnim* pAnim = NULL;
+	[[maybe_unused]] CAlphaAnim* pAnim = NULL;
 
 	if (m_pAnimChannel != NULL)
 	{

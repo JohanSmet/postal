@@ -360,7 +360,7 @@ short	rspSimpleMap(
 #ifdef _DEBUG
 #endif
 
-	short sRet = 0;
+	// short sRet = 0;
 	// long	lPalOffset = lInc * sStartMap;
 	long	lLastTime = rspGetMilliseconds();
 
@@ -420,7 +420,7 @@ short	rspSimpleMap(
 				if ((*func)(1.0 - double(j)/dH) == -1) // user abort
 					{
 					j = 0; // premature exit!
-					sRet = 1;
+					// sRet = 1;
 					}
 				}
 			}
@@ -1054,7 +1054,7 @@ short	rspSimpleMap(
 #ifdef _DEBUG
 #endif
 
-	short sRet = 0;
+	// short sRet = 0;
 	// long	lPalOffset = lInc * sStartMap;
 	long	lLastTime = rspGetMilliseconds();
 
@@ -1121,7 +1121,7 @@ short	rspSimpleMap(
 				if ((*func)(1.0 - double(j)/dH) == -1) // user abort
 					{
 					j = 0; // premature exit!
-					sRet = 1;
+					// sRet = 1;
 					}
 				}
 			}
