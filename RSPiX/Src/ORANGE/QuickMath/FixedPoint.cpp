@@ -26,8 +26,8 @@ void InitTrigFP() // fixed point
 	short i;
 	// double rad;
 
-	const double cdStepsToRad = 
-		rspPI * 2.0 / double(csNumRotSteps);
+	//const double cdStepsToRad = 
+		//rspPI * 2.0 / double(csNumRotSteps);
 
 	for (i=0;i<csNumRotSteps;i++)
 		{

@@ -595,7 +595,6 @@ static void FindCheatCombos(	// Returns nothing.
 	RInputEvent* pie)				// In:  Latest input event or NULL.
 	{
 	long		lNow		= rspGetMilliseconds();
-	short	i;
 
 	if (pie)
 		{
