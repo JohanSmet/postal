@@ -955,6 +955,8 @@ CTexEdit::ProcessManip(
 				m_transRot.Ry(rspMod360(sDeltaX * c_fRotRate) );
 				m_transRot.Rx(rspMod360(-sDeltaY * c_fRotRate) );
 				break;
+			default:
+				break;
 			}
 		}
 	else

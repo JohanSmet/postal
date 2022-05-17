@@ -1409,6 +1409,8 @@ void CScene::Render2D(		// Returns nothing.
 							sXRayeeY	= ps3XRayee->m_sCenY - sXRayeeH / 2;
 							break;
 							}
+						default:
+							break;
 						}
 					
 					// Do an exteremely cheesy collision detecting by clipping the two rects!!!!

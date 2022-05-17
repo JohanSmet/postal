@@ -701,7 +701,7 @@ void CSentry::Update(void)
 // Dead - You are dead, so lay there and decompose, then go away
 //-----------------------------------------------------------------------
 
-				case CSentry::State_Dead:
+				case CSentry::State_Dead: {
 					CHood*	phood	= m_pRealm->m_phood;
 					// Render current dead frame into background to stay.
 					m_pRealm->m_scene.DeadRender3D(
@@ -713,7 +713,10 @@ void CSentry::Update(void)
 					delete this;
 					return;
 					break;
+				}
 
+				default:
+					break;
 
 		}
 

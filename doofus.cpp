@@ -1601,6 +1601,9 @@ void CDoofus::Update(void)
 				return;
 				break;
 
+			default:
+				break;
+
 		}	
 
 		// Determine appropriate position for main smash.
@@ -2107,6 +2110,9 @@ void CDoofus::Logic_MoveNext(void)
 
 					case State_Walk:
 						m_eCurrentAction = Action_Walk;
+						break;
+
+					default:
 						break;
 				}
 			}
@@ -3479,6 +3485,9 @@ bool CDoofus::ReevaluateState(void)
 					m_eCurrentAction = Action_Hide;
 					bChanged = true;
 				}
+				break;
+
+			default:
 				break;
 		}
 	}

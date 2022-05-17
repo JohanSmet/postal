@@ -365,6 +365,8 @@ void	RPrint::DrawText()
 					{
 					case RImage::FSPR1:
 							rspBlit(m_ShadowColor,pim,m_pimDst,sX+sShadowX,sY+sShadowY,sW,m_sCellH);
+					default:
+						break;
 					}
 			}
 		}
@@ -719,6 +721,8 @@ short RPrint::SetEffectAbs(Effect eEffect,short sVal) // absolute:
 		{
 		case ITALIC: // reset the italic slant
 		break;
+		default:
+			break;
 
 		}
 
@@ -742,6 +746,8 @@ short RPrint::SetEffect(Effect eEffect,double dVal) // relative:
 		{
 		case ITALIC: // reset the italic slant
 		break;
+		default:
+			break;
 
 		}
 

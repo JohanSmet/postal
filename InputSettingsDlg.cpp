@@ -804,6 +804,9 @@ extern short EditInputSettings(void)	// Returns nothing.
 					}
 #endif	// defined(ALLOW_JOYSTICK)
 				break;
+
+			default:
+				break;
 			}
 
 		// If listening . . .

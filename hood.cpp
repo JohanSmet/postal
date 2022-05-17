@@ -750,6 +750,8 @@ short CHood::EditNew(									// Returns 0 if successfull, non-zero otherwise
 							}
 						break;
 						}
+					default:
+						break;
 					}
 
 				if (pguiKillsPercentGoal != NULL)

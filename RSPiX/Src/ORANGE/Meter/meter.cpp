@@ -490,6 +490,8 @@ short RMeter::Draw(					// Returns 0 on success.
 						sBarWidth, sMeterMin);
 					break;
 					}
+				default:
+					break;
 				}
 
 			// Reset counter, accumulator, max, min.

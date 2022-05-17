@@ -789,6 +789,8 @@ void RScrollBar::Do(	// Returns nothing.
 					
 					break;	// on case RInputEvent::Key.
 					}
+				default:
+					break;
 				}
 			}
 

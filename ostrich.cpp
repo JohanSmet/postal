@@ -623,6 +623,9 @@ void COstrich::Update(void)
 
 				break;
 
+			default:
+				break;
+
 		}
 
 		m_smash.m_sphere.sphere.X			= m_dX;

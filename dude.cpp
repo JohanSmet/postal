@@ -1917,6 +1917,8 @@ void CDude::Update(void)
 						case State_Shooting:
 							SetState(State_RunAndShoot);
 							break;
+						default:
+							break;
 						}
 					}
 				else
@@ -1935,6 +1937,8 @@ void CDude::Update(void)
 							case State_Strafe:
 							case State_StrafeAndShoot:
 								break;
+							default:
+								break;
 							}
 						}
 					else
@@ -1949,6 +1953,8 @@ void CDude::Update(void)
 								break;
 							case State_StrafeAndShoot:
 								SetState(State_Shooting);
+								break;
+							default:
 								break;
 							}
 						}
@@ -1981,6 +1987,8 @@ void CDude::Update(void)
 								break;
 							case State_Burning:
 								break;
+							default:
+								break;
 							}
 						}
 					else	// We are strafing in some way.
@@ -1995,6 +2003,8 @@ void CDude::Update(void)
 								SetState(State_StrafeAndShoot);
 								break;
 							case State_Burning:
+								break;
+							default:
 								break;
 							}
 						}
@@ -2530,6 +2540,8 @@ void CDude::Update(void)
 					}
 				break;
 				}
+			default:
+				break;
 			}
 
 		// Update sphere.
@@ -2660,6 +2672,8 @@ void CDude::ProcessInput(		// Returns nothing.
 			input &= ~(INPUT_LEFT | INPUT_RIGHT | INPUT_REVIVE | INPUT_ROT_MASK | INPUT_FORWARD | INPUT_BACKWARD | INPUT_MOVE_UP | INPUT_MOVE_DOWN | INPUT_MOVE_LEFT | INPUT_MOVE_RIGHT);
 			bCanMove = false;
 			bCanFire = false;
+			break;
+		default:
 			break;
 		}
 
@@ -2992,6 +3006,8 @@ if (!demoCompat)
 
 			break;
 			}
+		default:
+			break;
 		}
 
 	// "Twinstick" style inputs.
@@ -3175,6 +3191,8 @@ if (!demoCompat)
 				break;
 			case State_StrafeAndShoot:
 				SetState(State_Strafe);
+				break;
+			default:
 				break;
 			}
 		}
@@ -3934,6 +3952,8 @@ bool CDude::SetState(	// Returns true if new state realized, false otherwise.
 				case State_Duck:
 					bRealizeNewState	= false;
 					break;
+				default:
+					break;
 				}
 			break;
 		case State_RunAndShoot:
@@ -4041,6 +4061,8 @@ bool CDude::SetState(	// Returns true if new state realized, false otherwise.
 		case State_ObjectReleased:
 			break;
 		case State_PickUp:
+			break;
+		default:
 			break;
 		}
 
@@ -4154,6 +4176,8 @@ bool CDude::SetState(	// Returns true if new state realized, false otherwise.
 				break;
 			case State_Execute:
 				m_idVictim	= CIdBank::IdNil;
+				break;
+			default:
 				break;
 			}
 
@@ -4443,6 +4467,8 @@ bool CDude::SetState(	// Returns true if new state realized, false otherwise.
 					m_bGenericEvent1			= false;
 					}
 				break;
+			default:
+				break;
 			}
 		}
 
@@ -4569,6 +4595,7 @@ void CDude::ArmWeapon(							// Returns nothing.
 			case SprayCannon: weaponFlag = FLAG_USED_SPRAY_CANNON; break;
 			case DeathWad: weaponFlag = FLAG_USED_DEATHWAD; break;
 			case DoubleBarrel: weaponFlag = FLAG_USED_DBL_SHOTGUN; break;
+			default: break;
 			}
 
 		State	stateShoot	= State_Throw;
@@ -4617,6 +4644,8 @@ void CDude::ArmWeapon(							// Returns nothing.
 			case RemoteMine:
 			case BouncingBettyMine:
 				stateShoot	= State_PutDown;
+				break;
+			default:
 				break;
 			}
 

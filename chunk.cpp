@@ -180,6 +180,9 @@ void CChunk::Update(void)
 					NULL);
 #endif
 				break;
+
+			default:
+				break;
 			}
 
 		// We're done.

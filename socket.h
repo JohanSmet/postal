@@ -611,6 +611,8 @@ inline bool operator==(const RSocket::Address& lhs, const RSocket::Address& rhs)
 		case RSocket::TCPIP:
 			return (*((const RProtocolBSDIP::AddressIP*)&lhs) == *((const RProtocolBSDIP::AddressIP*)&rhs));
 			break;
+		default:
+			break;
 		}
 	TRACE("RSocket::Address::operator==(): Unknown protocol!\n");
 	return false;

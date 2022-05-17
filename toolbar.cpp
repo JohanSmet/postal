@@ -664,6 +664,8 @@ public:
 				ms_aWeapons[ShotGun].m_bSelected = true;
 				ms_aAmmo[Shells].m_bSelected = true;
 				break;
+			default:
+				break;
 			}
 
 

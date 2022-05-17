@@ -642,6 +642,9 @@ void CDispenser::Update(void)
 						}
 					break;
 					}
+
+				default:
+					break;
 				}
 			}
 		else
