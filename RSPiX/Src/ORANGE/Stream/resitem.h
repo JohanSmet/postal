@@ -46,16 +46,16 @@ class CResItem
 	public:	// Methods.
 		// Lock this item b4 using.
 		// Returns new reference count.
-		short Lock(void);
+		int16_t Lock(void);
 		// Unlock this item when done.  Deletes object if m_sRefCnt hits 0.
 		// Returns new reference count.
-		short Unlock(void);
+		int16_t Unlock(void);
 
 	public:	// Members.
 		char*		m_pszName;		// Resource name.
 		UCHAR*	m_puc;			// Resource data.
 		long		m_lSize;			// Resource size.
-		short		m_sRefCnt;		// Number of items using this resource.
+		int16_t		m_sRefCnt;		// Number of items using this resource.
 		CRes*		m_pRes;			// Res Manager that owns this resource.
 	};
 

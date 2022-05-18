@@ -61,7 +61,7 @@ class CFileWin
 	public:		// Methods.
 		// Sets size of window, i/o pane, and user pane.
 		// Returns 0 on success.
-		short SetSize(long lWinSize, long lIOPaneSize, long lUserPaneSize);
+		int16_t SetSize(long lWinSize, long lIOPaneSize, long lUserPaneSize);
 		
 		// Sets interval between input access.
 		void SetInputInterval(long lInputInterval)
@@ -69,23 +69,23 @@ class CFileWin
 
 		// Opens a window into pszFile.  Read only!
 		// Returns 0 on success.
-		short Open(char* pszFile);
+		int16_t Open(char* pszFile);
 
 		// Closes the currently open file.
 		// Returns 0 on success.
-		short Close(void);
+		int16_t Close(void);
 
 		// Move to next user pane.
 		// Returns 0 on success.
-		short NextPane(void);
+		int16_t NextPane(void);
 
 		// Start reading.
 		// Returns 0 on success.
-		short Start(void);
+		int16_t Start(void);
 
 		// Suspend reading.
 		// Returns 0 on success.
-		short Suspend(void);
+		int16_t Suspend(void);
 
 		// Clear status flag.
 		void ClearStatus(void)
@@ -103,9 +103,9 @@ class CFileWin
 			}
 
 		// Returns TRUE if next user pane is ready; FALSE otherwise.
-		short IsNextPaneReady(void);
+		int16_t IsNextPaneReady(void);
 		// Returns TRUE if next i/o pane is ready; FALSE otherwise.
-		short IsNextInputPaneReady(void);
+		int16_t IsNextInputPaneReady(void);
 
 		// Current callback status.
 		USHORT GetStatus(void)
@@ -116,7 +116,7 @@ class CFileWin
 			{ return (m_fnTime == NULL ? Blu_GetTime() : (*m_fnTime)(m_lTimeUser) ); }
 
 		// Returns TRUE if critical handler is Blue's critical list.
-		short IsActive(void)
+		int16_t IsActive(void)
 			{ return m_sActive; }
 
 	protected:	// Internal methods.
@@ -127,7 +127,7 @@ class CFileWin
 		
 		// Allocates the file window of size lSize.
 		// Returns 0 on success.
-		short Alloc(long lSize);
+		int16_t Alloc(long lSize);
 		// Frees the file window.
 		void Free(void);
 
@@ -138,7 +138,7 @@ class CFileWin
 
 		// Move to next i/o pane.
 		// Returns 0 on success.
-		short NextIOPane(void);
+		int16_t NextIOPane(void);
 
 	public:		// Members.
 		long		m_lUser;				// Set this to whatever you want!
@@ -155,9 +155,9 @@ class CFileWin
 		USHORT	m_usStatus;			// Current status.
 		FILEWIN_TIMEFUNC	m_fnTime;// Custom time handler.
 		long		m_lTimeUser;		// User value for time handler.
-		short		m_sActive;			// TRUE if critical is active, FALSE 
+		int16_t		m_sActive;			// TRUE if critical is active, FALSE 
 											// otherwise.
-		short		m_sSuspend;			// Number of calls to suspend w/o matching
+		int16_t		m_sSuspend;			// Number of calls to suspend w/o matching
 											// start.
 	};
 

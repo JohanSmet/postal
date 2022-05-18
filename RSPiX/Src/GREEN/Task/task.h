@@ -65,7 +65,7 @@ class RTask
 	public:
 		// Returns TRUE if this task is currently in the list of tasks to be
 		// run; FALSE, otherwise.
-		short IsActive(void) { return m_sActive; }
+		int16_t IsActive(void) { return m_sActive; }
 
 		// Returns the current time based on either the user base or Blue.
 		long GetTime(void)
@@ -77,14 +77,14 @@ class RTask
 		void Init(TaskFunc tf, ULONG ulUser);
 		// Kill task info.
 		// Returns 0 on success.
-		short Kill(void);
+		int16_t Kill(void);
 
 		// Start this task.
 		// Returns 0 on success.
-		short Start(void);
+		int16_t Start(void);
 		// Suspend this task (can be restarted after this is call).
 		// Returns 0 on success.
-		short Suspend(void);
+		int16_t Suspend(void);
 
 		// Use a custom timer.
 		void SetTimeFunc(TimeFunc fnTime, long lTimeUser)
@@ -116,7 +116,7 @@ class RTask
 		// The following member variables are NOT safe to tamper with from 
 		// outside this function, and that is why they're protected.
 
-		short				m_sActive;	// TRUE if active (in list), FALSE otherwise.
+		int16_t				m_sActive;	// TRUE if active (in list), FALSE otherwise.
 		TimeFunc			m_fnTime;	// Custom time function.
 		long				m_lTimeUser;// Custom time function user value.
 

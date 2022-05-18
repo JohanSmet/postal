@@ -22,7 +22,7 @@
 //		03/31/97	JMI	Started.
 //
 //		07/06/97	JMI	Changed pu8ScanKey parm in KeyDescriptionToValue
-//							call from a U8 to a short.
+//							call from a U8 to a int16_t.
 //							Also, changed g_apszButtonDescriptions to 
 //							g_apszMouseButtonDescriptions.
 //
@@ -267,12 +267,12 @@ extern const char* g_apszJoyButtonDescriptions[16]	=
 ////////////////////////////////////////////////////////////////////////////////
 // Given a string, returns the appropriate key code.
 ////////////////////////////////////////////////////////////////////////////////
-extern short KeyDescriptionToValue(	// Returns 0 on success.  Returns non-zero, if
+extern int16_t KeyDescriptionToValue(	// Returns 0 on success.  Returns non-zero, if
 												// key not found.
 	const char*		pszKeyDescriptor,			// In:  Description of key.
 	U32*	psScanKey)					// Out: Key value.
 	{
-	short	sRes	= 1;	// Assume failure.
+	int16_t	sRes	= 1;	// Assume failure.
 
 	U8	u8KeyIndex;
 	for (u8KeyIndex = 0; u8KeyIndex < NUM_ELEMENTS(g_apszKeyDescriptions); u8KeyIndex++)
@@ -293,13 +293,13 @@ extern short KeyDescriptionToValue(	// Returns 0 on success.  Returns non-zero, 
 ////////////////////////////////////////////////////////////////////////////////
 // Given a string, returns the appropriate button mask.
 ////////////////////////////////////////////////////////////////////////////////
-extern short MouseButtonDescriptionToMask(	// Returns 0 on success.  Returns
+extern int16_t MouseButtonDescriptionToMask(	// Returns 0 on success.  Returns
 															// non-zero, if description not 
 															// found.
 	const char*		pszButtonDescriptor,					// In:  Description of button.
 	U32*	psButtonMask)							// Out: Button mask.
 	{
-	short	sRes	= 1;	// Assume failure.
+	int16_t	sRes	= 1;	// Assume failure.
 
 	for (size_t sButtonIndex = 0; sButtonIndex < NUM_ELEMENTS(g_apszMouseButtonDescriptions); sButtonIndex++)
 		{
@@ -319,12 +319,12 @@ extern short MouseButtonDescriptionToMask(	// Returns 0 on success.  Returns
 ////////////////////////////////////////////////////////////////////////////////
 // Given a string, returns the appropriate button mask.
 ////////////////////////////////////////////////////////////////////////////////
-extern short JoyButtonDescriptionToMask(	// Returns 0 on success.  Returns 
+extern int16_t JoyButtonDescriptionToMask(	// Returns 0 on success.  Returns 
 														// non-zero, if description not found.
 	const char*		pszButtonDescriptor,				// In:  Description of button.
 	U32*	psButtonMask)						// Out: Button mask.
 	{
-	short	sRes	= 1;	// Assume failure.
+	int16_t	sRes	= 1;	// Assume failure.
 
 	for (size_t sButtonIndex = 0; sButtonIndex < NUM_ELEMENTS(g_apszJoyButtonDescriptions); sButtonIndex++)
 		{

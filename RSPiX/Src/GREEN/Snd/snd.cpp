@@ -213,10 +213,10 @@ void RSnd::Reset(void)
 // (public)
 //
 ///////////////////////////////////////////////////////////////////////////////
-short RSnd::Stream(	char* pszSampleName, long lPlayBufSize, long lReadBufSize,
+int16_t RSnd::Stream(	char* pszSampleName, long lPlayBufSize, long lReadBufSize,
 						 UCHAR	ucMainVolume /* = 255 */, UCHAR ucVolume2 /* = 255 */)
 	{
-	short sRes = 0;
+	int16_t sRes = 0;
 	
 	// Reset variables and free data if any.
 	Reset();
@@ -308,7 +308,7 @@ short RSnd::Stream(	char* pszSampleName, long lPlayBufSize, long lReadBufSize,
 // 3..4 is played.
 //
 ///////////////////////////////////////////////////////////////////////////////
-short RSnd::Play(						// Returns 0 on success.
+int16_t RSnd::Play(						// Returns 0 on success.
 	RSample* psample,					// In:  Sample to play.
 	long lPlayBufSize,				// In:  Size of play buffer in bytes.
 	UCHAR	ucMainVolume/* = 255 */,// In:  Primary Volume (0 - 255)
@@ -319,7 +319,7 @@ short RSnd::Play(						// Returns 0 on success.
 	long lLoopEndTime/* = 0*/)		// In:  Where to loop back from in milliseconds.
 											// In:  If less than 1, the end + lLoopEndTime is used.
 	{
-	short sRes = 0; // Assume success.
+	int16_t sRes = 0; // Assume success.
 	
 	ASSERT(psample != NULL);
 	ASSERT(GetState() == Stopped);
@@ -442,9 +442,9 @@ short RSnd::Play(						// Returns 0 on success.
 // (public)
 //
 ///////////////////////////////////////////////////////////////////////////////
-short RSnd::Abort(void)
+int16_t RSnd::Abort(void)
 	{
-	short sRes = 0; // Assume success.
+	int16_t sRes = 0; // Assume success.
 
 	ASSERT(GetState() != Stopped);
 

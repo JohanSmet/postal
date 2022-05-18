@@ -54,7 +54,7 @@ public:
 	// set average value
 	void	Seed(ValueType vtSeedValue)
 		{
-		short i;
+		int16_t i;
 		m_lSignificantNumber = clFixedWidth;
 		m_lNextValue = 0;
 
@@ -94,7 +94,7 @@ public:
 	// Give it an initial average value
 	CRunningAverage(ValueType vtSeedValue)
 		{
-		short i;
+		int16_t i;
 		m_lSignificantNumber = clFixedWidth;
 		m_lNextValue = 0;
 	

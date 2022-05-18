@@ -93,7 +93,7 @@ class CNetClient
 				char					m_acName[Net::MaxPlayerNameSize];// Name
 				unsigned char		m_ucColor;								// Color number
 				unsigned char		m_ucTeam;								// Team number
-				short					m_sBandwidth;							// Net::Bandwidth
+				int16_t					m_sBandwidth;							// Net::Bandwidth
 
 				CNetInput			m_netinput;								// Sliding window of inputs
 				Net::SEQ				m_seqLastActive;						// Last active sequence (only if dropped)
@@ -187,7 +187,7 @@ class CNetClient
 
 		Net::ID					m_id;								// My id
 		Net::ID					m_idServer;						// Server's client's ID
-		short						m_sNumJoined;					// Number of joined players
+		int16_t						m_sNumJoined;					// Number of joined players
 
 		bool						m_bGameStarted;				// Whether game has started
 		bool						m_bPlaying;						// true means playing, false means stopped
@@ -278,7 +278,7 @@ class CNetClient
 
 			/** 12/15/97 SPA **/
 			m_lStartTime = 0;
-			for (short i = 0; i < 8; i++)
+			for (int16_t i = 0; i < 8; i++)
 				m_alAvgFrameTimes[i] = 100;
 			/** 12/15/97 SPA **/
 
@@ -313,14 +313,14 @@ class CNetClient
 		// failed, most likely because the currently selected protocol is not supported.
 		// Even if this happens, it is still safe to call Update() and GetMsg() as if
 		// no error occurred, realizing, of course, that the join process will not
-		// succeed and GetMsg() will shortly return an error to that effect.
+		// succeed and GetMsg() will int16_tly return an error to that effect.
 		////////////////////////////////////////////////////////////////////////////////
-		short StartJoinProcess(									// Returns 0 if successfull, non-zero otherwise
+		int16_t StartJoinProcess(									// Returns 0 if successfull, non-zero otherwise
 			RSocket::Address* paddressHost,					// In:  Host's address
 			char* pszName,											// In:  Joiner's name
 			unsigned char ucColor,								// In:  Joiner's color
 			unsigned char ucTeam,								// In:  Joiner's team
-			short sBandwidth);									// In:  Joiner's Net::Bandwidth
+			int16_t sBandwidth);									// In:  Joiner's Net::Bandwidth
 
 
 		////////////////////////////////////////////////////////////////////////////////
@@ -403,7 +403,7 @@ class CNetClient
 		////////////////////////////////////////////////////////////////////////////////
 		// Get the current number of players
 		////////////////////////////////////////////////////////////////////////////////
-		short GetNumPlayers(void)
+		int16_t GetNumPlayers(void)
 			{
 			return m_sNumJoined;
 			}
@@ -483,7 +483,7 @@ class CNetClient
 		////////////////////////////////////////////////////////////////////////////////
 		bool CanDoFrame(											// Returns true if frame can be done, false otherwise
 			UINPUT aInputs[],										// Out: Total of Net::MaxNumIDs inputs returned here
-			short* psFrameTime);									// Out the current frames elapsed time
+			int16_t* psFrameTime);									// Out the current frames elapsed time
 
 
 

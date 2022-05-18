@@ -187,7 +187,7 @@ class RString
 
 		////////////////////////////////////////////////////////////////////////////////
 		// Set the specified character at the specified position in the string.  If the
-		// specified character is 0 (null) then the string's length is shortened (the
+		// specified character is 0 (null) then the string's length is int16_tened (the
 		// new length will be equal to the specified position).  If the position is
 		// negative or beyind the end of the string, this function does nothing.
 		////////////////////////////////////////////////////////////////////////////////
@@ -321,7 +321,7 @@ class RString
 		// most cases you'd end up with the number followed by a bunch of spaces, which
 		// is, to reiterate, very clumsy.
 		#if 0
-		void Insert(long lPos, short s);
+		void Insert(long lPos, int16_t s);
 		void Insert(long lPos, uint16_t us);
 		void Insert(long lPos, long l);
 		void Insert(long lPos, unsigned long ul);
@@ -347,13 +347,13 @@ class RString
 		// Load a previously saved string from the specified RFile.  Calls Clear() if
 		// an error occurs while loading.  Returns 0 if successfull, non-zero otherwise.
 		////////////////////////////////////////////////////////////////////////////////
-		short Load(RFile* pFile);
+		int16_t Load(RFile* pFile);
 
 		////////////////////////////////////////////////////////////////////////////////
 		// Save this string to the specified RFile.  This RString is not modified by the
 		// save, even if an error occurs.  Returns 0 if successfull, non-zero otherwise.
 		////////////////////////////////////////////////////////////////////////////////
-		short Save(RFile* pFile) const;
+		int16_t Save(RFile* pFile) const;
 
 	//---------------------------------------------------------------------------
 	// operator =
@@ -402,10 +402,10 @@ class RString
 			}
 
 		// Assign string representation of specified number
-		const RString& operator=(short rhs)
+		const RString& operator=(int16_t rhs)
 			{
 			Grow(MaxShortLen + 1); // size is always > 0, so this will always return with a valid buffer
-			m_lStrLen = sprintf(m_pBuf, "%hd", (short)rhs);
+			m_lStrLen = sprintf(m_pBuf, "%hd", (int16_t)rhs);
 			return *this;
 			}
 
@@ -493,10 +493,10 @@ class RString
 			}
 
 		// Append string representation of specified number
-		const RString& operator+=(short rhs)
+		const RString& operator+=(int16_t rhs)
 			{
 			Grow(m_lStrLen + MaxShortLen + 1); // size is always > 0, so this will always return with a valid buffer
-			m_lStrLen += sprintf(m_pBuf + m_lStrLen, "%hd", (short)rhs);
+			m_lStrLen += sprintf(m_pBuf + m_lStrLen, "%hd", (int16_t)rhs);
 			return *this;
 			}
 
@@ -551,7 +551,7 @@ class RString
 			return str;
 			}
 
-		RString operator+(short rhs) const
+		RString operator+(int16_t rhs) const
 			{
 			RString str = *this;
 			str += rhs;

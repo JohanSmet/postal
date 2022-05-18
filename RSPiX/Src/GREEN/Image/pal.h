@@ -133,9 +133,9 @@ class RPal
 	public:	// Member vars.
 		Type		m_type;				// Palette type
 		ULONG		m_ulSize;			// Size of data
-		short		m_sStartIndex;		// Starting index
-		short		m_sNumEntries;		// Number of entries
-		short		m_sPalEntrySize;	// Number of bytes in each palette entry
+		int16_t		m_sStartIndex;		// Starting index
+		int16_t		m_sNumEntries;		// Number of entries
+		int16_t		m_sPalEntrySize;	// Number of bytes in each palette entry
 		UCHAR*	m_pData;			   // Pointer to data
 
 		// This array of type names should correspond to the above list of
@@ -149,10 +149,10 @@ class RPal
 		// based on the palette type.  This is used by RPal::GetPalEntrySize
 		// to return the size of any registered palette type.
 		// Note that this uses END_REG_PAL enum item to size the array.
-		static short ms_asPalEntrySizes[END_REG_PAL];
+		static int16_t ms_asPalEntrySizes[END_REG_PAL];
 
 	private:
-		short	m_sCanDestroyData;// Flags whether DestroyData can destroy
+		int16_t	m_sCanDestroyData;// Flags whether DestroyData can destroy
 										// the data.
 
 	public:
@@ -160,45 +160,45 @@ class RPal
 		~RPal();
 
 		// Create default palette of the specified type.
-		short CreatePalette(
+		int16_t CreatePalette(
 			Type ulNewType);
 
 		// Static member function that will tell you the number of 
 		// bytes per palette entry for any registered palette type
-		static short GetPalEntrySize(Type type);
+		static int16_t GetPalEntrySize(Type type);
 
 		// Will tell you the number of bytes per palette entry for the
 		// this instance of the palette
-		short GetPalEntrySize()	{return m_sPalEntrySize;};
+		int16_t GetPalEntrySize()	{return m_sPalEntrySize;};
 
 		// Create PAL's data using the specified values.
-		short CreateData(	// Returns 0 if successful
+		int16_t CreateData(	// Returns 0 if successful
 			ULONG	ulSize);	// Size of data
 
-		short CreateData(
+		int16_t CreateData(
 			ULONG ulSize, 			// Size of data
 			Type	type, 		// Palette type
-			short sPalEntrySize, // Size in bytes of each Pal entry
-			short sStartIndex,	// Starting index of colors
-			short sNumEntries);	// Number of significant palette entries
+			int16_t sPalEntrySize, // Size in bytes of each Pal entry
+			int16_t sStartIndex,	// Starting index of colors
+			int16_t sNumEntries);	// Number of significant palette entries
 
 		// Destroy PAL's data
-		short DestroyData();
+		int16_t DestroyData();
 
 		// Allow the user to set the data pointer.
-		short SetData(void* pData);
+		int16_t SetData(void* pData);
 
 		// Save the palette to the given file
-		short Save(const char* pszFilename);
+		int16_t Save(const char* pszFilename);
 
 		// Save the palette to the open RFile
-		short Save(RFile* pcf);
+		int16_t Save(RFile* pcf);
 
 		// Load palette data from the given file
-		short Load(const char* pszFilename);
+		int16_t Load(const char* pszFilename);
 
 		// Load palette data from the open RFile
-		short Load(RFile* pcf);
+		int16_t Load(RFile* pcf);
 
 		// Convert the palette to the new palette type
 		Type Convert(Type typeNew);
@@ -223,7 +223,7 @@ class RPal
 		// version of these functions when they need to access the palette, in
 		// which case they are already making assumptions about its format.
 		unsigned char* Red(
-			short sStart = 0)							// In:  Starting palette entry
+			int16_t sStart = 0)							// In:  Starting palette entry
 			{
 			// Calculate pointer to specified entry
 			unsigned char* pucDst = m_pData + ((sStart - m_sStartIndex) * m_sPalEntrySize);
@@ -240,7 +240,7 @@ class RPal
 			}
 
 		unsigned char* Green(
-			short sStart = 0)							// In:  Starting palette entry
+			int16_t sStart = 0)							// In:  Starting palette entry
 			{
 			// Calculate pointer to specified entry
 			unsigned char* pucDst = m_pData + ((sStart - m_sStartIndex) * m_sPalEntrySize);
@@ -257,7 +257,7 @@ class RPal
 			}
 
 		unsigned char* Blue(
-			short sStart = 0)							// In:  Starting palette entry
+			int16_t sStart = 0)							// In:  Starting palette entry
 			{
 			// Calculate pointer to specified entry
 			unsigned char* pucDst = m_pData + ((sStart - m_sStartIndex) * m_sPalEntrySize);
@@ -274,17 +274,17 @@ class RPal
 			}
 
 		// Get RGB entries from palette
-		short GetEntries(
-			short sStart,								// In:  Starting palette entry
-			short sCount,								// In:  Number of entries to do
+		int16_t GetEntries(
+			int16_t sStart,								// In:  Starting palette entry
+			int16_t sCount,								// In:  Number of entries to do
 			unsigned char* pDstRed,					// Out: Starting destination red value
 			unsigned char* pDstGreen,				// Out: Starting destination green value
 			unsigned char* pDstBlue,				// Out: Starting destination blue value
 			long lAddToPointers);					// In:  What to add to pointers to move to next value
 
-		short SetEntries(
-			short sStart,								// In:  Starting palette entry
-			short sCount,								// In:  Number of entries to do
+		int16_t SetEntries(
+			int16_t sStart,								// In:  Starting palette entry
+			int16_t sCount,								// In:  Number of entries to do
 			unsigned char* pSrcRed,					// In:  Starting source red value
 			unsigned char* pSrcGreen,				// In:  Starting source green value
 			unsigned char* pSrcBlue,				// In:  Starting source blue value

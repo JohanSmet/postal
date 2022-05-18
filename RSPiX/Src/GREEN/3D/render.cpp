@@ -34,8 +34,8 @@ typedef struct
 void	DrawTri_ZColorFog(UCHAR* pDstOffset,long lDstP,
 			RP3d* p1,RP3d* p2,RP3d* p3,
 			RZBuffer* pZB,UCHAR* pFog,
-			short sOffsetX/* = 0*/,		// In: 2D offset for pZB.
-			short sOffsetY/* = 0*/) 	// In: 2D offset for pZB.
+			int16_t sOffsetX/* = 0*/,		// In: 2D offset for pZB.
+			int16_t sOffsetY/* = 0*/) 	// In: 2D offset for pZB.
 	{
 //////////////////////////////////////////////////////////////////
 //****************************************************************
@@ -48,16 +48,16 @@ void	DrawTri_ZColorFog(UCHAR* pDstOffset,long lDstP,
 	RRenderPt32 *pv1 = &pt1;
 	RRenderPt32 *pv2 = &pt2;
 	RRenderPt32 *pv3 = &pt3;
-	// Cast from REAL to short in fp32 format:
-	pt1.x.mod = short(p1->x);
-	pt1.y.mod = short(p1->y);
-	pt1.z.mod = short(p1->z);
-	pt2.x.mod = short(p2->x);
-	pt2.y.mod = short(p2->y);
-	pt2.z.mod = short(p2->z);
-	pt3.x.mod = short(p3->x);
-	pt3.y.mod = short(p3->y);
-	pt3.z.mod = short(p3->z);
+	// Cast from REAL to int16_t in fp32 format:
+	pt1.x.mod = int16_t(p1->x);
+	pt1.y.mod = int16_t(p1->y);
+	pt1.z.mod = int16_t(p1->z);
+	pt2.x.mod = int16_t(p2->x);
+	pt2.y.mod = int16_t(p2->y);
+	pt2.z.mod = int16_t(p2->z);
+	pt3.x.mod = int16_t(p3->x);
+	pt3.y.mod = int16_t(p3->y);
+	pt3.z.mod = int16_t(p3->z);
 	pt1.x.frac = 
 	pt2.x.frac = 
 	pt3.x.frac = USHORT(32768); // offset each by 1/2
@@ -80,7 +80,7 @@ void	DrawTri_ZColorFog(UCHAR* pDstOffset,long lDstP,
 			if (pt3.z.mod > pt1.z.mod) pt1.z.mod = pt3.z.mod;
 
 			//***** PLOT THE SINGLE POINT!
-			short* pBufZ = pZB -> GetZPtr
+			int16_t* pBufZ = pZB -> GetZPtr
 				(pt1.x.mod + sOffsetX, pt1.y.mod + sOffsetY);
 
 			if (pt1.z.mod > *pBufZ)
@@ -98,7 +98,7 @@ void	DrawTri_ZColorFog(UCHAR* pDstOffset,long lDstP,
 #if 0
 	// Let's assess general categories:
 	// Single points:
-	short sAbort = TRUE;
+	int16_t sAbort = TRUE;
 	if (pt1.x.mod == pt2.x.mod)
 		{
 		if ( (pt1.y.mod == pt2.y.mod)	// WE'VE GOT A SINGLE SCREEN POINT!
@@ -157,11 +157,11 @@ void	DrawTri_ZColorFog(UCHAR* pDstOffset,long lDstP,
 
 	// Get point 2 and 3's position relative to point 1:
 	// Use 16 bit accuracy in y, 32-bit in x...
-	short y1 = pv1->y.mod;
+	int16_t y1 = pv1->y.mod;
 
-	short	y2 = pv2->y.mod - y1;
-	short	y3 = pv3->y.mod - y1;
-	short ybot = y3 - y2; // lower half delta
+	int16_t	y2 = pv2->y.mod - y1;
+	int16_t	y3 = pv3->y.mod - y1;
+	int16_t ybot = y3 - y2; // lower half delta
 
 	if (y2 + y3 == 0) return; // don;t bother drawing horiz line
 
@@ -194,20 +194,20 @@ void	DrawTri_ZColorFog(UCHAR* pDstOffset,long lDstP,
 	x2.val = x3.val = pv1->x.frac;	// preserve floating point x!
 	z2.val = z3.val = pv1->z.frac; // preserve floating point z!
 
-	short sBaseZ = pv1->z.mod; 
+	int16_t sBaseZ = pv1->z.mod; 
 	//TRACE("SBASE Zpt = %hd\n",pv1->z.mod);
 
 
 	long lP = lDstP;
 	// add in extra piece uv rounding!
 	UCHAR* pDst = pDstOffset + lP * pv1->y.mod + pv1->x.mod + x2.mod; 
-	short* pBufZ = pZB -> GetZPtr(pv1->x.mod + x2.mod + sOffsetX, pv1->y.mod + sOffsetY);
+	int16_t* pBufZ = pZB -> GetZPtr(pv1->x.mod + x2.mod + sOffsetX, pv1->y.mod + sOffsetY);
 	long lZP = pZB->m_lP; // in words!!!
 
 	// Draw the upper triangle! (Assuming fx2inc < fx3inc.....)
-	short x,y;
+	int16_t x,y;
 	RFixedS32	fz,fzinc; // for tracing across each scan line:
-	short xdel;
+	int16_t xdel;
 
 //////////////////////////////////////////////////////////////////
 //****************************************************************
@@ -456,18 +456,18 @@ void	DrawTri_ZColorFog(UCHAR* pDstOffset,long lDstP,
 
 //================================================== 
 // For debugging:
-void	DrawTri_wire(RImage* pimDst,short sX,short sY,
+void	DrawTri_wire(RImage* pimDst,int16_t sX,int16_t sY,
 			RP3d* p1,RP3d* p2,RP3d* p3,UCHAR ucColor)
 	{
 	rspLine(ucColor,pimDst,
-		sX+short(p1->x),sY+short(p1->y),
-		sX+short(p2->x),sY+short(p2->y));
+		sX+int16_t(p1->x),sY+int16_t(p1->y),
+		sX+int16_t(p2->x),sY+int16_t(p2->y));
 	rspLine(ucColor,pimDst,
-		sX+short(p1->x),sY+short(p1->y),
-		sX+short(p3->x),sY+short(p3->y));
+		sX+int16_t(p1->x),sY+int16_t(p1->y),
+		sX+int16_t(p3->x),sY+int16_t(p3->y));
 	rspLine(ucColor,pimDst,
-		sX+short(p3->x),sY+short(p3->y),
-		sX+short(p2->x),sY+short(p2->y));
+		sX+int16_t(p3->x),sY+int16_t(p3->y),
+		sX+int16_t(p2->x),sY+int16_t(p2->y));
 	}
 
 //================================================== 
@@ -478,8 +478,8 @@ void	DrawTri_wire(RImage* pimDst,short sX,short sY,
 void	DrawTri_ZColor(UCHAR* pDstOffset,long lDstP,
 			RP3d* p1,RP3d* p2,RP3d* p3,
 			RZBuffer* pZB,UCHAR ucFlatColor,
-			short sOffsetX/* = 0*/,		// In: 2D offset for pZB.
-			short sOffsetY/* = 0*/) 	// In: 2D offset for pZB.
+			int16_t sOffsetX/* = 0*/,		// In: 2D offset for pZB.
+			int16_t sOffsetY/* = 0*/) 	// In: 2D offset for pZB.
 	{
 //////////////////////////////////////////////////////////////////
 //****************************************************************
@@ -492,16 +492,16 @@ void	DrawTri_ZColor(UCHAR* pDstOffset,long lDstP,
 	RRenderPt32 *pv1 = &pt1;
 	RRenderPt32 *pv2 = &pt2;
 	RRenderPt32 *pv3 = &pt3;
-	// Cast from REAL to short in fp32 format:
-	pt1.x.mod = short(p1->x);
-	pt1.y.mod = short(p1->y);
-	pt1.z.mod = short(p1->z);
-	pt2.x.mod = short(p2->x);
-	pt2.y.mod = short(p2->y);
-	pt2.z.mod = short(p2->z);
-	pt3.x.mod = short(p3->x);
-	pt3.y.mod = short(p3->y);
-	pt3.z.mod = short(p3->z);
+	// Cast from REAL to int16_t in fp32 format:
+	pt1.x.mod = int16_t(p1->x);
+	pt1.y.mod = int16_t(p1->y);
+	pt1.z.mod = int16_t(p1->z);
+	pt2.x.mod = int16_t(p2->x);
+	pt2.y.mod = int16_t(p2->y);
+	pt2.z.mod = int16_t(p2->z);
+	pt3.x.mod = int16_t(p3->x);
+	pt3.y.mod = int16_t(p3->y);
+	pt3.z.mod = int16_t(p3->z);
 	pt1.x.frac = 
 	pt2.x.frac = 
 	pt3.x.frac = USHORT(32768); // offset each by 1/2
@@ -515,11 +515,11 @@ void	DrawTri_ZColor(UCHAR* pDstOffset,long lDstP,
 
 	// Get point 2 and 3's position relative to point 1:
 	// Use 16 bit accuracy in y, 32-bit in x...
-	short y1 = pv1->y.mod;
+	int16_t y1 = pv1->y.mod;
 
-	short	y2 = pv2->y.mod - y1;
-	short	y3 = pv3->y.mod - y1;
-	short ybot = y3 - y2; // lower half delta
+	int16_t	y2 = pv2->y.mod - y1;
+	int16_t	y3 = pv3->y.mod - y1;
+	int16_t ybot = y3 - y2; // lower half delta
 
 	if (y2 + y3 == 0) return; // don;t bother drawing horiz line
 
@@ -552,20 +552,20 @@ void	DrawTri_ZColor(UCHAR* pDstOffset,long lDstP,
 	x2.val = x3.val = pv1->x.frac;	// preserve floating point x!
 	z2.val = z3.val = pv1->z.frac; // preserve floating point z!
 
-	short sBaseZ = pv1->z.mod; 
+	int16_t sBaseZ = pv1->z.mod; 
 	//TRACE("SBASE Zpt = %hd\n",pv1->z.mod);
 
 
 	long lP = lDstP;
 	// add in extra piece uv rounding!
 	UCHAR* pDst = pDstOffset + lP * pv1->y.mod + pv1->x.mod + x2.mod; 
-	short* pBufZ = pZB -> GetZPtr(pv1->x.mod + x2.mod + sOffsetX, pv1->y.mod + sOffsetY);
+	int16_t* pBufZ = pZB -> GetZPtr(pv1->x.mod + x2.mod + sOffsetX, pv1->y.mod + sOffsetY);
 	long lZP = pZB->m_lP; // in words!!!
 
 	// Draw the upper triangle! (Assuming fx2inc < fx3inc.....)
-	short x,y;
+	int16_t x,y;
 	RFixedS32	fz,fzinc; // for tracing across each scan line:
-	short xdel;
+	int16_t xdel;
 
 //////////////////////////////////////////////////////////////////
 //****************************************************************
@@ -832,13 +832,13 @@ void	DrawTri(UCHAR* pDstOffset,long lDstP,
 	RRenderPt32 *pv1 = &pt1;
 	RRenderPt32 *pv2 = &pt2;
 	RRenderPt32 *pv3 = &pt3;
-	// Cast from REAL to short in fp32 format:
-	pt1.x.mod = short(p1->x);
-	pt1.y.mod = short(p1->y);
-	pt2.x.mod = short(p2->x);
-	pt2.y.mod = short(p2->y);
-	pt3.x.mod = short(p3->x);
-	pt3.y.mod = short(p3->y);
+	// Cast from REAL to int16_t in fp32 format:
+	pt1.x.mod = int16_t(p1->x);
+	pt1.y.mod = int16_t(p1->y);
+	pt2.x.mod = int16_t(p2->x);
+	pt2.y.mod = int16_t(p2->y);
+	pt3.x.mod = int16_t(p3->x);
+	pt3.y.mod = int16_t(p3->y);
 	pt1.x.frac = 
 	pt2.x.frac = 
 	pt3.x.frac = USHORT(32768); // offset each by 1/2
@@ -852,11 +852,11 @@ void	DrawTri(UCHAR* pDstOffset,long lDstP,
 
 	// Get point 2 and 3's position relative to point 1:
 	// Use 16 bit accuracy in y, 32-bit in x...
-	short y1 = pv1->y.mod;
+	int16_t y1 = pv1->y.mod;
 
-	short	y2 = pv2->y.mod - y1;
-	short	y3 = pv3->y.mod - y1;
-	short ybot = y3 - y2; // lower half delta
+	int16_t	y2 = pv2->y.mod - y1;
+	int16_t	y3 = pv3->y.mod - y1;
+	int16_t ybot = y3 - y2; // lower half delta
 
 	if (y2 + y3 == 0) return; // don;t bother drawing horiz line
 
@@ -887,8 +887,8 @@ void	DrawTri(UCHAR* pDstOffset,long lDstP,
 	UCHAR* pDst = pDstOffset + lP * pv1->y.mod + pv1->x.mod + x2.mod; 
 
 	// Draw the upper triangle! (Assuming fx2inc < fx3inc.....)
-	short x,y;
-	// short xdel;
+	int16_t x,y;
+	// int16_t xdel;
 
 //////////////////////////////////////////////////////////////////
 //****************************************************************

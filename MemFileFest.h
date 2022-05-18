@@ -51,7 +51,7 @@ typedef struct
 //////////////////////////////////////////////////////////////////////////////
 // Given a filename, open an RFile to the corresponding resource data.
 //////////////////////////////////////////////////////////////////////////////
-extern short GetMemFileResource(	// Returns 0 on successful open.
+extern int16_t GetMemFileResource(	// Returns 0 on successful open.
 	const char*		pszResName,		// In:  Res filename.
 	RFile::Endian	endian,			// In:  Endian nature for RFile.
 	RFile*			pfile);			// In:  File to open with.

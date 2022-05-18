@@ -140,7 +140,7 @@ class RChanCore
 	// Variables
 	//------------------------------------------------------------------------------
 	protected:
-		short m_sLoopFlags;										// Looping flags
+		int16_t m_sLoopFlags;										// Looping flags
 
 
 	//------------------------------------------------------------------------------
@@ -187,9 +187,9 @@ class RChanCore
 		// *** Derived classes MUST call base class implimentation ***
 		//
 		////////////////////////////////////////////////////////////////////////////////
-		virtual short Load(										// Returns 0 if successfull, non-zero otherwise
+		virtual int16_t Load(										// Returns 0 if successfull, non-zero otherwise
 			RFile* pFile,											// In:  RFile to load from
-			short sFileVersion)									// In:  Channel file version number
+			int16_t sFileVersion)									// In:  Channel file version number
 			{
 			// Original version (#0) didn't store loop flags, but all others do.
 			if (sFileVersion > 0)
@@ -213,7 +213,7 @@ class RChanCore
 		// *** Derived classes MUST call base class implimentation ***
 		//
 		////////////////////////////////////////////////////////////////////////////////
-		virtual short Save(										// Returns 0 if successfull, non-zero otherwise
+		virtual int16_t Save(										// Returns 0 if successfull, non-zero otherwise
 			RFile* pFile)											// In:  RFile to save to
 			{
 			// Write data
@@ -393,7 +393,7 @@ class RChanCore
 		// Get looping behaviour
 		//
 		////////////////////////////////////////////////////////////////////////////////
-		short Looping(void)										// Returns looping flags
+		int16_t Looping(void)										// Returns looping flags
 			{
 			return m_sLoopFlags;
 			}
@@ -406,7 +406,7 @@ class RChanCore
 		//
 		////////////////////////////////////////////////////////////////////////////////
 		void SetLooping(
-			short sLoopFlags)
+			int16_t sLoopFlags)
 			{
 			m_sLoopFlags = sLoopFlags;
 			}
@@ -511,9 +511,9 @@ class RChanCoreNothing : public RChanCore<datat>
 		// *** MUST call base class implimentation ***
 		//
 		////////////////////////////////////////////////////////////////////////////////
-		short Load(													// Returns 0 if successfull, non-zero otherwise
+		int16_t Load(													// Returns 0 if successfull, non-zero otherwise
 			RFile* pFile,											// In:  RFile to load from
-			short sFileVersion)									// In:  Channel file version number
+			int16_t sFileVersion)									// In:  Channel file version number
 			{
 			// Reset to get rid of any existing data
 			Reset();
@@ -529,7 +529,7 @@ class RChanCoreNothing : public RChanCore<datat>
 		// *** MUST call base class implimentation ***
 		//
 		////////////////////////////////////////////////////////////////////////////////
-		short Save(													// Returns 0 if successfull, non-zero otherwise
+		int16_t Save(													// Returns 0 if successfull, non-zero otherwise
 			RFile* pFile)											// In:  RFile to save to
 			{
 			// Call base class implimentation
@@ -800,11 +800,11 @@ class RChanCoreArray : public RChanCore<datat>
 		// *** MUST call base class implimentation ***
 		//
 		////////////////////////////////////////////////////////////////////////////////
-		short Load(													// Returns 0 if successfull, non-zero otherwise
+		int16_t Load(													// Returns 0 if successfull, non-zero otherwise
 			RFile* pFile,											// In:  RFile to load from
-			short sFileVersion)									// In:  Channel file version number
+			int16_t sFileVersion)									// In:  Channel file version number
 			{
-			short sResult = 0;
+			int16_t sResult = 0;
 			
 			// Reset to get rid of any existing data
 			Reset();
@@ -844,10 +844,10 @@ class RChanCoreArray : public RChanCore<datat>
 		// *** MUST call base class implimentation ***
 		//
 		////////////////////////////////////////////////////////////////////////////////
-		short Save(													// Returns 0 if successfull, non-zero otherwise
+		int16_t Save(													// Returns 0 if successfull, non-zero otherwise
 			RFile* pFile)											// In:  RFile to save to
 			{
-			short sResult = 0;
+			int16_t sResult = 0;
 
 			// Call base class implimentation
 			sResult = RChanCore<datat>::Save(pFile);
@@ -1214,11 +1214,11 @@ class RChanCoreArrayOfPtrs: public RChanCore<datat>
 		// *** MUST call base class implimentation ***
 		//
 		////////////////////////////////////////////////////////////////////////////////
-		short Load(													// Returns 0 if successfull, non-zero otherwise
+		int16_t Load(													// Returns 0 if successfull, non-zero otherwise
 			RFile* pFile,											// In:  RFile to load from
-			short sFileVersion)									// In:  Channel file version number
+			int16_t sFileVersion)									// In:  Channel file version number
 			{
-			short sResult = 0;
+			int16_t sResult = 0;
 			
 			// Reset to get rid of any existing data
 			Reset();
@@ -1299,10 +1299,10 @@ class RChanCoreArrayOfPtrs: public RChanCore<datat>
 		// *** MUST call base class implimentation ***
 		//
 		////////////////////////////////////////////////////////////////////////////////
-		short Save(													// Returns 0 if successfull, non-zero otherwise
+		int16_t Save(													// Returns 0 if successfull, non-zero otherwise
 			RFile* pFile)											// In:  RFile to save to
 			{
-			short sResult = 0;
+			int16_t sResult = 0;
 
 			// Call base class implimentation
 			sResult = RChanCore<datat>::Save(pFile);
@@ -1704,7 +1704,7 @@ class RChannel
 	// Variables
 	//------------------------------------------------------------------------------
 	protected:
-		short m_sFileVersion;									// File version number
+		int16_t m_sFileVersion;									// File version number
 		RChannel_Types m_type;									// Channel type
 		RString m_strName;										// Channel name
 		RChanCore<datat>* m_pcore;								// Core channel object
@@ -1838,10 +1838,10 @@ class RChannel
 		// Load channel from current position of already-open file
 		//
 		////////////////////////////////////////////////////////////////////////////////
-		short Load(													// Returns 0 if successfull, non-zero otherwise
+		int16_t Load(													// Returns 0 if successfull, non-zero otherwise
 			RFile* pFile)											// In:  RFile to load from
 			{
-			short sResult = 0;
+			int16_t sResult = 0;
 
 			// Reset to get rid of any existing data
 			Reset();
@@ -1870,7 +1870,7 @@ class RChannel
 							delete m_pcore;
 
 							// Get the channel type
-							short type;
+							int16_t type;
 							pFile->Read(&type);
 							m_type = (RChannel_Types)type;
 
@@ -1940,17 +1940,17 @@ class RChannel
 		// Save channel to current position of already-open file
 		//
 		////////////////////////////////////////////////////////////////////////////////
-		short Save(													// Returns 0 if successfull, non-zero otherwise
+		int16_t Save(													// Returns 0 if successfull, non-zero otherwise
 			RFile* pFile)											// In:  RFile to save to
 			{
-			short sResult = 0;
+			int16_t sResult = 0;
 
 			// Write header (ID and version)
 			pFile->Write((U32)RChannel_FileID);
-			pFile->Write((short)RChannel_FileVersion);
+			pFile->Write((int16_t)RChannel_FileVersion);
 
 			// Write RChannel type
-			pFile->Write((short)m_type);
+			pFile->Write((int16_t)m_type);
 
 			sResult = pFile->Error();
 			if (sResult == 0)
@@ -2162,7 +2162,7 @@ class RChannel
 		// Get looping behaviour
 		//
 		////////////////////////////////////////////////////////////////////////////////
-		short Looping(void)										// Returns looping flags
+		int16_t Looping(void)										// Returns looping flags
 			{
 			return m_pcore->Looping();
 			}
@@ -2175,7 +2175,7 @@ class RChannel
 		//
 		////////////////////////////////////////////////////////////////////////////////
 		void SetLooping(
-			short sLoopFlags)										// In:  New loop flags
+			int16_t sLoopFlags)										// In:  New loop flags
 			{
 			m_pcore->SetLooping(sLoopFlags);
 			}

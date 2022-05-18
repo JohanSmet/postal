@@ -66,7 +66,7 @@ class CChunk : public CThing
 		typedef struct
 			{
 			U8		u8ColorIndex;
-			short	sLen;
+			int16_t	sLen;
 			} TypeInfo;
 
 	//---------------------------------------------------------------------------
@@ -83,11 +83,11 @@ class CChunk : public CThing
 
 		long	m_lPrevTime;
 
-		short m_sSuspend;								// Suspend flag
+		int16_t m_sSuspend;								// Suspend flag
 
 		Type	m_type;
 
-		short	m_sLen;									// Length of item.
+		int16_t	m_sLen;									// Length of item.
 														
 	protected:
 		CSpriteLine2d		m_sprite;				// Sprite.
@@ -138,11 +138,11 @@ class CChunk : public CThing
 	//---------------------------------------------------------------------------
 	public:
 		// Construct object
-		static short Construct(									// Returns 0 if successfull, non-zero otherwise
+		static int16_t Construct(									// Returns 0 if successfull, non-zero otherwise
 			CRealm* pRealm,										// In:  Pointer to realm this object belongs to
 			CThing** ppNew)										// Out: Pointer to new object
 			{
-			short sResult = 0;
+			int16_t sResult = 0;
 
 			// Don't allow chunks when disabled . . .
 			if (g_GameSettings.m_sParticleEffects)
@@ -183,16 +183,16 @@ class CChunk : public CThing
 		// Note that this setup accepts the amount of random sway you want to
 		// apply to the particle so you don't have to.  You should not, otherwise
 		// you'll ruin it (the game synch that is). Seriously.
-		short Setup(					// Returns 0 on success.
-			short sX,					// In:  New x coord
-			short sY,					// In:  New y coord
-			short sZ,					// In:  New z coord
+		int16_t Setup(					// Returns 0 on success.
+			int16_t sX,					// In:  New x coord
+			int16_t sY,					// In:  New y coord
+			int16_t sZ,					// In:  New z coord
 			double dRot,				// In:  Initial direction.
-			short	sRandRotSway,		// In:  Random sway on rotation or zero.
+			int16_t	sRandRotSway,		// In:  Random sway on rotation or zero.
 			double dVel,				// In:  Initial velocity.
-			short	sRandVelSway,		// In:  Random sway on velocity or zero.
+			int16_t	sRandVelSway,		// In:  Random sway on velocity or zero.
 			double dVertVel,			// In:  Initial vertical velocity.
-			short	sRandVertVelSway,	// In:  Random sway on velocity or zero.
+			int16_t	sRandVertVelSway,	// In:  Random sway on velocity or zero.
 			Type	type);				// In:  Type of chunk.
 
 		// Get a random number that is in no way related to the game's main

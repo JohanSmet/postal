@@ -38,7 +38,7 @@
 //		-1 to ABORT the conversion early! (User hits cancel)
 // 
 //
-typedef	short (*PDitherCallBack) (double dProgress);
+typedef	int16_t (*PDitherCallBack) (double dProgress);
 
 //==============================================
 // You supply a general palette to match to, 
@@ -53,11 +53,11 @@ typedef	short (*PDitherCallBack) (double dProgress);
 // time based!)  I find 32000 good for a P6/200, but
 // smaller numbers can be used for slower machines.
 //	
-extern	short	rspDither(	
+extern	int16_t	rspDither(	
 					RImage* pimSrc,	// MUST BE 24-bit!
 					RImage* pimDst,	// MUST be 8-bit
-					short sStartMap,	// palette index
-					short sNumMap,		// # of colors
+					int16_t sStartMap,	// palette index
+					int16_t sNumMap,		// # of colors
 					UCHAR*	pRed,		// Palette to match to
 					UCHAR*	pGreen,
 					UCHAR*	pBlue,
@@ -80,11 +80,11 @@ extern	short	rspDither(
 // time based!)  I find 32000 good for a P6/200, but
 // smaller numbers can be used for slower machines.
 //	
-extern	short	rspSimpleMap(	
+extern	int16_t	rspSimpleMap(	
 					RImage* pimSrc,	// MUST BE 24-bit!
 					RImage* pimDst,	// MUST be 8-bit
-					short sStartMap,	// palette index
-					short sNumMap,		// # of colors
+					int16_t sStartMap,	// palette index
+					int16_t sNumMap,		// # of colors
 					UCHAR*	pRed,		// Palette to match to
 					UCHAR*	pGreen,
 					UCHAR*	pBlue,
@@ -105,15 +105,15 @@ extern	short	rspSimpleMap(
 // Returns 0 for SUCCESS, -1 for ERROR, 1 for user cancel
 //==============================================
 //	
-extern	short	rspDither(	
+extern	int16_t	rspDither(	
 					long lBackR,		// Don't dither to this color!
 					long lBackG,
 					long lBackB,
 					UCHAR ucBack,		// index to make BKGD
 					RImage* pimSrc,	// MUST BE 24-bit!
 					RImage* pimDst,	// MUST be 8-bit
-					short sStartMap,	// palette index
-					short sNumMap,		// # of colors
+					int16_t sStartMap,	// palette index
+					int16_t sNumMap,		// # of colors
 					UCHAR*	pRed,		// Palette to match to
 					UCHAR*	pGreen,
 					UCHAR*	pBlue,
@@ -136,13 +136,13 @@ extern	short	rspDither(
 // Returns 0 for SUCCESS, -1 for ERROR, 1 for user cancel
 //==============================================
 //	
-short	rspDither(	
+int16_t	rspDither(	
 					UCHAR ucForeAlpha,		// lower limit for foreground
 					UCHAR ucBack,		// index to make BKGD
 					RImage* pimSrc,	// MUST BE 24-bit!
 					RImage* pimDst,	// MUST be 8-bit
-					short sStartMap,	// palette index
-					short sNumMap,		// # of colors
+					int16_t sStartMap,	// palette index
+					int16_t sNumMap,		// # of colors
 					UCHAR*	pRed,		// Palette to match to
 					UCHAR*	pGreen,
 					UCHAR*	pBlue,
@@ -168,13 +168,13 @@ short	rspDither(
 // treatment will occur.
 //==============================================
 //	
-short	rspSimpleMap(	
+int16_t	rspSimpleMap(	
 					UCHAR	ucForeAlpha,	// alpha threshhold
 					UCHAR ucBack,			// map background to this index
 					RImage* pimSrc,	// MUST BE 32-bit!
 					RImage* pimDst,	// MUST be 8-bit
-					short sStartMap,	// palette index
-					short sNumMap,		// # of colors
+					int16_t sStartMap,	// palette index
+					int16_t sNumMap,		// # of colors
 					UCHAR*	pRed,		// Palette to match to
 					UCHAR*	pGreen,
 					UCHAR*	pBlue,

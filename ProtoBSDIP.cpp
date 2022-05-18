@@ -223,9 +223,9 @@ void RProtocolBSDIP::Init(void)
 // code, the Startup and Shutdown will have to be called after creating
 //	an RSocket and before calling Open()
 //////////////////////////////////////////////////////////////////////////////
-short RProtocolBSDIP::Startup(void)
+int16_t RProtocolBSDIP::Startup(void)
 	{
-	short sResult = 0;
+	int16_t sResult = 0;
 	
 	// Only do this once, but multiple calls are not considered an error
 	if (!ms_bDidStartup)
@@ -324,17 +324,17 @@ void RProtocolBSDIP::Shutdown(void)
 // A return value of RSocket::errNotSupported means this protocol is
 // not supported.
 //////////////////////////////////////////////////////////////////////////////
-short RProtocolBSDIP::Open(							// Returns 0 if successful, non-zero otherwise
+int16_t RProtocolBSDIP::Open(							// Returns 0 if successful, non-zero otherwise
 	uint16_t usPort,								// In:  Port number or 0 for any port
-	short sType,											// In:  Any one RSocket::typ* enum
-	short sOptionFlags,									// In:  Any combo of RSocket::opt* enums
+	int16_t sType,											// In:  Any one RSocket::typ* enum
+	int16_t sOptionFlags,									// In:  Any combo of RSocket::opt* enums
 	RSocket::BLOCK_CALLBACK callback /*NULL */)	// In:  Blocking callback (or NULL to keep current)
 	{
 
 #if PLATFORM_UNIX
     return(-1);  // !!! FIXME
 #else
-	short sResult = 0;
+	int16_t sResult = 0;
 	
 	// Make sure startup was called.  Only this function needs to do this
 	// because all the others check for a valid socket, which can only be
@@ -487,13 +487,13 @@ short RProtocolBSDIP::Open(							// Returns 0 if successful, non-zero otherwise
 //////////////////////////////////////////////////////////////////////////////
 // Close socket
 //////////////////////////////////////////////////////////////////////////////
-short RProtocolBSDIP::Close(							// Returns 0 if successfull, non-zero otherwise
+int16_t RProtocolBSDIP::Close(							// Returns 0 if successfull, non-zero otherwise
 	bool bForceNow /*= true */)						// In:  'true' means do it now, false follows normal rules
 	{
 #if PLATFORM_UNIX
     return(-1);  // !!! FIXME
 #else
-	short sResult = 0;
+	int16_t sResult = 0;
 
 	// Only close it if it's open, but don't consider it an error if it isn't
 	if (m_sock != INVALID_SOCKET)
@@ -555,12 +555,12 @@ short RProtocolBSDIP::Close(							// Returns 0 if successfull, non-zero otherwi
 ////////////////////////////////////////////////////////////////////////////////
 // Set socket to broadcast mode
 ////////////////////////////////////////////////////////////////////////////////
-short RProtocolBSDIP::Broadcast(void)				// Returns 0 if successfull, non-zero otherwise
+int16_t RProtocolBSDIP::Broadcast(void)				// Returns 0 if successfull, non-zero otherwise
 	{
 #if PLATFORM_UNIX
     return(-1);  // !!! FIXME
 #else
-	short sResult = 0;
+	int16_t sResult = 0;
 	
 	if (m_sock != INVALID_SOCKET)
 		{
@@ -600,13 +600,13 @@ short RProtocolBSDIP::Broadcast(void)				// Returns 0 if successfull, non-zero o
 // Current winsock implimentations support a maximum of 5 queued connectons.
 // Requesting more than 5 will cause this function to return an error.
 //////////////////////////////////////////////////////////////////////////////
-short RProtocolBSDIP::Listen(							// Returns 0 if successfull, non-zero otherwise
-	short sMaxQueued /* = 5*/)							// In:  Maximum number of queued connection requests
+int16_t RProtocolBSDIP::Listen(							// Returns 0 if successfull, non-zero otherwise
+	int16_t sMaxQueued /* = 5*/)							// In:  Maximum number of queued connection requests
 	{
 #if PLATFORM_UNIX
     return(-1);  // !!! FIXME
 #else
-	short sResult = 0;
+	int16_t sResult = 0;
 	
 	if (m_sock != INVALID_SOCKET)
 		{
@@ -660,14 +660,14 @@ short RProtocolBSDIP::Listen(							// Returns 0 if successfull, non-zero otherw
 //////////////////////////////////////////////////////////////////////////////
 // Accept request for connection
 //////////////////////////////////////////////////////////////////////////////
-short RProtocolBSDIP::Accept(						// Returns 0 on success, non-zero otherwise
+int16_t RProtocolBSDIP::Accept(						// Returns 0 on success, non-zero otherwise
 	RSocket::RProtocol* pProtocolClient,			// I/O: Client protocol
 	RSocket::Address* paddressClient)				// Out: Client address
 	{
 #if PLATFORM_UNIX
     return(-1);  // !!! FIXME
 #else
-	short sResult = 0;
+	int16_t sResult = 0;
 	
 	if (m_sock != INVALID_SOCKET)
 		{
@@ -750,13 +750,13 @@ short RProtocolBSDIP::Accept(						// Returns 0 on success, non-zero otherwise
 // indicate that the connection attempt has failed, or 0, which indicates
 // that it has actually connected successfully.
 //////////////////////////////////////////////////////////////////////////////
-short RProtocolBSDIP::Connect(						// Returns 0 if successfull, non-zero otherwise
+int16_t RProtocolBSDIP::Connect(						// Returns 0 if successfull, non-zero otherwise
 	RSocket::Address* paddress)						// In:  Remote address to connect to
 	{
 #if PLATFORM_UNIX
     return(-1);  // !!! FIXME
 #else
-	short sResult = 0;
+	int16_t sResult = 0;
 
 	if (m_sock != INVALID_SOCKET)
 		{
@@ -866,7 +866,7 @@ short RProtocolBSDIP::Connect(						// Returns 0 if successfull, non-zero otherw
 // Send data to connected socket
 // NOTE: If an error occurs, plActualBytes will return 0.
 //////////////////////////////////////////////////////////////////////////////
-short RProtocolBSDIP::Send(							// Returns 0 on success, non-zero otherwise
+int16_t RProtocolBSDIP::Send(							// Returns 0 on success, non-zero otherwise
 	void* pBuf,												// In:  Pointer to data buffer
 	long lNumBytes,										// In:  Number of bytes to send
 	long* plActualBytes)									// Out: Actual number of bytes sent
@@ -874,7 +874,7 @@ short RProtocolBSDIP::Send(							// Returns 0 on success, non-zero otherwise
 #if PLATFORM_UNIX
     return(-1);  // !!! FIXME
 #else
-	short sResult = 0;
+	int16_t sResult = 0;
 	
 	if (m_sock != INVALID_SOCKET)
 		{
@@ -928,7 +928,7 @@ short RProtocolBSDIP::Send(							// Returns 0 on success, non-zero otherwise
 // Send data to specified address
 // NOTE: If an error occurs, plActualBytes will return 0.
 //////////////////////////////////////////////////////////////////////////////
-short RProtocolBSDIP::SendTo(							// Returns 0 on success, non-zero otherwise
+int16_t RProtocolBSDIP::SendTo(							// Returns 0 on success, non-zero otherwise
 	void* pBuf,												// In:  Pointer to data buffer
 	long lNumBytes,										// In:  Number of bytes to send
 	long* plActualBytes,									// Out: Actual number of bytes sent
@@ -937,7 +937,7 @@ short RProtocolBSDIP::SendTo(							// Returns 0 on success, non-zero otherwise
 #if PLATFORM_UNIX
     return(-1);  // !!! FIXME
 #else
-	short sResult = 0;
+	int16_t sResult = 0;
 	
 	if (m_sock != INVALID_SOCKET)
 		{
@@ -1000,7 +1000,7 @@ short RProtocolBSDIP::SendTo(							// Returns 0 on success, non-zero otherwise
 //
 // NOTE: If an error occurs, plActualBytes will return 0.
 //////////////////////////////////////////////////////////////////////////////
-short RProtocolBSDIP::Receive(						// Returns 0 on success, non-zero otherwise
+int16_t RProtocolBSDIP::Receive(						// Returns 0 on success, non-zero otherwise
 	void* pBuf,												// In:  Pointer to data buffer
 	long lMaxBytes,										// In:  Maximum number of bytes that fit in the buffer
 	long* plActualBytes)									// Out: Actual number of bytes recieved into the buffer
@@ -1008,7 +1008,7 @@ short RProtocolBSDIP::Receive(						// Returns 0 on success, non-zero otherwise
 #if PLATFORM_UNIX
     return(-1);  // !!! FIXME
 #else
-	short sResult = 0;
+	int16_t sResult = 0;
 	
 	if (m_sock != INVALID_SOCKET)
 		{
@@ -1062,7 +1062,7 @@ short RProtocolBSDIP::Receive(						// Returns 0 on success, non-zero otherwise
 // Receive data from the given address
 // NOTE: If an error occurs, plActualBytes will return 0.
 //////////////////////////////////////////////////////////////////////////////
-short RProtocolBSDIP::ReceiveFrom(					// Returns 0 on success, non-zero otherwise
+int16_t RProtocolBSDIP::ReceiveFrom(					// Returns 0 on success, non-zero otherwise
 	void* pBuf,												// In:  Pointer to data buffer
 	long lMaxBytes,										// In:  Maximum bytes that can fit in the buffer
 	long* plActualBytes,									// Out: Actual number of bytes recieved into buffer
@@ -1071,7 +1071,7 @@ short RProtocolBSDIP::ReceiveFrom(					// Returns 0 on success, non-zero otherwi
 #if PLATFORM_UNIX
     return(-1);  // !!! FIXME
 #else
-	short sResult = 0;
+	int16_t sResult = 0;
 	
 	if (m_sock != INVALID_SOCKET)
 		{
@@ -1378,10 +1378,10 @@ RSocket::BLOCK_CALLBACK RProtocolBSDIP::GetCallback(void)
 // GetMaxDatagramSize
 //////////////////////////////////////////////////////////////////////////////
 /* static */
-short RProtocolBSDIP::GetMaxDatagramSize(			// Returns zero on success, non-zero otherwise
+int16_t RProtocolBSDIP::GetMaxDatagramSize(			// Returns zero on success, non-zero otherwise
 	long* plSize)											// Out: Maximum datagram size in bytes
 	{
-	short sResult = 0;
+	int16_t sResult = 0;
 	
     #ifdef WIN32
 	if (ms_bDidStartup)
@@ -1407,10 +1407,10 @@ short RProtocolBSDIP::GetMaxDatagramSize(			// Returns zero on success, non-zero
 // available to this application may be lower than the returned value.
 //////////////////////////////////////////////////////////////////////////////
 /* static */
-short RProtocolBSDIP::GetMaxSockets(				// Returns 0 if successfull, non-zero otherwise
+int16_t RProtocolBSDIP::GetMaxSockets(				// Returns 0 if successfull, non-zero otherwise
 	long* plNum)											// Out: maximum number of sockets
 	{
-	short sResult = 0;
+	int16_t sResult = 0;
 
 	#ifdef WIN32
 	if (ms_bDidStartup)
@@ -1434,7 +1434,7 @@ short RProtocolBSDIP::GetMaxSockets(				// Returns 0 if successfull, non-zero ot
 // a name or address
 //////////////////////////////////////////////////////////////////////////////
 /* static */
-short RProtocolBSDIP::GetAddress(					// Returns 0 if successfull, non-zero otherwise
+int16_t RProtocolBSDIP::GetAddress(					// Returns 0 if successfull, non-zero otherwise
 	char* pszName,											// In:  Host's name or dotted address (x.x.x.x)
 	USHORT usPort,											// In:  Host's port number
 	RSocket::Address* paddress)						// Out: Address
@@ -1442,7 +1442,7 @@ short RProtocolBSDIP::GetAddress(					// Returns 0 if successfull, non-zero othe
 #if PLATFORM_UNIX
     return(-1);  // !!! FIXME
 #else
-	short sResult = 0;
+	int16_t sResult = 0;
 	
 	if (ms_bDidStartup)
 		{

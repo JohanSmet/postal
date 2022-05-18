@@ -131,7 +131,7 @@ CResItem::~CResItem()
 // Returns new reference count.
 //
 //////////////////////////////////////////////////////////////////////////////
-short CResItem::Lock(void)
+int16_t CResItem::Lock(void)
 	{
 	return ++m_sRefCnt;
 	}
@@ -142,7 +142,7 @@ short CResItem::Lock(void)
 // Returns new reference count.
 //
 //////////////////////////////////////////////////////////////////////////////
-short CResItem::Unlock(void)
+int16_t CResItem::Unlock(void)
 	{
 	ASSERT(m_sRefCnt > 0);
 

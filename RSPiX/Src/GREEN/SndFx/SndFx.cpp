@@ -107,7 +107,7 @@ U8*	RSndFx::ms_pu8Fade	= NULL;	// Unsigned 8 bit output
 S16*	RSndFx::ms_ps16Fade	= NULL;	// Signed 16 bit output
 												// fade table.
 
-short	RSndFx::ms_sNumFadeSteps	= 0;	// Number of fade steps.
+int16_t	RSndFx::ms_sNumFadeSteps	= 0;	// Number of fade steps.
 
 long	RSndFx::ms_lSamplesPerSec	= 0;	// Samples per second.
 long	RSndFx::ms_lBitsPerSample	= 0;	// Bits per sample.
@@ -258,10 +258,10 @@ void RSndFx::Reset(void)
 // (static).
 //
 //////////////////////////////////////////////////////////////////////////////
-short RSndFx::SetFadeAccuracy(	// Returns 0 on success.
-	short sNumSteps)					// Number of steps to fades; see above.
+int16_t RSndFx::SetFadeAccuracy(	// Returns 0 on success.
+	int16_t sNumSteps)					// Number of steps to fades; see above.
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	if (ms_lBitsPerSec != 0)
 		{
@@ -276,8 +276,8 @@ short RSndFx::SetFadeAccuracy(	// Returns 0 on success.
 				ms_pu8Fade	= (U8*)malloc((long)sNumSteps * 256L * sizeof(S16));
 				if (ms_pu8Fade != NULL)
 					{
-					short	sStep;
-					short	sSample;
+					int16_t	sStep;
+					int16_t	sSample;
 					float	fStep				= 1.0F / (float)sNumSteps;
 					float	fCurDecimation	= fStep;
 					U8*	pu8	= ms_pu8Fade;
@@ -294,7 +294,7 @@ short RSndFx::SetFadeAccuracy(	// Returns 0 on success.
 					// Success.
 					ms_sNumFadeSteps	= sNumSteps;
 
-					static short sSetUpAtExit	= FALSE;	// Remember if we already did this.
+					static int16_t sSetUpAtExit	= FALSE;	// Remember if we already did this.
 					// If we haven't already set up the at exit function . . .
 					if (sSetUpAtExit == FALSE)
 						{
@@ -316,8 +316,8 @@ short RSndFx::SetFadeAccuracy(	// Returns 0 on success.
 				ms_ps16Fade	= (S16*)malloc((long)sNumSteps * 256L * sizeof(S16));
 				if (ms_ps16Fade != NULL)
 					{
-					short	sStep;
-					short	sSample;
+					int16_t	sStep;
+					int16_t	sSample;
 					float	fStep				= 1.0F / (float)sNumSteps;
 					float	fCurDecimation	= fStep;
 					S16*	ps16	= ms_ps16Fade;
@@ -334,7 +334,7 @@ short RSndFx::SetFadeAccuracy(	// Returns 0 on success.
 					// Success.
 					ms_sNumFadeSteps	= sNumSteps;
 
-					static short sSetUpAtExit	= FALSE;	// Remember if we already did this.
+					static int16_t sSetUpAtExit	= FALSE;	// Remember if we already did this.
 					// If we haven't already set up the at exit function . . .
 					if (sSetUpAtExit == FALSE)
 						{
@@ -547,10 +547,10 @@ void RSndFx::Do(						// Returns nothing.
 // Set up a fade in.
 //
 /////////////////////////////////////////////////////////////////////////
-short RSndFx::SetUpFadeIn(	// Returns 0 on success.
+int16_t RSndFx::SetUpFadeIn(	// Returns 0 on success.
 	long lDuration)			// Duration until silence in milliseconds.
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	// Must set data type before setting up effect . . .
 	if (ms_lBitsPerSec > 0)
@@ -580,7 +580,7 @@ short RSndFx::SetUpFadeIn(	// Returns 0 on success.
 //
 /////////////////////////////////////////////////////////////////////////
 void RSndFx::ActivateFadeIn(	// Returns nothing.
-	short	sActivate)				// TRUE to activate, FALSE to deactivate.
+	int16_t	sActivate)				// TRUE to activate, FALSE to deactivate.
 	{ 
 	if (sActivate == FALSE)
 		{
@@ -599,10 +599,10 @@ void RSndFx::ActivateFadeIn(	// Returns nothing.
 // Set up a fade out.
 //
 /////////////////////////////////////////////////////////////////////////
-short RSndFx::SetUpFadeOut(	// Returns 0 on success.
+int16_t RSndFx::SetUpFadeOut(	// Returns 0 on success.
 	long lDuration)				// Duration until full volume in milliseconds.
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	// Must set data type before setting up effect . . .
 	if (ms_lBitsPerSec > 0)
@@ -632,7 +632,7 @@ short RSndFx::SetUpFadeOut(	// Returns 0 on success.
 //
 /////////////////////////////////////////////////////////////////////////
 void RSndFx::ActivateFadeOut(	// Returns nothing.
-	short	sActivate)				// TRUE to activate, FALSE to deactivate.
+	int16_t	sActivate)				// TRUE to activate, FALSE to deactivate.
 	{ 
 	if (sActivate != FALSE)
 		{

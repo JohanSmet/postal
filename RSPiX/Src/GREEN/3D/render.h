@@ -48,19 +48,19 @@
 extern	void	DrawTri_ZColorFog(UCHAR* pDst,long lDstP,
 			RP3d* p1,RP3d* p2,RP3d* p3,
 			RZBuffer* pZB,UCHAR* pFog, 
-			short sOffsetX = 0,		// In: 2D offset for pZB.
-			short sOffsetY = 0); 	// In: 2D offset for pZB.
+			int16_t sOffsetX = 0,		// In: 2D offset for pZB.
+			int16_t sOffsetY = 0); 	// In: 2D offset for pZB.
 
 //================================================== 
 // For debugging:
-extern	void	DrawTri_wire(RImage* pimDst,short sX,short sY,
+extern	void	DrawTri_wire(RImage* pimDst,int16_t sX,int16_t sY,
 			RP3d* p1,RP3d* p2,RP3d* p3,UCHAR ucColor); 
 
 extern	void	DrawTri_ZColor(UCHAR* pDst,long lDstP,
 			RP3d* p1,RP3d* p2,RP3d* p3,
 			RZBuffer* pZB,UCHAR pFlatColor,
-			short sOffsetX = 0,		// In: 2D offset for pZB.
-			short sOffsetY = 0); 	// In: 2D offset for pZB.
+			int16_t sOffsetX = 0,		// In: 2D offset for pZB.
+			int16_t sOffsetY = 0); 	// In: 2D offset for pZB.
 //================================================== 
 //================================================== 
 // FLAT SHADED!

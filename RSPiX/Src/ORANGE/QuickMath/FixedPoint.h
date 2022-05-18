@@ -73,7 +73,7 @@ typedef union	{
 //-----------------------------------------------
 		union
 			{
-			short	mod; //********* signed 16-bit integer part
+			int16_t	mod; //********* signed 16-bit integer part
 			struct {
 				signed char upper; 	// for 256v level z-coloring:
 				unsigned char lower;
@@ -85,7 +85,7 @@ typedef union	{
 		uint16_t frac;
 		union	// for 256v level z-coloring:
 			{
-			short	mod;
+			int16_t	mod;
 			struct {
 				unsigned char lower;
 				signed char upper;
@@ -147,7 +147,7 @@ inline void rspfpSub(RFixedS32& s32fx,RFixedS32& s32fxSub)
 			mov temp2,edx // only need hwlf the integral part...
 			mov temp,eax	// get upper half!
 			}
-		lC.mod = (short)temp2; // keep sign, lose upper half!
+		lC.mod = (int16_t)temp2; // keep sign, lose upper half!
 		lC.frac = temp.hi;
 		}
 #endif
@@ -194,7 +194,7 @@ typedef union	{
 
 //======================================= signed 8:8 fixed point
 typedef union	{
-	signed short	val;
+	int16_t	val;
 	struct	
 		{
 #ifdef SYS_ENDIAN_BIG // big endian
@@ -211,9 +211,9 @@ typedef union	{
 //====================
 extern RFixedS32 fpSINQ[csNumRotSteps],fpCOSQ[csNumRotSteps];
 extern	void InitTrigFP();
-inline RFixedS32 rspfpSin(short sDeg) { return fpSINQ[sDeg]; }
-inline RFixedS32 rspfpCos(short sDeg) { return fpCOSQ[sDeg]; }
-inline long rspfpOneOver(short sDen) { return RInitNum::OneOver[sDen]; }
+inline RFixedS32 rspfpSin(int16_t sDeg) { return fpSINQ[sDeg]; }
+inline RFixedS32 rspfpCos(int16_t sDeg) { return fpCOSQ[sDeg]; }
+inline long rspfpOneOver(int16_t sDen) { return RInitNum::OneOver[sDen]; }
 
 // Auto Initialize hook!
 class RQuickTrigFP

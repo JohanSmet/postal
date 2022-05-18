@@ -104,7 +104,7 @@ CRtVidc::~CRtVidc()
 void CRtVidc::Set(void)
 	{
 	m_pdispatch		= NULL;
-	for (short i = 0; i < MAX_VID_CHANNELS; i++)
+	for (int16_t i = 0; i < MAX_VID_CHANNELS; i++)
 		{
 		m_avidchdrs[i].sNumFrames		= 0;
 		m_avidchdrs[i].pImage			= NULL;
@@ -172,11 +172,11 @@ long ReadBitmapInfo(	BITMAPINFO*	pbmi, CNFile* pfile)
 // Returns 0 on success.
 //
 //////////////////////////////////////////////////////////////////////////////
-short CRtVidc::DecompressFrame(	PVIDC_RT_HDR pvidchdr, CNFile* pfile, 
+int16_t CRtVidc::DecompressFrame(	PVIDC_RT_HDR pvidchdr, CNFile* pfile, 
 											ULONG ulFlags, PBMI pbmiIn, PBMI pbmiOut)
 
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	// Get data in compression native format.
 	BMI	bmiTempOut = *pbmiIn;
@@ -236,11 +236,11 @@ short CRtVidc::DecompressFrame(	PVIDC_RT_HDR pvidchdr, CNFile* pfile,
 // Returns RET_FREE if done with data on return, RET_DONTFREE otherwise.
 //
 //////////////////////////////////////////////////////////////////////////////
-short CRtVidc::Use(	UCHAR* puc, long lSize, USHORT usType, UCHAR ucFlags, 
+int16_t CRtVidc::Use(	UCHAR* puc, long lSize, USHORT usType, UCHAR ucFlags, 
 							long lTime)
 	{
-	short	sRes		= RET_FREE;	// Always free.
-	short	sError	= 0;
+	int16_t	sRes		= RET_FREE;	// Always free.
+	int16_t	sError	= 0;
 
 	ASSERT(usType	== RT_TYPE_VIDC);
 	ASSERT(puc		!= NULL);
@@ -482,7 +482,7 @@ short CRtVidc::Use(	UCHAR* puc, long lSize, USHORT usType, UCHAR ucFlags,
 // (static)
 //
 //////////////////////////////////////////////////////////////////////////////
-short CRtVidc::UseStatic(	UCHAR* puc, long lSize, USHORT usType, 
+int16_t CRtVidc::UseStatic(	UCHAR* puc, long lSize, USHORT usType, 
 									UCHAR ucFlags, long lTime, long l_pRtVidc)
 	{
 	return ((CRtVidc*)l_pRtVidc)->Use(puc, lSize, usType, ucFlags, lTime);
@@ -521,7 +521,7 @@ void CRtVidc::SetDispatcher(CDispatch* pdispatch)
 //////////////////////////////////////////////////////////////////////////////
 void CRtVidc::SetCallbackHeader(RTVIDC_CALL callback)
 	{
-	for (short i = 0; i < MAX_VID_CHANNELS; i++)
+	for (int16_t i = 0; i < MAX_VID_CHANNELS; i++)
 		{
 		SetCallbackHeader(callback, i);
 		}
@@ -532,7 +532,7 @@ void CRtVidc::SetCallbackHeader(RTVIDC_CALL callback)
 // Sets callback(s) called on channel header receipt.
 //
 //////////////////////////////////////////////////////////////////////////////
-void CRtVidc::SetCallbackHeader(RTVIDC_CALL callback, short sChannel)
+void CRtVidc::SetCallbackHeader(RTVIDC_CALL callback, int16_t sChannel)
 	{
 	m_avidchdrs[sChannel].callbackHeader	= callback;
 	}
@@ -544,7 +544,7 @@ void CRtVidc::SetCallbackHeader(RTVIDC_CALL callback, short sChannel)
 //////////////////////////////////////////////////////////////////////////////
 void CRtVidc::SetCallbackBefore(RTVIDC_CALL callback)
 	{
-	for (short i = 0; i < MAX_VID_CHANNELS; i++)
+	for (int16_t i = 0; i < MAX_VID_CHANNELS; i++)
 		{
 		SetCallbackBefore(callback, i);
 		}
@@ -555,7 +555,7 @@ void CRtVidc::SetCallbackBefore(RTVIDC_CALL callback)
 // Sets callback(s) called before decompression.
 //
 //////////////////////////////////////////////////////////////////////////////
-void CRtVidc::SetCallbackBefore(RTVIDC_CALL callback, short sChannel)
+void CRtVidc::SetCallbackBefore(RTVIDC_CALL callback, int16_t sChannel)
 	{
 	m_avidchdrs[sChannel].callbackBefore	= callback;
 	}
@@ -567,7 +567,7 @@ void CRtVidc::SetCallbackBefore(RTVIDC_CALL callback, short sChannel)
 //////////////////////////////////////////////////////////////////////////////
 void CRtVidc::SetCallbackAfter(RTVIDC_CALL callback)
 	{
-	for (short i = 0; i < MAX_VID_CHANNELS; i++)
+	for (int16_t i = 0; i < MAX_VID_CHANNELS; i++)
 		{
 		SetCallbackAfter(callback, i);
 		}
@@ -578,7 +578,7 @@ void CRtVidc::SetCallbackAfter(RTVIDC_CALL callback)
 // Sets callback(s) called after decompression.
 //
 //////////////////////////////////////////////////////////////////////////////
-void CRtVidc::SetCallbackAfter(RTVIDC_CALL callback, short sChannel)
+void CRtVidc::SetCallbackAfter(RTVIDC_CALL callback, int16_t sChannel)
 	{
 	m_avidchdrs[sChannel].callbackAfter	= callback;
 	}

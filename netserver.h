@@ -90,7 +90,7 @@ class CNetServer
 				char					m_acName[Net::MaxPlayerNameSize];// Name
 				unsigned char		m_ucColor;								// Color number
 				unsigned char		m_ucTeam;								// Team number
-				short					m_sBandwidth;							// Net::Bandwidth
+				int16_t					m_sBandwidth;							// Net::Bandwidth
 
 				CNetMsgr				m_msgr;									// Messenger for communicating with client
 				bool					m_bLoggedIn;							// Whether client is logged in
@@ -230,7 +230,7 @@ class CNetServer
 		////////////////////////////////////////////////////////////////////////////////
 		// Startup
 		////////////////////////////////////////////////////////////////////////////////
-		short Startup(												// Returns 0 if successfull, non-zero otherwise
+		int16_t Startup(												// Returns 0 if successfull, non-zero otherwise
 			uint16_t usPort,								// In:  Server base port number
 			char* pszHostName,									// In:  Host name (max size is MaxHostName!!!)
 			RSocket::BLOCK_CALLBACK callback);				// In:  Blocking callback
@@ -299,14 +299,14 @@ class CNetServer
 		// Send the specified game settings to all joined clients
 		////////////////////////////////////////////////////////////////////////////////
 		void SetupGame(
-			short sRealmNum,										// In:  Realm number
+			int16_t sRealmNum,										// In:  Realm number
 			const char* pszRealmFile,									// In:  Realm file name
-			short sDifficulty,									// In:  Difficulty
-			short sRejuvenate,									// In:  Rejuvenate flag
-			short sTimeLimit,										// In:  Time limit in minutes, or negative if none
-			short sKillLimit,										// In:  Kill limit, or negative if none
-			short	sCoopLevels,									// In:  Zero for deathmatch levels, non-zero for cooperative levels.
-			short	sCoopMode);										// In:  Zero for deathmatch mode, non-zero for cooperative mode.
+			int16_t sDifficulty,									// In:  Difficulty
+			int16_t sRejuvenate,									// In:  Rejuvenate flag
+			int16_t sTimeLimit,										// In:  Time limit in minutes, or negative if none
+			int16_t sKillLimit,										// In:  Kill limit, or negative if none
+			int16_t	sCoopLevels,									// In:  Zero for deathmatch levels, non-zero for cooperative levels.
+			int16_t	sCoopMode);										// In:  Zero for deathmatch mode, non-zero for cooperative mode.
 
 
 		////////////////////////////////////////////////////////////////////////////////
@@ -314,15 +314,15 @@ class CNetServer
 		////////////////////////////////////////////////////////////////////////////////
 		void StartGame(
 			Net::ID idServer,										// In:  Server's client's ID
-			short sRealmNum,										// In:  Realm number
+			int16_t sRealmNum,										// In:  Realm number
 			const char* pszRealmFile,									// In:  Realm file name
-			short sDifficulty,									// In:  Difficulty
-			short sRejuvenate,									// In:  Rejuvenate flag
-			short sTimeLimit,										// In:  Time limit in minutes, or negative if none
-			short sKillLimit,										// In:  Kill limit, or negative if none
-			short	sCoopLevels,									// In:  Zero for deathmatch levels, non-zero for cooperative levels.
-			short	sCoopMode,										// In:  Zero for deathmatch mode, non-zero for cooperative mode.
-			short sFrameTime,										// In:  Time per frame (in milliseconds)
+			int16_t sDifficulty,									// In:  Difficulty
+			int16_t sRejuvenate,									// In:  Rejuvenate flag
+			int16_t sTimeLimit,										// In:  Time limit in minutes, or negative if none
+			int16_t sKillLimit,										// In:  Kill limit, or negative if none
+			int16_t	sCoopLevels,									// In:  Zero for deathmatch levels, non-zero for cooperative levels.
+			int16_t	sCoopMode,										// In:  Zero for deathmatch mode, non-zero for cooperative mode.
+			int16_t sFrameTime,										// In:  Time per frame (in milliseconds)
 			Net::SEQ seqMaxAhead);								// In:  Initial max ahead for input versus frame seq
 
 
@@ -398,9 +398,9 @@ class CNetServer
 		////////////////////////////////////////////////////////////////////////////////
 		//	Counts how many clients are logged in
 		////////////////////////////////////////////////////////////////////////////////
-		short	GetNumberOfClients()
+		int16_t	GetNumberOfClients()
 		{
-			short sNumClients = 0;
+			int16_t sNumClients = 0;
 			for(int id = 0; id < Net::MaxNumIDs; id++)
 				if(m_aClients[id].m_bLoggedIn)
 					sNumClients++;

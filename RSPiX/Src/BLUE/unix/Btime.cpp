@@ -70,7 +70,7 @@ extern long rspGetMilliseconds(void)
 //////////////////////////////////////////////////////////////////////////////
 extern long rspGetMicroseconds(	// Returns microseconds between now and
 											// last
-	short sReset /*= FALSE*/)		// Set to TRUE to reset timer.  If you never
+	int16_t sReset /*= FALSE*/)		// Set to TRUE to reset timer.  If you never
 											// reset the timer, it will wrap within
 											// just over 35 minutes.
 	{

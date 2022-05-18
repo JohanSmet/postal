@@ -50,12 +50,12 @@ typedef void (*FREE_DISPATCHFUNC)(	UCHAR* puc, USHORT usType, UCHAR ucFlags,
 // Returning RET_FREE will cause puc to get freed if it meets the criteria
 // for freeing described in the dispatch.cpp header comment.  Return
 // RET_DONTFREE to avoid this.
-typedef short (*USE_DISPATCHFUNC)(	UCHAR* puc, long lSize, USHORT usType, 
+typedef int16_t (*USE_DISPATCHFUNC)(	UCHAR* puc, long lSize, USHORT usType, 
 												UCHAR ucFlags, 
 												long lTime, long lUser);
 
 // This type is used to pass messages to the handler.
-typedef short (*MSG_DISPATCHFUNC)(USHORT usMsg);
+typedef int16_t (*MSG_DISPATCHFUNC)(USHORT usMsg);
 
 // For custom time handlers.
 typedef long (*TIME_DISPATCHFUNC)(long lTimeUser);
@@ -98,10 +98,10 @@ class CDispatch
 
 		// Start spewing/blowing chunks.
 		// Returns 0 on success.
-		short Start(void);
+		int16_t Start(void);
 		// Stop spewing/blowing chunks.
 		// Returns 0 on success.
-		short Suspend(void);
+		int16_t Suspend(void);
 
 		// Sets the time handler function.
 		void SetTimeFunc(TIME_DISPATCHFUNC fnTime, long lTimeUser)
@@ -109,11 +109,11 @@ class CDispatch
 
 		// Sends a message to all type handlers.
 		// Returns the number of handlers that returned an error.
-		short SendHandlerMessage(USHORT usMsg);
+		int16_t SendHandlerMessage(USHORT usMsg);
 
 		// Adds an item to the list of items to be dispatched.
 		// Returns 0 on success.
-		short AddItem(	UCHAR* puc, long lSize, USHORT usType, UCHAR ucFlags, 
+		int16_t AddItem(	UCHAR* puc, long lSize, USHORT usType, UCHAR ucFlags, 
 							long lTime);
 
 	public:		// Querries.
@@ -123,11 +123,11 @@ class CDispatch
 			{ return (m_fnTime != NULL ? (*m_fnTime)(m_lTimeUser) : Blu_GetTime()); }
 
 		// Returns TRUE if critical handler is Blue's critical list.
-		short IsActive(void)
+		int16_t IsActive(void)
 			{ return m_sActive; }
 
 		// Returns TRUE if there are any chunks to be dispatched in the lists.
-		short IsEmpty(void)
+		int16_t IsEmpty(void)
 			{ return m_slistRtItems.IsEmpty(); }
 
 	protected:	// Internal methods.
@@ -192,7 +192,7 @@ class CDispatch
 		long						m_lTimeUser;				// User time value sent to 
 																	// user time function.
 
-		short						m_sActive;					// TRUE if critical is 
+		int16_t						m_sActive;					// TRUE if critical is 
 																	// active, FALSE otherwise.
 		
 	};

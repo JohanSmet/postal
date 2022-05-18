@@ -165,7 +165,7 @@ CSmash::~CSmash()
 // and IF his sphere collides, we THEN need to check if his "cylinder" collides.
 // In this case, his cylinder is fixed at half his sphere radius.
 ////////////////////////////////////////////////////////////////////////////////
-short	CSmashatorium::CollideCyl(CSmash* pSmashee,RSphere* pSphere) // sphere of Smasher
+int16_t	CSmashatorium::CollideCyl(CSmash* pSmashee,RSphere* pSphere) // sphere of Smasher
 	{
 	if (!pSmashee->m_pThing) return SUCCESS;	// not a dude
 	if (pSmashee->m_pThing->GetClassID() != CThing::CDudeID) return SUCCESS;	// not a dude
@@ -186,7 +186,7 @@ short	CSmashatorium::CollideCyl(CSmash* pSmashee,RSphere* pSphere) // sphere of 
 // and IF his sphere collides, we THEN need to check if his "cylinder" collides.
 // In this case, his cylinder is fixed at half his sphere radius.
 ////////////////////////////////////////////////////////////////////////////////
-short	CSmashatorium::CollideCyl(CSmash* pSmashee,R3DLine* pLine) // sphere of Smasher
+int16_t	CSmashatorium::CollideCyl(CSmash* pSmashee,R3DLine* pLine) // sphere of Smasher
 	{
 	if (!pSmashee->m_pThing) return SUCCESS;	// not a dude
 	if (pSmashee->m_pThing->GetClassID() != CThing::CDudeID) return SUCCESS;	// not a dude
@@ -194,7 +194,7 @@ short	CSmashatorium::CollideCyl(CSmash* pSmashee,R3DLine* pLine) // sphere of Sm
 	long	lCylR = pSmashee->m_sphere.sphere.lRadius / 3;	// go with half the sphere radius
 	long	lOldR = pSmashee->m_sphere.sphere.lRadius;
 	pSmashee->m_sphere.sphere.lRadius = lCylR;	// shrink it:
-	short sCollide = pSmashee->m_sphere.Collide(pLine);
+	int16_t sCollide = pSmashee->m_sphere.Collide(pLine);
 	pSmashee->m_sphere.sphere.lRadius = lOldR;	// shrink it:
 
 	if (sCollide == COLLISION) return SUCCESS;	// a hit!
@@ -205,7 +205,7 @@ short	CSmashatorium::CollideCyl(CSmash* pSmashee,R3DLine* pLine) // sphere of Sm
 ////////////////////////////////////////////////////////////////////////////////
 //  CSmashatorium::Alloc - create a grid of smash lists:
 ////////////////////////////////////////////////////////////////////////////////
-short CSmashatorium::Alloc(short sWorldW,short sWorldH,short sTileW,short sTileH)
+int16_t CSmashatorium::Alloc(int16_t sWorldW,int16_t sWorldH,int16_t sTileW,int16_t sTileH)
 		{
 		//-------------------------------------------------------------
 		ASSERT(!m_psAccessX); // previous grid?
@@ -236,8 +236,8 @@ short CSmashatorium::Alloc(short sWorldW,short sWorldH,short sTileW,short sTileH
 
 		// Note that we must add 2 tile lengths to each access line:
 		m_pGrid = new CSmashatoriumList[long(m_sGridW) * m_sGridH];
-		m_psAccessX = (short*) calloc(sizeof(short),m_sClipW);
-		m_psAccessY = (short*) calloc(sizeof(short),m_sClipH);
+		m_psAccessX = (int16_t*) calloc(sizeof(int16_t),m_sClipW);
+		m_psAccessY = (int16_t*) calloc(sizeof(int16_t),m_sClipH);
 		m_ppslAccessY = (CSmashatoriumList**) calloc(sizeof (CSmashatoriumList*),m_sClipH);
 
 		if (!m_psAccessX || !m_psAccessX || !m_ppslAccessY || !m_pGrid)
@@ -257,7 +257,7 @@ short CSmashatorium::Alloc(short sWorldW,short sWorldH,short sTileW,short sTileH
 		m_ppslClipY = m_ppslAccessY + m_sTileH;	// Offset values
 	
 		// Populate the access tables....
-		short i,j,p,g;
+		int16_t i,j,p,g;
 
 		for (g=0, p = 0,i=0 ; i < m_sClipW; i += sTileW, g++)
 			{
@@ -474,9 +474,9 @@ bool CSmashatorium::QuickCheckNext(					// Returns true if collision detected, f
 ////////////////////////////////////////////////////////////////////////////////
 CSmash *CSmashatorium::GetNextSmash()
 	{
-	short sNextList = FALSE;
+	int16_t sNextList = FALSE;
 	CSmash *pReturn = NULL;
-	short sSearching = TRUE;
+	int16_t sSearching = TRUE;
 
 	while (sSearching)
 		{
@@ -606,7 +606,7 @@ bool CSmashatorium::QuickCheck(						// Returns true if collision detected, fals
 	lX = pSphere->X - lR;
 	lY = pSphere->Z - lR;
 
-	short sW=0,sH=0,i,j;
+	int16_t sW=0,sH=0,i,j;
 	CSmashatoriumList* pCurrentList = NULL;
 
 	// Now do something different for a smashee that's in the 'torium
@@ -746,7 +746,7 @@ bool CSmashatorium::QuickCheckClosest(				// Returns true if collision detected,
 	lX = lSmasherX - lR;
 	lY = lSmasherY - lR;
 
-	short sW=0,sH=0,i,j;
+	int16_t sW=0,sH=0,i,j;
 	CSmashatoriumList* pCurrentList = NULL;
 
 	// Now do something different for a smashee that's in the 'torium
@@ -877,10 +877,10 @@ void	CSmashatorium::Debug()
 		fprintf(fp,"GridW = %hd\nGridH = %hd\n",m_sGridW,m_sGridH);
 		fprintf(fp,"# in smash = %hd;  # in each list:\n\n",m_sNumInSmash);
 
-		short di,dj;
+		int16_t di,dj;
 
 		// Try direct grid access:
-		short p = 0;
+		int16_t p = 0;
 		for (dj = 0; dj < m_sGridH; dj++)
 			{
 			for (di = 0; di < m_sGridW; di++)
@@ -971,7 +971,7 @@ bool CSmashatorium::QuickCheckClosest(	// Returns true if collision detected, fa
 	long	lClipLeftY = lLeftY;
 	long	lClipRightY = lRightY;
 
-	short sVerticalStrip = false;
+	int16_t sVerticalStrip = false;
 	long	lGridLeft;
 	long	lGridRight;
 
@@ -1027,7 +1027,7 @@ bool CSmashatorium::QuickCheckClosest(	// Returns true if collision detected, fa
 
 	// NEED true CLIP OUT SCENARIOS FOR VERTICAL!!!!
 
-	short sClippingY = false;
+	int16_t sClippingY = false;
 
 	if (lDelY != 0) // Horizontal strip case
 		{													// Note that the vertical case has
@@ -1123,7 +1123,7 @@ bool CSmashatorium::QuickCheckClosest(	// Returns true if collision detected, fa
 #define MAX_GRID_W 1024	//************************************ NEED TO DEAL WITH THIS!
 
 	long	alPointsY[MAX_GRID_W + 1];
-	short i,x;
+	int16_t i,x;
 
 	// Get end points:
 	alPointsY[lGridLeft] = (long)m_psClipY[lClipLeftY];
@@ -1147,10 +1147,10 @@ bool CSmashatorium::QuickCheckClosest(	// Returns true if collision detected, fa
 
 	//************************************************************************************
 	//  Move acros all the grid points crossed by the line, and process each Smash List!
-	short j;
+	int16_t j;
 
 	// SPLIT between positive and negative cases:
-	short sSignY = 1;
+	int16_t sSignY = 1;
 	if (lDelY < 0) sSignY = -1;
 
 	// SET UP DISTANCE VARIABLES:
@@ -1306,7 +1306,7 @@ void	CSmashatorium::RemoveLimb(CSmashatoriumList* pList,CSmashLink* pLink)
 // four.  But I am trying it because it offers very fast updates.
 //
 ////////////////////////////////////////////////////////////////////////////////
-short sMaxRad = 0;
+int16_t sMaxRad = 0;
 
 void CSmashatorium::Update(CSmash* pSmash)	// In:  CSmash to be updated
 	{
@@ -1371,7 +1371,7 @@ void CSmashatorium::Update(CSmash* pSmash)	// In:  CSmash to be updated
 				}	// (all links are now NULL!
 
 			// Set all the SmashLinks to point to their parent:
-			for (short i=0; i < pFat->m_sNumGrids; i++)
+			for (int16_t i=0; i < pFat->m_sNumGrids; i++)
 				{
 				pFat->m_pLinks[i].m_pParent = pSmash;
 				}
@@ -1414,15 +1414,15 @@ void CSmashatorium::Update(CSmash* pSmash)	// In:  CSmash to be updated
 			// Because a fat smash should NOT be moving, we shouldn't be doing this 
 			// more than once!
 
-			short sClipX = MAX(0L,lX);
-			short sClipY = MAX(0L,lY);
-			short sClipX2 = MIN(m_sWorldW-1L,lX + lD);
-			short sClipY2 = MIN(m_sWorldH-1L,lY + lD);
+			int16_t sClipX = MAX(0L,lX);
+			int16_t sClipY = MAX(0L,lY);
+			int16_t sClipX2 = MIN(m_sWorldW-1L,lX + lD);
+			int16_t sClipY2 = MIN(m_sWorldH-1L,lY + lD);
 
 			pFat->m_pClippedGrid = m_ppslClipY[sClipY] + m_psClipX[sClipX];
 
 			// We can't access grid locations if lX and lY are negative!
-			short sGridX,sGridY;
+			int16_t sGridX,sGridY;
 			if (lX < 0) sGridX = -m_psAccessX[-lX] - 1; // mirror it!
 			else	sGridX = m_psAccessX[lX];
 
@@ -1534,7 +1534,7 @@ void	CSmashatorium::AddFat(CFatSmash* pFatSmash)
 	if (pFatSmash->m_pParent->m_sInGrid) return; // Don't need to re-add it!
 	//=====================================
 	pFatSmash->m_pParent->m_sInGrid = TRUE;
-	short i,j;
+	int16_t i,j;
 	CSmashatoriumList*	pList = pFatSmash->m_pClippedGrid;	// assume not clipped out!
 	CSmashLink*	pLink = pFatSmash->m_pFirstLink;
 	//-------------------------------------
@@ -1606,7 +1606,7 @@ void	CSmashatorium::RemoveFat(CFatSmash* pFatSmash)
 	if (pFatSmash->m_pParent->m_sInGrid == FALSE) return; // don't need to remove it!
 	//===========================================
 	pFatSmash->m_pParent->m_sInGrid = FALSE;
-	short i,j;
+	int16_t i,j;
 
 	//****** HERE IS A BIG DESIGN FLAW!!!!! *****
 	CSmashLink*	pLink = pFatSmash->m_pLinks;	// do them all!
@@ -1668,7 +1668,7 @@ void	CFatSmash::Destroy()
 //	RETURNS:	SUCCESS OR FAILURE
 //
 ////////////////////////////////////////////////////////////////////////////////
-short	CFatSmash::Alloc(short sNumLinks)
+int16_t	CFatSmash::Alloc(int16_t sNumLinks)
 	{
 	m_pLinks = new CSmashLink[sNumLinks];
 	if (m_pLinks) return SUCCESS;

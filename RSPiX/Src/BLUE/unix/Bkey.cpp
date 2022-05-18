@@ -68,7 +68,7 @@ extern bool mouse_grabbed;
 // Extern functions.
 //////////////////////////////////////////////////////////////////////////////
 
-extern void rspSetQuitStatus(short sQuitStatus);
+extern void rspSetQuitStatus(int16_t sQuitStatus);
 
 extern void Key_Event(SDL_Event *event)
 {
@@ -115,7 +115,7 @@ extern void Key_Event(SDL_Event *event)
         if (ms_qkeEvents.IsFull() == FALSE)
 	    {
         	// Create event.
-            static short sEventIndex = 0;
+            static int16_t sEventIndex = 0;
 	        PRSP_SK_EVENT	pkeEvent	= ms_akeEvents + INC_N_WRAP(sEventIndex, MAX_EVENTS);
     	    // Fill event.
     	    pkeEvent->lTime	= SDL_GetTicks();
@@ -189,11 +189,11 @@ extern void rspScanKeys(
 // Read next key from keyboard queue.
 //
 //////////////////////////////////////////////////////////////////////////////
-extern short rspGetKey(			// Returns 1 if a key was available; 0 if not.
+extern int16_t rspGetKey(			// Returns 1 if a key was available; 0 if not.
 	long* plKey,					// Key info returned here (or 0 if no key available)
 	long* plTime /*= NULL*/)	// Key's time stamp returned here (unless NULL)
 	{
-	short	sRes	= 0;	// Assume no key.
+	int16_t	sRes	= 0;	// Assume no key.
 
 	PRSP_SK_EVENT	pkeEvent	= ms_qkeEvents.DeQ();
 	if (pkeEvent != NULL)
@@ -217,7 +217,7 @@ extern short rspGetKey(			// Returns 1 if a key was available; 0 if not.
 // Check if a key is available in the keyboard queue via rspGetKey.
 //
 //////////////////////////////////////////////////////////////////////////////
-extern short rspIsKey(void)		// Returns 1 if a key is available; 0 if not.
+extern int16_t rspIsKey(void)		// Returns 1 if a key is available; 0 if not.
 	{
 	return (ms_qkeEvents.IsEmpty() == FALSE) ? 1 : 0;
 	}

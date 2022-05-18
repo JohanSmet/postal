@@ -114,7 +114,7 @@ class RSnd
 			}
 
 		// Query paused status of current play or stream.
-		short IsPaused(void)
+		int16_t IsPaused(void)
 			{
 			return m_mix.IsChannelPaused();
 			}
@@ -127,7 +127,7 @@ class RSnd
 		// Load a sound file a lReadBufSize byte piece at a time and play 
 		// lPlayBufSize byte pieces at a time.
 		// Returns 0 on success.
-		short Stream(						// Returns 0 on success.
+		int16_t Stream(						// Returns 0 on success.
 			char* pszSampleName,			// In:  Name of sample file.
 			long lPlayBufSize,			// In:  Size of play buffer in bytes.
 			long lReadBufSize,			// In:  Size of file read buffer in bytes.
@@ -145,7 +145,7 @@ class RSnd
 		// In a looping scenario, 1..2 of the sample is played, then 2..3
 		// is repeated until m_sLoop is FALSE, at which time, once 3 is reached, 
 		// 3..4 is played.
-		short Play(							// Returns 0 on success.
+		int16_t Play(							// Returns 0 on success.
 			RSample* psample,				// In:  Sample to play.
 			long lPlayBufSize,			// In:  Size of play buffer in bytes.
 			UCHAR	ucMainVolume = 255,	// In:  Primary Volume (0 - 255)
@@ -158,7 +158,7 @@ class RSnd
 
 		// Aborts current play or stream.
 		// Returns 0 on success.
-		short Abort(void);
+		int16_t Abort(void);
 
 		// Pause current play or stream.
 		void Pause(void)
@@ -224,7 +224,7 @@ class RSnd
 
 	////////////////////////// Member vars ////////////////////////////////////
 	public:
-		short			m_sLoop;				// If TRUE, Play() will loop until FALSE.
+		int16_t			m_sLoop;				// If TRUE, Play() will loop until FALSE.
 		long			m_lLoopStartPos;	// Where to loop back to in bytes.
 												// Play() only.
 		long			m_lLoopEndPos;		// Where to loop back from in bytes.
@@ -235,8 +235,8 @@ class RSnd
 
 		ULONG			m_ulUser;		// User value -- set as you please.
 
-		short			m_sChannelVolume;// 0-255 = Primary (local) Volume
-		short			m_sTypeVolume;	// 0-255	= Secondary (category) Volume
+		int16_t			m_sChannelVolume;// 0-255 = Primary (local) Volume
+		int16_t			m_sTypeVolume;	// 0-255	= Secondary (category) Volume
 				
 	protected:
 		long			m_lBufSize;		// Buffer unit to stream in.
@@ -244,7 +244,7 @@ class RSnd
 											// this RSnd's state.
 		RMix			m_mix;			// For playing/mixing sound data.
 		PSAMPLE		m_psample;		// Sample to be streamed.
-		short			m_sOwnSample;	// TRUE if RSnd allocated m_psample, FALSE
+		int16_t			m_sOwnSample;	// TRUE if RSnd allocated m_psample, FALSE
 											// otherwise.
 		ULONG			m_ulRemaining;	// Amount left of sample data to be played.
 		ULONG			m_ulSampleSize;// Overall sample size.

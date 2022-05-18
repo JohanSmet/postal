@@ -55,7 +55,7 @@
 //		09/07/97 MJR	Added "Proceed" message.
 //
 //		06/02/98	JMI	The handling of variable length messages was assuming the
-//							message size was 2 (a short) but it was really a long.  
+//							message size was 2 (a int16_t) but it was really a long.  
 //							Fixed.
 //
 ////////////////////////////////////////////////////////////////////////////////
@@ -132,7 +132,7 @@ void CNetMsgr::Update(void)
 
 		case Connecting:
 			{
-			short serr = m_socket.Connect(&m_address);
+			int16_t serr = m_socket.Connect(&m_address);
 			if (serr == 0)
 				{
 				m_state = Connected;
@@ -275,7 +275,7 @@ bool CNetMsgr::GetMsg(									// True if message was available, false otherwise
 					// An invalid message type means we're in deep shit.  There's no real way to 
 					// recover because we can't tell where messages start and end.
 					m_error = NetMsg::ReceiveError;
-					TRACE("CNetMsgr::GetMsg(): Invalid message type: %hd !\n", (short)ucMsg);
+					TRACE("CNetMsgr::GetMsg(): Invalid message type: %hd !\n", (int16_t)ucMsg);
 					}
 				}
 			}
@@ -401,7 +401,7 @@ void CNetMsgr::SendMsg(
 			// This should obviously never occur as it would indicate a humongous internal problem,
 			// like the program has blown itself up or something.
 			m_error = NetMsg::SendError;
-			TRACE("CNetMsgr::SendMsg(): Attempting to write invalid message type: %hd !\n", (short)ucMsg);
+			TRACE("CNetMsgr::SendMsg(): Attempting to write invalid message type: %hd !\n", (int16_t)ucMsg);
 			ASSERT(0);
 			}
 		
@@ -450,7 +450,7 @@ void CNetMsgr::ReceiveData(void)
 	// position to the end of the buffer.  However, there might be additional
 	// space at the beginning of the buffer -- all we have to do is "wrap around"
 	// to the beginning.  Doing two gets does exactly that.
-	for (short sGet = 0; sGet < 2; sGet++)
+	for (int16_t sGet = 0; sGet < 2; sGet++)
 		{
 		if (m_socket.CheckReceivableBytes() && (m_error == NetMsg::NoError))
 			{
@@ -469,7 +469,7 @@ void CNetMsgr::ReceiveData(void)
 			if (lMaxPuttableBytes > 0)
 				{
 				// Receive up to the specified number of bytes
-				short serr = m_socket.Receive(pu8Put, lMaxPuttableBytes, &lReceivedBytes);
+				int16_t serr = m_socket.Receive(pu8Put, lMaxPuttableBytes, &lReceivedBytes);
 				if ((serr != 0) && (serr != RSocket::errWouldBlock))
 					{
 					m_error = NetMsg::ReceiveError;
@@ -521,7 +521,7 @@ void CNetMsgr::SendData(void)
 			if (lMaxGettableBytes > 0)
 				{
 				// Receive up to the specified number of bytes
-				short serr = m_socket.Send(pu8Get, lMaxGettableBytes, &lSentBytes);
+				int16_t serr = m_socket.Send(pu8Get, lMaxGettableBytes, &lSentBytes);
 				if ((serr != 0) && (serr != RSocket::errWouldBlock))
 					{
 					m_error = NetMsg::SendError;

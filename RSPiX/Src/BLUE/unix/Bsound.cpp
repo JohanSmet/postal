@@ -54,7 +54,7 @@ static SDL_AudioSpec desired;
 static long cur_buf_time = 0;
 static long max_buf_time = 0;
 
-extern short rspSetSoundOutMode(				// Returns 0 if successfull, non-zero otherwise
+extern int16_t rspSetSoundOutMode(				// Returns 0 if successfull, non-zero otherwise
 	long lSampleRate,								// In:  Sample rate
 	long lBitsPerSample,							// In:  Bits per sample
 	long lChannels,								// In:  Channels (mono = 1, stereo = 2)
@@ -130,7 +130,7 @@ extern short rspSetSoundOutMode(				// Returns 0 if successfull, non-zero otherw
     return 0;
 }
 
-extern short rspGetSoundOutMode(				// Returns 0 if successfull, non-zero otherwise
+extern int16_t rspGetSoundOutMode(				// Returns 0 if successfull, non-zero otherwise
 	long* plSampleRate,							// Out: Sample rate or -1 (unless NULL)
 	long* plBitsPerSample,				// Out: Bits per sample or -1 (unless NULL)
 	long* plChannels,					// Out: Channels (mono=1, stereo=2) or -1 (unless NULL)
@@ -161,13 +161,13 @@ extern void rspKillSoundOutMode(void)		// Returns 0 if successfull, non-zero oth
     }
 }
 
-extern short rspClearSoundOut(void)		// Returns 0 on success, non-zero otherwise
+extern int16_t rspClearSoundOut(void)		// Returns 0 on success, non-zero otherwise
 {
     // no-op?
     return 0;
 }
 
-extern short rspPauseSoundOut(void)		// Returns 0 on success, non-zero otherwise
+extern int16_t rspPauseSoundOut(void)		// Returns 0 on success, non-zero otherwise
 {
     if (!audio_opened)
         return 0;
@@ -176,7 +176,7 @@ extern short rspPauseSoundOut(void)		// Returns 0 on success, non-zero otherwise
     return 0;
 }
 
-extern short rspResumeSoundOut(void)		// Returns 0 on success, non-zero otherwise
+extern int16_t rspResumeSoundOut(void)		// Returns 0 on success, non-zero otherwise
 {
     if (!audio_opened)
         return 0;
@@ -185,7 +185,7 @@ extern short rspResumeSoundOut(void)		// Returns 0 on success, non-zero otherwis
     return 0;
 }
 
-extern short rspIsSoundOutPaused(void)	// Returns TRUE if paused, FALSE otherwise
+extern int16_t rspIsSoundOutPaused(void)	// Returns TRUE if paused, FALSE otherwise
 {
     if (!audio_opened)
         return TRUE;

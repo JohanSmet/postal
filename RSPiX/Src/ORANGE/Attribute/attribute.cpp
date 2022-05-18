@@ -233,9 +233,9 @@ void RAttributeMap::FreeMap()
 //
 //////////////////////////////////////////////////////////////////////
 
-short RAttributeMap::AllocateMap(ULONG ulSize, ULONG ulDetailMapSize)
+int16_t RAttributeMap::AllocateMap(ULONG ulSize, ULONG ulDetailMapSize)
 {
-	// short sReturn = SUCCESS;
+	// int16_t sReturn = SUCCESS;
 
 	if (m_pusMap == NULL)
 		m_pusMap = new USHORT[ulSize];
@@ -481,10 +481,10 @@ USHORT RAttributeMap::GetAttribute(long lTopCoord, long lBottomCoord,
 //
 //////////////////////////////////////////////////////////////////////
 
-short RAttributeMap::Load(char* pszFilename)
+int16_t RAttributeMap::Load(char* pszFilename)
 {
 	RFile cf;
-	short sReturn = SUCCESS;
+	int16_t sReturn = SUCCESS;
 
 	if (cf.Open(pszFilename, "rb", RFile::LittleEndian) != SUCCESS)
 	{
@@ -499,9 +499,9 @@ short RAttributeMap::Load(char* pszFilename)
 	return sReturn;
 }
 
-short RAttributeMap::Load(RFile* prf)
+int16_t RAttributeMap::Load(RFile* prf)
 {
-	short sReturn = SUCCESS;
+	int16_t sReturn = SUCCESS;
 	ULONG ulFileType;
 	ULONG ulVersion;
 

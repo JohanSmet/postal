@@ -52,10 +52,10 @@ RFracU16 { mod, frac, set }
 
 inline void rspfrDiv(&frDst,sNum,sDen) // sDen > 0
 inline void rspfrSet(&frDst,lVal) // a memset!
-inline void rspfrAdd(&frDst,frAdd,short sDen)
-inline void rspfrSub(&frDst,frSub,short sDen)
-inline void rspfrAddHalf(&frDst,short sDen) // useful for rounding
-inline void rspfrSetValue(&frDst,double dVal,short sDen)
+inline void rspfrAdd(&frDst,frAdd,int16_t sDen)
+inline void rspfrSub(&frDst,frSub,int16_t sDen)
+inline void rspfrAddHalf(&frDst,int16_t sDen) // useful for rounding
+inline void rspfrSetValue(&frDst,double dVal,int16_t sDen)
 inline void rspMakeProper(&frU16Dst,usNum,usDen)
 inline RFracU16* rspfrU16Strafe256(usNum,usDen) // gives 0..255 * fraction!
 
@@ -82,8 +82,8 @@ typedef union	{
 	long	set;
 	struct	
 		{
-		short	mod;
-		short frac;
+		int16_t	mod;
+		int16_t frac;
 		};
 	} RFracS16;
 
@@ -100,7 +100,7 @@ typedef union	{
 //************* ALERT ALERT!!! FRACTION STUFF HERE!!!!!  *******************
 // There should be more functions to handle simplified cases!
 // sDen MUST be positive!
-inline void rspfrDiv(RFracS16& fr,short sNum,short sDen)
+inline void rspfrDiv(RFracS16& fr,int16_t sNum,int16_t sDen)
 	{
 	fr.mod = sNum / sDen;
 	fr.frac = sNum % sDen;
@@ -116,7 +116,7 @@ inline void rspfrSet(RFracS16& fr,long lVal) { fr.set = lVal; }
 
 // Signed can go either way... use unsigned for speed!
 // This also assumes it can add greater than one!
-inline void rspfrAdd(RFracS16& frDst,RFracS16& frAdd,short sDen)
+inline void rspfrAdd(RFracS16& frDst,RFracS16& frAdd,int16_t sDen)
 	{ 
 	frDst.mod += frAdd.mod;
 	frDst.frac += frAdd.frac;
@@ -124,7 +124,7 @@ inline void rspfrAdd(RFracS16& frDst,RFracS16& frAdd,short sDen)
 	if (frDst.frac < 0) {frDst.mod--;frDst.frac += sDen;}
 	}
 
-inline void rspfrSub(RFracS16& frDst,RFracS16& frSub,short sDen)
+inline void rspfrSub(RFracS16& frDst,RFracS16& frSub,int16_t sDen)
 	{ 
 	frDst.mod -= frSub.mod;
 	frDst.frac -= frSub.frac;
@@ -132,24 +132,24 @@ inline void rspfrSub(RFracS16& frDst,RFracS16& frSub,short sDen)
 	if (frDst.frac >= sDen) {frDst.mod++;frDst.frac -= sDen;}
 	}
 
-inline void rspfrAddHalf(RFracS16& frDst,short sDen) // useful for rounding
+inline void rspfrAddHalf(RFracS16& frDst,int16_t sDen) // useful for rounding
 	{ 
 	frDst.frac += (sDen >> 1);
 	if (frDst.frac >= sDen) {frDst.mod++;frDst.frac -= sDen;}
 	}
 
 //========================= debugging only! (slow)
-inline void rspfrSetValue(RFracS16& frDst,double dVal,short sDen)
+inline void rspfrSetValue(RFracS16& frDst,double dVal,int16_t sDen)
 	{
-	frDst.mod = (short) floor(dVal);
-	frDst.frac = (short) ((dVal - floor(dVal))*sDen);
+	frDst.mod = (int16_t) floor(dVal);
+	frDst.frac = (int16_t) ((dVal - floor(dVal))*sDen);
 	}
 
 // add two fractions of identical denominators...
 // both fraction MUST be PROPER! 
 // UNSIGNED!!!!
 //
-inline void	rspfrAdd(RFracU16& pDst,RFracU16& pAdd,short sDen)
+inline void	rspfrAdd(RFracU16& pDst,RFracU16& pAdd,int16_t sDen)
 	{
 	pDst.mod += pAdd.mod;
 	if ( (pDst.frac += pAdd.frac) >= sDen)
@@ -180,7 +180,7 @@ inline RFracU16* rspfrU16Strafe256(USHORT usNum,USHORT usDen)
 	rspMakeProper(u16fInc,usNum,usDen); // the 2 part mod
 
 	// ULONG ulNumInc = 0;
-	for (short i = 1; i < 256 ; i++)
+	for (int16_t i = 1; i < 256 ; i++)
 		{
 		pu16fNew[i].mod = pu16fNew[i-1].mod + u16fInc.mod;
 		pu16fNew[i].frac = pu16fNew[i-1].frac + u16fInc.frac;

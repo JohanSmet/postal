@@ -493,176 +493,176 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Menu callbacks.
 
-static short MainMenuInit(		// Returns 0 on succes, non-zero to cancel menu.
+static int16_t MainMenuInit(		// Returns 0 on succes, non-zero to cancel menu.
 	Menu*	pmenuCurrent,			// In:  Menu being init'ed or killed.
-	short sInit);					// In:  TRUE, if initializing; FALSE, if killing.
+	int16_t sInit);					// In:  TRUE, if initializing; FALSE, if killing.
 
 static bool MainMenuChoice(	// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,			// Current menu.
-	short	sMenuItem);				// Item chosen.
+	int16_t	sMenuItem);				// Item chosen.
 static bool VerifyExitMenuChoice(	// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,			// Current menu.
-	short	sMenuItem);				// Item chosen.
+	int16_t	sMenuItem);				// Item chosen.
 
 //static bool ClientGameMenuChoice(	// Returns true to accept, false to deny choice.
 	//Menu*	pmenuCurrent,			// Current menu.
-	//short	sMenuItem);				// Item chosen.
+	//int16_t	sMenuItem);				// Item chosen.
 
 static bool EditorMenuChoice(	// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,			// Current menu.
-	short	sMenuItem);				// Item chosen.
+	int16_t	sMenuItem);				// Item chosen.
 
 static bool StartGameMenu(		// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,			// Current menu.
-	short	sMenuItem);				// Item chosen.
+	int16_t	sMenuItem);				// Item chosen.
 
-static short StartGameInit(	// Returns 0 on success, non-zero to cancel menu.
+static int16_t StartGameInit(	// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,				// Current menu.
-	short	sInit);					// TRUE, if initializing; FALSE, if killing.
+	int16_t	sInit);					// TRUE, if initializing; FALSE, if killing.
 
 static bool StartSingleMenu(		// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,			// Current menu.
-	short	sMenuItem);				// Item chosen.
+	int16_t	sMenuItem);				// Item chosen.
 
-static short ChallengeInit(	// Returns 0 on success, non-zero to cancel menu.
+static int16_t ChallengeInit(	// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,				// Current menu.
-	short	sInit);					// TRUE, if initializing; FALSE, if killing.
+	int16_t	sInit);					// TRUE, if initializing; FALSE, if killing.
 
 static bool ChallengeChoice(	// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,			// Current menu.
-	short	sMenuItem);				// Item chosen.
+	int16_t	sMenuItem);				// Item chosen.
 
-static short StartSingleInit(	// Returns 0 on success, non-zero to cancel menu.
+static int16_t StartSingleInit(	// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,				// Current menu.
-	short	sInit);					// TRUE, if initializing; FALSE, if killing.
+	int16_t	sInit);					// TRUE, if initializing; FALSE, if killing.
 
 static bool StartMultiMenu(	// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,			// Current menu.
-	short	sMenuItem);				// Item chosen.
+	int16_t	sMenuItem);				// Item chosen.
 
-static short StartMultiInit(	// Returns 0 on success, non-zero to cancel menu.
+static int16_t StartMultiInit(	// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,				// Current menu.
-	short	sInit);					// TRUE, if initializing; FALSE, if killing.
+	int16_t	sInit);					// TRUE, if initializing; FALSE, if killing.
 
 static bool JoinMultiMenu(		// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,			// Current menu.
-	short	sMenuItem);				// Item chosen.
+	int16_t	sMenuItem);				// Item chosen.
 
-static short JoinMultiInit(	// Returns 0 on success, non-zero to cancel menu.
+static int16_t JoinMultiInit(	// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,				// Current menu.
-	short	sInit);					// TRUE, if initializing; FALSE, if killing.
+	int16_t	sInit);					// TRUE, if initializing; FALSE, if killing.
 
 static bool HostMultiMenu(		// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,			// Current menu.
-	short	sMenuItem);				// Item chosen.
+	int16_t	sMenuItem);				// Item chosen.
 
-static short HostMultiInit(	// Returns 0 on success, non-zero to cancel menu.
+static int16_t HostMultiInit(	// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,				// Current menu.
-	short	sInit);					// TRUE, if initializing; FALSE, if killing.
+	int16_t	sInit);					// TRUE, if initializing; FALSE, if killing.
 
 static bool StartDemoMenu(		// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,			// Current menu.
-	short	sMenuItem);				// Item chosen.
+	int16_t	sMenuItem);				// Item chosen.
 
-static short StartDemoInit(	// Returns 0 on success, non-zero to cancel menu.
+static int16_t StartDemoInit(	// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,				// Current menu.
-	short	sInit);					// TRUE, if initializing; FALSE, if killing.
+	int16_t	sInit);					// TRUE, if initializing; FALSE, if killing.
 
-static short OptionsInit(		// Returns 0 on success, non-zero to cancel menu.
+static int16_t OptionsInit(		// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,				// Current menu.
-	short	sInit);					// TRUE, if initializing; FALSE, if killing.
+	int16_t	sInit);					// TRUE, if initializing; FALSE, if killing.
 
 static bool OptionsChoice(		// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,			// Current menu.
-	short	sMenuItem);				// Item chosen.
+	int16_t	sMenuItem);				// Item chosen.
 
-static short PlayOptionsInit(	// Returns 0 on success, non-zero to cancel menu.
+static int16_t PlayOptionsInit(	// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,				// Current menu.
-	short	sInit);					// TRUE, if initializing; FALSE, if killing.
+	int16_t	sInit);					// TRUE, if initializing; FALSE, if killing.
 
 static bool PlayOptionsChoice(	// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,				// Current menu.
-	short	sMenuItem);					// Item chosen.
+	int16_t	sMenuItem);					// Item chosen.
 
-static short VideoOptionsInit(	// Returns 0 on success, non-zero to cancel menu.
+static int16_t VideoOptionsInit(	// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,					// Current menu.
-	short	sInit);						// TRUE, if initializing; FALSE, if killing.
+	int16_t	sInit);						// TRUE, if initializing; FALSE, if killing.
 
 static bool VideoOptionsChoice(	// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,				// Current menu.
-	short	sMenuItem);					// Item chosen.
+	int16_t	sMenuItem);					// Item chosen.
 
-static short AudioOptionsInit(	// Returns 0 on success, non-zero to cancel menu.
+static int16_t AudioOptionsInit(	// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,					// Current menu.
-	short	sInit);						// TRUE, if initializing; FALSE, if killing.
+	int16_t	sInit);						// TRUE, if initializing; FALSE, if killing.
 
 static bool AudioOptionsChoice(	// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,				// Current menu.
-	short	sMenuItem);					// Item chosen.
+	int16_t	sMenuItem);					// Item chosen.
 
-static short VolumesInit(		// Returns 0 on success, non-zero to cancel menu.
+static int16_t VolumesInit(		// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,				// Current menu.
-	short	sInit);					// TRUE, if initializing; FALSE, if killing.
+	int16_t	sInit);					// TRUE, if initializing; FALSE, if killing.
 
 static bool VolumesChoice(		// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,			// Current menu.
-	short	sMenuItem);				// Item chosen.
+	int16_t	sMenuItem);				// Item chosen.
 
-static short ControlsInit(		// Returns 0 on success, non-zero to cancel menu.
+static int16_t ControlsInit(		// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,				// Current menu.
-	short	sInit);					// TRUE, if initializing; FALSE, if killing.
+	int16_t	sInit);					// TRUE, if initializing; FALSE, if killing.
 
 static bool ControlsChoice(	// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,			// Current menu.
-	short	sMenuItem);				// Item chosen.
+	int16_t	sMenuItem);				// Item chosen.
 
-static short RotationInit(		// Returns 0 on success, non-zero to cancel menu.
+static int16_t RotationInit(		// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,				// Current menu.
-	short	sInit);					// TRUE, if initializing; FALSE, if killing.
+	int16_t	sInit);					// TRUE, if initializing; FALSE, if killing.
 
 static bool RotationChoice(	// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,			// Current menu.
-	short	sMenuItem);				// Item chosen.
+	int16_t	sMenuItem);				// Item chosen.
 
-static short MouseInit(			// Returns 0 on success, non-zero to cancel menu.
+static int16_t MouseInit(			// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,				// Current menu.
-	short	sInit);					// TRUE, if initializing; FALSE, if killing.
+	int16_t	sInit);					// TRUE, if initializing; FALSE, if killing.
 
 static bool MouseChoice(		// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,			// Current menu.
-	short	sMenuItem);				// Item chosen.
+	int16_t	sMenuItem);				// Item chosen.
 
-static short KeyInit(			// Returns 0 on success, non-zero to cancel menu.
+static int16_t KeyInit(			// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,				// Current menu.
-	short	sInit);					// TRUE, if initializing; FALSE, if killing.
+	int16_t	sInit);					// TRUE, if initializing; FALSE, if killing.
 
 static bool KeyChoice(			// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,			// Current menu.
-	short	sMenuItem);				// Item chosen.
+	int16_t	sMenuItem);				// Item chosen.
 
-static short JoyInit(			// Returns 0 on success, non-zero to cancel menu.
+static int16_t JoyInit(			// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,				// Current menu.
-	short	sInit);					// TRUE, if initializing; FALSE, if killing.
+	int16_t	sInit);					// TRUE, if initializing; FALSE, if killing.
 
 static bool JoyChoice(			// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,			// Current menu.
-	short	sMenuItem);				// Item chosen.
+	int16_t	sMenuItem);				// Item chosen.
 
-static short MultiOptionsInit(	// Returns 0 on success, non-zero to cancel menu.
+static int16_t MultiOptionsInit(	// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,					// Current menu.
-	short	sInit);						// TRUE, if initializing; FALSE, if killing.
+	int16_t	sInit);						// TRUE, if initializing; FALSE, if killing.
 
 static bool MultiOptionsChoice(	// Returns true to accept, false to deny choice.
 	Menu*	pmenuCur,					// Current menu.
-	short	sMenuItem);					// Item chosen.
+	int16_t	sMenuItem);					// Item chosen.
 
-static short FeaturesInit(		// Returns 0 on success, non-zero to cancel menu.
+static int16_t FeaturesInit(		// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,				// Current menu.
-	short	sInit);					// TRUE, if initializing; FALSE, if killing.
+	int16_t	sInit);					// TRUE, if initializing; FALSE, if killing.
 
 static bool FeaturesChoice(	// Returns true to accept, false to deny choice.
 	Menu*	pmenuCur,				// Current menu.
-	short	sMenuItem);				// Item chosen.
+	int16_t	sMenuItem);				// Item chosen.
 
 ////////////////////////////////////////////////////////////////////////////////
 // GUI callbacks.
@@ -3028,11 +3028,11 @@ Menu	menuMultiOptions =
 // Called when main menu is initialized or killed.
 //
 ////////////////////////////////////////////////////////////////////////////////
-static short MainMenuInit(		// Returns 0 on succes, non-zero to cancel menu.
+static int16_t MainMenuInit(		// Returns 0 on succes, non-zero to cancel menu.
 	Menu*	pmenuCurrent,			// In:  Menu being init'ed or killed.
-	short sInit)					// In:  TRUE, if initializing; FALSE, if killing.
+	int16_t sInit)					// In:  TRUE, if initializing; FALSE, if killing.
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	Game_InitMainMenu(sInit);
 
@@ -3046,7 +3046,7 @@ static short MainMenuInit(		// Returns 0 on succes, non-zero to cancel menu.
 ////////////////////////////////////////////////////////////////////////////////
 static bool MainMenuChoice(	// Returns true to accept, false to deny choice.
 	Menu*	/*pmenuCurrent*/,		// Current menu.
-	short	sMenuItem)				// Item chosen.
+	int16_t	sMenuItem)				// Item chosen.
 	{
 	bool	bAcceptChoice	= true;	// Assume accepting.
 
@@ -3082,7 +3082,7 @@ static bool MainMenuChoice(	// Returns true to accept, false to deny choice.
 
 static bool VerifyExitMenuChoice(	// Returns true to accept, false to deny choice.
 	Menu*	/*pmenuCurrent*/,		// Current menu.
-	short	sMenuItem)				// Item chosen.
+	int16_t	sMenuItem)				// Item chosen.
 	{
 	bool	bAcceptChoice	= true;	// Assume accepting.
 
@@ -3110,7 +3110,7 @@ static bool VerifyExitMenuChoice(	// Returns true to accept, false to deny choic
 #if 0
 static bool ClientGameMenuChoice(	// Returns true to accept, false to deny choice.
 	Menu*	/*pmenuCurrent*/,		// Current menu.
-	short	sMenuItem)				// Item chosen.
+	int16_t	sMenuItem)				// Item chosen.
 	{
 	bool	bAcceptChoice	= true;	// Assume accepting.
 
@@ -3140,11 +3140,11 @@ static bool ClientGameMenuChoice(	// Returns true to accept, false to deny choic
 // Called to init or kill the Start Game menu.
 //
 ////////////////////////////////////////////////////////////////////////////////
-static short StartGameInit(	// Returns 0 on success, non-zero to cancel menu.
+static int16_t StartGameInit(	// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,				// Current menu.
-	short	sInit)					// TRUE, if initializing; FALSE, if killing.
+	int16_t	sInit)					// TRUE, if initializing; FALSE, if killing.
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	// Be sure the demo option reflects INI setting.
 	if (g_GameSettings.m_sCanRecordDemos == FALSE)
@@ -3162,7 +3162,7 @@ static short StartGameInit(	// Returns 0 on success, non-zero to cancel menu.
 ////////////////////////////////////////////////////////////////////////////////
 static bool StartGameMenu(		// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,			// Current menu.
-	short	sMenuItem)				// Item chosen.
+	int16_t	sMenuItem)				// Item chosen.
 	{
 	bool	bAcceptChoice	= true;	// Assume accepting.
 
@@ -3205,11 +3205,11 @@ static bool StartGameMenu(		// Returns true to accept, false to deny choice.
 // Called to init or kill the Challenge menu.
 //
 ////////////////////////////////////////////////////////////////////////////////
-static short ChallengeInit(	// Returns 0 on success, non-zero to cancel menu.
+static int16_t ChallengeInit(	// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,				// Current menu.
-	short	sInit)					// TRUE, if initializing; FALSE, if killing.
+	int16_t	sInit)					// TRUE, if initializing; FALSE, if killing.
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	return sRes;
 	}
@@ -3221,7 +3221,7 @@ static short ChallengeInit(	// Returns 0 on success, non-zero to cancel menu.
 ////////////////////////////////////////////////////////////////////////////////
 static bool ChallengeChoice(	// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,			// Current menu.
-	short	sMenuItem)				// Item chosen.
+	int16_t	sMenuItem)				// Item chosen.
 	{
 	bool	bAcceptChoice	= true;	// Assume accepting.
 
@@ -3242,9 +3242,9 @@ static bool ChallengeChoice(	// Returns true to accept, false to deny choice.
 // Called to init or kill the Start Single Player Game menu.
 //
 ////////////////////////////////////////////////////////////////////////////////
-static short StartSingleInit(	// Returns 0 on success, non-zero to cancel menu.
+static int16_t StartSingleInit(	// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,				// Current menu.
-	short	sInit)					// TRUE, if initializing; FALSE, if killing.
+	int16_t	sInit)					// TRUE, if initializing; FALSE, if killing.
 	{
 	return 0;
 	}
@@ -3256,7 +3256,7 @@ static short StartSingleInit(	// Returns 0 on success, non-zero to cancel menu.
 ////////////////////////////////////////////////////////////////////////////////
 static bool StartSingleMenu(	// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,			// Current menu.
-	short	sMenuItem)				// Item chosen.
+	int16_t	sMenuItem)				// Item chosen.
 	{
 	bool	bAcceptChoice	= true;	// Assume accepting.
 
@@ -3277,11 +3277,11 @@ static bool StartSingleMenu(	// Returns true to accept, false to deny choice.
 // Called to init or kill the Start Multiplayer Game menu.
 //
 ////////////////////////////////////////////////////////////////////////////////
-static short StartMultiInit(	// Returns 0 on success, non-zero to cancel menu.
+static int16_t StartMultiInit(	// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,				// Current menu.
-	short	sInit)					// TRUE, if initializing; FALSE, if killing.
+	int16_t	sInit)					// TRUE, if initializing; FALSE, if killing.
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	if (sInit != FALSE)
 		RGuiItem::ms_print.SetFont(DEFAULT_GUI_FONT_HEIGHT, &g_fontPostal);
@@ -3296,7 +3296,7 @@ static short StartMultiInit(	// Returns 0 on success, non-zero to cancel menu.
 ////////////////////////////////////////////////////////////////////////////////
 static bool StartMultiMenu(	// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,			// Current menu.
-	short	sMenuItem)				// Item chosen.
+	int16_t	sMenuItem)				// Item chosen.
 	{
 	bool	bAcceptChoice	= true;	// Assume accepting.
 
@@ -3315,11 +3315,11 @@ static bool StartMultiMenu(	// Returns true to accept, false to deny choice.
 // Called to init or kill menuJoinMulti.
 //
 ////////////////////////////////////////////////////////////////////////////////
-static short JoinMultiInit(	// Returns 0 on success, non-zero to cancel menu.
+static int16_t JoinMultiInit(	// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,				// Current menu.
-	short	sInit)					// TRUE, if initializing; FALSE, if killing.
+	int16_t	sInit)					// TRUE, if initializing; FALSE, if killing.
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	if (sInit != FALSE)
 		{
@@ -3360,7 +3360,7 @@ static short JoinMultiInit(	// Returns 0 on success, non-zero to cancel menu.
 ////////////////////////////////////////////////////////////////////////////////
 static bool JoinMultiMenu(	// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,			// Current menu.
-	short	sMenuItem)				// Item chosen.
+	int16_t	sMenuItem)				// Item chosen.
 	{
 	bool	bAcceptChoice	= true;	// Assume accepting.
 
@@ -3386,11 +3386,11 @@ static bool JoinMultiMenu(	// Returns true to accept, false to deny choice.
 // Called to init or kill menuHostMulti.
 //
 ////////////////////////////////////////////////////////////////////////////////
-static short HostMultiInit(	// Returns 0 on success, non-zero to cancel menu.
+static int16_t HostMultiInit(	// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,				// Current menu.
-	short	sInit)					// TRUE, if initializing; FALSE, if killing.
+	int16_t	sInit)					// TRUE, if initializing; FALSE, if killing.
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	if (sInit != FALSE)
 		{
@@ -3431,7 +3431,7 @@ static short HostMultiInit(	// Returns 0 on success, non-zero to cancel menu.
 ////////////////////////////////////////////////////////////////////////////////
 static bool HostMultiMenu(		// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,			// Current menu.
-	short	sMenuItem)				// Item chosen.
+	int16_t	sMenuItem)				// Item chosen.
 	{
 	bool	bAcceptChoice	= true;	// Assume accepting.
 
@@ -3457,11 +3457,11 @@ static bool HostMultiMenu(		// Returns true to accept, false to deny choice.
 // Called to init or kill the Start Demo Game menu.
 //
 ////////////////////////////////////////////////////////////////////////////////
-static short StartDemoInit(	// Returns 0 on success, non-zero to cancel menu.
+static int16_t StartDemoInit(	// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,				// Current menu.
-	short	sInit)					// TRUE, if initializing; FALSE, if killing.
+	int16_t	sInit)					// TRUE, if initializing; FALSE, if killing.
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	return sRes;
 	}
@@ -3473,7 +3473,7 @@ static short StartDemoInit(	// Returns 0 on success, non-zero to cancel menu.
 ////////////////////////////////////////////////////////////////////////////////
 static bool StartDemoMenu(	// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,			// Current menu.
-	short	sMenuItem)				// Item chosen.
+	int16_t	sMenuItem)				// Item chosen.
 	{
 	bool	bAcceptChoice	= true;	// Assume accepting.
 
@@ -3504,18 +3504,18 @@ static bool StartDemoMenu(	// Returns true to accept, false to deny choice.
 // Called to init or kill the options menu.
 //
 ////////////////////////////////////////////////////////////////////////////////
-static short OptionsInit(		// Returns 0 on success, non-zero to cancel menu.
+static int16_t OptionsInit(		// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,				// Current menu.
-	short	sInit)					// TRUE, if initializing; FALSE, if killing.
+	int16_t	sInit)					// TRUE, if initializing; FALSE, if killing.
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	if (sInit != FALSE)
 		{
 #ifndef MULTIPLAYER_REMOVED
-		short sMenuItem = 5;
+		int16_t sMenuItem = 5;
 #else
-		short	sMenuItem	= 4;
+		int16_t	sMenuItem	= 4;
 #endif
 
 		RMultiBtn**	ppmb	= (RMultiBtn**)&(pmenuCur->ami[sMenuItem++].pgui);
@@ -3535,9 +3535,9 @@ static short OptionsInit(		// Returns 0 on success, non-zero to cancel menu.
 	else
 		{
 #ifndef MULTIPLAYER_REMOVED
-		short sMenuItem = 6;
+		int16_t sMenuItem = 6;
 #else
-		short	sMenuItem	= 5;
+		int16_t	sMenuItem	= 5;
 #endif
 
 		RMultiBtn**	ppmb	= (RMultiBtn**)&(pmenuCur->ami[sMenuItem++].pgui);
@@ -3561,7 +3561,7 @@ static short OptionsInit(		// Returns 0 on success, non-zero to cancel menu.
 ////////////////////////////////////////////////////////////////////////////////
 static bool OptionsChoice(		// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,			// Current menu.
-	short	sMenuItem)				// Item chosen or -1 for change of focus.
+	int16_t	sMenuItem)				// Item chosen or -1 for change of focus.
 	{
 	bool	bAcceptChoice	= true;	// Assume accepting.
 
@@ -3596,11 +3596,11 @@ static bool OptionsChoice(		// Returns true to accept, false to deny choice.
 // Called to init or kill the play options menu.
 //
 ////////////////////////////////////////////////////////////////////////////////
-static short PlayOptionsInit(	// Returns 0 on success, non-zero to cancel menu.
+static int16_t PlayOptionsInit(	// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,				// Current menu.
-	short	sInit)					// TRUE, if initializing; FALSE, if killing.
+	int16_t	sInit)					// TRUE, if initializing; FALSE, if killing.
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	if (sInit != FALSE)
 		{
@@ -3651,7 +3651,7 @@ static short PlayOptionsInit(	// Returns 0 on success, non-zero to cancel menu.
 ////////////////////////////////////////////////////////////////////////////////
 static bool PlayOptionsChoice(	// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,				// Current menu.
-	short	sMenuItem)					// Item chosen or -1 for change of focus.
+	int16_t	sMenuItem)					// Item chosen or -1 for change of focus.
 	{
 	bool	bAcceptChoice	= true;	// Assume accepting.
 
@@ -3669,11 +3669,11 @@ static bool PlayOptionsChoice(	// Returns true to accept, false to deny choice.
 // Called to init or kill the video options menu.
 //
 ////////////////////////////////////////////////////////////////////////////////
-static short VideoOptionsInit(	// Returns 0 on success, non-zero to cancel menu.
+static int16_t VideoOptionsInit(	// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,					// Current menu.
-	short	sInit)						// TRUE, if initializing; FALSE, if killing.
+	int16_t	sInit)						// TRUE, if initializing; FALSE, if killing.
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	if (sInit != FALSE)
 		{
@@ -3726,7 +3726,7 @@ static short VideoOptionsInit(	// Returns 0 on success, non-zero to cancel menu.
 ////////////////////////////////////////////////////////////////////////////////
 static bool VideoOptionsChoice(	// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,				// Current menu.
-	short	sMenuItem)					// Item chosen or -1 for change of focus.
+	int16_t	sMenuItem)					// Item chosen or -1 for change of focus.
 	{
 	bool	bAcceptChoice	= true;	// Assume accepting.
 
@@ -3744,11 +3744,11 @@ static bool VideoOptionsChoice(	// Returns true to accept, false to deny choice.
 // Called to init or kill the audio options menu.
 //
 ////////////////////////////////////////////////////////////////////////////////
-static short AudioOptionsInit(	// Returns 0 on success, non-zero to cancel menu.
+static int16_t AudioOptionsInit(	// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,					// Current menu.
-	short	sInit)						// TRUE, if initializing; FALSE, if killing.
+	int16_t	sInit)						// TRUE, if initializing; FALSE, if killing.
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	if (sInit != FALSE)
 		{
@@ -3767,7 +3767,7 @@ static short AudioOptionsInit(	// Returns 0 on success, non-zero to cancel menu.
 ////////////////////////////////////////////////////////////////////////////////
 static bool AudioOptionsChoice(	// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,				// Current menu.
-	short	sMenuItem)					// Item chosen or -1 for change of focus.
+	int16_t	sMenuItem)					// Item chosen or -1 for change of focus.
 	{
 	bool	bAcceptChoice	= true;	// Assume accepting.
 
@@ -3787,11 +3787,11 @@ static bool AudioOptionsChoice(	// Returns true to accept, false to deny choice.
 // Called to init or kill the volumes menu.
 //
 ////////////////////////////////////////////////////////////////////////////////
-static short VolumesInit(		// Returns 0 on success, non-zero to cancel menu.
+static int16_t VolumesInit(		// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,				// Current menu.
-	short	sInit)					// TRUE, if initializing; FALSE, if killing.
+	int16_t	sInit)					// TRUE, if initializing; FALSE, if killing.
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	if (sInit != FALSE)
 		{
@@ -3855,7 +3855,7 @@ static short VolumesInit(		// Returns 0 on success, non-zero to cancel menu.
 		}
 	else
 		{
-		short i;
+		int16_t i;
 		for (i = 0; i < SampleMaster::MAX_NUM_SOUND_CATEGORIES && sRes == 0 && pmenuCur->ami[i].pszText; i++)
 			{
 			// If this resource was allocated . . .
@@ -3877,7 +3877,7 @@ static short VolumesInit(		// Returns 0 on success, non-zero to cancel menu.
 ////////////////////////////////////////////////////////////////////////////////
 static bool VolumesChoice(		// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,			// Current menu.
-	short	sMenuItem)				// Item chosen or -1 for change of focus.
+	int16_t	sMenuItem)				// Item chosen or -1 for change of focus.
 	{
 	bool	bAcceptChoice	= true;	// Assume accepting.
 
@@ -3912,7 +3912,7 @@ static bool VolumesChoice(		// Returns true to accept, false to deny choice.
 		default:																// Play all.
 			{
 			// Play all samples simultaneously so user can hear the mixage.
-			short i;
+			int16_t i;
 			for (i = 0; i < SampleMaster::MAX_NUM_SOUND_CATEGORIES; i++)
 				{
 				// Play a sample in that category.
@@ -3942,18 +3942,18 @@ static bool VolumesChoice(		// Returns true to accept, false to deny choice.
 // Called when the controls menu is initialized.
 //
 ////////////////////////////////////////////////////////////////////////////////
-static short ControlsInit(		// Returns 0 on success, non-zero to cancel menu.
+static int16_t ControlsInit(		// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,				// Current menu.
-	short	sInit)					// TRUE, if initializing; FALSE, if killing.
+	int16_t	sInit)					// TRUE, if initializing; FALSE, if killing.
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	if (sInit != FALSE)
 		{
 		RGuiItem::ms_print.SetFont(DEFAULT_GUI_FONT_HEIGHT, &g_fontPostal);
 
 #if defined(ALLOW_JOYSTICK)
-		short	sMenuItem	= 4;
+		int16_t	sMenuItem	= 4;
 
 		RMultiBtn**	ppmb	= (RMultiBtn**)&(pmenuCur->ami[sMenuItem++].pgui);
 		// Get check box for 'Use Joystick'.
@@ -3969,7 +3969,7 @@ static short ControlsInit(		// Returns 0 on success, non-zero to cancel menu.
 			sRes	= 1;
 			}
 #else
-		short	sMenuItem	= 3;
+		int16_t	sMenuItem	= 3;
 #endif	// defined(ALLOW_JOYSTICK)
 
 		// Get check box for 'Use Mouse'.
@@ -4039,7 +4039,7 @@ static short ControlsInit(		// Returns 0 on success, non-zero to cancel menu.
 	else
 		{
 #if defined(ALLOW_JOYSTICK)
-		short	sMenuItem	= 4;
+		int16_t	sMenuItem	= 4;
 
 		RMultiBtn**	ppmb	= (RMultiBtn**)&(pmenuCur->ami[sMenuItem++].pgui);
 		if (*ppmb)
@@ -4051,7 +4051,7 @@ static short ControlsInit(		// Returns 0 on success, non-zero to cancel menu.
 			rspReleaseResourceInstance(&g_resmgrShell, ppmb);
 			}
 #else
-		short	sMenuItem	= 3;
+		int16_t	sMenuItem	= 3;
 #endif	// defined(ALLOW_JOYSTICK)
 
 		if (ms_pmbCheckBox)
@@ -4096,7 +4096,7 @@ static short ControlsInit(		// Returns 0 on success, non-zero to cancel menu.
 ////////////////////////////////////////////////////////////////////////////////
 static bool ControlsChoice(	// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,			// Current menu.
-	short	sMenuItem)				// Item chosen.
+	int16_t	sMenuItem)				// Item chosen.
 	{
 	bool	bAcceptChoice	= true;	// Assume accepting.
 
@@ -4141,13 +4141,13 @@ static bool ControlsChoice(	// Returns true to accept, false to deny choice.
 //
 ////////////////////////////////////////////////////////////////////////////////
 template <class ValType>
-short SetUpRotationScrollBar(		// Returns 0 on success.
+int16_t SetUpRotationScrollBar(		// Returns 0 on success.
 	ValType*	pvtRotationVal,		// In:  Rotation value to tune via scrollbar.
 	Menu*		pmenu,					// In:  Menu.
-	short		sChoiceIndex,			// In:  Index of choice.
+	int16_t		sChoiceIndex,			// In:  Index of choice.
 	const char*	pszResName)				// In:  Resource name.
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	RScrollBar*	psb	= NULL;
 
@@ -4193,11 +4193,11 @@ short SetUpRotationScrollBar(		// Returns 0 on success.
 // Called when the Rotation menu is initialized.
 //
 ////////////////////////////////////////////////////////////////////////////////
-static short RotationInit(		// Returns 0 on success, non-zero to cancel menu.
+static int16_t RotationInit(		// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,				// Current menu.
-	short	sInit)					// TRUE, if initializing; FALSE, if killing.
+	int16_t	sInit)					// TRUE, if initializing; FALSE, if killing.
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	if (sInit != FALSE)
 		{
@@ -4212,7 +4212,7 @@ static short RotationInit(		// Returns 0 on success, non-zero to cancel menu.
 		}
 	else
 		{
-		short	i;
+		int16_t	i;
 		for (i = 0; pmenuCur->ami[i].pszText; i++)
 			{
 			if (pmenuCur->ami[i].pgui)
@@ -4233,7 +4233,7 @@ static short RotationInit(		// Returns 0 on success, non-zero to cancel menu.
 ////////////////////////////////////////////////////////////////////////////////
 static bool RotationChoice(	// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,			// Current menu.
-	short	sMenuItem)				// Item chosen.
+	int16_t	sMenuItem)				// Item chosen.
 	{
 	bool	bAcceptChoice	= true;	// Assume accepting.
 
@@ -4265,11 +4265,11 @@ static bool RotationChoice(	// Returns true to accept, false to deny choice.
 // Called to init or kill the multiplyaer options menu.
 //
 ////////////////////////////////////////////////////////////////////////////////
-static short MultiOptionsInit(	// Returns 0 on success, non-zero to cancel menu.
+static int16_t MultiOptionsInit(	// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,					// Current menu.
-	short	sInit)						// TRUE, if initializing; FALSE, if killing.
+	int16_t	sInit)						// TRUE, if initializing; FALSE, if killing.
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	if (sInit != FALSE)
 		{					   
@@ -4402,7 +4402,7 @@ static short MultiOptionsInit(	// Returns 0 on success, non-zero to cancel menu.
 ////////////////////////////////////////////////////////////////////////////////
 static bool MultiOptionsChoice(	// Returns true to accept, false to deny choice.
 	Menu*	pmenuCur,					// Current menu.
-	short	sMenuItem)					// Item chosen.
+	int16_t	sMenuItem)					// Item chosen.
 	{
 	bool	bAcceptChoice	= true;	// Assume accepting.
 
@@ -4463,7 +4463,7 @@ static bool MultiOptionsChoice(	// Returns true to accept, false to deny choice.
 ////////////////////////////////////////////////////////////////////////////////
 static bool EditorMenuChoice(	// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,			// Current menu.
-	short	sMenuItem)				// Item chosen.
+	int16_t	sMenuItem)				// Item chosen.
 	{
 	bool	bAcceptChoice	= true;	// Assume accepting.
 
@@ -4493,11 +4493,11 @@ static bool EditorMenuChoice(	// Returns true to accept, false to deny choice.
 // Called to init or kill the Mouse menu.
 //
 ////////////////////////////////////////////////////////////////////////////////
-static short MouseInit(			// Returns 0 on success, non-zero to cancel menu.
+static int16_t MouseInit(			// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,				// Current menu.
-	short	sInit)					// TRUE, if initializing; FALSE, if killing.
+	int16_t	sInit)					// TRUE, if initializing; FALSE, if killing.
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	if (sInit == TRUE)
 		{
@@ -4518,7 +4518,7 @@ static short MouseInit(			// Returns 0 on success, non-zero to cancel menu.
 ////////////////////////////////////////////////////////////////////////////////
 static bool MouseChoice(		// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,			// Current menu.
-	short	sMenuItem)				// Item chosen or -1 for change of focus.
+	int16_t	sMenuItem)				// Item chosen or -1 for change of focus.
 	{
 	bool	bAcceptChoice	= true;	// Assume accepting.
 
@@ -4538,11 +4538,11 @@ static bool MouseChoice(		// Returns true to accept, false to deny choice.
 // Called to init or kill the Key menu.
 //
 ////////////////////////////////////////////////////////////////////////////////
-static short KeyInit(			// Returns 0 on success, non-zero to cancel menu.
+static int16_t KeyInit(			// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,				// Current menu.
-	short	sInit)					// TRUE, if initializing; FALSE, if killing.
+	int16_t	sInit)					// TRUE, if initializing; FALSE, if killing.
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	if (sInit == TRUE)
 		{
@@ -4563,7 +4563,7 @@ static short KeyInit(			// Returns 0 on success, non-zero to cancel menu.
 ////////////////////////////////////////////////////////////////////////////////
 static bool KeyChoice(			// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,			// Current menu.
-	short	sMenuItem)				// Item chosen or -1 for change of focus.
+	int16_t	sMenuItem)				// Item chosen or -1 for change of focus.
 	{
 	bool	bAcceptChoice	= true;	// Assume accepting.
 
@@ -4583,11 +4583,11 @@ static bool KeyChoice(			// Returns true to accept, false to deny choice.
 // Called to init or kill the Joy menu.
 //
 ////////////////////////////////////////////////////////////////////////////////
-static short JoyInit(			// Returns 0 on success, non-zero to cancel menu.
+static int16_t JoyInit(			// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,				// Current menu.
-	short	sInit)					// TRUE, if initializing; FALSE, if killing.
+	int16_t	sInit)					// TRUE, if initializing; FALSE, if killing.
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	if (sInit == TRUE)
 		{
@@ -4608,7 +4608,7 @@ static short JoyInit(			// Returns 0 on success, non-zero to cancel menu.
 ////////////////////////////////////////////////////////////////////////////////
 static bool JoyChoice(			// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,			// Current menu.
-	short	sMenuItem)				// Item chosen or -1 for change of focus.
+	int16_t	sMenuItem)				// Item chosen or -1 for change of focus.
 	{
 	bool	bAcceptChoice	= true;	// Assume accepting.
 
@@ -4628,25 +4628,25 @@ static bool JoyChoice(			// Returns true to accept, false to deny choice.
 // Called to init or kill the Features menu.
 //
 ////////////////////////////////////////////////////////////////////////////////
-static short FeaturesInit(		// Returns 0 on success, non-zero to cancel menu.
+static int16_t FeaturesInit(		// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,				// Current menu.
-	short	sInit)					// TRUE, if initializing; FALSE, if killing.
+	int16_t	sInit)					// TRUE, if initializing; FALSE, if killing.
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	if (sInit != FALSE)
 		{
 		RGuiItem::ms_print.SetFont(DEFAULT_GUI_FONT_HEIGHT, &g_fontPostal);
 
-		short	sItem;
-		short	sMaxFeatureItems	= NUM_ELEMENTS(pmenuCur->ami) - 1;
+		int16_t	sItem;
+		int16_t	sMaxFeatureItems	= NUM_ELEMENTS(pmenuCur->ami) - 1;
 		for (sItem = 0; sItem < sMaxFeatureItems && pmenuCur->ami[sItem + 1].pszText && sRes == 0; sItem++)
 			{
 			RMultiBtn**	ppmb	= (RMultiBtn**)&(pmenuCur->ami[sItem].pgui);
 			if (rspGetResourceInstance(&g_resmgrShell, GUI_CHECKBOX_FILE, ppmb) == 0)
 				{
 				// Set the initial state.
-				short	sState	= 1;
+				int16_t	sState	= 1;
 				switch (sItem)
 					{
 					case 0:
@@ -4678,15 +4678,15 @@ static short FeaturesInit(		// Returns 0 on success, non-zero to cancel menu.
 		}
 	else
 		{
-		short	sMaxFeatureItems	= NUM_ELEMENTS(pmenuCur->ami) - 1;
-		short	sItem;
+		int16_t	sMaxFeatureItems	= NUM_ELEMENTS(pmenuCur->ami) - 1;
+		int16_t	sItem;
 		for (sItem = 0; sItem < sMaxFeatureItems; sItem++)
 			{
 			RMultiBtn**	ppmb	= (RMultiBtn**)&(pmenuCur->ami[sItem].pgui);
 			if (*ppmb)
 				{
 				// Get the final state.
-				short	sOn	= ( (*ppmb)->m_sState == 1) ? TRUE : FALSE;
+				int16_t	sOn	= ( (*ppmb)->m_sState == 1) ? TRUE : FALSE;
 				// Release the resource.
 				rspReleaseResourceInstance(&g_resmgrShell, ppmb);
 				// Update the feature.
@@ -4722,7 +4722,7 @@ static short FeaturesInit(		// Returns 0 on success, non-zero to cancel menu.
 ////////////////////////////////////////////////////////////////////////////////
 static bool FeaturesChoice(	// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,			// Current menu.
-	short	sMenuItem)				// Item chosen or -1 for change of focus.
+	int16_t	sMenuItem)				// Item chosen or -1 for change of focus.
 	{
 	bool	bAcceptChoice	= true;	// Assume accepting.
 
@@ -4774,7 +4774,7 @@ static void GammaScrollUpdate(	// Returns nothing.
 	long	lVal	= psb->GetPos();
 
 	// Convert to gamma value by ratio.
-	short	sVal	= short(GAMMA_RANGE / float(lRange) * (lVal - lMin) + 0.5) + MIN_GAMMA_VAL;
+	int16_t	sVal	= int16_t(GAMMA_RANGE / float(lRange) * (lVal - lMin) + 0.5) + MIN_GAMMA_VAL;
 
 	SetGammaLevel(sVal);
 
@@ -4800,9 +4800,9 @@ static void DifficultyScrollUpdate(	// Returns nothing.
 	RGuiItem*	pguiParent	= psb->GetParent();
 	// This is weird but it allows artie to finer tune the scroll thumb size.
 	// We use the ID of the parent as the divisor for the scrollbar value.
-	short	sDivisor	= (short)pguiParent->m_lId;
+	int16_t	sDivisor	= (int16_t)pguiParent->m_lId;
 
-	g_GameSettings.m_sDifficulty	= (short)psb->GetPos() / sDivisor;
+	g_GameSettings.m_sDifficulty	= (int16_t)psb->GetPos() / sDivisor;
 
 	RGuiItem*	pguiVal	= psb->GetItemFromId(GUI_ID_DIFFICULTY_VAL);
 	if (pguiVal)
@@ -4842,7 +4842,7 @@ static void VolumesScrollUpdate(	// Returns nothing.
 	lRange	= lMax - lMin;
 
 	// Get volume and scale to user volume.
-	g_GameSettings.m_asCategoryVolumes[sc]	= (short)(psb->GetPos() * SampleMaster::UserMaxVolume / lRange);
+	g_GameSettings.m_asCategoryVolumes[sc]	= (int16_t)(psb->GetPos() * SampleMaster::UserMaxVolume / lRange);
 
 	SetCategoryVolume(sc, g_GameSettings.m_asCategoryVolumes[sc]);
 
@@ -4910,7 +4910,7 @@ static void RotationScrollUpdateDouble(	// Returns nothing.
 	RGuiItem*	pguiVal	= psb->GetItemFromId(GUI_ID_ROTATION_VAL);
 	if (pguiVal)
 		{
-		pguiVal->SetText("%d", (short)(*pdRotVal) );
+		pguiVal->SetText("%d", (int16_t)(*pdRotVal) );
 		pguiVal->Compose();
 		}
 	}
@@ -4923,8 +4923,8 @@ static void RotationScrollUpdateDouble(	// Returns nothing.
 static void RotationScrollUpdateShort(	// Returns nothing.
 	RScrollBar* psb)							// Scrollbar that got updated.
 	{
-	short*	psRotVal	= (short*)psb->m_ulUserInstance;
-	*psRotVal			= short(psb->GetPos() );
+	int16_t*	psRotVal	= (int16_t*)psb->m_ulUserInstance;
+	*psRotVal			= int16_t(psb->GetPos() );
 
 	RGuiItem*	pguiVal	= psb->GetItemFromId(GUI_ID_ROTATION_VAL);
 	if (pguiVal)
@@ -4940,7 +4940,7 @@ static void RotationScrollUpdateShort(	// Returns nothing.
 //  with a fullscreen display mode on any platform. Better to just render
 //  into the existing framebuffer.  --ryan.
 #if 1 //PLATFORM_UNIX
-static bool PickFileMenuChoice(Menu *pmenuCurrent, short sMenuItem);
+static bool PickFileMenuChoice(Menu *pmenuCurrent, int16_t sMenuItem);
 
 Menu	g_menuPickFile =
 	{
@@ -5024,7 +5024,7 @@ Menu	g_menuPickFile =
 
 static volatile bool g_PickFileMenuDone = false;
 static volatile const char *g_PickFileMenuChoice = NULL;
-static bool PickFileMenuChoice(Menu *pmenuCurrent, short sMenuItem)
+static bool PickFileMenuChoice(Menu *pmenuCurrent, int16_t sMenuItem)
 {
     ASSERT(pmenuCurrent == &g_menuPickFile);
 
@@ -5040,7 +5040,7 @@ static bool PickFileMenuChoice(Menu *pmenuCurrent, short sMenuItem)
     return true;  // accept choice.
 }
 
-short PickFile(const char *title, void (*enumer)(Menu *), char *buf, size_t bufsize)
+int16_t PickFile(const char *title, void (*enumer)(Menu *), char *buf, size_t bufsize)
 {
     *buf = '\0';
 
@@ -5054,7 +5054,7 @@ short PickFile(const char *title, void (*enumer)(Menu *), char *buf, size_t bufs
     g_PickFileMenuChoice = NULL;
     g_PickFileMenuDone = false;
     
-	short sResult = StartMenu(&g_menuPickFile, &g_resmgrShell, g_pimScreenBuf);
+	int16_t sResult = StartMenu(&g_menuPickFile, &g_resmgrShell, g_pimScreenBuf);
     if (sResult != 0)
     {
         TRACE("StartMenu failed! Can't pick file!\n");

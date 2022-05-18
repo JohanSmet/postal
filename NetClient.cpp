@@ -340,12 +340,12 @@ void CNetClient::Shutdown(void)
 // no error occurred, realizing, of course, that the join process will not
 // succeed and GetMsg() will shortly return an error to that effect.
 ////////////////////////////////////////////////////////////////////////////////
-short CNetClient::StartJoinProcess(					// Returns 0 if successfull, non-zero otherwise
+int16_t CNetClient::StartJoinProcess(					// Returns 0 if successfull, non-zero otherwise
 	RSocket::Address* paddressHost,					// In:  Host's address
 	char* pszName,											// In:  Joiner's name
 	unsigned char ucColor,								// In:  Joiner's color
 	unsigned char ucTeam,								// In:  Joiner's team
-	short sBandwidth)										// In:  Joiner's Net::Bandwidth
+	int16_t sBandwidth)										// In:  Joiner's Net::Bandwidth
 	{
 	// Save server address (containing the base port)
 	m_addressServer = *paddressHost;
@@ -370,7 +370,7 @@ short CNetClient::StartJoinProcess(					// Returns 0 if successfull, non-zero ot
 	// for the caller to ignore the value and go right into the normal "loop"
 	// which includes calling Update() and GetMsg(), so they can handle errors
 	// the "normal" way -- via GetMsg().
-	short sResult = m_msgr.Connect(&m_addressServerListen, m_callback);
+	int16_t sResult = m_msgr.Connect(&m_addressServerListen, m_callback);
 	m_state = WaitForConnect;
 	m_lTimeOut = rspGetMilliseconds() + Net::MaxConnectWaitTime;
 	return sResult;
@@ -824,7 +824,7 @@ void CNetClient::GetMsg(
 					
 					// Copy the requested values into the allocated memory
 					Net::SEQ seq = msg.msg.inputData.seqStart;
-					for (short s = 0; s < msg.msg.inputData.sNum; s++)
+					for (int16_t s = 0; s < msg.msg.inputData.sNum; s++)
 						{
 						msg.msg.inputData.pFrameTimes[s] = m_aPeers[id].m_netinput.GetFrameTime(seq); //  *SPA
 						msg.msg.inputData.pInputs[s] = m_aPeers[id].m_netinput.Get(seq++);
@@ -849,7 +849,7 @@ void CNetClient::GetMsg(
 					// have blind faith in the server, and assume it would never send us anything
 					// that was bad for us. :)
 					Net::SEQ seq = pmsg->msg.inputData.seqStart;
-					for (short s = 0; s < pmsg->msg.inputData.sNum; s++)
+					for (int16_t s = 0; s < pmsg->msg.inputData.sNum; s++)
 						{
 						m_aPeers[id].m_netinput.PutFrameTime(seq, pmsg->msg.inputData.pFrameTimes[s]); // *SPA
 						m_aPeers[id].m_netinput.Put(seq++, pmsg->msg.inputData.pInputs[s]);
@@ -1158,7 +1158,7 @@ void CNetClient::ReceiveFromPeers(void)
 	// This is done as a do/while so that we can more easily debug it (otherwise,
 	// when single-stepping, the time expires before we ever get into the loop!)
 	//long lMaxTime = rspGetMilliseconds() + Net::MaxPeerReceiveTime;
-	short sIterations = 0;
+	int16_t sIterations = 0;
 	do	{
 		// Call watchdog to let it know we're still going (we're in a loop!)
 		NetBlockingWatchdog();
@@ -1171,7 +1171,7 @@ void CNetClient::ReceiveFromPeers(void)
 		// could come from a foreign app that is using the same port as us.
 		U8 msg[PEER_MSG_MAX_SIZE];
 		long lReceived;
-		short serr = m_socketPeers.ReceiveFrom(msg, sizeof(msg), &lReceived, NULL);
+		int16_t serr = m_socketPeers.ReceiveFrom(msg, sizeof(msg), &lReceived, NULL);
 		if (serr == 0)
 			{
 			// Make sure size is within proper range
@@ -1227,7 +1227,7 @@ void CNetClient::ReceiveFromPeers(void)
 						// Add input values to peer's input buffer
 						UINPUT input;
 						U8 frameTime;
-						for (short s = 0; s < lNumInputs; s++)
+						for (int16_t s = 0; s < lNumInputs; s++)
 							{
 							// Add input to peer's buffer
 							Get(pget, &input);
@@ -1375,7 +1375,7 @@ void CNetClient::SendToPeer(Net::ID id,				// id of peer to send to
 	// we already determined the one he needs is available (see above).
 	UINPUT input;
 	U8 frameTime; // *SPA
-	short s;
+	int16_t s;
 	for (s = seqStart; s < m_seqInputNotYetSent; s++)
 		{
 		input = m_netinput.Get(s);
@@ -1429,7 +1429,7 @@ void CNetClient::SendToPeer(Net::ID id,				// id of peer to send to
 	// idea.  Although datagram messages are not guaranteed to arrive, getting
 	// a send error probably indicates a real problem that may not go away.
 	long lSent;
-	short serr = m_socketPeers.SendTo(msg, lSize, &lSent, &m_aPeers[id].m_address);
+	int16_t serr = m_socketPeers.SendTo(msg, lSize, &lSent, &m_aPeers[id].m_address);
 	if (serr == 0)
 		{
 		if (lSent != lSize)
@@ -1450,11 +1450,11 @@ void CNetClient::SendToPeer(Net::ID id,				// id of peer to send to
 ////////////////////////////////////////////////////////////////////////////////
 bool CNetClient::CanDoFrame(							// Returns true if frame can be done, false otherwise
 	UINPUT aInputs[],										// Out: Total of Net::MaxNumIDs inputs returned here
-	short* psFrameTime)									// Out the current frames elapsed time
+	int16_t* psFrameTime)									// Out the current frames elapsed time
 	{
 	bool bResult = false;
 	long		lFrameTime = 0; // The sum of the frame times of the joined players *SPA
-	short		sCount = 0;		// Count of the number of joined players *SPA
+	int16_t		sCount = 0;		// Count of the number of joined players *SPA
 
 	// If we playing, we might be able to do this, otherwise, we definitely can't
 	if (m_bPlaying)
@@ -1536,7 +1536,7 @@ bool CNetClient::CanDoFrame(							// Returns true if frame can be done, false o
 			m_alAvgFrameTimes[m_seqFrame & 0x7] = lFrameTime / sCount;
 			long lAvgTime = 0;
 			// This averages the frame times of the last 8 frames
-			for (short i = 0; i< 8; i++)
+			for (int16_t i = 0; i< 8; i++)
 				{
 				lAvgTime += m_alAvgFrameTimes[i];
 				}

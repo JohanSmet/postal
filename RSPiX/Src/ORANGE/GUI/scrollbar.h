@@ -97,9 +97,9 @@
 // Macros.
 //////////////////////////////////////////////////////////////////////////////
 
-// Converts a position value, lPos, to a short pixel position w/i the scroll 
+// Converts a position value, lPos, to a int16_t pixel position w/i the scroll 
 // bar of orientation o.
-#define POS2PIXEL(lPos, o)	((short)((m_oOrientation == o) \
+#define POS2PIXEL(lPos, o)	((int16_t)((m_oOrientation == o) \
 												? ((float)(lPos - m_lMinPos) * m_fPos2PixelRatio + 0.5) \
 												: 0))
 
@@ -201,7 +201,7 @@ class RScrollBar : public RGuiItem
 		// Activate or deactivate mouse reaction.
 		virtual					// If you override this, call this base if possible.
 		void SetActive(		// Returns nothing.
-			short sActive)		// TRUE to make active, FALSE otherwise.
+			int16_t sActive)		// TRUE to make active, FALSE otherwise.
 			{ 
 			m_btnThumb.SetActive(sActive);
 			m_btnUp.SetActive(sActive);
@@ -255,7 +255,7 @@ class RScrollBar : public RGuiItem
 				m_sInSmoothScroll	= FALSE;
 				}
 
-			short	sX, sY, sW, sH;
+			int16_t	sX, sY, sW, sH;
 			GetTray(&sX, &sY, &sW, &sH);
 
 			m_btnThumb.Move(sX + HPOS2PIXEL(m_lCurPos), sY + VPOS2PIXEL(m_lCurPos));
@@ -384,18 +384,18 @@ class RScrollBar : public RGuiItem
 
 		// Get position/size of tray relative to this item.
 		void GetTray(	// Returns nothing.
-			short* psX,	// Out: x coordinate of tray unless NULL.
-			short* psY,	// Out: y coordinate of tray unless NULL.
-			short* psW,	// Out: Width of tray unless NULL.
-			short* psH);	// Out: Height of tray unless NULL.
+			int16_t* psX,	// Out: x coordinate of tray unless NULL.
+			int16_t* psY,	// Out: y coordinate of tray unless NULL.
+			int16_t* psW,	// Out: Width of tray unless NULL.
+			int16_t* psH);	// Out: Height of tray unless NULL.
 
 		// Get the "hot" area (i.e., clickable area) relative to this item.
 		virtual					// If you override this, call this base if possible.
 		void GetHot(			// Returns nothing.
-			short* psX,			// Out: X position unless NULL.
-			short* psY,			// Out: Y position unless NULL.
-			short* psW,			// Out: Width unless NULL.
-			short* psH)			// Out: Height unless NULL.
+			int16_t* psX,			// Out: X position unless NULL.
+			int16_t* psY,			// Out: Y position unless NULL.
+			int16_t* psW,			// Out: Width unless NULL.
+			int16_t* psH)			// Out: Height unless NULL.
 			{
 			// Use tray area.
 			GetTray(psX, psY, psW, psH);
@@ -445,23 +445,23 @@ class RScrollBar : public RGuiItem
 
 		// Save item's children to the specified file.
 		virtual					// Overridden here.
-		short SaveChildren(	// Returns 0 on success.
+		int16_t SaveChildren(	// Returns 0 on success.
 			RFile*	pfile);	// File to save to.
 
 		// Load item's children from the specified file.
 		virtual					// Overridden here.
-		short LoadChildren(	// Returns 0 on success.
+		int16_t LoadChildren(	// Returns 0 on success.
 			RFile*	pfile);	// File to load from.
 
 		// Read item's members from file.
 		virtual				// Overridden here.
-		short ReadMembers(			// Returns 0 on success.
+		int16_t ReadMembers(			// Returns 0 on success.
 			RFile*	pfile,			// File to read from.
 			U32		u32Version);	// File format version to use.
 
 		// Write item's members to file.
 		virtual				// Overridden here.
-		short WriteMembers(			// Returns 0 on success.
+		int16_t WriteMembers(			// Returns 0 on success.
 			RFile*	pfile);			// File to write to.
 
 		// Set position, usually as requested by user, using the specified
@@ -497,7 +497,7 @@ class RScrollBar : public RGuiItem
 		long			m_lTrayIncDec;		// Amount to increment or decrement the
 												// position when the tray is pressed.
 
-		short			m_sArrowBorderDistance;	// Number of pixels between arrows'
+		int16_t			m_sArrowBorderDistance;	// Number of pixels between arrows'
 														// edges and borders.
 
 		UpdatePosCall	m_upcUser;		// User callback on postion change.
@@ -515,7 +515,7 @@ class RScrollBar : public RGuiItem
 												// This GUI should have the focus to get
 												// correct operation.
 
-		short			m_sInSmoothScroll;	// TRUE, if we are in a smooth scroll.
+		int16_t			m_sInSmoothScroll;	// TRUE, if we are in a smooth scroll.
 													// FALSE, otherwise.
 
 		// These values may be querried and can be changed directly.
@@ -526,8 +526,8 @@ class RScrollBar : public RGuiItem
 
 		long			m_lMinThumbLength;	// Minimum length for thumb.
 
-		short			m_sClickOffsetX;	// Position in thumb that was clicked.
-		short			m_sClickOffsetY;	// Position in thumb that was clicked.
+		int16_t			m_sClickOffsetX;	// Position in thumb that was clicked.
+		int16_t			m_sClickOffsetY;	// Position in thumb that was clicked.
 
 	protected:	// Internal typedefs.
 

@@ -121,8 +121,8 @@ class CTexEdit
 		CScene		m_scene;				// Scene for rendering.
 		Manip			m_manip;				// Current manipulation type.
 		bool			m_bDragging;		// true if in drag manipulation.
-		short			m_sCursorResetX;	// Used by ProcessManip() to process drags.
-		short			m_sCursorResetY;	// Used by ProcessManip() to process drags.
+		int16_t			m_sCursorResetX;	// Used by ProcessManip() to process drags.
+		int16_t			m_sCursorResetY;	// Used by ProcessManip() to process drags.
 		float			m_fScale;			// Scaling.
 		RTransform	m_transRot;			// Rotation.
 		float			m_fX;					// Translation.
@@ -137,7 +137,7 @@ class CTexEdit
 												// synch (revert or apply).
 		RString		m_strFileName;		// Filename to save textures as.
 		bool			m_bSpotLight;		// true for spotlight; false for ambient.
-		short			m_sBrightness;		// Brightness for sprite.
+		int16_t			m_sBrightness;		// Brightness for sprite.
 
 	//------------------------------------------------------------------------------
 	// Construction.
@@ -182,8 +182,8 @@ class CTexEdit
 			RTransform& trans,	// In:  Transformation.
 			RAlpha* palphaLight,	// In:  Light.
 			RImage* pimDst,		// In:  Destination for result.
-			short sOffsetX,		// In:  X offset.
-			short sOffsetY,		// In:  Y offset.
+			int16_t sOffsetX,		// In:  X offset.
+			int16_t sOffsetY,		// In:  Y offset.
 			RRect& rcClip)			// In:  Dst clip rect.
 			;
 

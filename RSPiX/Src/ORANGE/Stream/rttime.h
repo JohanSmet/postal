@@ -119,7 +119,7 @@ class CRtTime
 		RTTIMEFUNC	m_fnTime;		// If set, used to get time.
 		long			m_lOffset;		// Added to the time to manipulate it.
 		long			m_lSuspended;	// Time at which the timer was suspended.
-		short			m_sSuspended;	// TRUE if the timer is currently suspended.
+		int16_t			m_sSuspended;	// TRUE if the timer is currently suspended.
 	};
 
 

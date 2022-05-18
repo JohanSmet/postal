@@ -126,7 +126,7 @@ static unsigned char* m_pUnmapStep4;
 static unsigned char* m_pUnmapStep5;
 static RImage* m_pim;
 
-static short m_sStep;
+static int16_t m_sStep;
 static bool m_bFinishASAP;
 static long m_lTotalTime;
 static long m_lBaseTime;
@@ -220,7 +220,7 @@ extern bool DoPreMenuTrans(void)
 
 		// Calculate goal for each color's red component.  We use the otherwise
 		// unused member of the struct to store the goal.
-		for (short i = EFFECT_BEG; i <= EFFECT_END; i++)
+		for (int16_t i = EFFECT_BEG; i <= EFFECT_END; i++)
 //			m_pOrig[i].x = (unsigned char)((double)(255 - m_pOrig[i].r) * m_dReduce) & SHADE_MASK;
 			m_pOrig[i].x = (unsigned char)((double)(m_pOrig[i].r) * m_dReduce) & SHADE_MASK;
 
@@ -254,7 +254,7 @@ extern bool DoPreMenuTrans(void)
 			}
 
 		// Update all colors to where they should be based on given percentage
-		for (short i = EFFECT_BEG; i <= EFFECT_END; i++)
+		for (int16_t i = EFFECT_BEG; i <= EFFECT_END; i++)
 			{
 			double dRedDiff = m_pOrig[i].r - m_pOrig[i].x;
 			m_pWork[i].r = m_pOrig[i].x + (unsigned char)(dRedDiff * (1.0 - dPercent));
@@ -284,15 +284,15 @@ extern bool DoPreMenuTrans(void)
 		{
 		// Start mapping table out as an "identity map" (pixels map to themselves)
 		unsigned char aucMap[256];
-		for (short m = 0; m < 256; m++)
+		for (int16_t m = 0; m < 256; m++)
 			aucMap[m] = m;
 
 		// Scan through the palette mapping each entry onto the first entry with the
 		// same color.  Only checks red since blue and green are always 0.
-		for (short i = EFFECT_BEG; i <= EFFECT_END; i++)
+		for (int16_t i = EFFECT_BEG; i <= EFFECT_END; i++)
 			{
 			// Loop ends on first match - worst case is that entry matches itself
-			short j;
+			int16_t j;
 			for (j = EFFECT_BEG; m_pWork[i].r != m_pWork[j].r; j++) ;
 			aucMap[i] = j;
 
@@ -322,7 +322,7 @@ extern bool DoPreMenuTrans(void)
 		{
 		// Start mapping table out as an "identity map" (pixels map to themselves)
 		unsigned char aucMap[256];
-		for (short m = 0; m < 256; m++)
+		for (int16_t m = 0; m < 256; m++)
 			{
 			aucMap[m] = m;
 			m_pUnmapStep4[m] = m;
@@ -330,11 +330,11 @@ extern bool DoPreMenuTrans(void)
 
 		// Go through area reserved for "official" shades looking for used entries
 		// and, if found, remap them to unused entries outside of that range.
-		for (short s = SHADE_BEG; s <= SHADE_END; s++)
+		for (int16_t s = SHADE_BEG; s <= SHADE_END; s++)
 			{
 			if (m_pWork[s].x)
 				{
-				short i;
+				int16_t i;
 				for (i = NONSHADE_BEG; i <= NONSHADE_END; i++)
 					{
 					if (m_pWork[i].x == 0)
@@ -361,7 +361,7 @@ extern bool DoPreMenuTrans(void)
 		rspUpdateDisplay();
 
 		// Save current palette so we can run the effect backwards
-		for (short p = 0; p < 256; p++)
+		for (int16_t p = 0; p < 256; p++)
 			m_pSaveStep4[p] = m_pWork[p];
 
 		// Go to next step
@@ -376,7 +376,7 @@ extern bool DoPreMenuTrans(void)
 	else if (m_sStep == 5)
 		{
 		// Put full set of shades at proper position in palette
-		for (short s = 0; s < SHADE_LEN; s++)
+		for (int16_t s = 0; s < SHADE_LEN; s++)
 			m_pWork[SHADE_BEG + s].r = s * (~SHADE_MASK + 1);
 		
 		// Set new palette (do this before remapping so the shades will be there before they're needed)
@@ -385,7 +385,7 @@ extern bool DoPreMenuTrans(void)
 
 		// Start mapping table out as an "identity map" (pixels map to themselves)
 		unsigned char aucMap[256];
-		for (short m = 0; m < 256; m++)
+		for (int16_t m = 0; m < 256; m++)
 			{
 			aucMap[m] = m;
 			m_pUnmapStep5[m] = m;
@@ -393,7 +393,7 @@ extern bool DoPreMenuTrans(void)
 
 		// Scan through the palette mapping each used entry onto the first
 		// "official" shade entry with the same color.
-		for (short i = NONSHADE_BEG; i <= NONSHADE_END; i++)
+		for (int16_t i = NONSHADE_BEG; i <= NONSHADE_END; i++)
 			{
 			// Only do this for used entries (the mapping would work without
 			// this check, since it wouldn't hurt to map unused entries, but
@@ -402,7 +402,7 @@ extern bool DoPreMenuTrans(void)
 			if (m_pWork[i].x)
 				{
 				// Loop ends on first match (and there always will be a match)
-				short j;
+				int16_t j;
 				for (j = SHADE_BEG; m_pWork[i].r != m_pWork[j].r; j++) ;
 				aucMap[i] = j;
 				m_pUnmapStep5[j] = i;
@@ -439,7 +439,7 @@ extern bool DoPostMenuTrans(void)
 	if (m_sStep == 6)
 		{
 		// Restore palette to where it was prior to step 5
-		for (short p = 0; p < 256; p++)
+		for (int16_t p = 0; p < 256; p++)
 			m_pWork[p] = m_pSaveStep4[p];
 
 		// Set only the non-shade portion of the palette until we remap the pixels
@@ -480,7 +480,7 @@ extern bool DoPostMenuTrans(void)
 		// are actually being used by the pixels, and for those entries that aren't
 		// being used, we're getting them ready for when we go back to the original
 		// image.
-		for (short i = EFFECT_BEG; i <= EFFECT_END; i++)
+		for (int16_t i = EFFECT_BEG; i <= EFFECT_END; i++)
 			{
 			m_pWork[i].r = m_pOrig[i].x;
 			m_pWork[i].g = (unsigned char)0;
@@ -527,7 +527,7 @@ extern bool DoPostMenuTrans(void)
 			}
 
 		// Update all colors to where they should be based on given percentage
-		for (short i = EFFECT_BEG; i <= EFFECT_END; i++)
+		for (int16_t i = EFFECT_BEG; i <= EFFECT_END; i++)
 			{
 			double dRedDiff = m_pOrig[i].r - m_pOrig[i].x;
 			m_pWork[i].r = m_pOrig[i].x + (unsigned char)(dRedDiff * dPercent);
@@ -613,9 +613,9 @@ static void Remap(
 		lPitch		= g_pimScreenBuf->m_lPitch;
 #endif
 
-		short sHeight = g_pimScreenBuf->m_sHeight;
-		short sWidth = g_pimScreenBuf->m_sWidth;
-		short sWidth2;
+		int16_t sHeight = g_pimScreenBuf->m_sHeight;
+		int16_t sWidth = g_pimScreenBuf->m_sWidth;
+		int16_t sWidth2;
 		long lNextRow = lPitch - (long)sWidth;
 		unsigned char* pBuf = pu8VideoBuf;
 		if ((sHeight > 0) && (sWidth > 0))

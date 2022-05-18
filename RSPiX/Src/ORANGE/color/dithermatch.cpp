@@ -44,10 +44,10 @@ COLOR PALETTE INTO THE BMP IF DESIRED!
 */
 
 /* This extension was eeded for analysis:
-					short	lClip = 256,  // JEFF DEBUGGING!
-					short* ppsSaveErrorR = NULL,  // JEFF DEBUGGING!
-					short* ppsSaveErrorG = NULL,  // JEFF DEBUGGING!
-					short* ppsSaveErrorB = NULL  // JEFF DEBUGGING!
+					int16_t	lClip = 256,  // JEFF DEBUGGING!
+					int16_t* ppsSaveErrorR = NULL,  // JEFF DEBUGGING!
+					int16_t* ppsSaveErrorG = NULL,  // JEFF DEBUGGING!
+					int16_t* ppsSaveErrorB = NULL  // JEFF DEBUGGING!
 */
 
 
@@ -62,11 +62,11 @@ COLOR PALETTE INTO THE BMP IF DESIRED!
 // Returns 0 for SUCCESS, -1 for ERROR, 1 for user cancel
 //==============================================
 //	
-short	rspDither(	
+int16_t	rspDither(	
 					RImage* pimSrc,	// MUST BE 24-bit!
 					RImage* pimDst,	// MUST be 8-bit
-					short sStartMap,	// palette index
-					short sNumMap,		// # of colors
+					int16_t sStartMap,	// palette index
+					int16_t sNumMap,		// # of colors
 					UCHAR*	pRed,		// Palette to match to
 					UCHAR*	pGreen,
 					UCHAR*	pBlue,
@@ -93,7 +93,7 @@ short	rspDither(
 #ifdef _DEBUG
 #endif
 
-	short sRet = 0;
+	int16_t sRet = 0;
 	// long	lPalOffset = lInc * sStartMap;
 	long	lLastTime = rspGetMilliseconds();
 
@@ -106,7 +106,7 @@ short	rspDither(
 		}
 
 	//--------- Set up callback timing:
-	short sDoCall = 0;
+	int16_t sDoCall = 0;
 	double dH = double(pimSrc->m_sHeight);
 
 	if (func)
@@ -119,11 +119,11 @@ short	rspDither(
 	//--------- Begin:
 	// long lErrorRed = 0,lErrorGreen = 0,lErrorBlue = 0;
 
-	short i,j;
+	int16_t i,j;
 	long lSrcP = pimSrc->m_lPitch;
 	long lDstP = pimDst->m_lPitch;
-	short sW = pimSrc->m_sWidth;
-	short sH = pimSrc->m_sHeight;
+	int16_t sW = pimSrc->m_sWidth;
+	int16_t sH = pimSrc->m_sHeight;
 
 	long lSrcXP = 3; // hard coded for 24-bit bmp's!!!
 	
@@ -135,31 +135,31 @@ short	rspDither(
 	// I give a one element buffer on either side
 	// to allow clipped errors!
 	//
-	short *psErrorR = (short*)calloc(sizeof(short),2 * (sW+2));
-	short *psCurrentErrorR = psErrorR + 1; // allow clipping
-	short *psNextErrorR = psCurrentErrorR + sW + 2; // allow clipping
+	int16_t *psErrorR = (int16_t*)calloc(sizeof(int16_t),2 * (sW+2));
+	int16_t *psCurrentErrorR = psErrorR + 1; // allow clipping
+	int16_t *psNextErrorR = psCurrentErrorR + sW + 2; // allow clipping
 
-	short *psErrorG = (short*)calloc(sizeof(short),2 * (sW+2));
-	short *psCurrentErrorG = psErrorG + 1; // allow clipping
-	short *psNextErrorG = psCurrentErrorG + sW + 2; // allow clipping
+	int16_t *psErrorG = (int16_t*)calloc(sizeof(int16_t),2 * (sW+2));
+	int16_t *psCurrentErrorG = psErrorG + 1; // allow clipping
+	int16_t *psNextErrorG = psCurrentErrorG + sW + 2; // allow clipping
 
-	short *psErrorB = (short*)calloc(sizeof(short),2 * (sW+2));
-	short *psCurrentErrorB = psErrorB + 1; // allow clipping
-	short *psNextErrorB = psCurrentErrorB + sW + 2; // allow clipping
-	short	*psSwap;
+	int16_t *psErrorB = (int16_t*)calloc(sizeof(int16_t),2 * (sW+2));
+	int16_t *psCurrentErrorB = psErrorB + 1; // allow clipping
+	int16_t *psNextErrorB = psCurrentErrorB + sW + 2; // allow clipping
+	int16_t	*psSwap;
 
 	// Used with the look ahead pixel!
-	short sNextErrorR = 0,sNextErrorG = 0,sNextErrorB = 0;
-	short sDirection = 1; // Bidirectional sweeping!
-	short sErrPos = 0;
-	const short csClipValue = 256; // optimal results
+	int16_t sNextErrorR = 0,sNextErrorG = 0,sNextErrorB = 0;
+	int16_t sDirection = 1; // Bidirectional sweeping!
+	int16_t sErrPos = 0;
+	const int16_t csClipValue = 256; // optimal results
 
 	for (j=sH;j; j--)
 		{	
 		for (i=0; i < sW; i++,pSrc += lSrcXP,pDst += sDirection,sErrPos += sDirection)
 			{
-			short sCurErrorR,sCurErrorG,sCurErrorB;
-			short sTotErrorR,sTotErrorG,sTotErrorB;
+			int16_t sCurErrorR,sCurErrorG,sCurErrorB;
+			int16_t sTotErrorR,sTotErrorG,sTotErrorB;
 
 			// This is the desired target color
 			long	lRed = long(pSrc[2] + sNextErrorR + psCurrentErrorR[sErrPos]);
@@ -188,15 +188,15 @@ short	rspDither(
 			if (sCurErrorB > +csClipValue) sCurErrorB = csClipValue;
 
 			// Here is an optimization to avoid multiplying:
-			short sAddErrR = sCurErrorR << 1;
-			short sAddErrG = sCurErrorG << 1;
-			short sAddErrB = sCurErrorB << 1;
+			int16_t sAddErrR = sCurErrorR << 1;
+			int16_t sAddErrG = sCurErrorG << 1;
+			int16_t sAddErrB = sCurErrorB << 1;
 
-			short sRunErrR = sCurErrorR + sAddErrR;
-			short sRunErrG = sCurErrorG + sAddErrG;
-			short sRunErrB = sCurErrorB + sAddErrB;
+			int16_t sRunErrR = sCurErrorR + sAddErrR;
+			int16_t sRunErrG = sCurErrorG + sAddErrG;
+			int16_t sRunErrB = sCurErrorB + sAddErrB;
 
-			short sReg;
+			int16_t sReg;
 
 			// Diffuse the remaining error into the next line:
 			sReg = (sRunErrR)>>4;
@@ -295,7 +295,7 @@ short	rspDither(
 		// Clear the upcoming error layer:
 		for (i=-1;i <= sW;i++)
 			{
-			psNextErrorR[i] = psNextErrorG[i] = psNextErrorB[i] = short(0);
+			psNextErrorR[i] = psNextErrorG[i] = psNextErrorB[i] = int16_t(0);
 			}
 
 		// Give progress feedback
@@ -329,11 +329,11 @@ short	rspDither(
 // Does NOT dither at all!
 //==============================================
 //	
-short	rspSimpleMap(	
+int16_t	rspSimpleMap(	
 					RImage* pimSrc,	// MUST BE 24-bit!
 					RImage* pimDst,	// MUST be 8-bit
-					short sStartMap,	// palette index
-					short sNumMap,		// # of colors
+					int16_t sStartMap,	// palette index
+					int16_t sNumMap,		// # of colors
 					UCHAR*	pRed,		// Palette to match to
 					UCHAR*	pGreen,
 					UCHAR*	pBlue,
@@ -360,7 +360,7 @@ short	rspSimpleMap(
 #ifdef _DEBUG
 #endif
 
-	// short sRet = 0;
+	// int16_t sRet = 0;
 	// long	lPalOffset = lInc * sStartMap;
 	long	lLastTime = rspGetMilliseconds();
 
@@ -373,7 +373,7 @@ short	rspSimpleMap(
 		}
 
 	//--------- Set up callback timing:
-	short sDoCall = 0;
+	int16_t sDoCall = 0;
 	double dH = double(pimSrc->m_sHeight);
 
 	if (func)
@@ -386,7 +386,7 @@ short	rspSimpleMap(
 	//--------- Begin:
 	// long lErrorRed = 0,lErrorGreen = 0,lErrorBlue = 0;
 
-	short i,j;
+	int16_t i,j;
 	long lSrcP = pimSrc->m_lPitch;
 	long lDstP = pimDst->m_lPitch;
 	long lSrcXP = 3; // hard coded for 24-bit bmp's!!!
@@ -441,15 +441,15 @@ short	rspSimpleMap(
 // Returns 0 for SUCCESS, -1 for ERROR, 1 for user cancel
 //==============================================
 //	
-short	rspDither(	
+int16_t	rspDither(	
 					long lBackR,		// Don't dither to this color!
 					long lBackG,
 					long lBackB,
 					UCHAR ucBack,		// index to make BKGD
 					RImage* pimSrc,	// MUST BE 24-bit!
 					RImage* pimDst,	// MUST be 8-bit
-					short sStartMap,	// palette index
-					short sNumMap,		// # of colors
+					int16_t sStartMap,	// palette index
+					int16_t sNumMap,		// # of colors
 					UCHAR*	pRed,		// Palette to match to
 					UCHAR*	pGreen,
 					UCHAR*	pBlue,
@@ -476,7 +476,7 @@ short	rspDither(
 #ifdef _DEBUG
 #endif
 
-	short sRet = 0;
+	int16_t sRet = 0;
 	// long	lPalOffset = lInc * sStartMap;
 	long	lLastTime = rspGetMilliseconds();
 
@@ -489,7 +489,7 @@ short	rspDither(
 		}
 
 	//--------- Set up callback timing:
-	short sDoCall = 0;
+	int16_t sDoCall = 0;
 	double dH = double(pimSrc->m_sHeight);
 
 	if (func)
@@ -501,11 +501,11 @@ short	rspDither(
 
 	// long lErrorRed = 0,lErrorGreen = 0,lErrorBlue = 0;
 
-	short i,j;
+	int16_t i,j;
 	long lSrcP = pimSrc->m_lPitch;
 	long lDstP = pimDst->m_lPitch;
-	short sW = pimSrc->m_sWidth;
-	short sH = pimSrc->m_sHeight;
+	int16_t sW = pimSrc->m_sWidth;
+	int16_t sH = pimSrc->m_sHeight;
 
 	long lSrcXP = 3; // hard coded for 24-bit bmp's!!!
 	
@@ -517,32 +517,32 @@ short	rspDither(
 	// I give a one element buffer on either side
 	// to allow clipped errors!
 	//
-	short *psErrorR = (short*)calloc(sizeof(short),2 * (sW+2));
-	short *psCurrentErrorR = psErrorR + 1; // allow clipping
-	short *psNextErrorR = psCurrentErrorR + sW + 2; // allow clipping
+	int16_t *psErrorR = (int16_t*)calloc(sizeof(int16_t),2 * (sW+2));
+	int16_t *psCurrentErrorR = psErrorR + 1; // allow clipping
+	int16_t *psNextErrorR = psCurrentErrorR + sW + 2; // allow clipping
 
-	short *psErrorG = (short*)calloc(sizeof(short),2 * (sW+2));
-	short *psCurrentErrorG = psErrorG + 1; // allow clipping
-	short *psNextErrorG = psCurrentErrorG + sW + 2; // allow clipping
+	int16_t *psErrorG = (int16_t*)calloc(sizeof(int16_t),2 * (sW+2));
+	int16_t *psCurrentErrorG = psErrorG + 1; // allow clipping
+	int16_t *psNextErrorG = psCurrentErrorG + sW + 2; // allow clipping
 
-	short *psErrorB = (short*)calloc(sizeof(short),2 * (sW+2));
-	short *psCurrentErrorB = psErrorB + 1; // allow clipping
-	short *psNextErrorB = psCurrentErrorB + sW + 2; // allow clipping
-	short	*psSwap;
+	int16_t *psErrorB = (int16_t*)calloc(sizeof(int16_t),2 * (sW+2));
+	int16_t *psCurrentErrorB = psErrorB + 1; // allow clipping
+	int16_t *psNextErrorB = psCurrentErrorB + sW + 2; // allow clipping
+	int16_t	*psSwap;
 
 	// Used with the look ahead pixel!
-	short sNextErrorR = 0,sNextErrorG = 0,sNextErrorB = 0;
-	short sDirection = 1; // Bidirectional sweeping!
-	short sErrPos = 0;
-	const short csClipValue = 256; // optimal results
+	int16_t sNextErrorR = 0,sNextErrorG = 0,sNextErrorB = 0;
+	int16_t sDirection = 1; // Bidirectional sweeping!
+	int16_t sErrPos = 0;
+	const int16_t csClipValue = 256; // optimal results
 
 	for (j=sH;j; j--)
 		{	
 		for (i=0; i < sW; i++,pSrc += lSrcXP,pDst += sDirection,sErrPos += sDirection)
 			{
-			short sBackground = 0;
-			short sCurErrorR,sCurErrorG,sCurErrorB;
-			short sTotErrorR,sTotErrorG,sTotErrorB;
+			int16_t sBackground = 0;
+			int16_t sCurErrorR,sCurErrorG,sCurErrorB;
+			int16_t sTotErrorR,sTotErrorG,sTotErrorB;
 
 			// This is the desired target color
 			long	lRed = long(pSrc[2]);
@@ -580,15 +580,15 @@ short	rspDither(
 			if (sCurErrorB > +csClipValue) sCurErrorB = csClipValue;
 
 			// Here is an optimization to avoid multiplying:
-			short sAddErrR = sCurErrorR << 1;
-			short sAddErrG = sCurErrorG << 1;
-			short sAddErrB = sCurErrorB << 1;
+			int16_t sAddErrR = sCurErrorR << 1;
+			int16_t sAddErrG = sCurErrorG << 1;
+			int16_t sAddErrB = sCurErrorB << 1;
 
-			short sRunErrR = sCurErrorR + sAddErrR;
-			short sRunErrG = sCurErrorG + sAddErrG;
-			short sRunErrB = sCurErrorB + sAddErrB;
+			int16_t sRunErrR = sCurErrorR + sAddErrR;
+			int16_t sRunErrG = sCurErrorG + sAddErrG;
+			int16_t sRunErrB = sCurErrorB + sAddErrB;
 
-			short sReg;
+			int16_t sReg;
 
 			// Diffuse the remaining error into the next line:
 			sReg = (sRunErrR)>>4;
@@ -687,7 +687,7 @@ short	rspDither(
 		// Clear the upcoming error layer:
 		for (i=-1;i <= sW;i++)
 			{
-			psNextErrorR[i] = psNextErrorG[i] = psNextErrorB[i] = short(0);
+			psNextErrorR[i] = psNextErrorG[i] = psNextErrorB[i] = int16_t(0);
 			}
 
 		// Give progress feedback
@@ -740,13 +740,13 @@ short	rspDither(
 // Returns 0 for SUCCESS, -1 for ERROR, 1 for user cancel
 //==============================================
 //	
-short	rspDither(	
+int16_t	rspDither(	
 					UCHAR ucForeAlpha,		// lower limit for foreground
 					UCHAR ucBack,		// index to make BKGD
 					RImage* pimSrc,	// MUST BE 32-bit!
 					RImage* pimDst,	// MUST be 8-bit
-					short sStartMap,	// palette index
-					short sNumMap,		// # of colors
+					int16_t sStartMap,	// palette index
+					int16_t sNumMap,		// # of colors
 					UCHAR*	pRed,		// Palette to match to
 					UCHAR*	pGreen,
 					UCHAR*	pBlue,
@@ -773,7 +773,7 @@ short	rspDither(
 #ifdef _DEBUG
 #endif
 
-	short sRet = 0;
+	int16_t sRet = 0;
 	// long	lPalOffset = lInc * sStartMap;
 	long	lLastTime = rspGetMilliseconds();
 
@@ -786,7 +786,7 @@ short	rspDither(
 		}
 
 	//--------- Set up callback timing:
-	short sDoCall = 0;
+	int16_t sDoCall = 0;
 	double dH = double(pimSrc->m_sHeight);
 
 	if (func)
@@ -799,11 +799,11 @@ short	rspDither(
 	//--------- Begin:
 	// long lErrorRed = 0,lErrorGreen = 0,lErrorBlue = 0;
 
-	short i,j;
+	int16_t i,j;
 	long lSrcP = pimSrc->m_lPitch;
 	long lDstP = pimDst->m_lPitch;
-	short sW = pimSrc->m_sWidth;
-	short sH = pimSrc->m_sHeight;
+	int16_t sW = pimSrc->m_sWidth;
+	int16_t sH = pimSrc->m_sHeight;
 
 	long lSrcXP = 4; // hard coded for 32-bit bmp's!!!
 	
@@ -815,31 +815,31 @@ short	rspDither(
 	// I give a one element buffer on either side
 	// to allow clipped errors!
 	//
-	short *psErrorR = (short*)calloc(sizeof(short),2 * (sW+2));
-	short *psCurrentErrorR = psErrorR + 1; // allow clipping
-	short *psNextErrorR = psCurrentErrorR + sW + 2; // allow clipping
+	int16_t *psErrorR = (int16_t*)calloc(sizeof(int16_t),2 * (sW+2));
+	int16_t *psCurrentErrorR = psErrorR + 1; // allow clipping
+	int16_t *psNextErrorR = psCurrentErrorR + sW + 2; // allow clipping
 
-	short *psErrorG = (short*)calloc(sizeof(short),2 * (sW+2));
-	short *psCurrentErrorG = psErrorG + 1; // allow clipping
-	short *psNextErrorG = psCurrentErrorG + sW + 2; // allow clipping
+	int16_t *psErrorG = (int16_t*)calloc(sizeof(int16_t),2 * (sW+2));
+	int16_t *psCurrentErrorG = psErrorG + 1; // allow clipping
+	int16_t *psNextErrorG = psCurrentErrorG + sW + 2; // allow clipping
 
-	short *psErrorB = (short*)calloc(sizeof(short),2 * (sW+2));
-	short *psCurrentErrorB = psErrorB + 1; // allow clipping
-	short *psNextErrorB = psCurrentErrorB + sW + 2; // allow clipping
-	short	*psSwap;
+	int16_t *psErrorB = (int16_t*)calloc(sizeof(int16_t),2 * (sW+2));
+	int16_t *psCurrentErrorB = psErrorB + 1; // allow clipping
+	int16_t *psNextErrorB = psCurrentErrorB + sW + 2; // allow clipping
+	int16_t	*psSwap;
 
 	// Used with the look ahead pixel!
-	short sNextErrorR = 0,sNextErrorG = 0,sNextErrorB = 0;
-	short sDirection = 1; // Bidirectional sweeping!
-	short sErrPos = 0;
-	const short csClipValue = 256; // optimal results
+	int16_t sNextErrorR = 0,sNextErrorG = 0,sNextErrorB = 0;
+	int16_t sDirection = 1; // Bidirectional sweeping!
+	int16_t sErrPos = 0;
+	const int16_t csClipValue = 256; // optimal results
 
 	for (j=sH;j; j--)
 		{	
 		for (i=0; i < sW; i++,pSrc += lSrcXP,pDst += sDirection,sErrPos += sDirection)
 			{
-			short sCurErrorR,sCurErrorG,sCurErrorB;
-			short sTotErrorR,sTotErrorG,sTotErrorB;
+			int16_t sCurErrorR,sCurErrorG,sCurErrorB;
+			int16_t sTotErrorR,sTotErrorG,sTotErrorB;
 
 			// This is the desired target color
 			UCHAR	ucAlpha = long(pSrc[3]); 
@@ -871,15 +871,15 @@ short	rspDither(
 			if (sCurErrorB > +csClipValue) sCurErrorB = csClipValue;
 
 			// Here is an optimization to avoid multiplying:
-			short sAddErrR = sCurErrorR << 1;
-			short sAddErrG = sCurErrorG << 1;
-			short sAddErrB = sCurErrorB << 1;
+			int16_t sAddErrR = sCurErrorR << 1;
+			int16_t sAddErrG = sCurErrorG << 1;
+			int16_t sAddErrB = sCurErrorB << 1;
 
-			short sRunErrR = sCurErrorR + sAddErrR;
-			short sRunErrG = sCurErrorG + sAddErrG;
-			short sRunErrB = sCurErrorB + sAddErrB;
+			int16_t sRunErrR = sCurErrorR + sAddErrR;
+			int16_t sRunErrG = sCurErrorG + sAddErrG;
+			int16_t sRunErrB = sCurErrorB + sAddErrB;
 
-			short sReg;
+			int16_t sReg;
 
 			// Diffuse the remaining error into the next line:
 			sReg = (sRunErrR)>>4;
@@ -978,7 +978,7 @@ short	rspDither(
 		// Clear the upcoming error layer:
 		for (i=-1;i <= sW;i++)
 			{
-			psNextErrorR[i] = psNextErrorG[i] = psNextErrorB[i] = short(0);
+			psNextErrorR[i] = psNextErrorG[i] = psNextErrorB[i] = int16_t(0);
 			}
 
 		// Give progress feedback
@@ -1021,13 +1021,13 @@ short	rspDither(
 // treatment will occur.
 //==============================================
 //	
-short	rspSimpleMap(	
+int16_t	rspSimpleMap(	
 					UCHAR	ucForeAlpha,	// alpha threshhold
 					UCHAR ucBack,			// map background to this index
 					RImage* pimSrc,	// MUST BE 32-bit!
 					RImage* pimDst,	// MUST be 8-bit
-					short sStartMap,	// palette index
-					short sNumMap,		// # of colors
+					int16_t sStartMap,	// palette index
+					int16_t sNumMap,		// # of colors
 					UCHAR*	pRed,		// Palette to match to
 					UCHAR*	pGreen,
 					UCHAR*	pBlue,
@@ -1054,7 +1054,7 @@ short	rspSimpleMap(
 #ifdef _DEBUG
 #endif
 
-	// short sRet = 0;
+	// int16_t sRet = 0;
 	// long	lPalOffset = lInc * sStartMap;
 	long	lLastTime = rspGetMilliseconds();
 
@@ -1067,7 +1067,7 @@ short	rspSimpleMap(
 		}
 
 	//--------- Set up callback timing:
-	short sDoCall = 0;
+	int16_t sDoCall = 0;
 	double dH = double(pimSrc->m_sHeight);
 
 	if (func)
@@ -1080,7 +1080,7 @@ short	rspSimpleMap(
 	//--------- Begin:
 	// long lErrorRed = 0,lErrorGreen = 0,lErrorBlue = 0;
 
-	short i,j;
+	int16_t i,j;
 	long lSrcP = pimSrc->m_lPitch;
 	long lDstP = pimDst->m_lPitch;
 	long lSrcXP = 4; // hard coded for 32-bit bmp's!!!

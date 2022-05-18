@@ -148,12 +148,12 @@ static U32			ms_u32OrigTextColor;
 static bool			ms_bMenuDone			= false;	// true, when the current menu
 																// is done.
 
-static short		ms_sResetItem;						// Index of item that restores
+static int16_t		ms_sResetItem;						// Index of item that restores
 																// the default inputs.
-static short		ms_sResetItemOld;					// Index of item that restores the old default inputs.
+static int16_t		ms_sResetItemOld;					// Index of item that restores the old default inputs.
 
-static short		ms_sMouseButtons;
-static short		ms_sJoyButtons;
+static int16_t		ms_sMouseButtons;
+static int16_t		ms_sJoyButtons;
 
 static long			ms_lFlashTimer;
 
@@ -201,11 +201,11 @@ static U8			ms_au8UnmappableKeys[]	=
 //////////////////////////////////////////////////////////////////////////////
 // Called to setup an input settings menu.
 //////////////////////////////////////////////////////////////////////////////
-extern short InputSettingsDlg_InitMenu(	// Returns 0 on success.
+extern int16_t InputSettingsDlg_InitMenu(	// Returns 0 on success.
 	Menu* pmenu)									// In:  Menu to setup.
 	{
-	short		sRes				= 0;		// Assume success.
-	short		sInputIndex		= 0;		// Safety.
+	int16_t		sRes				= 0;		// Assume success.
+	int16_t		sInputIndex		= 0;		// Safety.
 	U32*	pasPlayInputs	= NULL;	// Input value array.
 	const char**	papszInputDescriptions	= NULL;	// Descriptions of input values.
 	bool	bIsJoystick = false;
@@ -309,12 +309,12 @@ extern short InputSettingsDlg_InitMenu(	// Returns 0 on success.
 //////////////////////////////////////////////////////////////////////////////
 // Called to clean up an input settings menu.
 //////////////////////////////////////////////////////////////////////////////
-extern short InputSettingsDlg_KillMenu(	// Returns 0 on success.
+extern int16_t InputSettingsDlg_KillMenu(	// Returns 0 on success.
 	Menu* pmenu)									// In:  Menu to clean up.  
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
-	short	sInputIndex;
+	int16_t	sInputIndex;
 	// Delete the loaded GUIs.
 	for (sInputIndex = 0; sInputIndex < CInputSettings::NumInputFunctions && sRes == 0; sInputIndex++)
 		{
@@ -335,12 +335,12 @@ extern short InputSettingsDlg_KillMenu(	// Returns 0 on success.
 //////////////////////////////////////////////////////////////////////////////
 void InputSettingsDlg_Choice(	// Returns nothing.
 	Menu*	pmenu,					// In:  Current menu.
-	short sMenuItem)				// In:  Menu item chosen or -1 if selection 
+	int16_t sMenuItem)				// In:  Menu item chosen or -1 if selection 
 										// change.
 	{
 	static U8*	pau8KeyStatusArray	= rspGetKeyStatusArray();
 
-	short	sError	 = 0;
+	int16_t	sError	 = 0;
 
 	if (sMenuItem > -1)
 		{
@@ -408,7 +408,7 @@ void InputSettingsDlg_Choice(	// Returns nothing.
 						break;
 					}
 
-				short	sInputIndex;
+				int16_t	sInputIndex;
 				RGuiItem*	pgui;
 				for (sInputIndex = 0; sInputIndex < CInputSettings::NumInputFunctions && sError == 0; sInputIndex++)
 					{
@@ -505,7 +505,7 @@ inline void ListenForInput(	// Returns nothing.
 			case KEYBOARD_MENU_ID:
 				{
 				U8*	pu8Key = pau8KeyStatusArray;
-				short	i;
+				int16_t	i;
 				for (i = 0; i < 128; i++, pu8Key++)
 					{
 					// If pressed . . .
@@ -651,7 +651,7 @@ inline void ListenForInput(	// Returns nothing.
 							// Stay in mode, just update status.  Limit to four buttons due to
 							// limitations imposed when joystick interface was four buttons.  Next time
 							// we'll allow many, many buttons.
-							//ms_sJoyButtons	= (short)(u32ButtonsCur & (RSP_JOY_BUT_1 | RSP_JOY_BUT_2 | RSP_JOY_BUT_3 | RSP_JOY_BUT_4) );
+							//ms_sJoyButtons	= (int16_t)(u32ButtonsCur & (RSP_JOY_BUT_1 | RSP_JOY_BUT_2 | RSP_JOY_BUT_3 | RSP_JOY_BUT_4) );
 
 							ms_sJoyButtons = JoyBitfieldToIndex(u32ButtonsCur);
 
@@ -719,9 +719,9 @@ inline void ListenForInput(	// Returns nothing.
 //////////////////////////////////////////////////////////////////////////////
 // Edit the input settings via menu.
 //////////////////////////////////////////////////////////////////////////////
-extern short EditInputSettings(void)	// Returns nothing.
+extern int16_t EditInputSettings(void)	// Returns nothing.
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 	bool bDeleteKeybind = false;	// If true, we want to delete the keybind we're on.
 
 	// Menu is already started.

@@ -296,10 +296,10 @@ void CDispatch::FreeCallStatic(	UCHAR* pucBuffer, USHORT usType,
 // Returns 0 on success.
 //
 //////////////////////////////////////////////////////////////////////////////
-short CDispatch::AddItem(	UCHAR* puc, long lSize, USHORT usType, 
+int16_t CDispatch::AddItem(	UCHAR* puc, long lSize, USHORT usType, 
 									UCHAR ucFlags, long lTime)
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	// Attempt to allocate a RTITEM for this chunk.
 	PRTITEM	pri	= new RTITEM;
@@ -474,9 +474,9 @@ void CDispatch::SetFilter(CFilter* pfilter)
 // Returns 0 on success.
 //
 //////////////////////////////////////////////////////////////////////////////
-short CDispatch::Start(void)
+int16_t CDispatch::Start(void)
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	if (m_sActive == FALSE)
 		{
@@ -501,9 +501,9 @@ short CDispatch::Start(void)
 // Returns 0 on success.
 //
 //////////////////////////////////////////////////////////////////////////////
-short CDispatch::Suspend(void)
+int16_t CDispatch::Suspend(void)
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	if (m_sActive == TRUE)
 		{
@@ -528,9 +528,9 @@ short CDispatch::Suspend(void)
 // Returns the number of handlers that returned an error.
 //
 //////////////////////////////////////////////////////////////////////////////
-short CDispatch::SendHandlerMessage(USHORT usMsg)
+int16_t CDispatch::SendHandlerMessage(USHORT usMsg)
 	{
-	short sNum	= 0;
+	int16_t sNum	= 0;
 
 	for (long l = 0L; l < NUM_TYPES; l++)
 		{

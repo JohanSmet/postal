@@ -134,7 +134,7 @@
 //	11/01/96	JMI	Changed all members of image to be preceded by m_ (e.g.,
 //						sDepth to m_sDepth).  Changed all position members (i.e., 
 //						lWidth, lHeight, lBufferWidth, lBufferHeight, lXPos, & lYPos)
-//						to be shorts (i.e., m_sWidth, m_sHeight, m_sBufferWidth,
+//						to be int16_ts (i.e., m_sWidth, m_sHeight, m_sBufferWidth,
 //						m_sBufferHeight, m_sXPos, m_sYPos).  Changed ulType to
 //						m_type and ulDestinationType to m_typeDestination.
 //
@@ -178,17 +178,17 @@
 //////////////////////////////////////////////////////////////////////
 // Prototypes.
 //////////////////////////////////////////////////////////////////////
-short	ConvertNoSupport(RImage* pImage);
-short	ConvertToBMP8(RImage* pImage);
-short	ConvertToBMP24(RImage* pImage);
-short	ConvertToSystem(RImage* pImage);	
-short	ConvertToSCREEN8_555(RImage* pImage);
-short ConvertToSCREEN8_565(RImage* pImage);
-short ConvertToSCREEN8_888(RImage* pImage);
-short ConvertToSCREEN16_555(RImage* pImage);
-short ConvertToSCREEN16_565(RImage* pImage);
-short ConvertToSCREEN24_RGB(RImage* pImage);
-short ConvertToSCREEN32_ARGB(RImage* pImage);
+int16_t	ConvertNoSupport(RImage* pImage);
+int16_t	ConvertToBMP8(RImage* pImage);
+int16_t	ConvertToBMP24(RImage* pImage);
+int16_t	ConvertToSystem(RImage* pImage);	
+int16_t	ConvertToSCREEN8_555(RImage* pImage);
+int16_t ConvertToSCREEN8_565(RImage* pImage);
+int16_t ConvertToSCREEN8_888(RImage* pImage);
+int16_t ConvertToSCREEN16_555(RImage* pImage);
+int16_t ConvertToSCREEN16_565(RImage* pImage);
+int16_t ConvertToSCREEN24_RGB(RImage* pImage);
+int16_t ConvertToSCREEN32_ARGB(RImage* pImage);
 
 IMAGELINKLATE(BMP8, ConvertToBMP8, NULL, NULL, NULL, NULL, NULL);
 IMAGELINKLATE(SYSTEM8, ConvertToSystem, NULL, NULL, NULL, NULL, NULL);
@@ -206,14 +206,14 @@ IMAGELINKLATE(SCREEN32_ARGB, ConvertToSCREEN32_ARGB, NULL, NULL, NULL, NULL, NUL
 //////////////////////////////////////////////////////////////////////
 
 // BMP compression format (BMP8RLE).
-short ConvertToBMP8RLE(RImage* pImage);
-short ConvertFromBMP8RLE(RImage* pImage);
+int16_t ConvertToBMP8RLE(RImage* pImage);
+int16_t ConvertFromBMP8RLE(RImage* pImage);
 // Link in conversion functions.
 IMAGELINKLATE(BMP8RLE, ConvertToBMP8RLE, ConvertFromBMP8RLE, NULL, NULL, NULL, NULL);
 
 // Monochrome BMP (BMP1).
-short ConvertToBMP1(RImage* pImage);
-short ConvertFromBMP1(RImage* pImage);
+int16_t ConvertToBMP1(RImage* pImage);
+int16_t ConvertFromBMP1(RImage* pImage);
 // Link in conversion functions.
 IMAGELINKLATE(BMP1, ConvertToBMP1, ConvertFromBMP1, NULL, NULL, NULL, NULL);
 
@@ -226,7 +226,7 @@ IMAGELINKLATE(BMP1, ConvertToBMP1, ConvertFromBMP1, NULL, NULL, NULL, NULL);
 //
 //////////////////////////////////////////////////////////////////////
 
-short ConvertNoSupport(RImage* /*pImage*/)
+int16_t ConvertNoSupport(RImage* /*pImage*/)
 {
 	TRACE("RImage::Convert - Conversion not supported - Invalid image type\n");
 	return RImage::NOT_SUPPORTED;
@@ -244,9 +244,9 @@ short ConvertNoSupport(RImage* /*pImage*/)
 //
 //////////////////////////////////////////////////////////////////////
 
-short	ConvertToBMP8(RImage* pImage)
+int16_t	ConvertToBMP8(RImage* pImage)
 {
-	short sReturn;
+	int16_t sReturn;
 
 	switch (pImage->m_type)
 	{
@@ -283,7 +283,7 @@ short	ConvertToBMP8(RImage* pImage)
 			USHORT* usp555 = (USHORT*) p555Pal->m_pData;
 			ULONG* ulpDib = (ULONG*) pImage->m_pPalette->m_pData;
 
-			short i;
+			int16_t i;
 		
 			// The 555 viewed as USHORT as xR5|G5|B5
 			//         viewed as 2 BYTES   G3|B5|x|R5|G2
@@ -319,7 +319,7 @@ short	ConvertToBMP8(RImage* pImage)
 			USHORT* usp565 = (USHORT*) p565Pal->m_pData;
 			ULONG* ulpDib = (ULONG*) pImage->m_pPalette->m_pData;
 
-			short i;
+			int16_t i;
 		
 			// The 565 when viewed as USHORT  R5|G6|B5
 			//              viewed as 2 BYTES G3|B5|R5|G3
@@ -355,7 +355,7 @@ short	ConvertToBMP8(RImage* pImage)
 			IM_RGBTRIPLE* tp888 = (IM_RGBTRIPLE*) p888Pal->m_pData;
 			IM_RGBQUAD* qpDib = (IM_RGBQUAD*) pImage->m_pPalette->m_pData;
 		
-			short i;
+			int16_t i;
 
 			// The DIB format when viewed as a IM_RGBQUAD = B|G|R|Reserved
 			// The 888 palette     viewed as IM_RGBTRIPLE   B|G|R
@@ -395,9 +395,9 @@ short	ConvertToBMP8(RImage* pImage)
 //
 //////////////////////////////////////////////////////////////////////
 
-short	ConvertToBMP24(RImage* pImage)
+int16_t	ConvertToBMP24(RImage* pImage)
 {
-	short sReturn;
+	int16_t sReturn;
 
 	switch (pImage->m_type)
 	{
@@ -483,7 +483,7 @@ short	ConvertToBMP24(RImage* pImage)
 				pImage->m_pData	= (UCHAR*)ulp32;
 				TRACE("ConvertToBMP24(): CreateData() failed.\n");
 				// Return old type.
-				sReturn = (short)pImage->m_type;
+				sReturn = (int16_t)pImage->m_type;
 				}
 			break;
 		}
@@ -588,9 +588,9 @@ short	ConvertToBMP24(RImage* pImage)
 //
 //////////////////////////////////////////////////////////////////////
 
-short ConvertToSystem(RImage* pImage)
+int16_t ConvertToSystem(RImage* pImage)
 {
-	short sReturn = RImage::NOT_SUPPORTED;
+	int16_t sReturn = RImage::NOT_SUPPORTED;
 
 #ifdef WIN32
 	switch (pImage->m_type)
@@ -643,9 +643,9 @@ short ConvertToSystem(RImage* pImage)
 //
 //////////////////////////////////////////////////////////////////////
 
-short	ConvertToSCREEN8_555(RImage* pImage)
+int16_t	ConvertToSCREEN8_555(RImage* pImage)
 {
-	short sReturn;
+	int16_t sReturn;
 
 	switch (pImage->m_type)
 	{
@@ -672,7 +672,7 @@ short	ConvertToSCREEN8_555(RImage* pImage)
 			ULONG* ulpDib = (ULONG*) pDibPal->m_pData;
 			USHORT* usp555 = (USHORT*) pImage->m_pPalette->m_pData;
 
-			short i;
+			int16_t i;
 		
 			// The DIB format when viewed as a ULONG is Reserved|R|G|B 
 			//                when viewed as 4 BYTES is B|G|R|Reserved
@@ -723,9 +723,9 @@ short	ConvertToSCREEN8_555(RImage* pImage)
 //
 //////////////////////////////////////////////////////////////////////
 
-short ConvertToSCREEN8_565(RImage* pImage)
+int16_t ConvertToSCREEN8_565(RImage* pImage)
 {
-	short sReturn;
+	int16_t sReturn;
 
 	switch (pImage->m_type)
 	{
@@ -752,7 +752,7 @@ short ConvertToSCREEN8_565(RImage* pImage)
 			ULONG* ulpDib = (ULONG*) pDibPal->m_pData;
 			USHORT* usp565 = (USHORT*) pImage->m_pPalette->m_pData;
 
-			short i;
+			int16_t i;
 		
 			// The DIB format when viewed as a ULONG is Reserved|R|G|B 
 			//                when viewed as 4 BYTES is B|G|R|Reserved
@@ -809,9 +809,9 @@ short ConvertToSCREEN8_565(RImage* pImage)
 //
 //////////////////////////////////////////////////////////////////////
 
-short ConvertToSCREEN8_888(RImage* pImage)
+int16_t ConvertToSCREEN8_888(RImage* pImage)
 {
-	short sReturn;
+	int16_t sReturn;
 
 	switch(pImage->m_type)
 	{
@@ -837,7 +837,7 @@ short ConvertToSCREEN8_888(RImage* pImage)
 			IM_RGBQUAD* qpDib = (IM_RGBQUAD*) pDibPal->m_pData;
 			IM_RGBTRIPLE* tp888 = (IM_RGBTRIPLE*) pImage->m_pPalette->m_pData;
 
-			short i;
+			int16_t i;
 
 			// The DIB format when viewed as a IM_RGBQUAD = B|G|R|Reserved
 			// Converting to 888 viewed as IM_RGBTRIPLE as  B|G|R
@@ -890,9 +890,9 @@ short ConvertToSCREEN8_888(RImage* pImage)
 //
 //////////////////////////////////////////////////////////////////////
 
-short ConvertToSCREEN16_555(RImage* pImage)
+int16_t ConvertToSCREEN16_555(RImage* pImage)
 {
-	short sReturn = RImage::NOT_SUPPORTED;
+	int16_t sReturn = RImage::NOT_SUPPORTED;
 
 	switch (pImage->m_type)
 	{
@@ -923,7 +923,7 @@ short ConvertToSCREEN16_555(RImage* pImage)
 			// Create a new 16-bit buffer
 			pImage->m_sDepth = 16;
 			pImage->m_lPitch = RImage::GetPitch(pImage->m_sWidth, pImage->m_sDepth);
-			pImage->CreateData(pImage->m_lPitch * (short)pImage->m_sHeight);
+			pImage->CreateData(pImage->m_lPitch * (int16_t)pImage->m_sHeight);
 			USHORT* usp16 = (USHORT*) pImage->m_pData;
 			UCHAR  ucIndex;
 			long dPitch = pImage->m_lPitch / (pImage->m_sDepth / 8);
@@ -1031,9 +1031,9 @@ short ConvertToSCREEN16_555(RImage* pImage)
 //
 //////////////////////////////////////////////////////////////////////
 
-short ConvertToSCREEN16_565(RImage* pImage)
+int16_t ConvertToSCREEN16_565(RImage* pImage)
 {
- 	short sReturn = RImage::NOT_SUPPORTED;
+ 	int16_t sReturn = RImage::NOT_SUPPORTED;
 
 	switch (pImage->m_type)
 	{
@@ -1173,9 +1173,9 @@ short ConvertToSCREEN16_565(RImage* pImage)
 //
 //////////////////////////////////////////////////////////////////////
 
-short ConvertToSCREEN24_RGB(RImage* pImage)
+int16_t ConvertToSCREEN24_RGB(RImage* pImage)
 {
-	short sReturn = RImage::NOT_SUPPORTED;
+	int16_t sReturn = RImage::NOT_SUPPORTED;
 
 	switch (pImage->m_type)
 	{
@@ -1285,9 +1285,9 @@ short ConvertToSCREEN24_RGB(RImage* pImage)
 //
 //////////////////////////////////////////////////////////////////////
 
-short ConvertToSCREEN32_ARGB(RImage* pImage)
+int16_t ConvertToSCREEN32_ARGB(RImage* pImage)
 {
-	short sReturn = RImage::NOT_SUPPORTED;
+	int16_t sReturn = RImage::NOT_SUPPORTED;
 
 	switch (pImage->m_type)
 	{
@@ -1442,9 +1442,9 @@ short ConvertToSCREEN32_ARGB(RImage* pImage)
 //   
 //
 //////////////////////////////////////////////////////////////////////
-short ConvertFromBMP8RLE(RImage* pImage)
+int16_t ConvertFromBMP8RLE(RImage* pImage)
 	{
-	short	sRes	= RImage::NOT_SUPPORTED;	// Assume failure.
+	int16_t	sRes	= RImage::NOT_SUPPORTED;	// Assume failure.
 
 	ASSERT(pImage->m_type == RImage::BMP8RLE);
 
@@ -1471,7 +1471,7 @@ short ConvertFromBMP8RLE(RImage* pImage)
 		// Actual decompression.  See function header for details.
 		U8	u8Num;	// Num pixels to run.
 		U8	u8Pixel;	// Pixel to run.
-		short	sDone	= FALSE;
+		int16_t	sDone	= FALSE;
 		while (sDone == FALSE && pu8Comp < pu8End)
 			{
 			// First byte is number of pixels to run, if not 0.
@@ -1539,7 +1539,7 @@ short ConvertFromBMP8RLE(RImage* pImage)
 
 		pImage->m_type = RImage::BMP8;
 
-		sRes = (short)pImage->m_type;
+		sRes = (int16_t)pImage->m_type;
 		}
 	else
 		{
@@ -1559,9 +1559,9 @@ short ConvertFromBMP8RLE(RImage* pImage)
 // ConvertFromBMP8RLE.
 //
 //////////////////////////////////////////////////////////////////////
-short ConvertToBMP8RLE(RImage* pImage)
+int16_t ConvertToBMP8RLE(RImage* pImage)
 	{
-	short	sRes	= RImage::NOT_SUPPORTED;	// Assume failure.
+	int16_t	sRes	= RImage::NOT_SUPPORTED;	// Assume failure.
 
 	// Only certain types can be converted from.
 	switch (pImage->m_type)
@@ -1713,7 +1713,7 @@ short ConvertToBMP8RLE(RImage* pImage)
 
 				pImage->m_type = RImage::BMP8RLE;
 
-				sRes = (short)pImage->m_type;
+				sRes = (int16_t)pImage->m_type;
 				}
 			else
 				{
@@ -1739,9 +1739,9 @@ short ConvertToBMP8RLE(RImage* pImage)
 // is NOT significant to BMP1 format (1 == Black, 0 == White).
 //
 //////////////////////////////////////////////////////////////////////
-short ConvertFromBMP1(RImage* pImage)
+int16_t ConvertFromBMP1(RImage* pImage)
 	{
-	short	sRes	= RImage::NOT_SUPPORTED;	// Assume failure.
+	int16_t	sRes	= RImage::NOT_SUPPORTED;	// Assume failure.
 
 	// Set up a pointer to the 1-bit packed buffer before detaching.
 	U8*	pu8Src	= pImage->m_pData;
@@ -1810,7 +1810,7 @@ short ConvertFromBMP1(RImage* pImage)
 		pImage->m_type = RImage::BMP8;
 
 		// Set return value.
-		sRes = (short)pImage->m_type;
+		sRes = (int16_t)pImage->m_type;
 		}
 	else
 		{
@@ -1828,9 +1828,9 @@ short ConvertFromBMP1(RImage* pImage)
 // is NOT significant to this format (1 == Black, 0 == White).
 //
 //////////////////////////////////////////////////////////////////////
-short ConvertToBMP1(RImage* pImage)
+int16_t ConvertToBMP1(RImage* pImage)
 	{
-	short	sRes	= RImage::NOT_SUPPORTED;	// Assume failure.
+	int16_t	sRes	= RImage::NOT_SUPPORTED;	// Assume failure.
 
 	// Only certain types can be converted from.
 	switch (pImage->m_type)
@@ -1917,7 +1917,7 @@ short ConvertToBMP1(RImage* pImage)
 				pImage->m_type = RImage::BMP1;
 
 				// Set return value.
-				sRes = (short)pImage->m_type;
+				sRes = (int16_t)pImage->m_type;
 				}
 			else
 				{

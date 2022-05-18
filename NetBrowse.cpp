@@ -70,11 +70,11 @@ void CNetBrowse::Reset(void)
 ////////////////////////////////////////////////////////////////////////////////
 // Startup
 ////////////////////////////////////////////////////////////////////////////////
-short CNetBrowse::Startup(							// Returns 0 if sucessfull, non-zero otherwise
+int16_t CNetBrowse::Startup(							// Returns 0 if sucessfull, non-zero otherwise
 	USHORT usPort,											// In:  Server's base port number
 	RSocket::BLOCK_CALLBACK callback)				// In:  Blocking callback
 	{
-	short sResult = 0;
+	int16_t sResult = 0;
 
 	// Make sure we start in a good state
 	Reset();
@@ -143,7 +143,7 @@ void CNetBrowse::Update(
 
 		// Broadcast the message
 		long lBytesSent;
-		short serr = m_socketBrowse.SendTo(buf1, sizeof(buf1), &lBytesSent, &address);
+		int16_t serr = m_socketBrowse.SendTo(buf1, sizeof(buf1), &lBytesSent, &address);
 		if (serr == 0)
 			{
 			if (lBytesSent != sizeof(buf1))
@@ -172,7 +172,7 @@ void CNetBrowse::Update(
 	CHost host;
 	long lReceived;
 	U8 buf[sizeof(host.m_acName) + 4 + 4];
-	short serr = m_socketBrowse.ReceiveFrom(buf, sizeof(buf), &lReceived, &host.m_address);
+	int16_t serr = m_socketBrowse.ReceiveFrom(buf, sizeof(buf), &lReceived, &host.m_address);
 	if (serr == 0)
 		{
 		// Validate the message to make sure it was sent by another app of this
@@ -259,13 +259,13 @@ void CNetBrowse::Update(
 // The specified port must be the host's "base port".
 ////////////////////////////////////////////////////////////////////////////////
 // static
-short CNetBrowse::LookupHost(						// Returns 0 if successfull, non-zero otherwise
+int16_t CNetBrowse::LookupHost(						// Returns 0 if successfull, non-zero otherwise
 	char* pszName,											// In:  Server's name or dotted address (x.x.x.x)
 	USHORT usPort,											// In:  Server's port number
 	RSocket::Address* paddress)						// Out: Addresss
 	{
 	// Try to get requested address 
-	short sResult = RSocket::GetAddress(pszName, usPort, paddress);
+	int16_t sResult = RSocket::GetAddress(pszName, usPort, paddress);
 	if (sResult != 0)
 		TRACE("CNetBrowse::LookupHost(): Error getting host address!\n");
 	return sResult;

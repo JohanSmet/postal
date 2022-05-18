@@ -126,22 +126,22 @@ class RMix
 
 		// Open a mix channel.
 		// Returns 0 on success.
-		short OpenChannel(long	lSampleRate,
+		int16_t OpenChannel(long	lSampleRate,
 								long	lBitsPerSample,
 								long	lNumChannels);
 		
 		// Close a mix channel.
 		// Returns 0 on success.
-		short CloseChannel(void);
+		int16_t CloseChannel(void);
 
 		// Start receiving callbacks to fill channel data.
 		// Set the initial mix volumes
 		// Returns 0 on success.
-		short Start(RMixCall mcUser, ULONG ulUser,
+		int16_t Start(RMixCall mcUser, ULONG ulUser,
 					UCHAR	ucVolume = 255, UCHAR ucVol2 = 255 );
 
 		// Stop receiving callbacks to fill channel data.
-		short Suspend(void);	// Returns 0 on success.
+		int16_t Suspend(void);	// Returns 0 on success.
 
 		// Pause mix channel.
 		void PauseChannel(void);	
@@ -150,7 +150,7 @@ class RMix
 		void ResumeChannel(void);	
 
 		// Check mix channel's paused status.
-		short IsChannelPaused(void);	// Returns TRUE, if sound output is paused; FALSE otherwise.
+		int16_t IsChannelPaused(void);	// Returns TRUE, if sound output is paused; FALSE otherwise.
 
 		// Set or clear (if psndfx is NULL) a RSndFx for this channel.
 		void SetFx(				// Returns nothing.
@@ -166,7 +166,7 @@ class RMix
 
 		// Set the current audio mode.
 		// This will cause any open channels to start playing.
-		static short SetMode(			// Returns 0 on success.
+		static int16_t SetMode(			// Returns 0 on success.
 			long	lSamplesPerSec,		// Sample rate in samples per second.
 			long	lDevBitsPerSample,	// Number of bits per sample for device.
 			long	lNumChannels,			// Number of channels (1 == mono,2 == stereo).
@@ -180,7 +180,7 @@ class RMix
 
 		// Set the current audio mode.
 		// This will cause any open channels to start playing.
-		static short SetMode(			// Returns 0 on success.
+		static int16_t SetMode(			// Returns 0 on success.
 			long	lSamplesPerSec,		// Sample rate in samples per second.
 			long	lBitsPerSample,		// Number of bits per sample.
 			long	lNumChannels,			// Number of channels (1 == mono,2 == stereo).
@@ -206,14 +206,14 @@ class RMix
 
 		// Pause currently playing audio.
 		// NOTE:  Pause/Resume is implemented in levels by Blue.
-		static short Pause(void);	// Returns 0 on success.
+		static int16_t Pause(void);	// Returns 0 on success.
 		
 		// Resume currently paused audio.
 		// NOTE:  Pause/Resume is implemented in levels by Blue.
-		static short Resume(void);	// Returns 0 on success.
+		static int16_t Resume(void);	// Returns 0 on success.
 
 		// Returns TRUE, if sound output is paused; FALSE otherwise.
-		static short IsPaused(void);	// Returns TRUE, if sound output is paused; FALSE otherwise.
+		static int16_t IsPaused(void);	// Returns TRUE, if sound output is paused; FALSE otherwise.
 
 		// Do stuff specific to RMix and the playing of audio through Blue.
 		// This includes calling rspDoSound().
@@ -222,10 +222,10 @@ class RMix
 										// was required to be queued.
 
 		// Reset all current mix channels.
-		static short Reset(void);	// Returns 0 on success.
+		static int16_t Reset(void);	// Returns 0 on success.
 
 		// Suspends all current mix channels.
-		static short SuspendAll(void);	// Returns 0 on success.
+		static int16_t SuspendAll(void);	// Returns 0 on success.
 
 		// Sets the maximum duration that can occur between calls
 		// to rspDoSound.
@@ -245,7 +245,7 @@ class RMix
 		// mix.  This, when enabled, keeps delays consistent and removes overhead,
 		// if any, for starting Blue's sound stuff.
 		static void SetAutoPump(	// Returns nothing.
-			short sAutoPump)			// In:  TRUE to auto-pump silence, FALSE othwerise.
+			int16_t sAutoPump)			// In:  TRUE to auto-pump silence, FALSE othwerise.
 			{
 			ms_sKeepPumping	= sAutoPump;
 			}
@@ -256,9 +256,9 @@ class RMix
 		/////////////////////////////////////////////////////////////////////////
 
 		// Returns TRUE if this mix channel is open; FALSE otherwise.
-		short IsOpen(void) { return m_sOpen; }
+		int16_t IsOpen(void) { return m_sOpen; }
 		// Returns TRUE if this mix channel is active; FALSE otherwise.
-		short IsActive(void) { return m_sActive; }
+		int16_t IsActive(void) { return m_sActive; }
 
 		// Returns the time for this RMix.
 		long GetTime(void);
@@ -274,7 +274,7 @@ class RMix
 		static State GetState() { return ms_sState; }
 
 		// Gets the current mode of the sound output device.
-		static short GetMode(						// Returns 0 on success; 
+		static int16_t GetMode(						// Returns 0 on success; 
 															// nonzero if no mode.
 			long*		plSamplesPerSec,				// Sample rate in samples per second
 															// returned here, if not NULL.
@@ -306,15 +306,15 @@ class RMix
 
 		// Called when all sound on a channel has finished.
 		// Returns 0 on success.
-		short ChannelFinished(void);
+		int16_t ChannelFinished(void);
 
 		// Implied this version of BlueCallStatic, called from BlueCallStatic.
-		short BlueCall(			// Returns FALSE when no data mixed.
+		int16_t BlueCall(			// Returns FALSE when no data mixed.
 			long		lDataPos,	// Position that this buffer represents in stream.
 			PMIXBUF	pmb);			// Mix buffer to mix into.
 
 		// Callbacks from Blue.
-		static short BlueCallStatic(	// Returns TRUE to continue mixing in this
+		static int16_t BlueCallStatic(	// Returns TRUE to continue mixing in this
 												// buffer or FALSE to not mix this buffer.
 			UCHAR*	pucData, 
 			long		lBufSize, 
@@ -332,11 +332,11 @@ class RMix
 		long			m_lBitsPerSample;		// Sample size in bits.
 		long			m_lNumChannels;		// Number of channels (mono or stereo).
 
-		short			m_sOpen;					// TRUE if channel open; FALSE 
+		int16_t			m_sOpen;					// TRUE if channel open; FALSE 
 													// otherwise.
-		short			m_sActive;				// TRUE if channel active; FALSE
+		int16_t			m_sActive;				// TRUE if channel active; FALSE
 													// otherwise.
-		short			m_sSuspending;			// TRUE if channel suspending; FALSE
+		int16_t			m_sSuspending;			// TRUE if channel suspending; FALSE
 													// otherwise.
 		long			m_lLastDataPos;		// Last byte mixed into.
 		RMixCall		m_mcUser;				// User callback.
@@ -351,11 +351,11 @@ class RMix
 
 		RSndFx*		m_psndfx;				// Pointer to an RSndFx.
 
-		short			m_sPauseLevel;			// Current pause level.
+		int16_t			m_sPauseLevel;			// Current pause level.
 
 		static RList<RMix>	ms_listActive;		// List of active channels.
 																	
-		static short			ms_sSetMode;		// TRUE if we set Blue's sound
+		static int16_t			ms_sSetMode;		// TRUE if we set Blue's sound
 															// output mode.
 
 		static State			ms_sState;			// Current state for all RMixes.
@@ -363,11 +363,11 @@ class RMix
 															// based on absolute start.
 		static ULONG			ms_ulBufSize;		// The size to use when allocating
 															// RMixBufs.
-		static short			ms_sReset;			// Resets Blue and returns all
+		static int16_t			ms_sReset;			// Resets Blue and returns all
 															// current user buffers.
 		static RSndFx*			ms_psndfx;			// Pointer to a global RSndFx.
 
-		static short			ms_sKeepPumping;	// Keep Blue pumped with silence
+		static int16_t			ms_sKeepPumping;	// Keep Blue pumped with silence
 															// when no channels are playing,
 															// if TRUE.
 

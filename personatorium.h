@@ -240,7 +240,7 @@ typedef struct
 			{
 			// Names used to create animation resource filenames.
 			const char* pszBaseName;		// Example: "Gunner", as in "3d/GUNNER_shoot.sop".
-			short sTextureScheme;	// Example: 0 would make "3d/GUNNER0.tex"
+			int16_t sTextureScheme;	// Example: 0 would make "3d/GUNNER0.tex"
 			const char*	pszObjectName;		// Name of channels of transforms for ammo.
 											// Example: "Bullet", as in "3d/gunner_shoot_BULLET.trans".
 			const char*	pszHandName;		// Name of channels of transforms for hand.
@@ -289,7 +289,7 @@ typedef struct
 		long lGuardTimeout;							// Interval between checking for intruders
 		long lRunShootInterval;						// Delay between shots while running
 		long lShotTimeout;							// Time to wait before reacting to next shot.
-		short sInitialHitPoints;					// Initial hit points for person
+		int16_t sInitialHitPoints;					// Initial hit points for person
 
 		/////// NYI ///////
 

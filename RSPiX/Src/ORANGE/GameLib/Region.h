@@ -101,18 +101,18 @@ class RRegion
 			{ }
 
 		// Query functions
-//		virtual short Collide(RPt* pPoint);
-//		virtual short Collide(RRay* pRay);
-//		virtual short Collide(RRegion* pRegion);
+//		virtual int16_t Collide(RPt* pPoint);
+//		virtual int16_t Collide(RRay* pRay);
+//		virtual int16_t Collide(RRegion* pRegion);
 
 #if 0	// This seems cool and all, but if it is to be done
 		// we'll need some Runtime type resolution whether
 		// it be RTTI or just the ol' enums we've done
 		// for other RSPiX stuff.
 		// For now, these just get in the way.
-		virtual short Collide(RPt* pPoint)			= 0;
-		virtual short Collide(RRay* pRay)			= 0;
-		virtual short Collide(RRegion* pRegion)	= 0;
+		virtual int16_t Collide(RPt* pPoint)			= 0;
+		virtual int16_t Collide(RRay* pRay)			= 0;
+		virtual int16_t Collide(RRegion* pRegion)	= 0;
 #endif
 };
 
@@ -140,16 +140,16 @@ class RCircularRegion : virtual public RRegion
 			{};
 
 		// Query function to tell if a point (x,y) is in the circle
-		short Collide(R2DPoint* pPoint);
+		int16_t Collide(R2DPoint* pPoint);
 
 		// Query function to tell if a line will intersect
-		short Collide(R2DRay* pRay);
+		int16_t Collide(R2DRay* pRay);
 
 		// Query function to tell if two circular regions collide
-		short Collide(RCircularRegion* pCircRegion);
+		int16_t Collide(RCircularRegion* pCircRegion);
 
 		// Query function to tell if this circular region collides with a rectangle
-		short Collide(RRectangularRegion* pRectRegion);
+		int16_t Collide(RRectangularRegion* pRectRegion);
 };
 
 class RSphericalRegion : virtual public RRegion
@@ -172,19 +172,19 @@ class RSphericalRegion : virtual public RRegion
 			{};
 		
 		// Query function to tell if a point (x,y,z) is in the sphere
-		short Collide(R3DPoint* pPoint);
+		int16_t Collide(R3DPoint* pPoint);
 
 		// Query function to tell if a line will intersect
-		short Collide(R3DRay* pRay);
+		int16_t Collide(R3DRay* pRay);
 
 		// Query function to tell if a line intersects.
-		short Collide(R3DLine* pline);
+		int16_t Collide(R3DLine* pline);
 
 		// Query function to tell if two spherical regions collide
-		short Collide(RSphericalRegion* pSphereRegion);
+		int16_t Collide(RSphericalRegion* pSphereRegion);
 
 		// Query function to tell if this sphere collides with a cube
-		short Collide(RCubicRegion* pCubeRegion);
+		int16_t Collide(RCubicRegion* pCubeRegion);
 
 		// Query function to tell if this sphere collides with a generic region.
 };
@@ -206,21 +206,21 @@ class RRectangularRegion : virtual public RRegion
 			{};
 
 		// Query function to tell if a point (x,y) is in the rectangle
-		short Collide(RPt* pPoint);
+		int16_t Collide(RPt* pPoint);
 		// Query function to tell is a point (lX, lY) is in the rectangle.
-		short Collide(long lX, long lY);
+		int16_t Collide(long lX, long lY);
 
 		// Query function to tell if a line will intersect
-		short Collide(R2DRay* pRay);
+		int16_t Collide(R2DRay* pRay);
 
 		// Query function to tell if two rectangular regions collide
 		// The default bFullCheck = FALSE will cause the function to
 		// return COLLIDE or NO_COLLIDE, but will not bother to check
 		// to see if one region fully encloses the other.
-		short Collide(RRectangularRegion* pRectRegion, short bFullCheck = FALSE);
+		int16_t Collide(RRectangularRegion* pRectRegion, int16_t bFullCheck = FALSE);
 
 		// Query function to tell if this rectangle collides with a circle
-		short Collide(RCircularRegion* pCircRegion, short bFullCheck = FALSE);
+		int16_t Collide(RCircularRegion* pCircRegion, int16_t bFullCheck = FALSE);
 };
 
 class RCubicRegion : virtual public RRegion
@@ -242,16 +242,16 @@ class RCubicRegion : virtual public RRegion
 			{};
 
 		// Query function to tell if a point (x,y,z) is in the cube
-		short Collide(R3DPoint* pPoint);
+		int16_t Collide(R3DPoint* pPoint);
 
 		// Query function to tell if a line will intersect
-		short Collide(R3DRay* pRay);
+		int16_t Collide(R3DRay* pRay);
 
 		// Query function to tell if two cubic regions collide
-		short Collide(RCubicRegion* pCubeRegion);
+		int16_t Collide(RCubicRegion* pCubeRegion);
 
 		// Query function to tell if this cube collides with a sphere
-		short Collide(RSphericalRegion* pSphereRegion);
+		int16_t Collide(RSphericalRegion* pSphereRegion);
 };
 
 

@@ -96,19 +96,19 @@ class RMeter : public RDlg
 
 		// Composes the meter into the image provided.  For consistency, you
 		// should probably always draw the meter.
-		short Draw(					// Returns 0 on success.
+		int16_t Draw(					// Returns 0 on success.
 			RImage* pimDst,		// Destination image.
-			short sDstX	= 0,		// X position in destination.
-			short sDstY	= 0,		// Y position in destination.
-			short sSrcX = 0,		// X position in source.
-			short sSrcY = 0,		// Y position in source.
-			short sW = 0,			// Amount to draw.
-			short sH = 0,			// Amount to draw.
+			int16_t sDstX	= 0,		// X position in destination.
+			int16_t sDstY	= 0,		// Y position in destination.
+			int16_t sSrcX = 0,		// X position in source.
+			int16_t sSrcY = 0,		// Y position in source.
+			int16_t sW = 0,			// Amount to draw.
+			int16_t sH = 0,			// Amount to draw.
 			RRect* prc = NULL);	// Clip to.
 
 		// Activate or deactivate mouse reaction.
 		void SetActive(		// Returns nothing.
-			short sActive)		// TRUE to make active, FALSE otherwise.
+			int16_t sActive)		// TRUE to make active, FALSE otherwise.
 			{ 
 			RDlg::SetActive(sActive); 
 			m_guiMeter.SetActive(sActive);
@@ -268,14 +268,14 @@ class RMeter : public RDlg
 		RGuiItem			m_guiMeter;							// Actual meter gui.
 
 		// History of values for histogram.
-		short				m_asQHistory[METER_HISTOGRAM_HISTORY];
+		int16_t				m_asQHistory[METER_HISTOGRAM_HISTORY];
 		long				m_lQIndex;
 
 
 	protected:	// Internal typedefs.
 
 	protected:	// Protected member variables.
-		short				m_sInfoY;	
+		int16_t				m_sInfoY;	
 
 	};
 

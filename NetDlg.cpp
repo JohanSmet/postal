@@ -512,7 +512,7 @@ struct GuiLink
 		void*			pvLink;
 		long*			pl;
 		ULONG*		pul;
-		short*		ps;
+		int16_t*		ps;
 		USHORT*		pus;
 		char*			pc;
 		UCHAR*		puc;
@@ -562,7 +562,7 @@ static bool			ms_bNetBlockingAbort = false;	// Net blocking abort flag
 static long			ms_lNumConsoleEntries		= 0;			// Track number of chat items.
 
 static bool			ms_bGotSetupMsg = false;
-static short		ms_sSetupRealmNum = 0;
+static int16_t		ms_sSetupRealmNum = 0;
 static char			ms_szSetupRealmFile[Net::MaxRealmNameSize];
 // static long			ms_lSetupLastChatComplaint = 0;
 
@@ -636,7 +636,7 @@ static void AddConsoleMsg(	// Returns nothing.
 	...);							// In:  Optional arguments based on context of pszFrmt.
 
 // Get dialog resource
-short DlgGetRes(											// Returns 0 if successfull, non-zero otherwise
+int16_t DlgGetRes(											// Returns 0 if successfull, non-zero otherwise
 	RGuiItem* pgui);										// I/O: Pointer to gui item
 
 // Release dialog resource
@@ -644,16 +644,16 @@ void DlgReleaseRes(										// Returns 0 if successfull, non-zero otherwise
 	RGuiItem* pgui);										// I/O: Pointer to gui item
 
 // Net blocking callback
-static short NetBlockingCallback(void);			// Returns 0 to continue normally, 1 to abort
+static int16_t NetBlockingCallback(void);			// Returns 0 to continue normally, 1 to abort
 
-static short BrowseForHost(
+static int16_t BrowseForHost(
 	CNetServer*	pserver,									// I/O: Server interface or NULL if none
 	RSocket::Address* paddress);						// Out: Address returned here (if successfull)
 
-static short FindSpecificSystem(
+static int16_t FindSpecificSystem(
 	RSocket::Address* paddress);						// Out: Address returned here (if successfull)
 
-static short BrowseForSelf(
+static int16_t BrowseForSelf(
 	CNetServer*	pserver,									// I/O: Server interface
 	RSocket::Address* paddress);						// Out: Address returned here (if successfull)
 
@@ -943,7 +943,7 @@ inline void ComposeOptions(void)
 	if (ms_pguiOptions)
 		{
 		// Store old word wrap status so we can restore it when done.
-		short sWordWrapWas	= (ms_pguiOptions->m_pprint->m_eModes & RPrint::WORD_WRAP) ? TRUE : FALSE;
+		int16_t sWordWrapWas	= (ms_pguiOptions->m_pprint->m_eModes & RPrint::WORD_WRAP) ? TRUE : FALSE;
 
 		// Enable word wrap (not accessible from GUI editor currently).
 		ms_pguiOptions->m_pprint->SetWordWrap(TRUE);
@@ -1002,9 +1002,9 @@ static void CleanClientDlg(
 // Show the selectable network levels in the hood to play listbox.
 //
 //////////////////////////////////////////////////////////////////////////////
-static short ShowLevels(void)						// Returns 0 on success.
+static int16_t ShowLevels(void)						// Returns 0 on success.
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	if (ms_plbLevelBrowse != NULL)
 		{
@@ -1017,7 +1017,7 @@ static short ShowLevels(void)						// Returns 0 on success.
 			// Add all the available realms.
 			char	szRealm[RSP_MAX_PATH+1];
 			char	szTitle[512];
-			short	i	= 0;
+			int16_t	i	= 0;
 			while (sRes == 0)
 				{
 				// Get realm name from realm prefs file
@@ -1115,11 +1115,11 @@ static void DlgBeGone(void)
 // Setup the specified dialog and related settings.
 //
 //////////////////////////////////////////////////////////////////////////////
-static short SetupDlg(		// Returns 0 on success.
+static int16_t SetupDlg(		// Returns 0 on success.
 	char*	pszGuiFile,			// In:  Full path to GUI file.
 	DLG_TYPE	type)				// In:  Type of dialog.
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	// Make sure everything is clean.
 	DlgBeGone();
@@ -1317,10 +1317,10 @@ static short SetupDlg(		// Returns 0 on success.
 // Get dialog resource
 //
 //////////////////////////////////////////////////////////////////////////////
-short DlgGetRes(											// Returns 0 if successfull, non-zero otherwise
+int16_t DlgGetRes(											// Returns 0 if successfull, non-zero otherwise
 	RGuiItem* pgui)										// I/O: Pointer to gui item
 	{
-	short sResult = 0;
+	int16_t sResult = 0;
 
 	// Release resources first (just in case)
 	DlgReleaseRes(pgui);
@@ -1551,13 +1551,13 @@ static DLG_ACTION UpdateDialog(						// Returns dialog action
 // Update hosts listbox for browser.
 //
 //////////////////////////////////////////////////////////////////////////////
-static short UpdateListBox(					// Returns 0 on success.
+static int16_t UpdateListBox(					// Returns 0 on success.
 	RListBox*	plb,								// In:  Browser listbox.
 	CNetBrowse::Hosts* phostslistPersist,	// In:  Hosts.
 	CNetBrowse::Hosts* phostslistAdded,		// In:  Hosts to add to listbox.
 	CNetBrowse::Hosts* phostslistDropped)	// In:  Hosts to drop from listbox.
 	{
-	short	sResult	= 0;	// Assume success.
+	int16_t	sResult	= 0;	// Assume success.
 
 	if (plb)
 		{
@@ -1708,7 +1708,7 @@ static void AddConsoleMsg(	// Returns nothing.
 			ms_lNumConsoleEntries++;
 			// Store the old border thickness so we know how much we can reduce
 			// these.
-			short	sOrigTotalBorderThickness	= pguiConsoleMsg->GetTopLeftBorderThickness() + pguiConsoleMsg->GetBottomRightBorderThickness();
+			int16_t	sOrigTotalBorderThickness	= pguiConsoleMsg->GetTopLeftBorderThickness() + pguiConsoleMsg->GetBottomRightBorderThickness();
 			// No lines.
 			pguiConsoleMsg->m_sBorderThickness	= 0;
 			// Adjust color.
@@ -1839,15 +1839,15 @@ extern const char* NetErrorText(						// Returns pointer to text
 // Get the realm filename from the realm title, using the INI.
 //
 //////////////////////////////////////////////////////////////////////////////
-static short GetRealmFileFromRealmTitle(	// Returns 0, if found; non-zero
+static int16_t GetRealmFileFromRealmTitle(	// Returns 0, if found; non-zero
 														// otherwise.
 	bool	bCoopLevel,								// In:  true, if a coop level; false, if deathmatch level.
 	char*	pszRealmTitle,							// In:  Realm title.
 	char* pszRealmFileName,						// Out: Realm filename.
-	short sMaxLen)									// In:  Max space available at 
+	int16_t sMaxLen)									// In:  Max space available at 
 														// pszRealmFileName.
 	{
-	short	sResult	= 0;	// Assume success.
+	int16_t	sResult	= 0;	// Assume success.
 
 	RPrefs prefsRealm;
 	// Try opening the realms.ini file on the HD path first, if that fails go to the CD
@@ -1861,7 +1861,7 @@ static short GetRealmFileFromRealmTitle(	// Returns 0, if found; non-zero
 		// Multiplayer sections are named "RealmNet1, "RealmNet2", etc.
 		// Multiplayer realm entry is always "Realm".
 		// The title is always "Title".
-		short	sRealmNum	= 1;
+		int16_t	sRealmNum	= 1;
 		char	szRealmTitle[512];
 		char	szSection[512];
 		bool	bFound	= false;
@@ -1949,12 +1949,12 @@ static void OnDroppedMsg(
 // Player has joined
 //
 //////////////////////////////////////////////////////////////////////////////
-static short OnJoinedMsg(	// Returns 0 on success.
+static int16_t OnJoinedMsg(	// Returns 0 on success.
 	CNetClient*	pnet,			// In:  Network interface.
 	NetMsg*		pmsg,			// In:  Joined msg from client to add.
 	bool			bServer)		// In:  true if in server mode; false if client.
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	ASSERT(pmsg->msg.nothing.ucType == NetMsg::JOINED);
 	
@@ -2010,11 +2010,11 @@ static short OnJoinedMsg(	// Returns 0 on success.
 //
 //////////////////////////////////////////////////////////////////////////////
 #if 0
-static short OnChangedMsg(	// Returns 0 on success.
+static int16_t OnChangedMsg(	// Returns 0 on success.
 	CNetClient*	pnet,			// In:  Network interface.
 	NetMsg*		pmsg)			// In:  Changed msg
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	ASSERT(pmsg->msg.nothing.ucType == NetMsg::CHANGED);
 
@@ -2259,7 +2259,7 @@ void ProtoNotSupported(void)
 // Do network game dialog
 //
 //////////////////////////////////////////////////////////////////////////////
-extern short DoNetGameDialog(							// Returns 0 if successfull, non-zero otherwise.
+extern int16_t DoNetGameDialog(							// Returns 0 if successfull, non-zero otherwise.
 	CNetClient*	pclient,									// I/O: Client interface
 	bool bBrowse,											// In:  Whether to browse (true) or connect (false)
 	CNetServer*	pserver,									// I/O: Server interface or NULL if not server
@@ -2267,7 +2267,7 @@ extern short DoNetGameDialog(							// Returns 0 if successfull, non-zero otherw
 	{
 	ASSERT(pclient != NULL);
 
-	short	sResult = 0;									// Assume success.
+	int16_t	sResult = 0;									// Assume success.
 
 	// Under Win95 with DirectX, certain problems have come up due to a
 	// combination of our hogging the CPU and DirectX adding to that hogging,
@@ -2323,7 +2323,7 @@ extern short DoNetGameDialog(							// Returns 0 if successfull, non-zero otherw
 		}
 
 	// Save current mouse cursor level and then force it to be visible
-	short sCursorLevel = rspGetMouseCursorShowLevel();
+	int16_t sCursorLevel = rspGetMouseCursorShowLevel();
 	rspSetMouseCursorShowLevel(1);
 
 	// Clear any events that might be in the queue
@@ -2782,7 +2782,7 @@ extern short DoNetGameDialog(							// Returns 0 if successfull, non-zero otherw
 										else
 											{
 											// Assume no problems
-											// short sProblem = 0;
+											// int16_t sProblem = 0;
 
 											// Process messages from server
 											pclient->GetMsg(&msg);
@@ -2823,7 +2823,7 @@ extern short DoNetGameDialog(							// Returns 0 if successfull, non-zero otherw
 															// it will abort the whole game.
 															if (pserver)
 																pserver->SetLocalClientID(pclient->GetID());
-															AddConsoleMsg(false, g_pszClientStat_LoginAccepted_hd, (short)pclient->GetID());
+															AddConsoleMsg(false, g_pszClientStat_LoginAccepted_hd, (int16_t)pclient->GetID());
 															break;
 
 														case NetMsg::JoinAccepted:
@@ -2993,11 +2993,11 @@ extern short DoNetGameDialog(							// Returns 0 if successfull, non-zero otherw
 // takes a pserver pointer.
 //
 //////////////////////////////////////////////////////////////////////////////
-static short BrowseForHost(
+static int16_t BrowseForHost(
 	CNetServer*	pserver,									// I/O: Server interface or NULL if none
 	RSocket::Address* paddress)						// Out: Address returned here (if successfull)
 	{
-	short sResult = 0;
+	int16_t sResult = 0;
 
 	// Start with empty list of hosts
 	CNetBrowse::Hosts hostsAll;
@@ -3125,10 +3125,10 @@ static short BrowseForHost(
 // Try to connect to specified host
 //
 //////////////////////////////////////////////////////////////////////////////
-static short FindSpecificSystem(
+static int16_t FindSpecificSystem(
 	RSocket::Address* paddress)						// Out: Address returned here (if successfull)
 	{
-	short sResult = 0;
+	int16_t sResult = 0;
 
 	// Lookup the specified host (by name or dotted address) and port
 	sResult = CNetBrowse::LookupHost(
@@ -3159,13 +3159,13 @@ static short FindSpecificSystem(
 // Instead, we browse for ourselves, just like any other client would.
 //
 //////////////////////////////////////////////////////////////////////////////
-static short BrowseForSelf(
+static int16_t BrowseForSelf(
 	CNetServer*	pserver,									// I/O: Server interface
 	RSocket::Address* paddress)						// Out: Address returned here (if successfull)
 	{
 	ASSERT(pserver);
 
-	short sResult = 0;
+	int16_t sResult = 0;
 
 	// Start with empty list of hosts
 	CNetBrowse::Hosts hostsAll;
@@ -3277,7 +3277,7 @@ extern bool NetBlockingWasAborted(void)
 // Net blocking callback
 //
 //////////////////////////////////////////////////////////////////////////////
-static short NetBlockingCallback(void)				// Returns 0 to continue normally, 1 to abort
+static int16_t NetBlockingCallback(void)				// Returns 0 to continue normally, 1 to abort
 	{
 	// We only need to grab this ptr once (it is guaranteed not to move).
 	// Once we have this pointer to the Key status array, we can use it to
@@ -3287,7 +3287,7 @@ static short NetBlockingCallback(void)				// Returns 0 to continue normally, 1 t
 	static U8*	pau8KeyStatus	= rspGetKeyStatusArray();
 
 	// Assume we won't abort
-	short	sAbort = 0;
+	int16_t	sAbort = 0;
 
 	// It's always a good idea to do this
 	UpdateSystem();
@@ -3377,9 +3377,9 @@ static short NetBlockingCallback(void)				// Returns 0 to continue normally, 1 t
 // essential).
 //
 //////////////////////////////////////////////////////////////////////////////
-extern short InitNetProbGUI(void)
+extern int16_t InitNetProbGUI(void)
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	KillNetProbGUI();
 

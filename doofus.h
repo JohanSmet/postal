@@ -301,16 +301,16 @@ class CDoofus : public CCharacter
 		UCHAR m_ucSpecialBouy0ID;			// Starting bouy for special cases like marching
 		UCHAR m_ucSpecialBouy1ID;			// Ending bouy for special cases like marching
 		CBouy* m_pNextBouy;					// pointer to next bouy to go to.
-		short m_sNextX;						// Position of next Bouy
-		short m_sNextZ;						// Position of next Bouy
-		short m_sRotateDir;					// Direction to rotate when avoiding obstacles
+		int16_t m_sNextX;						// Position of next Bouy
+		int16_t m_sNextZ;						// Position of next Bouy
+		int16_t m_sRotateDir;					// Direction to rotate when avoiding obstacles
 		long	m_lAlignTimer;					// Recheck position to bouy every so often
 		long	m_lEvalTimer;					// Reevaluate state every so often
 		long	m_lShotTimeout;				// Only do Shot animation every so often
 		long	m_lStuckTimeout;				// time given to recovery from stuck state
 		long	m_lShootTimer;					// Limit number of shots from a gun.
 		long	m_lCommentTimer;				// Time between random comments
-		short	m_usCommentCounter;			// Number of comments
+		int16_t	m_usCommentCounter;			// Number of comments
 		CDoofus::Action m_eSuggestedAction;	// Suggested logic action
 		CDoofus::Action m_eCurrentAction;	// Currently running action
 		CCharacter::State m_eDestinationState; // Final state you wish to achieve
@@ -329,7 +329,7 @@ class CDoofus : public CCharacter
 		CSmash			m_smashAvoid;		// Smash used to avoid fire
 		CPylon*			m_pPylonStart;		// Starting pylon for popout or run/shoot
 		CPylon*			m_pPylonEnd;		// Ending pylon for popout or run/shoot
-		short				m_sDistRemaining;	// Distance to new position for fighting.
+		int16_t				m_sDistRemaining;	// Distance to new position for fighting.
 		bool				m_bPylonSafeAvailable;
 		bool				m_bPylonPopoutAvailable;
 		bool				m_bPylonRunShootAvailable;
@@ -354,13 +354,13 @@ class CDoofus : public CCharacter
 
 		CSprite3			m_spriteWeapon;			// Sprite for weapon.
 		ClassIDType		m_eFallbackWeaponType;	// Fallback weapon type or TotalIDs for none.
-		short				m_sStuckCounter;			// Number of times he tried to move in the current state
+		int16_t				m_sStuckCounter;			// Number of times he tried to move in the current state
 		USHORT			m_usBloodCounter;			// Counter to limit the blood pools.
 		SampleMaster::SoundInstance m_siPlaying;	// Sound instance that is playing - in case it needs to be stopped
 
 
 		// Tracks file counter so we know when to load/save "common" data 
-		static short ms_sFileCount;
+		static int16_t ms_sFileCount;
 
 		// "Constant" values that we want to be able to tune using the editor
 		static double ms_dAccUser;			// Acceleration due to user
@@ -401,7 +401,7 @@ class CDoofus : public CCharacter
 		static U32 ms_u32CollideBitsDontcare;	// Default weapon collision bits
 		static U32 ms_u32CollideBitsExclude;	// Default weapon collision bits
 
-		static short ms_sStuckLimit;				// Number of retrys before changing states to get unstuck
+		static int16_t ms_sStuckLimit;				// Number of retrys before changing states to get unstuck
 
 		static CAnim3D			ms_aanimWeapons[NumWeaponTypes];	// Weapon animations.
 		static long				ms_lWeaponResRefCount;				// Current ref count on ms_aanimWeapons[].
@@ -428,7 +428,7 @@ class CDoofus : public CCharacter
 	//---------------------------------------------------------------------------
 	public:
 		// Construct object
-		static short Construct(									// Returns 0 if successfull, non-zero otherwise
+		static int16_t Construct(									// Returns 0 if successfull, non-zero otherwise
 			CRealm* pRealm,										// In:  Pointer to realm this object belongs to
 			CThing** ppNew)										// Out: Pointer to new object
 			{
@@ -440,25 +440,25 @@ class CDoofus : public CCharacter
 	//---------------------------------------------------------------------------
 	public:
 		// Load object (should call base class version!)
-		virtual short Load(										// Returns 0 if successfull, non-zero otherwise
+		virtual int16_t Load(										// Returns 0 if successfull, non-zero otherwise
 			RFile* pFile,											// In:  File to load from
 			bool bEditMode,										// In:  True for edit mode, false otherwise
-			short sFileCount,										// In:  File count (unique per file, never 0)
+			int16_t sFileCount,										// In:  File count (unique per file, never 0)
 			ULONG	ulFileVersion);								// In:  Version of file format to load.
 
 		// Save object (should call base class version!)
-		virtual short Save(													// Returns 0 if successfull, non-zero otherwise
+		virtual int16_t Save(													// Returns 0 if successfull, non-zero otherwise
 			RFile* pFile,											// In:  File to save to
-			short sFileCount);									// In:  File count (unique per file, never 0)
+			int16_t sFileCount);									// In:  File count (unique per file, never 0)
 
 		// Startup object
-		virtual short Startup(void);							// Returns 0 if successfull, non-zero otherwise
+		virtual int16_t Startup(void);							// Returns 0 if successfull, non-zero otherwise
 
 		// Called by editor to init new object at specified position
-		virtual short EditNew(									// Returns 0 if successfull, non-zero otherwise
-			short sX,												// In:  New x coord
-			short sY,												// In:  New y coord
-			short sZ);												// In:  New z coord
+		virtual int16_t EditNew(									// Returns 0 if successfull, non-zero otherwise
+			int16_t sX,												// In:  New x coord
+			int16_t sY,												// In:  New y coord
+			int16_t sZ);												// In:  New z coord
 
 		// Called by editor to render object
 		virtual void EditRender(void);
@@ -655,17 +655,17 @@ class CDoofus : public CCharacter
 	//---------------------------------------------------------------------------
 	protected:
 		// Get the bouy that the CDude is closest to
-		short SelectDudeBouy(void);					// Returns 0 if successful, non-zero otherwise
+		int16_t SelectDudeBouy(void);					// Returns 0 if successful, non-zero otherwise
 
 		// Return a valid random bouy or 0 if no bouys exist.
 		UCHAR SelectRandomBouy(void);
 
 		// Set a pointer to the CDude you are tracking for other CDude related
 		// functions like FindDirection and SQDistanceToDude
-		short SelectDude(void);				// Returns 0 if successful, non-zero if no Dudes found
+		int16_t SelectDude(void);				// Returns 0 if successful, non-zero if no Dudes found
 
 		// Find the angle to the selected CDude
-		short FindDirection(void);
+		int16_t FindDirection(void);
 
 		// If Alignment timer is up, recalc the direction to the bouy.
 		void AlignToBouy(void);
@@ -674,11 +674,11 @@ class CDoofus : public CCharacter
 		double SQDistanceToDude(void);
 
 		// Attempt 3 paths
-		bool TryClearDirection(double* pdRot, short sVariance);
+		bool TryClearDirection(double* pdRot, int16_t sVariance);
 
 		// Check shooting angle before firing to make sure no
 		// walls are in the way.
-		bool TryClearShot(double dRot, short sVariance);
+		bool TryClearShot(double dRot, int16_t sVariance);
 
 		// Check for fire in your path and change to a safe state rather
 		// than blindly running into the fire.
@@ -805,7 +805,7 @@ class CDoofus : public CCharacter
 		// A way for the base class to get resources.  If you are going to use
 		// any of this class's resources (e.g., ms_aanimWeapons[]), call this
 		// when getting your resources.
-		short GetResources(void);
+		int16_t GetResources(void);
 
 		// A way for the base class to release resources.  If you are going to use
 		// any of this class's resources (e.g., ms_aanimWeapons[]), call this

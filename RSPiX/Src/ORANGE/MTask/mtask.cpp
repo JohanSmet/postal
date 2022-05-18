@@ -168,12 +168,12 @@ void MTaskManager(void)
 //
 //////////////////////////////////////////////////////////////////////
 
-short MTaskAddFunc(void* pFunction, char* pszFuncName, short sStackSize)
+int16_t MTaskAddFunc(void* pFunction, char* pszFuncName, int16_t sStackSize)
 {
 	PTASKINFO ptiNewTask = NULL;
 	long* plNewStack = NULL;
-	short sLongElements = sStackSize/4;
-	short sReturn = SUCCESS;
+	int16_t sLongElements = sStackSize/4;
+	int16_t sReturn = SUCCESS;
 	
 	ptiNewTask = new TASKINFO;
 	if (ptiNewTask != NULL)

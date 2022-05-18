@@ -101,13 +101,13 @@ class CCtrlBuf
 		////////////////////////////////////////////////////////////////////////////////
 		// Add new ctrl to buffer
 		////////////////////////////////////////////////////////////////////////////////
-		short Add(
+		int16_t Add(
 			long lSeq,
 			long lNum,
 			long* plCtrls,
 			long* plNumAdded)
 			{
-			short sResult = 0;
+			int16_t sResult = 0;
 
 			// This can and should be optimized!
 			*plNumAdded = 0;
@@ -123,11 +123,11 @@ class CCtrlBuf
 			return sResult;
 			}
 
-		short Add(
+		int16_t Add(
 			long lSeq,
 			long lCtrl)
 			{
-			short sResult = 0;
+			int16_t sResult = 0;
 
 			// This needs to deal with the fact that the ctrls don't always come
 			// sequentially, and there will often be gaps between ctrl values that

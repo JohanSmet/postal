@@ -87,27 +87,27 @@ typedef union
 // Updates joystick sJoy's current state and makes the current state the 
 // previous.
 // Returns 0 on success.
-extern short Blu_UpdateJoy(short sJoy);
+extern int16_t Blu_UpdateJoy(int16_t sJoy);
 
 // Puts the coordinates of joystick sJoy's position in your longs.
 // Returns nothing.
-extern void Blu_GetJoyPos(short sJoy, long *px, long *py, long *pz);
+extern void Blu_GetJoyPos(int16_t sJoy, long *px, long *py, long *pz);
 
 // Puts the coordinates of the previous joystick sJoy's position in your longs.
 // Returns nothing.
-extern void Blu_GetJoyPrevPos(short sJoy, long *px, long *py, long *pz);
+extern void Blu_GetJoyPrevPos(int16_t sJoy, long *px, long *py, long *pz);
 
 // Returns the current joystick sJoy's state.
-extern USHORT Blu_GetJoyState(short sJoy);
+extern USHORT Blu_GetJoyState(int16_t sJoy);
 
 // Places the current joystick sJoy's state.
-extern void Blu_GetJoyState(short sJoy, PJOYSTATE pjs);
+extern void Blu_GetJoyState(int16_t sJoy, PJOYSTATE pjs);
 
 // Returns the previous joystick sJoy's state.
-extern USHORT Blu_GetJoyPrevState(short sJoy);
+extern USHORT Blu_GetJoyPrevState(int16_t sJoy);
 
 // Places the previous joystick sJoy's state.
-extern void Blu_GetJoyPrevState(short sJoy, PJOYSTATE pjs);
+extern void Blu_GetJoyPrevState(int16_t sJoy, PJOYSTATE pjs);
 
 
 #endif // B_JOY_H

@@ -40,7 +40,7 @@
 //
 //							Also, changed all members referenced in RImage to
 //							m_ and all position/dimension members referenced in
-//							RImage to type short usage.
+//							RImage to type int16_t usage.
 //
 //		11/27/96	JMI	Added initialization of m_type to identify this type
 //							of GUI item.
@@ -128,7 +128,7 @@
 //		03/28/97	JMI	RSP_MB0_DOUBLECLICK is now treated the same as
 //							RSP_MB0_PRESSED.
 //
-//		04/01/97	JMI	Changed short m_sCanBeFocused (TRUE, FALSE) to 
+//		04/01/97	JMI	Changed int16_t m_sCanBeFocused (TRUE, FALSE) to 
 //							m_targetFocus (Self, Parent, Sibling).
 //
 //		04/03/97	JMI	Added components for optional timed, smooth scrolling.
@@ -286,12 +286,12 @@ void RScrollBar::Compose(			// Returns nothing.
 
 	// Get client relative to border so we know where to
 	// set up the buttons.
-	short	sX, sY, sW, sH;
+	int16_t	sX, sY, sW, sH;
 	GetClient(&sX, &sY, &sW, &sH);
 	
 	// Set width and height for buttons.
-	short sBtnWidth;
-	short sBtnHeight;
+	int16_t sBtnWidth;
+	int16_t sBtnHeight;
 	if (m_oOrientation == Vertical)
 		{
 		sBtnWidth	= sW;
@@ -371,7 +371,7 @@ void RScrollBar::CursorEvent(	// Returns nothing.
 				||	pie->sPosY < m_btnThumb.m_sY
 				|| pie->sPosY >= m_btnThumb.m_sY + m_btnThumb.m_im.m_sHeight)
 				{
-				short	sTrayPosX, sTrayPosY, sTrayRelPosX, sTrayRelPosY;
+				int16_t	sTrayPosX, sTrayPosY, sTrayRelPosX, sTrayRelPosY;
 				GetTray(&sTrayPosX, &sTrayPosY, NULL, NULL);
 				sTrayRelPosX	= pie->sPosX - sTrayPosX;
 				sTrayRelPosY	= pie->sPosY - sTrayPosY;
@@ -453,18 +453,18 @@ void RScrollBar::SetRange(
 	long	lRange	= lMax - lMin;
 
 	// Compute the scroll bar size that gives us that many positions.
-	short	sX;
-	short	sY;
-	short	sW;
-	short	sH;
+	int16_t	sX;
+	int16_t	sY;
+	int16_t	sW;
+	int16_t	sH;
 	GetTray(&sX, &sY, &sW, &sH);
 
-	short		sThumbW;				// Width for thumb.
-	short		sThumbH;				// Height for thumb.
-	short*	psTrayLength;		// Pointer to tray length.
-	short*	psTrayThickness;	// Pointer to tray thickness.
-	short*	psThumbLength;		// Pointer to thumb length.
-	short*	psThumbThickness;	// Pointer to thumb thickness.
+	int16_t		sThumbW;				// Width for thumb.
+	int16_t		sThumbH;				// Height for thumb.
+	int16_t*	psTrayLength;		// Pointer to tray length.
+	int16_t*	psTrayThickness;	// Pointer to tray thickness.
+	int16_t*	psThumbLength;		// Pointer to thumb length.
+	int16_t*	psThumbThickness;	// Pointer to thumb thickness.
 
 	if (m_oOrientation == Vertical)
 		{
@@ -509,13 +509,13 @@ void RScrollBar::SetRange(
 		m_fPos2PixelRatio	= 0.00001F;
 		}
 
-	*psThumbLength		= (short)lLength;
+	*psThumbLength		= (int16_t)lLength;
 	*psThumbThickness	= *psTrayThickness;
 
 	m_btnThumb.Destroy();
 
 	// Create thumb . . .
-	if (m_btnThumb.Create(0, 0, MAX(sThumbW, (short)1), MAX(sThumbH, (short)1), m_im.m_sDepth) == 0)
+	if (m_btnThumb.Create(0, 0, MAX(sThumbW, (int16_t)1), MAX(sThumbH, (int16_t)1), m_im.m_sDepth) == 0)
 		{
 		// Set up hot.
 		m_btnThumb.SetHotArea();
@@ -537,7 +537,7 @@ void RScrollBar::ThumbHotCall(	// Returns nothing.
 	RInputEvent* pie)					// In:  Most recent user input event.             
 											// Out: pie->sUsed = TRUE, if used.
 	{
-	short	sUsed	= pie->sUsed;
+	int16_t	sUsed	= pie->sUsed;
 
 	// Call base.
 	m_btnThumb.HotCall(pie);
@@ -545,8 +545,8 @@ void RScrollBar::ThumbHotCall(	// Returns nothing.
 	// If this is an unused mouse event . . .
 	if (pie->type == RInputEvent::Mouse && sUsed == FALSE)
 		{
-		short	sHotPosX	= m_btnThumb.m_hot.m_sX;
-		short	sHotPosY	= m_btnThumb.m_hot.m_sY;
+		int16_t	sHotPosX	= m_btnThumb.m_hot.m_sX;
+		int16_t	sHotPosY	= m_btnThumb.m_hot.m_sY;
 		// Make relative to Thumb GUI item (rather than its hotbox).
 		pie->sPosX	-= sHotPosX;
 		pie->sPosY	-= sHotPosY;
@@ -584,7 +584,7 @@ void RScrollBar::UpHotCall(	// Returns nothing.
 	RInputEvent* pie)				// In:  Most recent user input event.             
 										// Out: pie->sUsed = TRUE, if used.
 	{
-	short	sUsed	= pie->sUsed;
+	int16_t	sUsed	= pie->sUsed;
 
 	// Call base.
 	m_btnUp.HotCall(pie);
@@ -592,8 +592,8 @@ void RScrollBar::UpHotCall(	// Returns nothing.
 	// If this is an unused mouse event . . .
 	if (pie->type == RInputEvent::Mouse && sUsed == FALSE)
 		{
-		short	sHotPosX	= m_btnUp.m_hot.m_sX;
-		short	sHotPosY	= m_btnUp.m_hot.m_sY;
+		int16_t	sHotPosX	= m_btnUp.m_hot.m_sX;
+		int16_t	sHotPosY	= m_btnUp.m_hot.m_sY;
 		// Make relative to Up GUI item (rather than its hotbox).
 		pie->sPosX	-= sHotPosX;
 		pie->sPosY	-= sHotPosY;
@@ -639,7 +639,7 @@ void RScrollBar::DownHotCall(	// Returns nothing.
 	RInputEvent* pie)				// In:  Most recent user input event.             
 										// Out: pie->sUsed = TRUE, if used.
 	{
-	short	sUsed	= pie->sUsed;
+	int16_t	sUsed	= pie->sUsed;
 
 	// Call base.
 	m_btnDown.HotCall(pie);
@@ -647,8 +647,8 @@ void RScrollBar::DownHotCall(	// Returns nothing.
 	// If this is an unused mouse event . . .
 	if (pie->type == RInputEvent::Mouse && sUsed == FALSE)
 		{
-		short	sHotPosX	= m_btnDown.m_hot.m_sX;
-		short	sHotPosY	= m_btnDown.m_hot.m_sY;
+		int16_t	sHotPosX	= m_btnDown.m_hot.m_sX;
+		int16_t	sHotPosY	= m_btnDown.m_hot.m_sY;
 		// Make relative to Down GUI item (rather than its hotbox).
 		pie->sPosX	-= sHotPosX;
 		pie->sPosY	-= sHotPosY;
@@ -701,7 +701,7 @@ void RScrollBar::Do(	// Returns nothing.
 
 		if ( pie->sButtons)
 		{
-			short	sX, sY, sTrayX, sTrayY;
+			int16_t	sX, sY, sTrayX, sTrayY;
 			sX =  pie->sPosX;
 			sY =  pie->sPosY;
 			//rspGetMouse(&sX, &sY, NULL);
@@ -719,7 +719,7 @@ void RScrollBar::Do(	// Returns nothing.
 
 	if (m_btnThumb.m_sPressed != FALSE)
 		{				
-		short	sX, sY, sTrayX, sTrayY;
+		int16_t	sX, sY, sTrayX, sTrayY;
 		rspGetMouse(&sX, &sY, NULL);
 		TopPosToChild(&sX, &sY);
 		GetTray(&sTrayX, &sTrayY, NULL, NULL);
@@ -824,7 +824,7 @@ void RScrollBar::Do(	// Returns nothing.
 			if (lCurTime > ms_lNextEventTime)
 				{
 				// Get current mouse cursor position.
-				short	sPosX, sPosY;
+				int16_t	sPosX, sPosY;
 				rspGetMouse(&sPosX, &sPosY, NULL);
 				// Convert to our coordinate system.
 				pguiPressed->TopPosToChild(&sPosX, &sPosY);
@@ -889,30 +889,30 @@ void RScrollBar::Do(	// Returns nothing.
 //
 ////////////////////////////////////////////////////////////////////////
 inline void DrawArrow(	// Returns nothing.
-	short	sDirection,		// Direction of arrow; see above.
+	int16_t	sDirection,		// Direction of arrow; see above.
 	U32 u32Color,			// Color or index to draw with.
 	RImage* pim,			// Destination image.
-	short sX,				// Position at which to draw.
-	short sY,				// Position at which to draw.
-	short sW,				// Amount with which to draw.
-	short sH)				// Amount with which to draw.
+	int16_t sX,				// Position at which to draw.
+	int16_t sY,				// Position at which to draw.
+	int16_t sW,				// Amount with which to draw.
+	int16_t sH)				// Amount with which to draw.
 	{
 
 	// If there is an area . . .
 	if (sW > 0 && sH > 0)
 		{
-		short	sCurX	= sX;
-		short	sCurY	= sY;
-		short	sCurW	= 1;
-		short	sCurH	= 1;
-		short* psCurLine;
-		short* psCurLinePos;
-		short* psCurLineLen;
-		short	sLineLenInc;
-		short	sLinePosDec;
-		short sMaxLineLen;
-		short	sMaxLine;
-		short	sMinLinePos;
+		int16_t	sCurX	= sX;
+		int16_t	sCurY	= sY;
+		int16_t	sCurW	= 1;
+		int16_t	sCurH	= 1;
+		int16_t* psCurLine;
+		int16_t* psCurLinePos;
+		int16_t* psCurLineLen;
+		int16_t	sLineLenInc;
+		int16_t	sLinePosDec;
+		int16_t sMaxLineLen;
+		int16_t	sMaxLine;
+		int16_t	sMinLinePos;
 
 		switch (sDirection)
 			{
@@ -981,8 +981,8 @@ inline void DrawArrow(	// Returns nothing.
 		// Store current values just in case height is odd (b/c rounding
 		// errors will have occurred and we'll need restore the in-error
 		// values).
-		short	sTempLineLen	= *psCurLineLen;
-		short	sTempLinePos	= *psCurLinePos;
+		int16_t	sTempLineLen	= *psCurLineLen;
+		int16_t	sTempLinePos	= *psCurLinePos;
 
 		*psCurLineLen			= sMaxLineLen;
 		*psCurLinePos			= sMinLinePos;
@@ -1062,14 +1062,14 @@ void RScrollBar::DrawDownArrow(	// Returns nothing.
 // (protected).
 //
 ////////////////////////////////////////////////////////////////////////
-short RScrollBar::LoadChildren(	// Returns 0 on success.
+int16_t RScrollBar::LoadChildren(	// Returns 0 on success.
 	RFile*	pfile)					// File to load from.
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	ASSERT(pfile->IsOpen() != FALSE);
 
-	short	sNum;
+	int16_t	sNum;
 	// Read number of children.
 	pfile->Read(&sNum);
 
@@ -1106,7 +1106,7 @@ short RScrollBar::LoadChildren(	// Returns 0 on success.
 
 	// Instantiate rest of children.
 	RGuiItem* pgui;
-	short	sCurChild;
+	int16_t	sCurChild;
 	for (	sCurChild	= 0; 
 			sCurChild < sNum && sRes == 0 && pfile->Error() == FALSE; 
 			sCurChild++)
@@ -1133,15 +1133,15 @@ short RScrollBar::LoadChildren(	// Returns 0 on success.
 // (protected).
 //
 ////////////////////////////////////////////////////////////////////////
-short RScrollBar::SaveChildren(	// Returns 0 on success.
+int16_t RScrollBar::SaveChildren(	// Returns 0 on success.
 	RFile*	pfile)					// File to save to.
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	ASSERT(pfile->IsOpen() != FALSE);
 
 	// Determine number of child items.
-	short	sNum	= 0;
+	int16_t	sNum	= 0;
 	RGuiItem*	pgui = m_listguiChildren.GetHead();
 	while (pgui != NULL)
 		{
@@ -1218,11 +1218,11 @@ short RScrollBar::SaveChildren(	// Returns 0 on success.
 // (virtual/protected (overriden here)).
 //
 ////////////////////////////////////////////////////////////////////////
-short RScrollBar::ReadMembers(	// Returns 0 on success.
+int16_t RScrollBar::ReadMembers(	// Returns 0 on success.
 	RFile*	pfile,					// File to read from.
 	U32		u32Version)				// File format version to use.
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	// Invoke base class to read base members.
 	sRes	= RGuiItem::ReadMembers(pfile, u32Version);
@@ -1242,7 +1242,7 @@ short RScrollBar::ReadMembers(	// Returns 0 on success.
 			// Insert additional version numbers here!
 			// case 4:	// Version 4 stuff.
 			case 3:	// Version 3 stuff.  Smooth scrollage added.
-				short	sScrollage;
+				int16_t	sScrollage;
 				pfile->Read(&sScrollage);
 				m_scrollage	= (Scrollage)sScrollage;
 
@@ -1288,10 +1288,10 @@ short RScrollBar::ReadMembers(	// Returns 0 on success.
 // (virtual/protected (overriden here)).
 //
 ////////////////////////////////////////////////////////////////////////
-short RScrollBar::WriteMembers(	// Returns 0 on success.
+int16_t RScrollBar::WriteMembers(	// Returns 0 on success.
 	RFile*	pfile)					// File to write to.
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	// Invoke base class to read base members.
 	sRes	= RGuiItem::WriteMembers(pfile);
@@ -1305,7 +1305,7 @@ short RScrollBar::WriteMembers(	// Returns 0 on success.
 		// Write this class's members.
 
 		// Version 3.
-		pfile->Write((short)m_scrollage);
+		pfile->Write((int16_t)m_scrollage);
 		pfile->Write(&m_lPosPerSecond);
 		// Version 1.
 		pfile->Write(&m_lButtonIncDec);
@@ -1340,10 +1340,10 @@ short RScrollBar::WriteMembers(	// Returns 0 on success.
 // Get position/size of tray relative to this item.
 ////////////////////////////////////////////////////////////////////////
 void RScrollBar::GetTray(	// Returns nothing.
-	short* psX,					// Out: x coordinate of tray unless NULL.
-	short* psY,					// Out: y coordinate of tray unless NULL.
-	short* psW,					// Out: Width of tray unless NULL.
-	short* psH)					// Out: Height of tray unless NULL.
+	int16_t* psX,					// Out: x coordinate of tray unless NULL.
+	int16_t* psY,					// Out: y coordinate of tray unless NULL.
+	int16_t* psW,					// Out: Width of tray unless NULL.
+	int16_t* psH)					// Out: Height of tray unless NULL.
 	{
 	GetClient(psX, psY, psW, psH);
 	if (m_oOrientation == Vertical)

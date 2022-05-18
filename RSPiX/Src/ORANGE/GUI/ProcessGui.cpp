@@ -144,14 +144,14 @@ void DrawDirty(			// Returns nothing.
 // Prepare to handle a GUI.
 // This must be called to setup components before Do*Gui() is called.
 //////////////////////////////////////////////////////////////////////////////
-short RProcessGui::Prepare(			// Returns 0 on success.
+int16_t RProcessGui::Prepare(			// Returns 0 on success.
 	RGuiItem* pguiRoot,					// In:  GUI to be processed.
 	RGuiItem* pguiOk/* = NULL*/,		// In:  If not NULL, specifies GUI 
 												// activated by ENTER key.
 	RGuiItem* pguiCancel/* = NULL*/)	// In:  If not NULL, specifies GUI
 												// activated by ESCAPE key.
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	// Create erase buffer . . .
 	if (m_imEraser.CreateImage(

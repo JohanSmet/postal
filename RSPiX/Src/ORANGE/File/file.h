@@ -148,7 +148,7 @@ class RFile
 			LittleEndian		// Little endian (byte swaps on big endian systems).
 			} Endian;
 
-		typedef short (*OpenHook)(	// Returns 0 to bypass default Open's 
+		typedef int16_t (*OpenHook)(	// Returns 0 to bypass default Open's 
 											// functionality.  Non-zero for normal ops.
 			RFile* pfile,				// Pointer to RFile being opened.
 			const char* pszFileName,		// File path and name to open.
@@ -156,7 +156,7 @@ class RFile
 			Endian endian,				// Endian nature of file.
 			long lUser);				// User value.
 
-		typedef short (*CloseHook)(	// Returns 0 to bypass default Close's
+		typedef int16_t (*CloseHook)(	// Returns 0 to bypass default Close's
 												// functionality.
 			RFile* pfile,					// Pointer to RFile being closed.
 			long lUser);					// User value.
@@ -183,7 +183,7 @@ class RFile
 		// Open file pszFileName with fopen flags pszFlags and endian format 
 		// endian { RFile::Big, RFile::Little }.
 		// Returns 0 on success.
-		short Open(					// Returns 0 on success.
+		int16_t Open(					// Returns 0 on success.
 			const char* pszFileName,	// Filename to open.
 			const char* pszFlags,		// fopen flags to use for opening.
 			Endian endian,			// { RFile::BigEndian | RFile::LittleEndian | RFile::NeutralEndian }.
@@ -194,7 +194,7 @@ class RFile
 		// Size and location of memory will not be affected by RFile.
 		// { RFile::Big, RFile::Little }.
 		// Returns 0 on success.
-		short Open(					// Returns 0 on success.
+		int16_t Open(					// Returns 0 on success.
 			void* pFile,			// Pointer to memory to open.
 			long lSize,				// Size of *pFile in bytes.
 			Endian endian);		// { RFile::BigEndian | RFile::LittleEndian | RFile::NeutralEndian }.
@@ -204,7 +204,7 @@ class RFile
 		// Deallocates on Close().
 		// { RFile::Big, RFile::Little }.
 		// Returns 0 on success.
-		short Open(					// Returns 0 on success.
+		int16_t Open(					// Returns 0 on success.
 			long	lSize,			// Size in bytes to begin with.
 			long	lGrowSize,		// Min amount in bytes to grow memory file when written passed end.
 										// Note: The larger of lGrowSize and the amount overwritten will
@@ -214,7 +214,7 @@ class RFile
 		// Open an existing FILE* stream.
 		// Once a FILE* is opened, you can use this class's Close() instead of fclose(),
 		// if that is more convenient.
-		short Open(					// Returns 0 on success.
+		int16_t Open(					// Returns 0 on success.
 			FILE*	fs,				// FILE* stream to open.
 			Endian endian,			// { RFile::BigEndian | RFile::LittleEndian | RFile::NeutralEndian }.
 			Flags flags	=			// See comments in Typedefs & Enums section 
@@ -228,7 +228,7 @@ class RFile
 		// original RFile is attached to.  When Close() is called, the synchronization is finsished
 		// by updating the original RFile with the state from this.
 		// Danger:  Do not access the original RFile between Open(RFile*)/Close() pairs!
-		short Open(					// Returns 0 on success.
+		int16_t Open(					// Returns 0 on success.
 			RFile* pfile);			// RFile to open.
 
 		// Sets an Open(char*...) hook.  NOTE: You CAN call any RFile Open from
@@ -244,12 +244,12 @@ class RFile
 		// Set the size of the buffer used to read from the disk.
 		// This function only applies to files open from the disk.
 		// Returns 0 on success.
-		short SetBufferSize(size_t stBufSize)
+		int16_t SetBufferSize(size_t stBufSize)
 			{
 			if (IsFile() == TRUE)
 				{
 				KEEPCONNECTEDANDUPDATELASTACCESS;
-				return (short)setvbuf(m_fs, NULL, _IOFBF, stBufSize);
+				return (int16_t)setvbuf(m_fs, NULL, _IOFBF, stBufSize);
 				}
 			else
 				if (IsMemory() == TRUE)
@@ -260,7 +260,7 @@ class RFile
 
 		// Close a file successfully opened with Open().
 		// Returns 0 on success.
-		short Close(void);
+		int16_t Close(void);
 
 		// Sets a Close() hook.  NOTE: You CAN call any RFile Close from
 		// within a Close hook.  The Close hook should return 0 to bypass RFile's
@@ -275,7 +275,7 @@ class RFile
 		// Seeks within the file based on the supplied position argument
 		// { SEEK_SET, SEEK_CUR, SEEK_END }.
 		// Returns 0 on success.
-		short Seek(long lPos, long lOrigin);
+		int16_t Seek(long lPos, long lOrigin);
 
 		// Returns the current file position or -1 on error.
 		long Tell(void);
@@ -503,17 +503,17 @@ class RFile
 		////////////////////////////////////////////////////////////////////////
 
 		// Returns TRUE, if open, FALSE if closed.
-		short IsOpen(void)	{ return (m_fs == NULL && m_pucFile == NULL ? FALSE : TRUE); }
+		int16_t IsOpen(void)	{ return (m_fs == NULL && m_pucFile == NULL ? FALSE : TRUE); }
 
 		// Returns TRUE, if connected to a non-memory file.
-		short IsFile(void)	{ return (m_fs == NULL ? FALSE : TRUE); }
+		int16_t IsFile(void)	{ return (m_fs == NULL ? FALSE : TRUE); }
 
 		// Returns TRUE, if connected to a memory file.
-		short IsMemory(void)	{ return (m_pucFile == NULL ? FALSE : TRUE); }
+		int16_t IsMemory(void)	{ return (m_pucFile == NULL ? FALSE : TRUE); }
 
 		// Returns FALSE if no error has occurred on this stream; TRUE if an
 		// error has occurred.
-		short Error(void) 
+		int16_t Error(void) 
 			{ 
 			if (IsFile() == TRUE)
 				{
@@ -543,7 +543,7 @@ class RFile
 		// Returns TRUE if end of file has been reached, FALSE otherwise.
 		// For disk files, does not return TRUE until the first i/o operation
 		// fails due to EOF.
-		short IsEOF(void)
+		int16_t IsEOF(void)
 			{
 			if (IsFile() == TRUE)
 				{
@@ -561,7 +561,7 @@ class RFile
 		long GetSize(void);
 
 		// Returns the endian setting for this object.
-		short GetEndian(void)
+		int16_t GetEndian(void)
 			{ return m_endian; }
 
 		// Returns the memory ptr if this is a memory file; NULL, otherwise.
@@ -642,17 +642,17 @@ class RFile
 		#ifdef ALLOW_RFILE_REOPEN
 			// Disconnects this RFile from the disk temporarily so that another
 			// can use the FILE* that is made available.  Returns 0 on success.
-			short Disconnect(void);
+			int16_t Disconnect(void);
 
 			// Reconnects a disk file that has been previously disconnected.
 			// Does nothing if connected (i.e., if m_sDisconnected == FALSE).
 			// Returns 0 on success.
-			short Reconnect(void);
+			int16_t Reconnect(void);
 
 			// Disconnect the RFile attached to disk file that was accessed 
 			// longest ago.
 			// Returns 0 on success.
-			static short MakeStreamAvailable(void);
+			static int16_t MakeStreamAvailable(void);
 		#endif	// ALLOW_RFILE_REOPEN
 
 //////////////////////////////////////////////////////////////////////////////
@@ -667,12 +667,12 @@ class RFile
 
 	protected:	// Member variables.
 		UCHAR*		m_pucFile;			// Memory file ptr.
-		short			m_sOwnMem;			// TRUE, if RFile allocated m_pucFile.
+		int16_t			m_sOwnMem;			// TRUE, if RFile allocated m_pucFile.
 		UCHAR*		m_pucCur;			// Current position in memory file.
 		long			m_lSize;				// Size of memory file (in bytes).
 		long			m_lGrowSize;		// Amount to grow memfile when buffer 
 												// overwritten.
-		short			m_sMemError;		// TRUE if memory file access functions
+		int16_t			m_sMemError;		// TRUE if memory file access functions
 												// caused an error.
 		Endian		m_endian;			// Endian type.
 		Flags			m_flags;				// Flags.  See comments in Typedefs & 
@@ -687,18 +687,18 @@ class RFile
 		long							m_lUser;			// Instantiable hook value.
 		static OpenHook			ms_hOpen;		// Hook for calls to Open(char*...).
 		static long					ms_lOpenUser;	// User value passed to m_hOpen.
-		short							m_sOpenSem;		// Semaphore to block recursion greater
+		int16_t							m_sOpenSem;		// Semaphore to block recursion greater
 															// than 1.
 		static CloseHook			ms_hClose;		// Hook for calls to Close().
 		static long					ms_lCloseUser;	// User value passed to m_hClose.
-		short							m_sCloseSem;	// Semaphore to block recursion greater
+		int16_t							m_sCloseSem;	// Semaphore to block recursion greater
 															// than 1.
 	#ifdef ALLOW_RFILE_REOPEN
 		// Reopen stuff.
 		static RList <RFile>	ms_listOpen;				// List of open RFiles.
 		long			m_lLastAccess;							// Time of last access.
 		char			m_szFlags[MAX_MODE_LEN + 1];		// Last Open's flags.
-		short			m_sDisconnected;						// TRUE if file has been 
+		int16_t			m_sDisconnected;						// TRUE if file has been 
 																	// diskonnected.
 		char			m_szFileName[MAX_NAME_LEN + 1];	// Filename for reopening.
 	#endif // ALLOW_RFILE_REOPEN
@@ -721,18 +721,18 @@ class RFile
 
 template <class ClassType>
 #ifdef _DEBUG
-short RFileEZLoadDebug(
+int16_t RFileEZLoadDebug(
 	const char* FILE_MACRO,
 	long LINE_MACRO,
 #else
-short RFileEZLoad(
+int16_t RFileEZLoad(
 #endif
 	ClassType* pObject,
 	const char* pszName,
 	const char* pszMode,
 	RFile::Endian endian)
 	{
-	short sResult = 0;
+	int16_t sResult = 0;
 
 	// Create RFile object
 	RFile* pFile = new RFile;
@@ -797,18 +797,18 @@ short RFileEZLoad(
 
 template <class ClassType>
 #ifdef _DEBUG
-short RFileEZSaveDebug(
+int16_t RFileEZSaveDebug(
 	char* FILE_MACRO,
  	long LINE_MACRO,
 #else
-short RFileEZSave(
+int16_t RFileEZSave(
 #endif
 	ClassType* pObject,
 	const char* pszName, 
 	const char* pszMode,
 	RFile::Endian endian)
 	{
-	short sResult = 0;
+	int16_t sResult = 0;
 
 	// Create RFile object
 	RFile* pFile = new RFile;
@@ -880,7 +880,7 @@ short RFileEZSave(
 // caller to specify how to cast the value before calling RFile::Read().
 #define RFILE_INSTANTIATE_ANYLOAD(type)	\
 inline																							\
-short rspAnyLoad(		/* Returns 0 on success.*/										\
+int16_t rspAnyLoad(		/* Returns 0 on success.*/										\
 	type*		ptype,	/* Ptr to type to load.*/										\
 	RFile*	pfile)	/* Open RFile to load from.  Must have read access.*/	\
 	{																								\
@@ -892,7 +892,7 @@ short rspAnyLoad(		/* Returns 0 on success.*/										\
 // caller to specify how to cast the value before calling RFile::Write().
 #define RFILE_INSTANTIATE_ANYSAVE(type)	\
 inline																							\
-short rspAnySave(		/* Returns 0 on success.*/										\
+int16_t rspAnySave(		/* Returns 0 on success.*/										\
 	type*		ptype,	/* Ptr to float to load.*/										\
 	RFile*	pfile)	/* Open RFile to save to.  Must have write access.*/	\
 	{																								\
@@ -930,7 +930,7 @@ RFILE_INSTANTIATE_ANYSAVE(double)
 // only works for types that have their own Load(RFile*) member function.
 //////////////////////////////////////////////////////////////////////////////
 template <class obj>
-short rspAnyLoad(		// Returns 0 on success.
+int16_t rspAnyLoad(		// Returns 0 on success.
 	obj*		pobj,		// Ptr to object to load.
 	RFile*	pfile)	// Open RFile.  Must have read access.
 	{
@@ -942,7 +942,7 @@ short rspAnyLoad(		// Returns 0 on success.
 // only works for types that have their own Save(RFile*) member function.
 //////////////////////////////////////////////////////////////////////////////
 template <class obj>
-short rspAnySave(		// Returns 0 on success.
+int16_t rspAnySave(		// Returns 0 on success.
 	obj*		pobj,		// Ptr to object to save.
 	RFile*	pfile)	// Open RFile.  Must have write access.
 	{

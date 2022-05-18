@@ -74,7 +74,7 @@
 //
 //		07/20/97	JMI	Added NUM_ELEMENTS() macro as alternative to 
 //							(sizeof(a)/sizeof(a[0]) ).
-//							Changed asWavyY to be of type short (was no specific type
+//							Changed asWavyY to be of type int16_t (was no specific type
 //							and, therefore, int before).
 //							Fix parenthesis bug in CutScene_RFileCallback() with index
 //							that caused it to hit -1.
@@ -251,13 +251,13 @@ class	CCutSceneInfo
 		RImage*	m_pimDst;
 		RMultiAlpha*	m_pmaAlpha;
 		bool m_bDeleteFont;
-		short m_sDelW;
-		short m_sDelH;
+		int16_t m_sDelW;
+		int16_t m_sDelH;
 		long m_lTotalBytes;
 		long m_lTimeToUpdate;
 		long m_lBytesSoFar;
 		U8 m_u8BloodColor;
-		short m_sLastDistance;
+		int16_t m_sLastDistance;
 		SampleMasterID m_musicID;
 		//-----------------------------------------
 
@@ -309,12 +309,12 @@ class	CCutSceneInfo
 //		The program will blacken the screen when done.  (g_pimScreenBuf)
 //
 ////////////////////////////////////////////////////////////////////////////////
-short	MartiniDo(	RImage*	pimBackground,	// actually, this is the ONLY graphic
-						short	sStartX,				// logical start position of image
-						short	sStartY,				// NOTE: it will be clipped so won't actually hit this point!
+int16_t	MartiniDo(	RImage*	pimBackground,	// actually, this is the ONLY graphic
+						int16_t	sStartX,				// logical start position of image
+						int16_t	sStartY,				// NOTE: it will be clipped so won't actually hit this point!
 						RMultiAlpha*	pAlpha,	// only need 50% - see cut scenes
 						long	lMilliLen,			// how long to do the effect
-						short	sRadius,				// Your tuning pleasure
+						int16_t	sRadius,				// Your tuning pleasure
 						long	lSpinTime,			// in milliseconds
 						long	lSwayTime,			// in milliseconds
 						RRect*  prCenter,			// if not NULL, use this portion of the image only!
@@ -381,14 +381,14 @@ short	MartiniDo(	RImage*	pimBackground,	// actually, this is the ONLY graphic
 		//==============================================================================
 		// Figure out stage of motion:
 		//==============================================================================
-		short sDeg = short((360 * lCurrentTime)/lSpinTime);
+		int16_t sDeg = int16_t((360 * lCurrentTime)/lSpinTime);
 		sDeg = rspMod360(sDeg);
-		short sSwayDeg = short((360 * lCurrentTime)/lSwayTime);
+		int16_t sSwayDeg = int16_t((360 * lCurrentTime)/lSwayTime);
 		sSwayDeg = rspMod360(sSwayDeg);
 		
-		short sR = short(sRadius * rspSin(sSwayDeg));
-		short sOffX = short(rspCos(sDeg) * sR);
-		short sOffY = short(rspSin(sDeg) * sR);
+		int16_t sR = int16_t(sRadius * rspSin(sSwayDeg));
+		int16_t sOffX = int16_t(rspCos(sDeg) * sR);
+		int16_t sOffY = int16_t(rspSin(sDeg) * sR);
 		//==============================================================================
 		// Draw the frame!
 		rspLockBuffer();
@@ -407,10 +407,10 @@ short	MartiniDo(	RImage*	pimBackground,	// actually, this is the ONLY graphic
 		if (lCurrentFadeTime > 0)
 			{
 			// Update the Palette:
-			short i=0;
+			int16_t i=0;
 
-			short sCurPal = 10 * 3;
-			short sByteLevel = short((255.0 * lCurrentFadeTime) / lFadeTime);
+			int16_t sCurPal = 10 * 3;
+			int16_t sByteLevel = int16_t((255.0 * lCurrentFadeTime) / lFadeTime);
 
 			for (i=10; i < 246; i++, sCurPal += 3)
 				{
@@ -452,10 +452,10 @@ class	CSwirlMe
 	{
 	public:
 		//------------------------------------------------------------------
-		short m_sCenX;		// radius in pixels
-		short m_sRadX;
-		short m_sCenY;		// radius in pixels
-		short m_sRadY;
+		int16_t m_sCenX;		// radius in pixels
+		int16_t m_sRadX;
+		int16_t m_sCenY;		// radius in pixels
+		int16_t m_sRadY;
 		double m_dCenA;	// Alpha level (0.0 to 1.0)
 		double m_dRadA;
 		long	m_lCycleTimeX;	// in milliseconds (Min, Max, Min)
@@ -471,7 +471,7 @@ class	CSwirlMe
 		////////////////////////////////////////////////////////////////////////////
 		//		Make next frame of effect
 		////////////////////////////////////////////////////////////////////////////
-		short	MakeFrame(SampleMasterID* psmid)
+		int16_t	MakeFrame(SampleMasterID* psmid)
 			{
 			if (!IsSamplePlaying(*psmid))
 				{
@@ -494,24 +494,24 @@ class	CSwirlMe
 
 			long lDeltaTime = rspGetMilliseconds() - m_lBaseTime;
 
-			short sDegX = (360 * lDeltaTime) / m_lCycleTimeX;
-			short sDegY = (360 * lDeltaTime) / m_lCycleTimeY;
-			short sDegAlpha = (360 * lDeltaTime) / m_lCycleTimeA;
-			short sDegSpin = (360 * lDeltaTime) / m_lTimeSpin;
+			int16_t sDegX = (360 * lDeltaTime) / m_lCycleTimeX;
+			int16_t sDegY = (360 * lDeltaTime) / m_lCycleTimeY;
+			int16_t sDegAlpha = (360 * lDeltaTime) / m_lCycleTimeA;
+			int16_t sDegSpin = (360 * lDeltaTime) / m_lTimeSpin;
 
 			sDegX = rspMod360(sDegX);
 			sDegY = rspMod360(sDegY);
 			sDegAlpha = rspMod360(sDegAlpha);
 			sDegSpin = rspMod360(sDegSpin);
 
-			short	sRx = m_sCenX + short(rspSin(sDegX) * m_sRadX);
-			short	sRy = m_sCenY + short(rspSin(sDegY) * m_sRadY);
+			int16_t	sRx = m_sCenX + int16_t(rspSin(sDegX) * m_sRadX);
+			int16_t	sRy = m_sCenY + int16_t(rspSin(sDegY) * m_sRadY);
 
 			if (sRx < 0) sRx = 0;
 			if (sRy < 0) sRy = 0;
 
-			short sOffX = short(rspCos(sDegSpin) * sRx);
-			short sOffY = -short(rspSin(sDegSpin) * sRy);
+			int16_t sOffX = int16_t(rspCos(sDegSpin) * sRx);
+			int16_t sOffY = -int16_t(rspSin(sDegSpin) * sRy);
 			sOffX >>= 1;
 			sOffY >>= 1;
 
@@ -547,7 +547,7 @@ class	CSwirlMe
 				// 2) Alpha Blit Upon it:
 				if (m_pCut->m_pmaAlpha != NULL)
 					{
-					rspAlphaBlitT(short(255.9*dAlpha),m_pCut->m_pmaAlpha,m_pCut->m_pimBGLayer,m_pCut->m_pimDst,
+					rspAlphaBlitT(int16_t(255.9*dAlpha),m_pCut->m_pmaAlpha,m_pCut->m_pimBGLayer,m_pCut->m_pimDst,
 						m_rClip.sX + sOffX,m_rClip.sY + sOffY,&rSafeClip);
 					}
 
@@ -568,12 +568,12 @@ class	CSwirlMe
 		////////////////////////////////////////////////////////////////////////////
 		//		Configure effect
 		////////////////////////////////////////////////////////////////////////////
-		short Configure(//RImage* pimDst,RImage* pimSrc,RMultiAlpha* pX,
+		int16_t Configure(//RImage* pimDst,RImage* pimSrc,RMultiAlpha* pX,
 					long lTimeSpin,
-					short sMinX,short sMaxX,long lTimeX,
-					short sMinY,short sMaxY,long lTimeY,
+					int16_t sMinX,int16_t sMaxX,long lTimeX,
+					int16_t sMinY,int16_t sMaxY,long lTimeY,
 					double dMinA,double dMaxA,long lTimeA,
-					short sX,short sY,short sW,short sH)
+					int16_t sX,int16_t sY,int16_t sW,int16_t sH)
 			{
 			ASSERT(m_pCut);
 			ASSERT(lTimeX > 0);
@@ -710,8 +710,8 @@ extern void CutSceneStart(
 	bool bSimple,											// In:  Set to 'true' for simple mode
 	const RString* pstrSection,						// In:  Section to use for this realm
 	const RString* pstrEntry,							// In:  Entry to use for this realm
-	short sBorderX,
-	short sBorderY)
+	int16_t sBorderX,
+	int16_t sBorderY)
 	{
 	// This is used for more than just paths, so it has a larger size!
 	char szText[2048];
@@ -1020,12 +1020,12 @@ extern void CutSceneStart(
 // Configure cutscene effect
 //
 ////////////////////////////////////////////////////////////////////////////
-extern short CutSceneConfig(
+extern int16_t CutSceneConfig(
 	long lTimeSpin,
-	short sMinX,short sMaxX,long lTimeX,
-	short sMinY,short sMaxY,long lTimeY,
+	int16_t sMinX,int16_t sMaxX,long lTimeX,
+	int16_t sMinY,int16_t sMaxY,long lTimeY,
 	double dMinA,double dMaxA,long lTimeA,
-	short sX,short sY,short sW,short sH)
+	int16_t sX,int16_t sY,int16_t sW,int16_t sH)
 	{
 	ASSERT(ms_pCut);
 	pSwirl = new CSwirlMe(ms_pCut);
@@ -1120,7 +1120,7 @@ extern void CutSceneEnd(void)
 ////////////////////////////////////////////////////////////////////////////////
 static void CutScene_RFileCallback(long lBytes)
 	{
-	static short asWavyY[] =
+	static int16_t asWavyY[] =
 		{
 		0, 1, 2, 0, -2, -1, 1, 0, -1, 0, 1, 2, 1, 0,
 		1, 0, -1, -2, -1, -2, 0, 1, 2, 0, -2, -1, 0, 0
@@ -1143,19 +1143,19 @@ static void CutScene_RFileCallback(long lBytes)
 					double dPercentage = (double)ms_pCut->m_lBytesSoFar / (double)ms_pCut->m_lTotalBytes;
 					if (dPercentage > 1.0)
 						dPercentage = 1.0;
-					short sDistance = (short)((double)PROGRESS_BAR_WIDTH * dPercentage);
+					int16_t sDistance = (int16_t)((double)PROGRESS_BAR_WIDTH * dPercentage);
 
-					short sBaseY = asWavyY[(short)(dPercentage * (NUM_ELEMENTS(asWavyY) - 1) )];
+					int16_t sBaseY = asWavyY[(int16_t)(dPercentage * (NUM_ELEMENTS(asWavyY) - 1) )];
 						 
 					// Draw from previous distance to current distance in case a big jump occurred
-					for (short sBaseX = ms_pCut->m_sLastDistance; sBaseX <= sDistance; sBaseX++)
+					for (int16_t sBaseX = ms_pCut->m_sLastDistance; sBaseX <= sDistance; sBaseX++)
 						{
 						// Draw a few pixels at a time to get a more solid look
-						for (short i = 0; i < PROGRESS_BAR_DENSITY; i++)
+						for (int16_t i = 0; i < PROGRESS_BAR_DENSITY; i++)
 							{
 							// Choose random location nearby the specified location
-							short sX = PROGRESS_BAR_START_X + sBaseX + RandomPlusMinus(PROGRESS_BAR_RANDOM_X);
-							short sY = PROGRESS_BAR_START_Y + sBaseY + RandomPlusMinus(PROGRESS_BAR_RANDOM_Y);
+							int16_t sX = PROGRESS_BAR_START_X + sBaseX + RandomPlusMinus(PROGRESS_BAR_RANDOM_X);
+							int16_t sY = PROGRESS_BAR_START_Y + sBaseY + RandomPlusMinus(PROGRESS_BAR_RANDOM_Y);
 
 							// Draw an alpha'd pixel at this location
 							U8 u8dst = *(ms_pCut->m_pimBGLayer->m_pData + (sY * ms_pCut->m_pimBGLayer->m_lPitch) + sX);

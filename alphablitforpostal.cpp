@@ -52,16 +52,16 @@
 // The mask must be as big as the source
 /*
 void rspAlphaMaskBlit(RMultiAlpha* pX,RImage* pimMask,
-									RImage* pimSrc,RImage* pimDst,short sDstX,short sDstY,
+									RImage* pimSrc,RImage* pimDst,int16_t sDstX,int16_t sDstY,
 									RRect &rDstClip)
 	{
-	short sSrcX = 0,sSrcY = 0,sDstW = pimSrc->m_sWidth,sDstH = pimSrc->m_sHeight;
+	int16_t sSrcX = 0,sSrcY = 0,sDstW = pimSrc->m_sWidth,sDstH = pimSrc->m_sHeight;
 
 	// right here adjust things if you need to clip to other thatn the full dst im
 	if (rspSimpleClip(sSrcX,sSrcY,sDstX,sDstY,sDstW,sDstH,
 		rDstClip.sX,rDstClip.sY,rDstClip.sW,rDstClip.sH) == -1) return ; // clipped out
 	
-	short i,j;
+	int16_t i,j;
 	long lSrcP = pimSrc->m_lPitch;
 	long lDstP = pimDst->m_lPitch;
 	long lMaskP = pimMask->m_lPitch;
@@ -96,15 +96,15 @@ void rspAlphaMaskBlit(RMultiAlpha* pX,RImage* pimMask,
 	}
 	*/
 /*
-void rspAlphaBlit(RAlpha* pX,RImage* pimSrc,RImage* pimDst,short sDstX,short sDstY)
+void rspAlphaBlit(RAlpha* pX,RImage* pimSrc,RImage* pimDst,int16_t sDstX,int16_t sDstY)
 	{
-	short sSrcX = 0,sSrcY = 0,sDstW = pimSrc->m_sWidth,sDstH = pimSrc->m_sHeight;
+	int16_t sSrcX = 0,sSrcY = 0,sDstW = pimSrc->m_sWidth,sDstH = pimSrc->m_sHeight;
 
 	// right here adjust things if you need to clip to other thatn the full dst im
 	if (rspSimpleClip(sSrcX,sSrcY,sDstX,sDstY,sDstW,sDstH,0,0,
 		pimDst->m_sWidth,pimDst->m_sHeight) == -1) return ; // clipped out
 	
-	short i,j;
+	int16_t i,j;
 	long lSrcP = pimSrc->m_lPitch;
 	long lDstP = pimDst->m_lPitch;
 	UCHAR* pSrc,*pSrcLine = pimSrc->m_pData + sSrcX + sSrcY * lSrcP;
@@ -133,15 +133,15 @@ UCHAR sCheckSum3[40] = {173, 172, 175, 223, 173,158,145,155,134,220,205,210,204,
 // NOTE that this technique is only valid for adding to fully opaque masks.
 // For more deluxe compound masking, you need to only change if source < dest!
 //
-void rspMaskBlit(RImage* pimSrc,RImage* pimDst,short sDstX,short sDstY)
+void rspMaskBlit(RImage* pimSrc,RImage* pimDst,int16_t sDstX,int16_t sDstY)
 	{
-	short sSrcX = 0,sSrcY = 0,sDstW = pimSrc->m_sWidth,sDstH = pimSrc->m_sHeight;
+	int16_t sSrcX = 0,sSrcY = 0,sDstW = pimSrc->m_sWidth,sDstH = pimSrc->m_sHeight;
 
 	// right here adjust things if you need to clip to other thatn the full dst im
 	if (rspSimpleClip(sSrcX,sSrcY,sDstX,sDstY,sDstW,sDstH,0,0,
 		pimDst->m_sWidth,pimDst->m_sHeight) == -1) return ; // clipped out
 	
-	short i,j;
+	int16_t i,j;
 	long lSrcP = pimSrc->m_lPitch;
 	long lDstP = pimDst->m_lPitch;
 	UCHAR* pSrc,*pSrcLine = pimSrc->m_pData + sSrcX + sSrcY * lSrcP;
@@ -162,7 +162,7 @@ void rspMaskBlit(RImage* pimSrc,RImage* pimDst,short sDstX,short sDstY)
 // Takes a BMP8 and converts it to a mask of 0 and ucVal
 void rspMakeMask(RImage* pimSrc,UCHAR ucVal)
 	{
-	short i,j;
+	int16_t i,j;
 	long lSrcP = pimSrc->m_lPitch;
 	UCHAR* pSrc,*pSrcLine = pimSrc->m_pData;
 
@@ -180,14 +180,14 @@ void rspMakeMask(RImage* pimSrc,UCHAR ucVal)
 // Currently, no clipping or positioning possible
 void rspCopyAsMask(RImage* pimSrc,RImage* pimDst,UCHAR ucVal)
 	{
-	short i,j;
+	int16_t i,j;
 	long lSrcP = pimSrc->m_lPitch;
 	long lDstP = pimDst->m_lPitch;
 	UCHAR* pSrc,*pSrcLine = pimSrc->m_pData;
 	UCHAR* pDst,*pDstLine = pimDst->m_pData;
 
-	short sDstW = pimSrc->m_sWidth;
-	short sDstH = pimSrc->m_sHeight;
+	int16_t sDstW = pimSrc->m_sWidth;
+	int16_t sDstH = pimSrc->m_sHeight;
 
 	for (j=0;j<sDstH;j++,pSrcLine += lSrcP,pDstLine += lDstP)
 		{
@@ -214,18 +214,18 @@ void g_alphaBlit(
 		RImage* pimDst,			// Destination image.
 		RImage* pimMask,			// Mask of alphable area.
 		RMultiAlpha* pma,			// Table of alphas or something.
-		short sAlphaX,				// Source coordinate in pimSrc to put alphamask.
-		short sAlphaY,				// Source coordinate in pimSrc to put alphamask.
-		short sDstX,				// Destination coordinate in pimDst for pimSrc(0,0).
-		short sDstY,				// Destination coordinate in pimDst for pimSrc(0,0).
+		int16_t sAlphaX,				// Source coordinate in pimSrc to put alphamask.
+		int16_t sAlphaY,				// Source coordinate in pimSrc to put alphamask.
+		int16_t sDstX,				// Destination coordinate in pimDst for pimSrc(0,0).
+		int16_t sDstY,				// Destination coordinate in pimDst for pimSrc(0,0).
 		RRect &rDstClip)			// Rectangle to clip Dst to.
 	{
 	// I assume the pimSrc is an FSPR8, and the pimDst is a BMP8
 	// I need a BMP8 for the uncompressed wall
 	// I need a BMP8 for the uncompressed wall as alpha mask
 	RImage imSource,imMask;
-	short sW = pimSrc->m_sWidth;
-	short sH = pimSrc->m_sHeight;
+	int16_t sW = pimSrc->m_sWidth;
+	int16_t sH = pimSrc->m_sHeight;
 
 	if (sFirst) Verify();
 
@@ -256,7 +256,7 @@ extern RResMgr	g_resmgrShell;
 extern RResMgr	g_resmgrSamples;
 // Here is some code for validating alpha sprites and, if necessary, 
 // graphically teting them.
-short	sLoaded = FALSE;
+int16_t	sLoaded = FALSE;
 
 // See if chosen file is alpha based:
 void	Verify()
@@ -281,11 +281,11 @@ void	Verify()
 // Do the graphical testing
 void test(RImage* pimF,RImage* pimB)
 	{
-	short i,smx,smy,smb;
-	short sCenterX = 320;
-	short sCenterY = 240;
-	short sRotX = pimF->m_sWidth>>1;
-	short sRotY =  pimF->m_sHeight>>1;
+	int16_t i,smx,smy,smb;
+	int16_t sCenterX = 320;
+	int16_t sCenterY = 240;
+	int16_t sRotX = pimF->m_sWidth>>1;
+	int16_t sRotY =  pimF->m_sHeight>>1;
 
 	rspAddRotationPadding(pimF,sRotX,sRotY);
 	RImage* pimBuffer;
@@ -300,20 +300,20 @@ void test(RImage* pimF,RImage* pimB)
 	rspSetBMPColors(pimF,10,118);
 	rspSetBMPColors(pimB,128,118);
 
-	short sHot = (short) ((pimF->m_sHeight)/rspSQRT2/2.0);
+	int16_t sHot = (int16_t) ((pimF->m_sHeight)/rspSQRT2/2.0);
 //---------------------------------------------------------------
 #define sNumStates 3
-	short x[sNumStates],y[sNumStates];
+	int16_t x[sNumStates],y[sNumStates];
 	for (i=0;i < sNumStates; i++)
 		{
 		 x[i]=y[i]=0;
 		}
 
-	short sCurX = sCenterX,sCurY = sCenterY;
+	int16_t sCurX = sCenterX,sCurY = sCenterY;
 	double dX = 1.0,dY = 1.0;
 	double dDegDel = 0.0;
 	double dScaleR = 1.005,dCurAngle = 0.0;
-	short sCurState = 0;
+	int16_t sCurState = 0;
 	double dScaleFactor = 1.0;
 
 #define DEL_ROT (25.0 / 360.0)
@@ -379,10 +379,10 @@ void test(RImage* pimF,RImage* pimB)
 
 		double dsx = dX*dScaleFactor;
 		double dsy = dY*dScaleFactor;
-		short sdx = short (dsx * sHot);
-		short sdy = short (dsy * sHot);
+		int16_t sdx = int16_t (dsx * sHot);
+		int16_t sdy = int16_t (dsy * sHot);
 
-		rspBlitRot(short(dCurAngle),pimF,pimBuffer,
+		rspBlitRot(int16_t(dCurAngle),pimF,pimBuffer,
 			sCurX - sdx,sCurY - sdy,dsx,dsy);
 		rspUnlockBuffer();
 

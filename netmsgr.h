@@ -440,7 +440,7 @@ class NetMsg
 			char				acName[Net::MaxPlayerNameSize];// Name
 			unsigned char	ucColor;								// Color number
 			unsigned char	ucTeam;								// Team number
-			short				sBandwidth;							// Bandwidth
+			int16_t				sBandwidth;							// Bandwidth
 
 			static void Read(NetMsg* pmsg, CBufQ* pBuf)
 				{
@@ -509,7 +509,7 @@ class NetMsg
 			char				acName[Net::MaxPlayerNameSize];// Name
 			unsigned char	ucColor;								// Color number
 			unsigned char	ucTeam;								// Team number
-			short				sBandwidth;							// Bandwidth
+			int16_t				sBandwidth;							// Bandwidth
 
 			static void Read(NetMsg* pmsg, CBufQ* pBuf)
 				{
@@ -623,7 +623,7 @@ class NetMsg
 			enum { Size = 1 + 1 + 2 };
 			unsigned char	ucType;								// Message type
 			Net::ID id;												// Dropee's ID
-			short sContext;										// Context or -1 if none
+			int16_t sContext;										// Context or -1 if none
 
 			static void Read(NetMsg* pmsg, CBufQ* pBuf)
 				{
@@ -691,7 +691,7 @@ class NetMsg
 			unsigned char	ucType;								// Message type
 			Net::ID id;												// ID whose input is being requested
 			Net::SEQ seqStart;									// Startng seq of range
-			short sNum;												// Number of seq's in range
+			int16_t sNum;												// Number of seq's in range
 
 			static void Read(NetMsg* pmsg, CBufQ* pBuf)
 				{
@@ -721,7 +721,7 @@ class NetMsg
 			long lSize;												// Message size (must follow type!)
 			Net::ID id;												// ID whose input is being sent
 			Net::SEQ seqStart;									// Starting seq of range
-			short sNum;												// Number of seq's in range
+			int16_t sNum;												// Number of seq's in range
 			UINPUT* pInputs;										// Pointer used to read/write actual input data
 			U8*		pFrameTimes;									// Pointer to read/write actual frame time data *SPA
 
@@ -836,14 +836,14 @@ class NetMsg
 			enum { Size = 1 + 2 + Net::MaxRealmNameSize + 2 + 2 + 2 + 2 + 2 + 2 };
 
 			unsigned char	ucType;								// Message type
-			short				sRealmNum;							// Starting realm number or -1 to use name
+			int16_t				sRealmNum;							// Starting realm number or -1 to use name
 			char				acRealmFile[Net::MaxRealmNameSize];// Name of realm file to load
-			short				sDifficulty;						// Difficulty level
-			short				sRejuvenate;
-			short				sTimeLimit;
-			short				sKillLimit;
-			short				sCoopLevels;						// Non-zero for cooperative levels, zero for deathmatch levels.
-			short				sCoopMode;							// Non-zero for cooperative mode, zero for deathmatch mode.
+			int16_t				sDifficulty;						// Difficulty level
+			int16_t				sRejuvenate;
+			int16_t				sTimeLimit;
+			int16_t				sKillLimit;
+			int16_t				sCoopLevels;						// Non-zero for cooperative levels, zero for deathmatch levels.
+			int16_t				sCoopMode;							// Non-zero for cooperative mode, zero for deathmatch mode.
 
 			static void Read(NetMsg* pmsg, CBufQ* pBuf)
 				{
@@ -878,15 +878,15 @@ class NetMsg
 			enum { Size = 1 + 1 + 2 + Net::MaxRealmNameSize + 2 + 2 + 2 + 2 + 2 + sizeof(Net::SEQ) + 2 + 2};
 			unsigned char	ucType;												// Message type
 			Net::ID			idServer;											// Server's ID
-			short				sRealmNum;											// Starting realm number or -1 to use name
+			int16_t				sRealmNum;											// Starting realm number or -1 to use name
 			char				acRealmFile[Net::MaxRealmNameSize];			// Name of realm file to load
-			short				sDifficulty;										// Difficulty level
-			short				sRejuvenate;
-			short				sTimeLimit;
-			short				sKillLimit;
-			short				sCoopLevels;										// Non-zero for cooperative levels, zero for deathmatch levels.
-			short				sCoopMode;											// Non-zero for cooperative mode, zero for deathmatch mode.
-			short				sFrameTime;											// Milliseconds per frame
+			int16_t				sDifficulty;										// Difficulty level
+			int16_t				sRejuvenate;
+			int16_t				sTimeLimit;
+			int16_t				sKillLimit;
+			int16_t				sCoopLevels;										// Non-zero for cooperative levels, zero for deathmatch levels.
+			int16_t				sCoopMode;											// Non-zero for cooperative mode, zero for deathmatch mode.
+			int16_t				sFrameTime;											// Milliseconds per frame
 			Net::SEQ			seqMaxAhead;										// Max ahead for input versus frame seq
 
 			static void Read(NetMsg* pmsg, CBufQ* pBuf)
@@ -1039,8 +1039,8 @@ class NetMsg
 			{
 			enum { Size = 1 + 2 + 2 };
 			unsigned char	ucType;								// Message type
-			short sNumReady;										// Number of players that are ready
-			short sNumNotReady;									// Number of players that are NOT ready
+			int16_t sNumReady;										// Number of players that are ready
+			int16_t sNumNotReady;									// Number of players that are NOT ready
 
 			static void Read(NetMsg* pmsg, CBufQ* pBuf)
 				{
@@ -1368,13 +1368,13 @@ class CNetMsgr
 		// means the connection completed.  If it becomes "Disconnected", it means the
 		// connection failed.
 		////////////////////////////////////////////////////////////////////////////////
-		short Connect(												// Returns 0 if successfull, non-zero otherwise
+		int16_t Connect(												// Returns 0 if successfull, non-zero otherwise
 			const RSocket::Address* paddress,				// In:  Address being connected to
 			RSocket::BLOCK_CALLBACK callback)				// In:  Socket callback
 			{
 			ASSERT(m_state == Disconnected);
 
-			short sResult = 0;
+			int16_t sResult = 0;
 
 			// Reset to make sure we're starting with a clean slate
 			Reset();
@@ -1403,13 +1403,13 @@ class CNetMsgr
 		////////////////////////////////////////////////////////////////////////////////
 		// Accept connection
 		////////////////////////////////////////////////////////////////////////////////
-		short Accept(
+		int16_t Accept(
 			const RSocket* psocketListen,						// In:  Listen socket to accept connection on
 			RSocket::BLOCK_CALLBACK callback)				// In:  Socket callback
 			{
 			ASSERT(m_state == Disconnected);
 
-			short sResult = psocketListen->Accept(&m_socket, &m_address);
+			int16_t sResult = psocketListen->Accept(&m_socket, &m_address);
 			if (sResult == 0)
 				{
 				m_socket.SetCallback(callback);

@@ -111,7 +111,7 @@ class CFilter
 
 		// Removes a chunk header.
 		// Returns 0 on success.
-		short RemoveChunk(PRTCHUNK pChunk);
+		int16_t RemoveChunk(PRTCHUNK pChunk);
 
 		// Adds a buffer to a chunk.
 		// Returns amount added.
@@ -120,7 +120,7 @@ class CFilter
 		// Allocates data via user callback if defined or malloc, otherwise.
 		// Returns 0 on success.  See comment of this function in filter.cpp
 		// for greater details.
-		short AllocChunk(UCHAR** ppuc, long lSize, USHORT usType, UCHAR ucFlags);
+		int16_t AllocChunk(UCHAR** ppuc, long lSize, USHORT usType, UCHAR ucFlags);
 		// Deallocates data via user callback if defined or free if both 
 		// m_fnAlloc AND m_fnFree are NOT defined.
 		void FreeChunk(UCHAR* puc, USHORT usType, UCHAR ucFlags);

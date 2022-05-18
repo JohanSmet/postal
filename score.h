@@ -77,7 +77,7 @@ class CScoreboard
 	//---------------------------------------------------------------------------
 	public:
 		
-		short	m_asScores[Net::MaxNumIDs+1];			// Score for each player
+		int16_t	m_asScores[Net::MaxNumIDs+1];			// Score for each player
 //		U16	m_au16PlayerIDs[Net::MaxNumIDs+1];	// ID of each player
 		long	m_lLastScoreDrawTime;						// Time since last update
 		long	m_lLastStatusDrawTime;						// Time since last update
@@ -92,7 +92,7 @@ class CScoreboard
 
 		CScoreboard()
 		{
-			short i;
+			int16_t i;
 			for (i = 0; i <= Net::MaxNumIDs; i++)
 			{
 				m_asScores[i] = 0;
@@ -111,9 +111,9 @@ class CScoreboard
 	public:
 
 		// Return the indes of the player or -1 if not found
-//		short GetPlayerIndex(U16 uInstanceID)
+//		int16_t GetPlayerIndex(U16 uInstanceID)
 //		{
-//			short sPlayerIndex = Net::MaxNumIDs;
+//			int16_t sPlayerIndex = Net::MaxNumIDs;
  //
 //			CThing* pShooter = GetItemById(uInstanceID)
 //			if (pShooter && pShooter->m_id == CThing::CDudeID)
@@ -124,7 +124,7 @@ class CScoreboard
 
 		void Reset(void)
 		{
-			short i;
+			int16_t i;
 			for (i = 0; i < Net::MaxNumIDs; i++)
 				m_asScores[i] = 0;
 
@@ -133,7 +133,7 @@ class CScoreboard
 		}
 		
 		// Subtract one from the score of the indicated guy
-		void SubtractOne(short sPlayerIndex)
+		void SubtractOne(int16_t sPlayerIndex)
 		{
 			// If it is beyond the number of players, set it to the
 			// overflow bin.
@@ -145,7 +145,7 @@ class CScoreboard
 
 
 		// Add one to the score of the indicated guy
-		void AddOne(short sPlayerIndex)
+		void AddOne(int16_t sPlayerIndex)
 		{
 			// If it is beyond the number of players, set it to the
 			// overflow bin.
@@ -158,7 +158,7 @@ class CScoreboard
 		void SetScoringMode(ScoringMode Mode)
 			{m_ScoringMode = Mode;};
 
-		short GetScoringMode(void)
+		int16_t GetScoringMode(void)
 			{return m_ScoringMode;};
 	
 };
@@ -178,7 +178,7 @@ void ScoreRegisterKill(CRealm* pRealm, U16 u16DeadGuy, U16 u16Killer);
 // Function called by play to update the score display
 // Returns true, if pImage was updated; false otherwise.
 bool ScoreUpdateDisplay(RImage* pImage, RRect* pRect, CRealm* pRealm, 
-								CNetClient* pclient, short sDstX, short sDstY, CHood* pHood);
+								CNetClient* pclient, int16_t sDstX, int16_t sDstY, CHood* pHood);
 
 // Function to set the scoring mode (ie multiplayer, single, timed etc)
 void ScoreSetMode(CScoreboard::ScoringMode Mode);
@@ -197,10 +197,10 @@ void ScoreDisplayHighScores(			// Returns nothing.
 												// duration, if not -1).
 
 // Get the name for a new high score
-short ScoreGetName(char* pszName);
+int16_t ScoreGetName(char* pszName);
 
 // Returns the highest multiplayer score.
-short ScoreHighestKills(CRealm* pRealm);
+int16_t ScoreHighestKills(CRealm* pRealm);
 
 #endif //SCORE_H
 

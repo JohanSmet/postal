@@ -29,8 +29,8 @@
 	#include "fixedpoint.h"
 #endif
 
-//short RAlpha::ms_SetPalette(RImage* pimImage);
-short RAlpha::ms_IsPaletteSet = FALSE;
+//int16_t RAlpha::ms_SetPalette(RImage* pimImage);
+int16_t RAlpha::ms_IsPaletteSet = FALSE;
 U8 RAlpha::ms_red[256] = {0,};
 U8 RAlpha::ms_green[256] = {0,};
 U8 RAlpha::ms_blue[256] = {0,};
@@ -41,10 +41,10 @@ U8 RAlpha::ms_b[256] = {0,};
 U8 RAlpha::ms_a[256] = {0,};
 U8 RAlpha::ms_f[256] = {0,};
 
-short RMultiAlpha::ms_sIsInitialized = FALSE;
+int16_t RMultiAlpha::ms_sIsInitialized = FALSE;
 UCHAR	RMultiAlpha::ms_aucLiveDimming[65536];
 
-UCHAR rspMatchColorRGB(long r,long g,long b,short sStart,short sNum,
+UCHAR rspMatchColorRGB(long r,long g,long b,int16_t sStart,int16_t sNum,
 					 UCHAR* pr,UCHAR* pg,UCHAR* pb,long linc)
 	{
 	long lMatch = 0,i;
@@ -77,7 +77,7 @@ UCHAR rspMatchColorRGB(long r,long g,long b,short sStart,short sNum,
 // It counts on RSP SetPalette to go through a gamma correction table on the PC.
 // Higher level functions can do actual image conversions.
 
-short RAlpha::Load(char* pszFile)
+int16_t RAlpha::Load(char* pszFile)
 	{
 	RFile file;
 
@@ -87,13 +87,13 @@ short RAlpha::Load(char* pszFile)
 		return -1;
 		}
 	
-	short sRet = Load(&file);
+	int16_t sRet = Load(&file);
 	file.Close();
 
 	return sRet;
 	}
 
-short RAlpha::Save(char* pszFile)
+int16_t RAlpha::Save(char* pszFile)
 	{
 	RFile *fp = new RFile;
 
@@ -103,14 +103,14 @@ short RAlpha::Save(char* pszFile)
 		return -1;
 		}
 	
-	short sRet = Save(fp);
+	int16_t sRet = Save(fp);
 	fp->Close();
 	return sRet;
 	}
 
-short RAlpha::Save(RFile* fp)
+int16_t RAlpha::Save(RFile* fp)
 	{
-	short sVersion = 1;
+	int16_t sVersion = 1;
 
 	if (!fp)
 		{
@@ -122,18 +122,18 @@ short RAlpha::Save(RFile* fp)
 	fp->Write(&sVersion);
 	fp->Write(&m_sAlphaDepth);
 	/* inverted 
-	for (short i=0; i < m_sAlphaDepth; i++)
+	for (int16_t i=0; i < m_sAlphaDepth; i++)
 		fp->Write(m_pAlphas[i],256);
 		*/
-	for (short i=0; i < 256; i++)
+	for (int16_t i=0; i < 256; i++)
 		fp->Write(m_pAlphas[i],m_sAlphaDepth);
 
 	return 0;
 	}
 
-short RAlpha::Load(RFile* fp)
+int16_t RAlpha::Load(RFile* fp)
 	{
-	short sVersion = 1;
+	int16_t sVersion = 1;
 	char name[20];
 
 #ifdef _DEBUG
@@ -164,11 +164,11 @@ short RAlpha::Load(RFile* fp)
 	Alloc(m_sAlphaDepth);
 
 	/* ionverted
-	for (short i=0; i < m_sAlphaDepth; i++)
+	for (int16_t i=0; i < m_sAlphaDepth; i++)
 		fp->Read(m_pAlphas[i],256);
 	*/
 
-	for (short i=0; i < 256; i++)
+	for (int16_t i=0; i < 256; i++)
 		{
 		if (fp->Read(m_pAlphas[i],m_sAlphaDepth)!=m_sAlphaDepth)
 			{
@@ -180,7 +180,7 @@ short RAlpha::Load(RFile* fp)
 	return 0;
 	}
 
-short RAlpha::ms_SetPalette(RImage* pimImage)
+int16_t RAlpha::ms_SetPalette(RImage* pimImage)
 	{
 #ifdef _DEBUG
 
@@ -217,13 +217,13 @@ short RAlpha::ms_SetPalette(RImage* pimImage)
 void RAlpha::StartEffect()
 	{
 	// clear scratch space
-	for (short i=0; i< 256;i++)
+	for (int16_t i=0; i< 256;i++)
 		{
 		ms_f[i] = ms_r[i]  = ms_g[i] = ms_b[i] = ms_a[i] = 0;
 		}
 	}
 
-short RAlpha::MarkEffect(short sLev,short sChannel,UCHAR ucLev)
+int16_t RAlpha::MarkEffect(int16_t sLev,int16_t sChannel,UCHAR ucLev)
 	{
 	if (sLev >= m_sAlphaDepth)
 		{
@@ -264,10 +264,10 @@ short RAlpha::MarkEffect(short sLev,short sChannel,UCHAR ucLev)
 // will create it for you.
 // This is designed to interpolate channels independently!
 //
-void RAlpha::FinishEffect(short sPalStart, short sPalLen)
+void RAlpha::FinishEffect(int16_t sPalStart, int16_t sPalLen)
 	{
 	// Interpolate each channel freely
-	short sChannel = 1;
+	int16_t sChannel = 1;
 	// ( THE TWO ENDS of the channels ARE ASSUMED MARKED!!!)
 	ms_f[0] = ms_f[m_sAlphaDepth-1] = 255;
 
@@ -295,8 +295,8 @@ void RAlpha::FinishEffect(short sPalStart, short sPalLen)
 			}
 
 		// Interpolate the channel!
-		short sIndex = 0;
-		short sBaseIndex = 0;
+		int16_t sIndex = 0;
+		int16_t sBaseIndex = 0;
 		while (sIndex < m_sAlphaDepth)
 			{
 			if ((ms_f[sIndex] & sChannel) != 0)
@@ -308,7 +308,7 @@ void RAlpha::FinishEffect(short sPalStart, short sPalLen)
 						pucChannel[sBaseIndex]) / double(sIndex - sBaseIndex);
 					double dVal = double(pucChannel[sBaseIndex])+0.5;
 
-					for (short j = sBaseIndex; j< sIndex;j++)
+					for (int16_t j = sBaseIndex; j< sIndex;j++)
 						{
 						pucChannel[j] = UCHAR(dVal);
 						dVal += dDelta;
@@ -329,23 +329,23 @@ void RAlpha::FinishEffect(short sPalStart, short sPalLen)
 
 // Uses the current system palette:
 //
-short RAlpha::ms_SetPalette()
+int16_t RAlpha::ms_SetPalette()
 	{
 	rspGetPaletteEntries(0,256,ms_red,ms_green,ms_blue,1);
 	ms_IsPaletteSet = TRUE;
 	return 0;
 	}
 
-short RAlpha::Alloc(short sDepth)
+int16_t RAlpha::Alloc(int16_t sDepth)
 	{
 	/* Inverted
 	m_pAlphas = (UCHAR**) calloc(m_sAlphaDepth,sizeof (UCHAR*));
-	for (short i=0; i < m_sAlphaDepth; i++)
+	for (int16_t i=0; i < m_sAlphaDepth; i++)
 		m_pAlphas[i] = (UCHAR*) calloc(1,256);
 	*/
 	m_sAlphaDepth = sDepth;
 
-	for (short i=0; i < 256; i++)
+	for (int16_t i=0; i < 256; i++)
 		m_pAlphas[i] = (UCHAR*) calloc(1,m_sAlphaDepth);
 
 	return 0;
@@ -354,7 +354,7 @@ short RAlpha::Alloc(short sDepth)
 RAlpha::RAlpha()
 	{
 	//m_pAlphas = NULL;
-	for (short i = 0 ;i<256;i++)
+	for (int16_t i = 0 ;i<256;i++)
 		m_pAlphas[i] = NULL;
 	m_sAlphaDepth = 0;
 	}
@@ -363,7 +363,7 @@ void RAlpha::Erase()
 	{
 	if (m_pAlphas)
 		{
-		for (short i=0;i<256 /*m_sAlphaDepth*/;i++)
+		for (int16_t i=0;i<256 /*m_sAlphaDepth*/;i++)
 			{
 			if (m_pAlphas[i]) 
 				{
@@ -383,9 +383,9 @@ RAlpha::~RAlpha()
 //************ COMMENT THIS OUT TO REMOVE DEPENDENCY ON BLIT!
 // For debugging an alpha, you should set the current palette to the
 // default one...
-void RAlpha::Dump(RImage* pimDst,short sX,short sY) 
+void RAlpha::Dump(RImage* pimDst,int16_t sX,int16_t sY) 
 	{
-	short i,j;
+	int16_t i,j;
 
 #ifdef _DEBUG
 	if (!pimDst)
@@ -397,15 +397,15 @@ void RAlpha::Dump(RImage* pimDst,short sX,short sY)
 
 	for (j=0;j<m_sAlphaDepth;j++)
 		for (i=0;i<255;i++)
-			rspPlot((m_pAlphas[i][j]),pimDst,short(sX+i),short(sY+j));
+			rspPlot((m_pAlphas[i][j]),pimDst,int16_t(sX+i),int16_t(sY+j));
 	}
 
 //************ COMMENT THIS OUT TO REMOVE DEPENDENCY ON BLIT!
 // For debugging an alpha, you should set the current palette to the
 // default one...
-void RAlpha::DumpPalette(RImage* pimDst,short sX,short sY) 
+void RAlpha::DumpPalette(RImage* pimDst,int16_t sX,int16_t sY) 
 	{
-	short i;
+	int16_t i;
 
 #ifdef _DEBUG
 	if (!pimDst)
@@ -417,12 +417,12 @@ void RAlpha::DumpPalette(RImage* pimDst,short sX,short sY)
 
 	for (i=0;i<255;i++)
 		{
-		rspLine(UCHAR(i),pimDst,short(sX+i),short(sY),short(sX+i),short(sY+255));
+		rspLine(UCHAR(i),pimDst,int16_t(sX+i),int16_t(sY),int16_t(sX+i),int16_t(sY+255));
 		}
 	}
 
 // dOpacity for now is between 0.0 (background) and 1.0 (foreground)
-short RAlpha::CreateAlphaRGB(double dOpacity,short sPalStart, short sPalLen)
+int16_t RAlpha::CreateAlphaRGB(double dOpacity,int16_t sPalStart, int16_t sPalLen)
 	{
 #ifdef _DEBUG
 	if (!ms_IsPaletteSet)
@@ -437,13 +437,13 @@ short RAlpha::CreateAlphaRGB(double dOpacity,short sPalStart, short sPalLen)
 
 	// If you use a 256 x 256 table for calculating BYTE * OPACITY = BYTE, you may double
 	// your net speed
-	short lSrc = (long)256 * dOpacity;
-	short lDst = 256 - lSrc;
+	int16_t lSrc = (long)256 * dOpacity;
+	int16_t lDst = 256 - lSrc;
 
 	// If you use a 256 x 256 table for calculating BYTE * OPACITY = BYTE, you may double
 	RFixedU16 r,g,b;
 
-	short s,d;
+	int16_t s,d;
 	for (s=0;s<256;s++)
 		{
 		for (d = 0;d < 256;d++)
@@ -463,8 +463,8 @@ short RAlpha::CreateAlphaRGB(double dOpacity,short sPalStart, short sPalLen)
 
 // dOpacity for now is between 0 (background) and 255 (foreground)
 // Input description should be arrays at least sAlphaDepth long.
-short RAlpha::CreateLightEffectRGB(UCHAR* pa,UCHAR* pr,UCHAR* pg,UCHAR* pb,long linc,
-			short sPalStart, short sPalLen, short sAlphaDepth)
+int16_t RAlpha::CreateLightEffectRGB(UCHAR* pa,UCHAR* pr,UCHAR* pg,UCHAR* pb,long linc,
+			int16_t sPalStart, int16_t sPalLen, int16_t sAlphaDepth)
 	{
 #ifdef _DEBUG
 	if (!ms_IsPaletteSet)
@@ -481,7 +481,7 @@ short RAlpha::CreateLightEffectRGB(UCHAR* pa,UCHAR* pr,UCHAR* pg,UCHAR* pb,long 
 	RFixedU16 r,g,b;
 	long lSrc,lFog;
 
-	short s,f;
+	int16_t s,f;
 	for (s=0;s<256;s++)
 		{
 		for (f = 0;f < sAlphaDepth;f++)
@@ -501,7 +501,7 @@ short RAlpha::CreateLightEffectRGB(UCHAR* pa,UCHAR* pr,UCHAR* pg,UCHAR* pb,long 
 	return 0;
 	}
 
-short RAlpha::CreateLightEffectRGB(short sPalStart, short sPalLen)
+int16_t RAlpha::CreateLightEffectRGB(int16_t sPalStart, int16_t sPalLen)
 	{
 #ifdef _DEBUG
 	if (!ms_IsPaletteSet)
@@ -514,7 +514,7 @@ short RAlpha::CreateLightEffectRGB(short sPalStart, short sPalLen)
 	RFixedU16 r,g,b;
 	long lSrc,lFog;
 
-	short s,f;
+	int16_t s,f;
 	for (s=0;s<256;s++)
 		{
 		for (f = 0;f < m_sAlphaDepth;f++)
@@ -579,7 +579,7 @@ RMultiAlpha::RMultiAlpha()
 
 RMultiAlpha::~RMultiAlpha()
 	{
-	for (short i=0;i < m_sNumLevels;i++)
+	for (int16_t i=0;i < m_sNumLevels;i++)
 		{
 		if (m_pAlphaList[i] != NULL) delete m_pAlphaList[i];
 		}
@@ -590,7 +590,7 @@ RMultiAlpha::~RMultiAlpha()
 	Erase();
 	}
 
-short RMultiAlpha::Alloc(short sDepth)
+int16_t RMultiAlpha::Alloc(int16_t sDepth)
 	{
 	// a NULL pointer will be left in the zero position.
 	if (m_pAlphaList)
@@ -610,7 +610,7 @@ void RMultiAlpha::Erase()
 	{
 	m_sNumLevels = 0;
 	m_pAlphaList = NULL;
-	for (short i=0;i < 256;i++) 
+	for (int16_t i=0;i < 256;i++) 
 		{
 		m_pGeneralAlpha[i] = NULL;
 		m_pSaveLevels[i] = UCHAR(0);
@@ -624,7 +624,7 @@ void RMultiAlpha::Erase()
 // you desire
 // SOON TO BE ARCHAIC!!!!!
 //
-short RMultiAlpha::AddAlpha(RAlpha* pAlpha,short sLev)
+int16_t RMultiAlpha::AddAlpha(RAlpha* pAlpha,int16_t sLev)
 	{
 	if (sLev > m_sNumLevels)
 		{
@@ -635,10 +635,10 @@ short RMultiAlpha::AddAlpha(RAlpha* pAlpha,short sLev)
 	return 0;
 	}
 
-short RMultiAlpha::Load(RFile* pFile)
+int16_t RMultiAlpha::Load(RFile* pFile)
 	{
 	char type[50];
-	short sVer;
+	int16_t sVer;
 
 	pFile->Read(type);
 	if (strcmp(type,"MALPHA"))
@@ -666,7 +666,7 @@ short RMultiAlpha::Load(RFile* pFile)
 	pFile->Read(m_pSaveLevels,256);
 
 	// Now load the actual sub-alphas
-	short i;
+	int16_t i;
 	for (i = 0; i < m_sNumLevels; i++)
 		{
 		m_pAlphaList[i] = new RAlpha;
@@ -684,10 +684,10 @@ short RMultiAlpha::Load(RFile* pFile)
 	return 0;
 	}
 
-short RMultiAlpha::Save(RFile* pFile)
+int16_t RMultiAlpha::Save(RFile* pFile)
 	{
 	char type[] = "MALPHA";
-	short sVer = 2;
+	int16_t sVer = 2;
 
 	pFile->Write(type);
 	pFile->Write(&sVer);
@@ -701,7 +701,7 @@ short RMultiAlpha::Save(RFile* pFile)
 	pFile->Write(m_pSaveLevels,256);
 
 	// Now save the actual sub-alphas
-	for (short i = 0; i < m_sNumLevels; i++)
+	for (int16_t i = 0; i < m_sNumLevels; i++)
 		{
 		m_pAlphaList[i]->Save(pFile);
 		}
@@ -710,7 +710,7 @@ short RMultiAlpha::Save(RFile* pFile)
 	return 0;
 	}
 
-short RMultiAlpha::Load(char* pszFile)
+int16_t RMultiAlpha::Load(char* pszFile)
 	{
 	RFile fplocal;
 	RFile *fp = &fplocal; // needs to be freed automatically!
@@ -727,12 +727,12 @@ short RMultiAlpha::Load(char* pszFile)
 		return -1;
 		}
 	
-	short sRet = Load(fp);
+	int16_t sRet = Load(fp);
 	fp->Close();
 	return sRet;
 	}
 
-short RMultiAlpha::Save(char* pszFile)
+int16_t RMultiAlpha::Save(char* pszFile)
 	{
 	RFile *fp = new RFile;
 
@@ -742,7 +742,7 @@ short RMultiAlpha::Save(char* pszFile)
 		return -1;
 		}
 	
-	short sRet = Save(fp);
+	int16_t sRet = Save(fp);
 	fp->Close();
 	return sRet;
 	}
@@ -752,10 +752,10 @@ short RMultiAlpha::Save(char* pszFile)
 // 0-255, otherwise it wil be mapped to the layer number.
 // You must first alloc the amount of colors.
 //
-short RMultiAlpha::CreateLayer(short sLayerNumber,
+int16_t RMultiAlpha::CreateLayer(int16_t sLayerNumber,
 												double dOpacity,
-												short sPalStart, 
-												short sPalLen)
+												int16_t sPalStart, 
+												int16_t sPalLen)
 	{
 	if (sLayerNumber >= m_sNumLevels)
 		{
@@ -778,9 +778,9 @@ short RMultiAlpha::CreateLayer(short sLayerNumber,
 
 // This interpolates the general table information
 //
-short RMultiAlpha::Finish(short sGeneral)
+int16_t RMultiAlpha::Finish(int16_t sGeneral)
 	{
-	short i;
+	int16_t i;
 
 	// At this level, might as well using floating point math for now.
 	if (sGeneral == FALSE) // make a level based identity mapping:
@@ -819,8 +819,8 @@ short RMultiAlpha::Finish(short sGeneral)
 		// set ends as a default:
 		if (m_pSaveLevels[255] == 0) m_pSaveLevels[255] = m_sNumLevels+1;
 
-		short sIndex = 0;
-		short sBaseIndex = 0;
+		int16_t sIndex = 0;
+		int16_t sBaseIndex = 0;
 		while (sIndex < 256)
 			{
 			if (m_pSaveLevels[sIndex] != 0)
@@ -832,7 +832,7 @@ short RMultiAlpha::Finish(short sGeneral)
 						m_pSaveLevels[sBaseIndex]) / double(sIndex - sBaseIndex);
 					double dVal = double(m_pSaveLevels[sBaseIndex])+0.5;
 
-					for (short j = sBaseIndex; j< sIndex;j++)
+					for (int16_t j = sBaseIndex; j< sIndex;j++)
 						{
 						m_pSaveLevels[j] = UCHAR(dVal);
 						dVal += dDelta;
@@ -880,8 +880,8 @@ short RMultiAlpha::Finish(short sGeneral)
 //          optional:  the size of the data in bytes.
 ///////////////////////////////////////////////////////////////////////////
 UCHAR*** RMultiAlpha::pppucCreateFastMultiAlpha(
-		short sStartSrc,short sNumSrc,	// color indices
-		short sStartDst,short sNumDst,
+		int16_t sStartSrc,int16_t sNumSrc,	// color indices
+		int16_t sStartDst,int16_t sNumDst,
 		long*	plAlignedSize)
 	{
 	// Assumes a fully correct this pointer!
@@ -919,8 +919,8 @@ UCHAR*** RMultiAlpha::pppucCreateFastMultiAlpha(
 
 	// Copy the abridged data from the current MultiAlpha in 
 	// level majorest, source major, destination minor form:
-	short a = 0,l,s,d;
-	short sOldL = 0;
+	int16_t a = 0,l,s,d;
+	int16_t sOldL = 0;
 
 	while (a < 255)
 		{
@@ -964,7 +964,7 @@ UCHAR*** RMultiAlpha::pppucCreateFastMultiAlpha(
 //  This is the ONLY way a Fast MultiAlpha can be deleted!
 //  Returns FAILURE or SUCCESS
 ///////////////////////////////////////////////////////////////////////////
-short	RMultiAlpha::DeleteFastMultiAlpha(UCHAR ****pfmaDel)
+int16_t	RMultiAlpha::DeleteFastMultiAlpha(UCHAR ****pfmaDel)
 	{
 	ASSERT(*pfmaDel);
 
@@ -995,7 +995,7 @@ short	RMultiAlpha::DeleteFastMultiAlpha(UCHAR ****pfmaDel)
 //  Ouput:  Max # of layers (= levels - 2)
 //				optional:  separate sizes for header and data
 ///////////////////////////////////////////////////////////////////////////
-short RMultiAlpha::QueryFastMultiAlpha(short sNumSrcCol, short sNumDstCol,
+int16_t RMultiAlpha::QueryFastMultiAlpha(int16_t sNumSrcCol, int16_t sNumDstCol,
 													long lTotMem, long* plHeaderSize,
 													long* plDataSize)
 	{
@@ -1003,7 +1003,7 @@ short RMultiAlpha::QueryFastMultiAlpha(short sNumSrcCol, short sNumDstCol,
 	long lLevMem;
 	long lDataPerLev;
 	long lHeaderPerLev;
-	short sNumLev;
+	int16_t sNumLev;
 	
 	long lHeaderMem = 1024; // ucClear & deltaMemFree16, + 255 pointer array (UCHAR**)
 	lDataPerLev = long(sNumSrcCol) * sNumDstCol; // Src * Dst BYTE table
@@ -1073,9 +1073,9 @@ RFastMultiAlphaWrapper::~RFastMultiAlphaWrapper()
 //
 ///////////////////////////////////////////////////////////////////////////
 
-short RFastMultiAlphaWrapper::Attach(UCHAR	***pppucFMA,short sStartSrc,
-		short sNumSrc,short sStartDst,short sNumDst,
-		short sNumLayers)
+int16_t RFastMultiAlphaWrapper::Attach(UCHAR	***pppucFMA,int16_t sStartSrc,
+		int16_t sNumSrc,int16_t sStartDst,int16_t sNumDst,
+		int16_t sNumLayers)
 	{
 	ASSERT(m_pppucFastMultiAlpha == NULL);
 	ASSERT(sStartSrc >= 0);
@@ -1130,13 +1130,13 @@ UCHAR***	RFastMultiAlphaWrapper::pppucGetFMA()
 //
 ///////////////////////////////////////////////////////////////////////////
 
-short RFastMultiAlphaWrapper::Save(RFile* pf)
+int16_t RFastMultiAlphaWrapper::Save(RFile* pf)
 	{
 	ASSERT(pf);
 	ASSERT(m_pppucFastMultiAlpha);
 
 	pf->Write("__FMA__");
-	short sVer = 1;
+	int16_t sVer = 1;
 	pf->Write(sVer);
 
 	pf->Write(m_sNumLayers);
@@ -1146,10 +1146,10 @@ short RFastMultiAlphaWrapper::Save(RFile* pf)
 	pf->Write(m_sNumDst);
 
 	// RESERVED:
-	pf->Write(short(0)); 
-	pf->Write(short(0));
-	pf->Write(short(0));
-	pf->Write(short(0));
+	pf->Write(int16_t(0)); 
+	pf->Write(int16_t(0));
+	pf->Write(int16_t(0));
+	pf->Write(int16_t(0));
 	pf->Write(long(0));
 
 	//======================= Write out the secret header from the FMA:
@@ -1158,8 +1158,8 @@ short RFastMultiAlphaWrapper::Save(RFile* pf)
 
 	//========================== Write out the LAYER distribution list: 
 	void* pvTemp = (void*)-1;
-	short sLevel = -1;
-	short i;
+	int16_t sLevel = -1;
+	int16_t i;
 
 	// Assume the FIRST level has a value of ZERO!
 	pf->Write(UCHAR(0));
@@ -1193,12 +1193,12 @@ short RFastMultiAlphaWrapper::Save(RFile* pf)
 //
 ///////////////////////////////////////////////////////////////////////////
 
-short RFastMultiAlphaWrapper::Load(RFile* pf)
+int16_t RFastMultiAlphaWrapper::Load(RFile* pf)
 	{
 	ASSERT(pf);
 	ASSERT(m_pppucFastMultiAlpha == NULL);
 
-	short sVer = 1;
+	int16_t sVer = 1;
 	char	szType[32];
 
 	pf->Read(szType);
@@ -1222,7 +1222,7 @@ short RFastMultiAlphaWrapper::Load(RFile* pf)
 	pf->Read(&m_sNumDst);
 
 	// RESERVED:
-	short sRes;
+	int16_t sRes;
 	long lRes;
 
 	pf->Read(&sRes); 
@@ -1274,7 +1274,7 @@ short RFastMultiAlphaWrapper::Load(RFile* pf)
 	pf->Read(pData,lDataLen); // one big contiguous chunck
 
 	//=============  Populate the source table  ===============
-	short sL,sS,sD;
+	int16_t sL,sS,sD;
 	UCHAR	**ppucLayers[256]; // only need m_lNumLayers, but this way is fine
 
 	for (sL = 0; sL < m_sNumLayers; sL++)
@@ -1291,7 +1291,7 @@ short RFastMultiAlphaWrapper::Load(RFile* pf)
 		}
 
 	// Now populate the alpha table based on the stored level numbers:
-	for (short i=1;i < 256; i++)
+	for (int16_t i=1;i < 256; i++)
 		{
 		UCHAR ucLev = ucLevels[i];
 		if ((ucLev > 0) && (ucLev <= m_sNumLayers))
@@ -1349,7 +1349,7 @@ short RFastMultiAlphaWrapper::Load(RFile* pf)
 //
 ///////////////////////////////////////////////////////////////////////////
 
-short RFastMultiAlphaWrapper::IsSrcValid(RImage* pimSrc)
+int16_t RFastMultiAlphaWrapper::IsSrcValid(RImage* pimSrc)
 	{
 	ASSERT(pimSrc);
 	ASSERT(pimSrc->m_sWidth);
@@ -1357,13 +1357,13 @@ short RFastMultiAlphaWrapper::IsSrcValid(RImage* pimSrc)
 
 	if (pimSrc->m_type != RImage::BMP8) return FALSE;
 
-	short i,j,sStartSrc,sLastSrc;
+	int16_t i,j,sStartSrc,sLastSrc;
 	GetSrcRange(&sStartSrc,&sLastSrc);
 
 	// The ever so standard 2d memory loop:
 	UCHAR* pDst,*pDstLine = pimSrc->m_pData;
 	long lP = pimSrc->m_lPitch;
-	short	sW = pimSrc->m_sWidth;
+	int16_t	sW = pimSrc->m_sWidth;
 
 	for (j = pimSrc->m_sHeight;j; j--,pDstLine += lP)
 		{

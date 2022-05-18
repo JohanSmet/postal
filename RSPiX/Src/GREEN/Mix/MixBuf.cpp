@@ -141,10 +141,10 @@ long	RMixBuf::ms_lMixBitsPerSample;	// Sample size in bits for mixing.
 long	RMixBuf::ms_lDstBitsPerSample;	// Sample size in bits for Blue data.
 long	RMixBuf::ms_lNumChannels;			// Number of channels (mono
 													//  or stereo).
-short	RMixBuf::ms_sNumBufs	= 0;			// Number of RMixBufs allocated.
+int16_t	RMixBuf::ms_sNumBufs	= 0;			// Number of RMixBufs allocated.
 UCHAR	RMixBuf::ms_ucGlobalVolume = UCHAR(255);	// Full volume is standard
 
-short	RMixBuf::ms_sCutOffVolume = 1;	// Volume to not bother mixing.
+int16_t	RMixBuf::ms_sCutOffVolume = 1;	// Volume to not bother mixing.
 
 //////////////////////////////////////////////////////////////////////////////
 // Handy conversion functions used by RMixBuf.
@@ -202,15 +202,15 @@ inline void Mix(		// Returns nothing.
 	U8*	pu8Dst,		// In:  Dst.
 	long	lSamples)	// In:  Number of samples to mix.
 	{
-	short	sVal;
+	int16_t	sVal;
 
 	while (lSamples--)
 		{
-		// Convert unsigned values into signed shorts, add them, clip sum,
+		// Convert unsigned values into int16_ts, add them, clip sum,
 		// convert back to unsigned value, and save result.
 		
 		// Add values after converting to signed.
-		sVal	= ((short)(*pu8Src++) - 128) + ((short)(*pu8Dst) - 128);
+		sVal	= ((int16_t)(*pu8Src++) - 128) + ((int16_t)(*pu8Dst) - 128);
 
 		// Clip.
 		if (sVal > 127)
@@ -354,11 +354,11 @@ inline void Mix(		// Returns nothing.
 	long	lSamples,	// In:  Number of samples to mix.
 	S16*	psLowTable)	// In:  Volume scale table.
 	{
-	short	sVal;
+	int16_t	sVal;
 
 	while (lSamples--)
 		{
-		// Convert unsigned values into signed shorts, add them, clip sum,
+		// Convert unsigned values into int16_ts, add them, clip sum,
 		// convert back to unsigned value, and save result
 
 		// Get signed source value, scaled by volume:
@@ -440,9 +440,9 @@ inline void Mix(			// Returns nothing.
 	S16*	psHighTable)	// In:  Volume scale table for high byte.
 	{
 	long	lVal;
-	short	sVal;
-	short	sHighSrc;
-	short	sLowSrc;
+	int16_t	sVal;
+	int16_t	sHighSrc;
+	int16_t	sLowSrc;
 
 	// Move into a byte by byte, sign adjustable reference wrapper.
 	P8	p8Src	= { (S8*)ps16Src };
@@ -461,11 +461,11 @@ inline void Mix(			// Returns nothing.
 		// case determines which byte is read first -- the signed
 		// or the unsigned.
 		#if defined(SYS_ENDIAN_LITTLE)
-			sLowSrc = short (*p8Src.pu8++);
-			sHighSrc = short (*p8Src.ps8++);
+			sLowSrc = int16_t (*p8Src.pu8++);
+			sHighSrc = int16_t (*p8Src.ps8++);
 		#else
-			sHighSrc = short (*p8Src.ps8++);
-			sLowSrc = short (*p8Src.pu8++);
+			sHighSrc = int16_t (*p8Src.ps8++);
+			sLowSrc = int16_t (*p8Src.pu8++);
 		#endif
 
 		sVal = psLowTable[sLowSrc] + psHighTable[sHighSrc];	// scaled
@@ -479,7 +479,7 @@ inline void Mix(			// Returns nothing.
 		else if (lVal < -32768)
 			lVal = -32768;
 
-		*ps16Dst++ = (short)(lVal);
+		*ps16Dst++ = (int16_t)(lVal);
 		}
 	}
 
@@ -674,9 +674,9 @@ void RMixBuf::Silence(void)
 // Returns 0 on success.
 //
 //////////////////////////////////////////////////////////////////////////////
-short RMixBuf::SetSize(ULONG ulSize)
+int16_t RMixBuf::SetSize(ULONG ulSize)
 	{
-	short sRes = 0;	// Assume success.
+	int16_t sRes = 0;	// Assume success.
 
 	ASSERT(m_sInUse == FALSE);
 
@@ -778,7 +778,7 @@ void RMixBuf::SetDest(	// Returns nothing.
 //////////////////////////////////////////////////////////////////////////////
 // This stores both the high and low arrasy in one, to save registers
 // (hence the '*2')
-short	CDVA::ms_asHighByte[DVA_SIZE * 2][256];	// for 16-bit sound
+int16_t	CDVA::ms_asHighByte[DVA_SIZE * 2][256];	// for 16-bit sound
 
 CDVA	initVolumeControl;	// create the tables
 
@@ -797,7 +797,7 @@ CDVA::CDVA()	// Create the tables!
 		// Output: 16 bit table yielding Input*256*DIM/255
 		//================================================================
 		long	lSrcVal,lDimVal,lCurValue,lNumerator;
-		short*	psCur = &ms_asHighByte[0][0];	// assume linear addressing:
+		int16_t*	psCur = &ms_asHighByte[0][0];	// assume linear addressing:
 		double	dSrcVal;
 		// This is DimVal major!
 
@@ -809,7 +809,7 @@ CDVA::CDVA()	// Create the tables!
 			// offset for signed!
 			for (dSrcVal = -32768.00; dSrcVal < 32767.0; dSrcVal += 256.0,psCur++)
 				{
-				*psCur = short(dSrcVal * dScale);	// use I.C. to speed up!
+				*psCur = int16_t(dSrcVal * dScale);	// use I.C. to speed up!
 				}
 			}
 
@@ -835,7 +835,7 @@ CDVA::CDVA()	// Create the tables!
 					lCurValue++;
 					}
 
-				*psCur = short(lCurValue);
+				*psCur = int16_t(lCurValue);
 				}
 			}
 		TRACE("Volume Control Initialized.\n");
@@ -848,7 +848,7 @@ CDVA::CDVA()	// Create the tables!
 // Returns 0 on success.
 //
 //////////////////////////////////////////////////////////////////////////////
-short RMixBuf::Mix(	ULONG		ulStartPos,
+int16_t RMixBuf::Mix(	ULONG		ulStartPos,
 							U8*		pu8Data, 
 							ULONG		ulSize, 
 							long		lSampleRate,
@@ -857,7 +857,7 @@ short RMixBuf::Mix(	ULONG		ulStartPos,
 							UCHAR		ucVolume,
 							UCHAR		ucVol2)
 	{
-	short sRes	= 0;	// Assume success.
+	int16_t sRes	= 0;	// Assume success.
 
 	ASSERT(m_sInUse == FALSE);
 
@@ -883,7 +883,7 @@ short RMixBuf::Mix(	ULONG		ulStartPos,
 		
 		// Calculate current effective volume scaling on type * global:
 		// This is actually the low byte. (hence DVA_SIZE + )
-		short sCurVolume = CDVA::ms_asHighByte
+		int16_t sCurVolume = CDVA::ms_asHighByte
 			[DVA_SIZE + (ms_ucGlobalVolume>>DVA_SHIFT)][ucVol2];
 
 		// Round up:
@@ -948,12 +948,12 @@ short RMixBuf::Mix(	ULONG		ulStartPos,
 				sCurVolume >>= DVA_SHIFT; // scale to an offset
 
 				// Offset high by 128 to represent signed upper bytes
-				short*	psHighTable = 128 + CDVA::ms_asHighByte[sCurVolume];
+				int16_t*	psHighTable = 128 + CDVA::ms_asHighByte[sCurVolume];
 				// The assembler doesn't know the offset is signed
-				// short*	psASMHighTable = CDVA::ms_asHighByte[sCurVolume];
+				// int16_t*	psASMHighTable = CDVA::ms_asHighByte[sCurVolume];
 				// Low byte is by nature unsigned, so no offset
 				// This is packed into the same table, offset by DVA_SIZE entries
-				short*	psLowTable = CDVA::ms_asHighByte[DVA_SIZE + sCurVolume];
+				int16_t*	psLowTable = CDVA::ms_asHighByte[DVA_SIZE + sCurVolume];
 
 				switch (lBitsPerSample)
 					{

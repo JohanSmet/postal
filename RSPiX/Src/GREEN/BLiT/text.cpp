@@ -53,13 +53,13 @@ ULONG	gulLassoBackgroundColor = 0;	// to ignore on Lasso
 ULONG	gulCompressionBackgroundColor = 0;	// During compression
 ULONG	gulConvertFromColor = 255; // reverting back...
 UCHAR	gucAscii = (UCHAR) 0;
-short gsTrimT = 0,gsMaxH = 0; // to further crop..
+int16_t gsTrimT = 0,gsMaxH = 0; // to further crop..
 ULONG gulDrawBack = 0, gulDrawFront = 1;
 
 // Specify special conversion parameters...
 //
 void	rspSetConvertToFSPR1(ULONG ulLassoBackCol,ULONG ulComprBackCol,
-								short sTrimT,short sMaxH,UCHAR ucAscii)
+								int16_t sTrimT,int16_t sMaxH,UCHAR ucAscii)
 	{
 	gulLassoBackgroundColor = ulLassoBackCol;
 	gulCompressionBackgroundColor = ulComprBackCol;
@@ -78,25 +78,25 @@ void	rspSetConvertFromFSPR1(ULONG ulFrontCol,ULONG ulBackCol)
 
 // Will convert from ANY uncompressed format, though currently only 8-bit is supported
 //
-short   ConvertToFSPR1(CImage* pImage);
+int16_t   ConvertToFSPR1(CImage* pImage);
 
 // Will convert back to type *8
 //
-short   ConvertFromFSPR1(CImage* pImage);
+int16_t   ConvertFromFSPR1(CImage* pImage);
 
 // Will delete pSpecial
 //
-short		DeleteFSPR1(CImage* pImage);
+int16_t		DeleteFSPR1(CImage* pImage);
 
 
 //IMAGELINKLATE(FSPR1,ConvertToFSPR1,ConvertFromFSPR1,  NULL,NULL,NULL,DeleteFSPR1);
 
 // We will use templating to make TC a reality...
 template <class PIX>
-inline short	_ConvertToFSPR1(CImage* pImage,PIX choose)
+inline int16_t	_ConvertToFSPR1(CImage* pImage,PIX choose)
 	{
 	// step 1, lasso the image based on background color:
-	short sX = 0,sY = 0,sW = (short)pImage->lWidth,sH = (short)pImage->lHeight;
+	int16_t sX = 0,sY = 0,sW = (int16_t)pImage->lWidth,sH = (int16_t)pImage->lHeight;
 	
 	if (rspLasso( (PIX)gulLassoBackgroundColor,pImage,sX,sY,sW,sH)) 
 		{
@@ -131,12 +131,12 @@ inline short	_ConvertToFSPR1(CImage* pImage,PIX choose)
 	// Might need to store total memory size up front.
 	UCHAR*	pCode = pHead->pCode;
 	UCHAR*	pBufLine = pBuf;
-	short	i,j,sCount;
+	int16_t	i,j,sCount;
 
 	UCHAR*	pOldCode = pCode;
 	// if there is a null line (a 255 line),
 	// the next line is the number of lines to skip (up to 254)
-	short	sLineSkipCount = 0;
+	int16_t	sLineSkipCount = 0;
 
 	for (j=0;j<sH;j++)
 		{
@@ -235,7 +235,7 @@ inline short	_ConvertToFSPR1(CImage* pImage,PIX choose)
 
 // We will use templating to make TC a reality...
 template <class PIX>
-inline short _ConvertFromFSPR1(CImage* pImage,PIX choose)
+inline int16_t _ConvertFromFSPR1(CImage* pImage,PIX choose)
 	{
 	// Assume it is of the correct format:
 	if (pImage->ulType != FSPR1) return NOT_SUPPORTED;
@@ -257,11 +257,11 @@ inline short _ConvertFromFSPR1(CImage* pImage,PIX choose)
 	CSpecialFSPR1*	pHead = (CSpecialFSPR1*)(pImage->pSpecial);
 	UCHAR*	pCode = pHead->m_pCode;
 
-	short	i,j;
-	short	sCount;
+	int16_t	i,j;
+	int16_t	sCount;
 	long lP = pImage->lPitch;
-	short sH = (short)pImage->lHeight;
-	short sW = (short)pImage->lWidth;
+	int16_t sH = (int16_t)pImage->lHeight;
+	int16_t sW = (int16_t)pImage->lWidth;
 
 	ULONG ulForeColor = (PIX)gulDrawFront;
 
@@ -344,12 +344,12 @@ inline short _ConvertFromFSPR1(CImage* pImage,PIX choose)
 	delete (CSpecialFSPR1*) pImage->pSpecial;
 	pImage->pSpecial = pImage->pSpecialMem = NULL;
 
-	return (short)pImage->ulType;
+	return (int16_t)pImage->ulType;
 	}
 
 	/* FOR NOW!
 
-short	ConvertToFSPR1(CImage* pImage)
+int16_t	ConvertToFSPR1(CImage* pImage)
 	{
 
 #ifdef _DEBUG
@@ -388,7 +388,7 @@ short	ConvertToFSPR1(CImage* pImage)
 	}
 	*/
 /**************************************************************************
-short ConvertFromFSPR1(CImage* pImage)
+int16_t ConvertFromFSPR1(CImage* pImage)
 	{
 #ifdef _DEBUG
 
@@ -420,12 +420,12 @@ short ConvertFromFSPR1(CImage* pImage)
 			return -1;
 		}
 
-	return (short)pImage->ulType;
+	return (int16_t)pImage->ulType;
 	}
 	*/
 
 /*
-short DeleteFSPR1(CImage* pImage)
+int16_t DeleteFSPR1(CImage* pImage)
 	{
 	CCompressedMono* pHead = (CCompressedMono*) pImage->pSpecial;
 	free(pHead->pCode);
@@ -442,18 +442,18 @@ void	InstantiateBLiT()
 	{
 	CImage* pim = NULL;
 
-	rspBlit( (UCHAR)0,(UCHAR)0,pim,pim,(short)0,(short)0);
+	rspBlit( (UCHAR)0,(UCHAR)0,pim,pim,(int16_t)0,(int16_t)0);
 	}
 
 //*****************************  THE FSPRITE1 BLiT  ******************************
 // currently 8-bit, but soon to be full color......
 // Must deal with screen locking.
 //
-short	rspBlit(ULONG ulForeColor,ULONG ulBackColor,CImage* pimSrc,CImage* pimDst,short sDstX,short sDstY,const Rect* prDst,
-					  short sAddW)
+int16_t	rspBlit(ULONG ulForeColor,ULONG ulBackColor,CImage* pimSrc,CImage* pimDst,int16_t sDstX,int16_t sDstY,const Rect* prDst,
+					  int16_t sAddW)
 	{
 	
-	//short sClip;
+	//int16_t sClip;
 
 	// 1) preliminary parameter validation:
 #ifdef _DEBUG
@@ -479,9 +479,9 @@ short	rspBlit(ULONG ulForeColor,ULONG ulBackColor,CImage* pimSrc,CImage* pimDst,
 #endif
 
 	// 2) Destination Clipping is hard here:
-	short sClipL=0,sClipR=0,sClipT=0,sClipB=0;
-	short sW = (short)pimSrc->lWidth; // clippng parameters...
-	short sH = (short)pimSrc->lHeight; // clippng parameters...
+	int16_t sClipL=0,sClipR=0,sClipT=0,sClipB=0;
+	int16_t sW = (int16_t)pimSrc->lWidth; // clippng parameters...
+	int16_t sH = (int16_t)pimSrc->lHeight; // clippng parameters...
 	long	lDstP = pimDst->lPitch;
 
 	// For clipping, adjust the destination accordingly but keep the
@@ -510,9 +510,9 @@ short	rspBlit(ULONG ulForeColor,ULONG ulBackColor,CImage* pimSrc,CImage* pimDst,
 		sClipT = -sDstY;
 		if (sClipR > 0) { sH -= sClipR; sDstY = 0; }
 		// The order here still works because BOTH sDstX AND sW changed!
-		sClipR = sDstX + sW - (short)pimDst->lWidth; // positive = clipped
+		sClipR = sDstX + sW - (int16_t)pimDst->lWidth; // positive = clipped
 		if (sClipR > 0) sW -= sClipR; // positive = clipped
-		sClipB = sDstY + sH - (short)pimDst->lHeight; // positive = clipped
+		sClipB = sDstY + sH - (int16_t)pimDst->lHeight; // positive = clipped
 		if (sClipB > 0) sH -= sClipB; // positive = clipped
 
 		if ((sW <= 0) || (sH <= 0)) return -1; // fully clipped
@@ -531,8 +531,8 @@ short	rspBlit(ULONG ulForeColor,ULONG ulBackColor,CImage* pimSrc,CImage* pimDst,
 	//**************  INSERT BUFFER HOOKS HERE!  ************************
 
 	// do OS based copying!
-	short sNeedToUnlock = 0; // will be the name of a buffer to unlock.
-	short sBlitTypeDst = 0;
+	int16_t sNeedToUnlock = 0; // will be the name of a buffer to unlock.
+	int16_t sBlitTypeDst = 0;
 
 	// IN RELEASE MODE, GIVE THE USER A CHANCE:
 #ifndef _DEBUG
@@ -544,7 +544,7 @@ short	rspBlit(ULONG ulForeColor,ULONG ulBackColor,CImage* pimSrc,CImage* pimDst,
 	// IN THIS IMPLEMENTATION, we must do LOCK, BLiT, UNLOCK, so I
 	// must record which UNLOCK (if any) needs to be done AFTER the BLiT
 	// has completed. (Lord help me if a blit gets interrupted)
-	if (pimDst->ulType == IMAGE_STUB) sBlitTypeDst = (short)pimDst->pSpecial;
+	if (pimDst->ulType == IMAGE_STUB) sBlitTypeDst = (int16_t)pimDst->pSpecial;
 
 	switch (sBlitTypeDst) // 0 = normal image
 		{
@@ -607,8 +607,8 @@ BLIT_PRELOCKED:
 	CSpecialFSPR1*	pHead = (CSpecialFSPR1*)(pimSrc->pSpecial);
 	UCHAR*	pCode = pHead->m_pCode;
 
-	short	i,j,k,l;
-	short	sCount;
+	int16_t	i,j,k,l;
+	int16_t	sCount;
 	long lP = pimDst->lPitch;
 
 	pLineBuf.b = pBuf.b = pimDst->pData + sDstX + sDstY * pimDst->lPitch;
@@ -777,8 +777,8 @@ BLIT_PRELOCKED:
 	else
 		{
 		// CLIP HORIZONTALLY and Vertically
-		short sRemainingW=sW;
-		short sClipLeft = sClipL;
+		int16_t sRemainingW=sW;
+		int16_t sClipLeft = sClipL;
 
 		// Skip the top:
 		if (sClipT) // clip source from top:
@@ -1065,8 +1065,8 @@ BLIT_DONTUNLOCK:
 // CURRENT STATUS -> fine clipping not perfected, Italics NOT integrated with clipping,
 // Background not perfected with tabs or interchar spacing.
 //
-short	rspBlit(ULONG ulForeColor,ULONG ulBackColor,CImage* pimSrc,CImage* pimDst,
-	short sDstX,short sDstY,short sDstW,short sDstH,Rect* prDst,short sAddW,short* psItalics)
+int16_t	rspBlit(ULONG ulForeColor,ULONG ulBackColor,CImage* pimSrc,CImage* pimDst,
+	int16_t sDstX,int16_t sDstY,int16_t sDstW,int16_t sDstH,Rect* prDst,int16_t sAddW,int16_t* psItalics)
 	{
 	// a special patch:
 	if (pimDst->ulType == BMP1)
@@ -1123,17 +1123,17 @@ short	rspBlit(ULONG ulForeColor,ULONG ulBackColor,CImage* pimSrc,CImage* pimDst,
 	u16Frac* frSkipX = u16fStrafe256((USHORT)sDstW,(USHORT)pimSrc->lWidth);	// < 1
 	u16Frac* frSkipY = u16fStrafe256((USHORT)sDstH,(USHORT)pimSrc->lHeight);	// < 1
 
-	short i,j,k,l,sCount;
+	int16_t i,j,k,l,sCount;
 	long	lDstP = pimDst->lPitch;
 	u16Frac	frPosX = {0},frNewX = {0};
 	u16Frac	frPosY = {0},frNewY = {0};
-	short sPixSize = pimSrc->sDepth>>3;
+	int16_t sPixSize = pimSrc->sDepth>>3;
 	UCHAR* pCode = ((CSpecialFSPR1 *)pimSrc->pSpecial)->m_pCode;
-	short sSrcW = (short)pimSrc->lWidth; // for clipping
-	short sSrcH = (short)pimSrc->lHeight;
-	short sDraw = 1; // This is a scanline skipper
-	short sDenX = sSrcW,sDenY = sSrcH;
-	short sClipL=0,sClipR=0,sClipT=0,sClipB=0;
+	int16_t sSrcW = (int16_t)pimSrc->lWidth; // for clipping
+	int16_t sSrcH = (int16_t)pimSrc->lHeight;
+	int16_t sDraw = 1; // This is a scanline skipper
+	int16_t sDenX = sSrcW,sDenY = sSrcH;
+	int16_t sClipL=0,sClipR=0,sClipT=0,sClipB=0;
 
 	//----------------------- Clipping Control:
 	// For clipping, adjust the destination accordingly but keep the
@@ -1162,9 +1162,9 @@ short	rspBlit(ULONG ulForeColor,ULONG ulBackColor,CImage* pimSrc,CImage* pimDst,
 		sClipT = -sDstY;
 		if (sClipR > 0) { sDstH -= sClipR; sDstY = 0; }
 		// The order here still works because BOTH sDstX AND sW changed!
-		sClipR = sDstX + sDstW - (short)pimDst->lWidth; // positive = clipped
+		sClipR = sDstX + sDstW - (int16_t)pimDst->lWidth; // positive = clipped
 		if (sClipR > 0) sDstW -= sClipR; // positive = clipped
-		sClipB = sDstY + sDstH - (short)pimDst->lHeight; // positive = clipped
+		sClipB = sDstY + sDstH - (int16_t)pimDst->lHeight; // positive = clipped
 		if (sClipB > 0) sDstH -= sClipB; // positive = clipped
 
 		if ((sDstW <= 0) || (sDstH <= 0)) return -1; // fully clipped
@@ -1183,8 +1183,8 @@ short	rspBlit(ULONG ulForeColor,ULONG ulBackColor,CImage* pimSrc,CImage* pimDst,
 	//===================================================================
 	// Do Locking!
 	// do OS based copying!
-	short sNeedToUnlock = 0; // will be the name of a buffer to unlock.
-	short sBlitTypeDst = 0;
+	int16_t sNeedToUnlock = 0; // will be the name of a buffer to unlock.
+	int16_t sBlitTypeDst = 0;
 
 	// IN RELEASE MODE, GIVE THE USER A CHANCE:
 #ifndef _DEBUG
@@ -1197,7 +1197,7 @@ short	rspBlit(ULONG ulForeColor,ULONG ulBackColor,CImage* pimSrc,CImage* pimDst,
 	// must record which UNLOCK (if any) needs to be done AFTER the BLiT
 	// has completed. (Lord help me if a blit gets interrupted)
 	// NOT NECESSARY!!! THe SOURCE WILL ALWAYS BE A BUFFER!
-	if (pimDst->ulType == IMAGE_STUB) sBlitTypeDst = (short)pimDst->pSpecial;
+	if (pimDst->ulType == IMAGE_STUB) sBlitTypeDst = (int16_t)pimDst->pSpecial;
 
 	switch (sBlitTypeDst) // 0 = normal image
 		{
@@ -1697,12 +1697,12 @@ BLIT_DONTUNLOCK_RSPTXTSCL:
 // This needs to be called with precalculated skipX and skipY tables
 // of 256 values.  Useful for fonts!
 //
-short	_rspBlit(ULONG ulClrLTR,ULONG ulClrBKD,CImage* pimSrc,CImage* pimDst,
-				  short sDstX,short sDstY,short sW,short sH,
-				  short sAddW,u16Frac* frSkipY,u16Frac* frSkipX);
-short	_rspBlit(ULONG ulClrLTR,ULONG ulClrBKD,CImage* pimSrc,CImage* pimDst,
-				  short sDstX,short sDstY,short sW,short sH,
-				  short sAddW,u16Frac* frSkipY,u16Frac* frSkipX)
+int16_t	_rspBlit(ULONG ulClrLTR,ULONG ulClrBKD,CImage* pimSrc,CImage* pimDst,
+				  int16_t sDstX,int16_t sDstY,int16_t sW,int16_t sH,
+				  int16_t sAddW,u16Frac* frSkipY,u16Frac* frSkipX);
+int16_t	_rspBlit(ULONG ulClrLTR,ULONG ulClrBKD,CImage* pimSrc,CImage* pimDst,
+				  int16_t sDstX,int16_t sDstY,int16_t sW,int16_t sH,
+				  int16_t sAddW,u16Frac* frSkipY,u16Frac* frSkipX)
 	{
 
 #ifdef _DEBUG
@@ -1752,9 +1752,9 @@ short	_rspBlit(ULONG ulClrLTR,ULONG ulClrBKD,CImage* pimSrc,CImage* pimDst,
 
 	// Do Locking!
 	// do OS based copying!
-	short sNeedToUnlock = 0; // will be the name of a buffer to unlock.
+	int16_t sNeedToUnlock = 0; // will be the name of a buffer to unlock.
 
-	short sBlitTypeDst = 0;
+	int16_t sBlitTypeDst = 0;
 
 	// IN RELEASE MODE, GIVE THE USER A CHANCE:
 #ifndef _DEBUG
@@ -1767,7 +1767,7 @@ short	_rspBlit(ULONG ulClrLTR,ULONG ulClrBKD,CImage* pimSrc,CImage* pimDst,
 	// must record which UNLOCK (if any) needs to be done AFTER the BLiT
 	// has completed. (Lord help me if a blit gets interrupted)
 	// NOT NECESSARY!!! THe SOURCE WILL ALWAYS BE A BUFFER!
-	if (pimDst->ulType == IMAGE_STUB) sBlitTypeDst = (short)pimDst->pSpecial;
+	if (pimDst->ulType == IMAGE_STUB) sBlitTypeDst = (int16_t)pimDst->pSpecial;
 
 	switch (sBlitTypeDst) // 0 = normal image
 		{
@@ -1818,7 +1818,7 @@ short	_rspBlit(ULONG ulClrLTR,ULONG ulClrBKD,CImage* pimSrc,CImage* pimDst,
 
 BLIT_PRELOCKED_TXTSCL:
 
-	short sFreeSkip = 0;
+	int16_t sFreeSkip = 0;
 
 	if (frSkipX == NULL)
 		{
@@ -1832,17 +1832,17 @@ BLIT_PRELOCKED_TXTSCL:
 		sFreeSkip += 2;
 		}
 
-	short i,j,k,l,sCount;
+	int16_t i,j,k,l,sCount;
 	long	lP = pimDst->lPitch;
 	u16Frac	frPosX = {0},frNewX = {0};
 	u16Frac	frPosY = {0},frNewY = {0};
-	short sPixSize = pimSrc->sDepth>>3;
+	int16_t sPixSize = pimSrc->sDepth>>3;
 	pLineBuf.b = pBuf.b = pimDst->pData + lP * sDstY + sDstX * sPixSize;
 	UCHAR* pCode = ((CSpecialFSPR1 *)pimSrc->pSpecial)->m_pCode;
-	short sSrcW = (short)pimSrc->lWidth;
-	short sSrcH = (short)pimSrc->lHeight;
-	short sDraw = 1; // This is a scanline skipper
-	short sDenX = sSrcW,sDenY = sSrcH;
+	int16_t sSrcW = (int16_t)pimSrc->lWidth;
+	int16_t sSrcH = (int16_t)pimSrc->lHeight;
+	int16_t sDraw = 1; // This is a scanline skipper
+	int16_t sDenX = sSrcW,sDenY = sSrcH;
 
 	//**********************************************************
 	// Do the BLiT!
@@ -2050,9 +2050,9 @@ BLIT_DONTUNLOCK_TXTSCL:
 void	instantiateBLIT()
 	{
 	CImage* pim = NULL;
-	_rspBlit( (UCHAR)0,(UCHAR)0,pim,pim,(short)0,(short)0,(short)0,(short)0);
-	_rspBlit( (USHORT)0,(USHORT)0,pim,pim,(short)0,(short)0,(short)0,(short)0);
-	_rspBlit( (ULONG)0,(ULONG)0,pim,pim,(short)0,(short)0,(short)0,(short)0);
+	_rspBlit( (UCHAR)0,(UCHAR)0,pim,pim,(int16_t)0,(int16_t)0,(int16_t)0,(int16_t)0);
+	_rspBlit( (USHORT)0,(USHORT)0,pim,pim,(int16_t)0,(int16_t)0,(int16_t)0,(int16_t)0);
+	_rspBlit( (ULONG)0,(ULONG)0,pim,pim,(int16_t)0,(int16_t)0,(int16_t)0,(int16_t)0);
 	}
 
 	*/

@@ -136,8 +136,8 @@ long CSentry::ms_lWatchWaitTime = 2500;		// Time to watch shot go
 long CSentry::ms_lPatrolTime = 5000;		// Time to patrol before shooting
 long CSentry::ms_lDeathTimeout = 20000;	// Wait around after dying
 long CSentry::ms_lBurningRunTime = 50;		// Run this time before turning
-short CSentry::ms_sHitLimit = 150;			// Number of starting hit points
-short CSentry::ms_sBurntBrightness = -40;	// Brightness after being burnt
+int16_t CSentry::ms_sHitLimit = 150;			// Number of starting hit points
+int16_t CSentry::ms_sBurntBrightness = -40;	// Brightness after being burnt
 long CSentry::ms_lMaxShootTime = MS_BETWEEN_BULLETS;		// Maximum in ms of continuous shooting.
 long CSentry::ms_lReselectDudeTime	= 3000;	// Time to go without finding a dude
 															// before calling SelectDude() to find
@@ -147,7 +147,7 @@ U32 CSentry::ms_u32WeaponDontcareBits = CSmash::Good | CSmash::Bad;
 U32 CSentry::ms_u32WeaponExcludeBits = CSmash::SpecialBarrel | CSmash::Ducking | CSmash::Bad | CSmash::Civilian;
 
 // Let this auto-init to 0
-short CSentry::ms_sFileCount;
+int16_t CSentry::ms_sFileCount;
 
 /// Throwing Animation Files ////////////////////////////////////////////////////
 // An array of pointers to resource names (one for each channel of the animation)
@@ -228,13 +228,13 @@ static RP3d ms_apt3dAttribCheck[] =
 ////////////////////////////////////////////////////////////////////////////////
 // Load object (should call base class version!)
 ////////////////////////////////////////////////////////////////////////////////
-short CSentry::Load(				// Returns 0 if successfull, non-zero otherwise
+int16_t CSentry::Load(				// Returns 0 if successfull, non-zero otherwise
 	RFile* pFile,						// In:  File to load from
 	bool bEditMode,					// In:  True for edit mode, false otherwise
-	short sFileCount,					// In:  File count (unique per file, never 0)
+	int16_t sFileCount,					// In:  File count (unique per file, never 0)
 	ULONG	ulFileVersion)				// In:  Version of file format to load.
 {
-	short sResult = 0;
+	int16_t sResult = 0;
 	// Call the base load function to get ID, position, etc.
 	sResult = CDoofus::Load(pFile, bEditMode, sFileCount, ulFileVersion);
 	if (sResult == 0)
@@ -307,9 +307,9 @@ short CSentry::Load(				// Returns 0 if successfull, non-zero otherwise
 ////////////////////////////////////////////////////////////////////////////////
 // Save object (should call base class version!)
 ////////////////////////////////////////////////////////////////////////////////
-short CSentry::Save(										// Returns 0 if successfull, non-zero otherwise
+int16_t CSentry::Save(										// Returns 0 if successfull, non-zero otherwise
 	RFile* pFile,											// In:  File to save to
-	short sFileCount)										// In:  File count (unique per file, never 0)
+	int16_t sFileCount)										// In:  File count (unique per file, never 0)
 {
 	// Swap the hotspot we want to save in.
 	double dTempX = m_dX;
@@ -319,7 +319,7 @@ short CSentry::Save(										// Returns 0 if successfull, non-zero otherwise
 	m_dY = m_dYBase;
 	m_dZ = m_dZBase;
 
-	short sResult;
+	int16_t sResult;
 
 	// Call the base class save to save the instance ID, position, etc
 	CDoofus::Save(pFile, sFileCount);
@@ -374,7 +374,7 @@ void CSentry::Render(void)
 
 	// Do our own render of the stationary base
 	U16	u16CombinedAttributes;
-	short	sLightTally;
+	int16_t	sLightTally;
 	GetEffectAttributes(m_dXBase, m_dZBase, &u16CombinedAttributes, &sLightTally);
 
 	// Brightness.
@@ -391,7 +391,7 @@ void CSentry::Render(void)
 		m_trans.Rz(rspMod360(m_dRotZ) );
 
 		// Map from 3d to 2d coords
-		Map3Dto2D((short) m_dXBase, (short) m_dYBase, (short) m_dZBase, &m_spriteBase.m_sX2, &m_spriteBase.m_sY2);
+		Map3Dto2D((int16_t) m_dXBase, (int16_t) m_dYBase, (int16_t) m_dZBase, &m_spriteBase.m_sX2, &m_spriteBase.m_sY2);
 
 		// Layer should be based on info from attribute map.
 		GetLayer(m_dXBase, m_dZBase, &(m_spriteBase.m_sLayer) );
@@ -428,9 +428,9 @@ void CSentry::Render(void)
 // Init - Call this after the resources are in place
 ////////////////////////////////////////////////////////////////////////////////
 
-short CSentry::Init(void)
+int16_t CSentry::Init(void)
 {
-	short sResult = 0;
+	int16_t sResult = 0;
 
 	// Prepare shadow (get resources and setup sprite).
 	sResult	= PrepareShadow();
@@ -513,9 +513,9 @@ void CSentry::UpdatePosition(void)
 ////////////////////////////////////////////////////////////////////////////////
 // Startup object
 ////////////////////////////////////////////////////////////////////////////////
-short CSentry::Startup(void)								// Returns 0 if successfull, non-zero otherwise
+int16_t CSentry::Startup(void)								// Returns 0 if successfull, non-zero otherwise
 {
-	short sResult = 0;
+	int16_t sResult = 0;
 
 	// Set the current height, previous time, and Nav Net
 	CDoofus::Startup();
@@ -530,9 +530,9 @@ short CSentry::Startup(void)								// Returns 0 if successfull, non-zero otherw
 ////////////////////////////////////////////////////////////////////////////////
 // Shutdown object
 ////////////////////////////////////////////////////////////////////////////////
-short CSentry::Shutdown(void)							// Returns 0 if successfull, non-zero otherwise
+int16_t CSentry::Shutdown(void)							// Returns 0 if successfull, non-zero otherwise
 {
-	short sResult = 0;
+	int16_t sResult = 0;
 
 	m_trans.Make1();
 	m_transBase.Make1();
@@ -565,14 +565,14 @@ void CSentry::Resume(void)
 ////////////////////////////////////////////////////////////////////////////////
 void CSentry::Update(void)
 {
-	// short sHeight = m_sPrevHeight;
+	// int16_t sHeight = m_sPrevHeight;
 	long lThisTime;
 	long lTimeDifference;
 	long lSqDistanceToDude = 0;
-	short sTargetAngle;
-	short sAngleCCL;
-	short sAngleCL;
-	short sAngleDistance;
+	int16_t sTargetAngle;
+	int16_t sAngleCCL;
+	int16_t sAngleCL;
+	int16_t sAngleDistance;
 	double dRotDistance;
 	bool bShootThisTime = false;
 
@@ -747,12 +747,12 @@ void CSentry::Update(void)
 ////////////////////////////////////////////////////////////////////////////////
 // Called by editor to init new object at specified position
 ////////////////////////////////////////////////////////////////////////////////
-short CSentry::EditNew(									// Returns 0 if successfull, non-zero otherwise
-	short sX,												// In:  New x coord
-	short sY,												// In:  New y coord
-	short sZ)												// In:  New z coord
+int16_t CSentry::EditNew(									// Returns 0 if successfull, non-zero otherwise
+	int16_t sX,												// In:  New x coord
+	int16_t sY,												// In:  New y coord
+	int16_t sZ)												// In:  New z coord
 {
-	short sResult = 0;
+	int16_t sResult = 0;
 
 	sResult = CDoofus::EditNew(sX, sY, sZ);
 
@@ -776,9 +776,9 @@ short CSentry::EditNew(									// Returns 0 if successfull, non-zero otherwise
 ////////////////////////////////////////////////////////////////////////////////
 // Edit Move
 ////////////////////////////////////////////////////////////////////////////////
-short CSentry::EditMove(short sX, short sY, short sZ)
+int16_t CSentry::EditMove(int16_t sX, int16_t sY, int16_t sZ)
 {
-	short sResult = CDoofus::EditMove(sX, sY, sZ);
+	int16_t sResult = CDoofus::EditMove(sX, sY, sZ);
 
 	UpdatePosition();
 
@@ -819,17 +819,17 @@ void CSentry::EditRect(RRect* pRect)
 // (virtual (Overridden here)).
 ////////////////////////////////////////////////////////////////////////////////
 void CSentry::EditHotSpot(			// Returns nothiing.
-	short*	psX,						// Out: X coord of 2D hotspot relative to
+	int16_t*	psX,						// Out: X coord of 2D hotspot relative to
 											// EditRect() pos.
-	short*	psY)						// Out: Y coord of 2D hotspot relative to
+	int16_t*	psY)						// Out: Y coord of 2D hotspot relative to
 											// EditRect() pos.
 	{
 	// Get rectangle.
 	RRect	rc;
 	EditRect(&rc);
 	// Get 2D hotspot.
-	short	sX;
-	short	sY;
+	int16_t	sX;
+	int16_t	sY;
 	Map3Dto2D(
 		m_dXBase,
 		m_dYBase,
@@ -845,9 +845,9 @@ void CSentry::EditHotSpot(			// Returns nothiing.
 ////////////////////////////////////////////////////////////////////////////////
 // Called by editor to modify object
 ////////////////////////////////////////////////////////////////////////////////
-short CSentry::EditModify(void)
+int16_t CSentry::EditModify(void)
 {
-	short sResult = 0;
+	int16_t sResult = 0;
 	RGuiItem* pGuiItem = NULL;
 	RGuiItem* pGui = RGuiItem::LoadInstantiate(FullPathVD("res/editor/sentry.gui"));
 	if (pGui)
@@ -876,7 +876,7 @@ short CSentry::EditModify(void)
 			pWeaponList->RemoveAll();
 
 			// Fill in the list box with current available weapons.
-			short	i;
+			int16_t	i;
 			for (i = 0; i < NumWeaponTypes; i++)
 				{
 				if (	(i != DeathWad || CStockPile::ms_sEnableDeathWad) &&
@@ -923,7 +923,7 @@ short CSentry::EditModify(void)
 			peditShotDelay->Compose();
 
 			// Set current rotational velocity
-			peditRotVel->SetText("%d", (short) m_dAngularVelocity);
+			peditRotVel->SetText("%d", (int16_t) m_dAngularVelocity);
 			peditRotVel->Compose();
 				
 			sResult = DoGui(pGui);
@@ -953,9 +953,9 @@ short CSentry::EditModify(void)
 ////////////////////////////////////////////////////////////////////////////////
 // Get all required resources
 ////////////////////////////////////////////////////////////////////////////////
-short CSentry::GetResources(void)						// Returns 0 if successfull, non-zero otherwise
+int16_t CSentry::GetResources(void)						// Returns 0 if successfull, non-zero otherwise
 {
-	short sResult = 0;
+	int16_t sResult = 0;
 
 	sResult = m_animShoot.Get(ms_apszShootResNames);
 	if (sResult == 0)
@@ -1006,7 +1006,7 @@ short CSentry::GetResources(void)						// Returns 0 if successfull, non-zero oth
 ////////////////////////////////////////////////////////////////////////////////
 // Free all resources
 ////////////////////////////////////////////////////////////////////////////////
-short CSentry::FreeResources(void)						// Returns 0 if successfull, non-zero otherwise
+int16_t CSentry::FreeResources(void)						// Returns 0 if successfull, non-zero otherwise
 {
 	m_animShoot.Release();
 	m_animStand.Release();
@@ -1028,7 +1028,7 @@ short CSentry::FreeResources(void)						// Returns 0 if successfull, non-zero ot
 void CSentry::OnShotMsg(Shot_Message* pMessage)
 {
 	// Audible and visual feedback.
-	short sSound = GetRandom() % 3;
+	int16_t sSound = GetRandom() % 3;
 
 	switch (sSound)
 	{
@@ -1046,7 +1046,7 @@ void CSentry::OnShotMsg(Shot_Message* pMessage)
 	}
 
 	// X/Z position depends on angle of shot (it is opposite).
-	short	sDeflectionAngle	= rspMod360(pMessage->sAngle + 180);
+	int16_t	sDeflectionAngle	= rspMod360(pMessage->sAngle + 180);
 	double	dHitX	= m_dX + COSQ[sDeflectionAngle] * HULL_RADIUS + RAND_SWAY(4);
 	double	dHitZ	= m_dZ - SINQ[sDeflectionAngle] * HULL_RADIUS + RAND_SWAY(4);
 	StartAnim(

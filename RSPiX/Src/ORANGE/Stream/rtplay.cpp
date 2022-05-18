@@ -186,9 +186,9 @@ void CRtPlay::Reset(void)
 // Returns 0 on success.
 //
 //////////////////////////////////////////////////////////////////////////////
-short CRtPlay::CreateCmd(USHORT usCmd, long lTime, long lParm1, long lParm2)
+int16_t CRtPlay::CreateCmd(USHORT usCmd, long lTime, long lParm1, long lParm2)
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 	long	lSize	= sizeof(usCmd) + sizeof(lParm1) + sizeof(lParm2);
 
 	UCHAR*	puc	= (UCHAR*)malloc(lSize);
@@ -237,10 +237,10 @@ short CRtPlay::CreateCmd(USHORT usCmd, long lTime, long lParm1, long lParm2)
 // Returns RET_FREE if puc should be freed and RET_DONTFREE, otherwise.
 //
 //////////////////////////////////////////////////////////////////////////////
-short CRtPlay::RtInfoCall(	UCHAR* puc, long lSize, USHORT usType, UCHAR ucFlags,
+int16_t CRtPlay::RtInfoCall(	UCHAR* puc, long lSize, USHORT usType, UCHAR ucFlags,
 									long lTime)
 	{
-	short	sError	= 0;
+	int16_t	sError	= 0;
 
 	// If this is the init/first chunk . . .
 	if (ucFlags & RT_FLAG_INIT)
@@ -394,7 +394,7 @@ short CRtPlay::RtInfoCall(	UCHAR* puc, long lSize, USHORT usType, UCHAR ucFlags,
 // (static)
 //
 //////////////////////////////////////////////////////////////////////////////
-short CRtPlay::RtInfoCallStatic(	UCHAR* puc, long lSize, USHORT usType, 
+int16_t CRtPlay::RtInfoCallStatic(	UCHAR* puc, long lSize, USHORT usType, 
 											UCHAR ucFlags, long lTime, long l_pRtPlay)
 	{
 	return ((CRtPlay*)l_pRtPlay)->RtInfoCall(puc, lSize, usType, ucFlags, lTime);
@@ -407,9 +407,9 @@ short CRtPlay::RtInfoCallStatic(	UCHAR* puc, long lSize, USHORT usType,
 // Returns 0 on success.
 //
 //////////////////////////////////////////////////////////////////////////////
-short CRtPlay::SetState(USHORT usState)
+int16_t CRtPlay::SetState(USHORT usState)
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	// If new state . . .
 	if (m_usState != usState)
@@ -421,7 +421,7 @@ short CRtPlay::SetState(USHORT usState)
 		// macros, you'll never see this until you figure out that there's
 		// a problem.
 		USHORT	usMsg	= usState;
-		short		sNum	= m_dispatch.SendHandlerMessage(usMsg);
+		int16_t		sNum	= m_dispatch.SendHandlerMessage(usMsg);
 
 		if (sNum == 0)
 			{
@@ -456,7 +456,7 @@ short CRtPlay::SetState(USHORT usState)
 //////////////////////////////////////////////////////////////////////////////
 void CRtPlay::Critical(void)
 	{
-	short	sError	= 0;
+	int16_t	sError	= 0;
 
 	switch (m_usState)
 		{
@@ -535,9 +535,9 @@ void CRtPlay::Critical(void)
 // Returns 0 on success.
 //
 //////////////////////////////////////////////////////////////////////////////
-short CRtPlay::Open(char* pszFileName)
+int16_t CRtPlay::Open(char* pszFileName)
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	if (Close() == 0)
 		{
@@ -585,9 +585,9 @@ short CRtPlay::Open(char* pszFileName)
 // Returns 0 on success.
 //
 //////////////////////////////////////////////////////////////////////////////
-short CRtPlay::Close(void)
+int16_t CRtPlay::Close(void)
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	// If stopped . . .
 	if (m_usState == RT_STATE_STOPPED)
@@ -619,9 +619,9 @@ short CRtPlay::Close(void)
 // Returns 0 on success.
 //
 //////////////////////////////////////////////////////////////////////////////
-short CRtPlay::Play(void)
+int16_t CRtPlay::Play(void)
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	// If stopped . . .
 	if (m_usState == RT_STATE_STOPPED)
@@ -707,9 +707,9 @@ short CRtPlay::Play(void)
 // Returns 0 on success.
 //
 //////////////////////////////////////////////////////////////////////////////
-short CRtPlay::Abort(void)
+int16_t CRtPlay::Abort(void)
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	// If not stopped . . .
 	if (m_usState != RT_STATE_STOPPED)
@@ -765,9 +765,9 @@ short CRtPlay::Abort(void)
 // Returns 0 on success.
 //
 //////////////////////////////////////////////////////////////////////////////
-short CRtPlay::Pause(void)
+int16_t CRtPlay::Pause(void)
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	// If playing . . .
 	if (m_usState == RT_STATE_PLAYING)
@@ -805,9 +805,9 @@ short CRtPlay::Pause(void)
 // Returns 0 on success.
 //
 //////////////////////////////////////////////////////////////////////////////
-short CRtPlay::Resume(void)
+int16_t CRtPlay::Resume(void)
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	if (m_usState == RT_STATE_PAUSE)
 		{

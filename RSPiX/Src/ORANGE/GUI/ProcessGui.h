@@ -119,7 +119,7 @@ class RProcessGui
 		// Prepare to handle a GUI.
 		// This must be called to setup components before DoModeless() is called.
 		// (DoModal() does this automatically).
-		short Prepare(							// Returns 0 on success.
+		int16_t Prepare(							// Returns 0 on success.
 			RGuiItem* pgui,					// In:  GUI to be processed.
 			RGuiItem* pguiOk = NULL,		// In:  If not NULL, specifies GUI 
 													// activated by ENTER key.
@@ -214,7 +214,7 @@ class RProcessGui
 		UpdateFunc	m_fnUpdate;		// Callback to do updates, if not using
 											// default handling.
 
-		short			m_sFlags;		// See Flags.
+		int16_t			m_sFlags;		// See Flags.
 
 	///////////////////////////////////////////////////////////////////////////
 	// Static data.

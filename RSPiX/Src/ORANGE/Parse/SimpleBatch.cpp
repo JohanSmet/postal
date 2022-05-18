@@ -20,7 +20,7 @@
 char	RBatch::ms_Error[1024];
 
 // returns the number of tokens found, or -1 for EOF
-short RBatch::GetLine()
+int16_t RBatch::GetLine()
 	{
 	m_sNumTokens = 0;
 	size_t i;
@@ -38,12 +38,12 @@ short RBatch::GetLine()
 
 	int iChar;
 	char c;
-	short sLinePos = 0;
-	short sTokenChar = 0;
-	short sLoop = TRUE;
-	short sRet = 0;
-	short sMidToken = FALSE;
-	short sInString = FALSE;
+	int16_t sLinePos = 0;
+	int16_t sTokenChar = 0;
+	int16_t sLoop = TRUE;
+	int16_t sRet = 0;
+	int16_t sMidToken = FALSE;
+	int16_t sInString = FALSE;
 
 	while (sLoop)
 		{
@@ -114,7 +114,7 @@ BEGIN_LOOP:
 					}
 
 			// 3) Check for a filtered character
-			if (((short)c < m_sLowFilter) || ( (short)c > m_sHighFilter))
+			if (((int16_t)c < m_sLowFilter) || ( (int16_t)c > m_sHighFilter))
 				{
 				if (sMidToken)
 					{
@@ -188,7 +188,7 @@ BEGIN_LOOP:
 		return -1;
 	}
 
-const char* RBatch::CreateError(short sToken)
+const char* RBatch::CreateError(int16_t sToken)
 	{
 	if (m_fp == NULL)
 		{
@@ -219,7 +219,7 @@ const char* RBatch::NextToken()
 	{
 	if (m_sCurToken == -2) // first time:
 		{
-		if (GetLine() == short(-1)) 
+		if (GetLine() == int16_t(-1)) 
 			{
 			return NULL;
 			}

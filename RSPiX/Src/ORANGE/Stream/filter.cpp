@@ -190,7 +190,7 @@ void CFilter::Reset(void)
 //////////////////////////////////////////////////////////////////////////////
 void CFilter::WinCall(PPANE ppane)
 	{
-	short	sError	= 0;
+	int16_t	sError	= 0;
 
 	ASSERT(ppane->lSize		>= 0);
 	// MUST be 4 byte aligned.
@@ -377,7 +377,7 @@ PRTCHUNK CFilter::GetChunk(long lId)
 PRTCHUNK CFilter::AddChunk(long lSize, USHORT usType, UCHAR ucFlags, long lId,
 									long lTime)
 	{
-	short		sError	= 0;
+	int16_t		sError	= 0;
 	PRTCHUNK	pChunk	= NULL;
 
 	// Attempt to allocate chunk . . .
@@ -444,9 +444,9 @@ PRTCHUNK CFilter::AddChunk(long lSize, USHORT usType, UCHAR ucFlags, long lId,
 // Returns 0 on success.
 //
 //////////////////////////////////////////////////////////////////////////////
-short CFilter::RemoveChunk(PRTCHUNK pChunk)
+int16_t CFilter::RemoveChunk(PRTCHUNK pChunk)
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	if (m_listPartial.Remove(pChunk) == 0)
 		{
@@ -513,10 +513,10 @@ long CFilter::AddToChunk(	CNFile*	pfile,		// File pointer.
 // If this gets a malloc failure, that is considered an error.
 //
 //////////////////////////////////////////////////////////////////////////////
-short CFilter::AllocChunk(	UCHAR** ppuc, long lSize, USHORT usType, 
+int16_t CFilter::AllocChunk(	UCHAR** ppuc, long lSize, USHORT usType, 
 									UCHAR ucFlags)
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	if (m_fnAlloc != NULL)
 		{

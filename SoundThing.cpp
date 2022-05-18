@@ -114,7 +114,7 @@
 	#undef GetRand
 #endif
 
-#ifdef MOBILE //Arm RAND_MAX is a full int, code expecting a short!!
+#ifdef MOBILE //Arm RAND_MAX is a full int, code expecting a int16_t!!
 #define RAND_MAX 0x7fff
 #endif
 
@@ -135,19 +135,19 @@
 // Class statics.
 ////////////////////////////////////////////////////////////////////////////////
 
-short	CSoundThing::ms_sFileCount			= 0;	// File count.         
+int16_t	CSoundThing::ms_sFileCount			= 0;	// File count.         
 long	CSoundThing::ms_lGetRandomSeed	= 0;	// Seed for get random.
 
 ////////////////////////////////////////////////////////////////////////////////
 // Load object (should call base class version!)
 ////////////////////////////////////////////////////////////////////////////////
-short CSoundThing::Load(								// Returns 0 if successfull, non-zero otherwise
+int16_t CSoundThing::Load(								// Returns 0 if successfull, non-zero otherwise
 	RFile* pFile,											// In:  File to load from
 	bool bEditMode,										// In:  True for edit mode, false otherwise
-	short sFileCount,										// In:  File count (unique per file, never 0)
+	int16_t sFileCount,										// In:  File count (unique per file, never 0)
 	ULONG	ulFileVersion)									// In:  Version of file format to load.
 	{
-	short sResult = CThing::Load(pFile, bEditMode, sFileCount, ulFileVersion);
+	int16_t sResult = CThing::Load(pFile, bEditMode, sFileCount, ulFileVersion);
 	if (sResult == 0)
 		{
 		// If new file . . . 
@@ -246,11 +246,11 @@ short CSoundThing::Load(								// Returns 0 if successfull, non-zero otherwise
 ////////////////////////////////////////////////////////////////////////////////
 // Save object (should call base class version!)
 ////////////////////////////////////////////////////////////////////////////////
-short CSoundThing::Save(										// Returns 0 if successfull, non-zero otherwise
+int16_t CSoundThing::Save(										// Returns 0 if successfull, non-zero otherwise
 	RFile* pFile,											// In:  File to save to
-	short sFileCount)										// In:  File count (unique per file, never 0)
+	int16_t sFileCount)										// In:  File count (unique per file, never 0)
 	{
-	short	sResult	= CThing::Save(pFile, sFileCount);
+	int16_t	sResult	= CThing::Save(pFile, sFileCount);
 	if (sResult == 0)
 		{
 		pFile->Write(m_sAmbient);
@@ -281,7 +281,7 @@ short CSoundThing::Save(										// Returns 0 if successfull, non-zero otherwis
 ////////////////////////////////////////////////////////////////////////////////
 // Startup object
 ////////////////////////////////////////////////////////////////////////////////
-short CSoundThing::Startup(void)								// Returns 0 if successfull, non-zero otherwise
+int16_t CSoundThing::Startup(void)								// Returns 0 if successfull, non-zero otherwise
 	{
 	// Set the collective volume to zero to start.
 	m_lCollectiveVolume	= 0;
@@ -293,7 +293,7 @@ short CSoundThing::Startup(void)								// Returns 0 if successfull, non-zero ot
 ////////////////////////////////////////////////////////////////////////////////
 // Shutdown object
 ////////////////////////////////////////////////////////////////////////////////
-short CSoundThing::Shutdown(void)							// Returns 0 if successfull, non-zero otherwise
+int16_t CSoundThing::Shutdown(void)							// Returns 0 if successfull, non-zero otherwise
 	{
 	return 0;
 	}
@@ -502,12 +502,12 @@ void CSoundThing::Render(void)
 ////////////////////////////////////////////////////////////////////////////////
 // Called by editor to init new object at specified position
 ////////////////////////////////////////////////////////////////////////////////
-short CSoundThing::EditNew(									// Returns 0 if successfull, non-zero otherwise
-	short sX,												// In:  New x coord
-	short sY,												// In:  New y coord
-	short sZ)												// In:  New z coord
+int16_t CSoundThing::EditNew(									// Returns 0 if successfull, non-zero otherwise
+	int16_t sX,												// In:  New x coord
+	int16_t sY,												// In:  New y coord
+	int16_t sZ)												// In:  New z coord
 	{
-	short sResult = 0;
+	int16_t sResult = 0;
 	
 	// Use specified position
 	m_dX = (double)sX;
@@ -547,7 +547,7 @@ static void CheckEnableGuiCall(	// Returns nothing.
 	RMultiBtn*	pmb	= (RMultiBtn*)pgui_pmb;
 
 	// Show based on value stored in GUI.
-	short	sVisible	= pmb->m_ulUserData;
+	int16_t	sVisible	= pmb->m_ulUserData;
 	// If unchecked . . .
 	if (pmb->m_sState == 1)
 		{
@@ -587,7 +587,7 @@ static void BrowseCall(		// Returns nothing.
 
 		strcpy(szSystemPath, FullPathCustom(pszSakpath, pguiName->m_szText) );
 
-		short	sResult;
+		int16_t	sResult;
 		do {
 			sResult	= SubPathOpenBox(			// Returns 0 on success, negative on error, 1 if 
 														// not subpathable (i.e., returned path is full path).
@@ -624,9 +624,9 @@ static void BrowseCall(		// Returns nothing.
 ////////////////////////////////////////////////////////////////////////////////
 // Called by editor to modify object
 ////////////////////////////////////////////////////////////////////////////////
-short CSoundThing::EditModify(void)
+int16_t CSoundThing::EditModify(void)
 	{
-	short	sResult	= 0;
+	int16_t	sResult	= 0;
 
 	// Load gui dialog
 	RGuiItem* pgui = RGuiItem::LoadInstantiate(FullPathVD(GUI_FILE_NAME));
@@ -800,10 +800,10 @@ short CSoundThing::EditModify(void)
 ////////////////////////////////////////////////////////////////////////////////
 // Called by editor to move object to specified position
 ////////////////////////////////////////////////////////////////////////////////
-short CSoundThing::EditMove(									// Returns 0 if successfull, non-zero otherwise
-	short sX,												// In:  New x coord
-	short sY,												// In:  New y coord
-	short sZ)												// In:  New z coord
+int16_t CSoundThing::EditMove(									// Returns 0 if successfull, non-zero otherwise
+	int16_t sX,												// In:  New x coord
+	int16_t sY,												// In:  New y coord
+	int16_t sZ)												// In:  New z coord
 	{
 	m_dX = (double)sX;
 	m_dY = (double)sY;
@@ -844,9 +844,9 @@ void CSoundThing::EditRect(	// Returns nothiing.
 // (virtual	(Overridden here)).
 ////////////////////////////////////////////////////////////////////////////////
 void CSoundThing::EditHotSpot(	// Returns nothiing.
-	short*	psX,					// Out: X coord of 2D hotspot relative to
+	int16_t*	psX,					// Out: X coord of 2D hotspot relative to
 										// EditRect() pos.
-	short*	psY)					// Out: Y coord of 2D hotspot relative to
+	int16_t*	psY)					// Out: Y coord of 2D hotspot relative to
 										// EditRect() pos.
 	{
 	*psX	= 5;	// Safety.
@@ -889,7 +889,7 @@ void CSoundThing::EditRender(void)
 	m_sprite.m_sX2	-= m_pImage->m_sWidth / 2;
 	m_sprite.m_sY2	-= m_pImage->m_sHeight;
 
-	m_sprite.m_sLayer = CRealm::GetLayerViaAttrib(m_pRealm->GetLayer((short) m_dX, (short) m_dZ));
+	m_sprite.m_sLayer = CRealm::GetLayerViaAttrib(m_pRealm->GetLayer((int16_t) m_dX, (int16_t) m_dZ));
 
 	m_sprite.m_pImage = m_pImage;
 
@@ -901,9 +901,9 @@ void CSoundThing::EditRender(void)
 ////////////////////////////////////////////////////////////////////////////////
 // Init object
 ////////////////////////////////////////////////////////////////////////////////
-short CSoundThing::Init(void)							// Returns 0 if successfull, non-zero otherwise
+int16_t CSoundThing::Init(void)							// Returns 0 if successfull, non-zero otherwise
 	{
-	short sResult = 0;
+	int16_t sResult = 0;
 
 	Kill();
 
@@ -938,7 +938,7 @@ short CSoundThing::Init(void)							// Returns 0 if successfull, non-zero otherw
 ////////////////////////////////////////////////////////////////////////////////
 // Kill object
 ////////////////////////////////////////////////////////////////////////////////
-short CSoundThing::Kill(void)							// Returns 0 if successfull, non-zero otherwise
+int16_t CSoundThing::Kill(void)							// Returns 0 if successfull, non-zero otherwise
 	{
 	if (m_pImage != 0)
 		rspReleaseResource(&g_resmgrGame, &m_pImage);

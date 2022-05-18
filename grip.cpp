@@ -68,8 +68,8 @@ void CGrip::SetCamera(
 // Track specified target coordinates
 ////////////////////////////////////////////////////////////////////////////////
 //void CGrip::TrackTarget(
-//	short sTargetX,										// In:  Target's x coord
-//	short sTargetY)										// In:  Target's y coord
+//	int16_t sTargetX,										// In:  Target's x coord
+//	int16_t sTargetY)										// In:  Target's y coord
 //	{
 //	// For now, simply move camera to specified coordinates
 //	ASSERT(m_pCamera != 0);

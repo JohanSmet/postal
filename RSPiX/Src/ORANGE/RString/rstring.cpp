@@ -58,7 +58,7 @@
 //
 //		* Characters (char), which are treated as ASCII codes
 //
-//		* Integers (short, uint16_t, long, and unsigned long) converted
+//		* Integers (int16_t, uint16_t, long, and unsigned long) converted
 //		  into string representations of their numerical values.  The exception
 //		  is that there are no constructors to take these types, only because
 //		  it caused a conflict with other, more usefull constructors.
@@ -552,9 +552,9 @@ void RString::ToLower(void)
 // Load a previously saved string from the specified RFile.  Calls Clear() if
 // an error occurs while loading.  Returns 0 if successfull, non-zero otherwise.
 ////////////////////////////////////////////////////////////////////////////////
-short RString::Load(RFile* pFile)
+int16_t RString::Load(RFile* pFile)
 	{
-	short sResult = 0;
+	int16_t sResult = 0;
 
 	// Read length to separate var to avoid corrupting real one in case of read error
 	long lLen;
@@ -598,7 +598,7 @@ short RString::Load(RFile* pFile)
 // Save this string to the specified RFile.  This RString is not modified by the
 // save, even if an error occurs.  Returns 0 if successfull, non-zero otherwise.
 ////////////////////////////////////////////////////////////////////////////////
-short RString::Save(RFile* pFile) const
+int16_t RString::Save(RFile* pFile) const
 	{
 	// Save string length
 	pFile->Write(m_lStrLen);

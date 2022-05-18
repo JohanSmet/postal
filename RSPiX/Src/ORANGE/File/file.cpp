@@ -536,18 +536,18 @@ extern const char *FindCorrectFile(const char *_pszName, const char *pszMode)
 // Returns 0 on success.
 //
 //////////////////////////////////////////////////////////////////////////////
-short RFile::Open(		// Returns 0 on success.
+int16_t RFile::Open(		// Returns 0 on success.
 	const char* pszFileName,	// Filename to open.
 	const char* pszFlags,		// fopen flags to use for opening.
 	Endian endian,			// { BigEndian | LittleEndian | NeutralEndian }.
 	Flags flags)			// See comments in Typedefs & Enums section in .h.
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	// If not already open . . .
 	if (m_fs == NULL && m_pucFile == NULL)
 		{
-		short sOpen	= TRUE;
+		int16_t sOpen	= TRUE;
 
 		// Store flags for this file.
 		// Make sure Ascii and Binary are not both specified.
@@ -664,12 +664,12 @@ short RFile::Open(		// Returns 0 on success.
 // Returns 0 on success.
 //
 //////////////////////////////////////////////////////////////////////////////
-short RFile::Open(		// Returns 0 on success.
+int16_t RFile::Open(		// Returns 0 on success.
 	void* pFile,			// Pointer to memory to open.
 	long lSize,				// Size of *pFile in bytes.
 	Endian endian)			// { BigEndian | LittleEndian | NeutralEndian }.
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	// If not already open . . .
 	if (m_fs == NULL && m_pucFile == NULL)
@@ -710,14 +710,14 @@ short RFile::Open(		// Returns 0 on success.
 // Returns 0 on success.
 //
 //////////////////////////////////////////////////////////////////////////////
-short RFile::Open(	// Returns 0 on success.
+int16_t RFile::Open(	// Returns 0 on success.
 	long	lSize,		// Size in bytes to begin with.
 	long	lGrowSize,	// Min amount in bytes to grow memory file when written passed end.
 							// Note: The larger of lGrowSize and the amount overwritten will
 							// be allocated in the case of an overrun.
 	Endian endian)		// { BigEndian | LittleEndian | NeutralEndian }.
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	// If not already open . . .
 	if (m_fs == NULL && m_pucFile == NULL)
@@ -768,13 +768,13 @@ short RFile::Open(	// Returns 0 on success.
 // if that is more convenient.
 //
 //////////////////////////////////////////////////////////////////////////////
-short RFile::Open(		// Returns 0 on success.
+int16_t RFile::Open(		// Returns 0 on success.
 	FILE*	fs,				// FILE* stream to open.
 	Endian endian,			// { RFile::BigEndian | RFile::LittleEndian | RFile::NeutralEndian }.
 	Flags flags	/*=		// See comments in Typedefs & Enums section 
 		Binary*/)			// above.
 	{
-	short sRes	= 0;	// Assume success.
+	int16_t sRes	= 0;	// Assume success.
 
 	if (fs != NULL)
 		{
@@ -815,10 +815,10 @@ short RFile::Open(		// Returns 0 on success.
 // Danger:  Do not access the original RFile between Open(RFile*)/Close() pairs!
 //
 //////////////////////////////////////////////////////////////////////////////
-short RFile::Open(		// Returns 0 on success.
+int16_t RFile::Open(		// Returns 0 on success.
 	RFile* pfile)			// RFile to open.
 	{
-	short	sRes	= 0;
+	int16_t	sRes	= 0;
 
 	// Synchronize.
 	m_fs				= pfile->m_fs;
@@ -856,9 +856,9 @@ void RFile::SetEndian(Endian endian)
 // Returns 0 on success.
 //
 //////////////////////////////////////////////////////////////////////////////
-short RFile::Close(void)
+int16_t RFile::Close(void)
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	ASSERT(m_fs != NULL || m_pucFile != NULL);
 
@@ -888,7 +888,7 @@ short RFile::Close(void)
 		}
 	else
 		{
-		short sClose	= TRUE;
+		int16_t sClose	= TRUE;
 		
 		// If hook defined . . .
 		if (ms_hClose != NULL)
@@ -1413,14 +1413,14 @@ long RFile::Read(char* pszString)
 			} while (strchr(WHITE_SPACE, *pszString++) == NULL);
 
 		// Note whether started by qutoes.
-		short	sInQuotes	= FALSE;
+		int16_t	sInQuotes	= FALSE;
 		if (*pszString == '"')
 			{
 			sInQuotes	= TRUE;
 			}
 
 		// Store string.
-		short	sLastCharWasBackSlash	= FALSE;
+		int16_t	sLastCharWasBackSlash	= FALSE;
 		while (*pszString != '\0')
 			{
 			if (Read(pszString, 1) == 1)
@@ -1952,9 +1952,9 @@ long RFile::Write(const char* pszString)
 // Returns 0 on success.
 //
 //////////////////////////////////////////////////////////////////////////////
-short RFile::Seek(long lPos, long lOrigin)
+int16_t RFile::Seek(long lPos, long lOrigin)
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	if (IsFile() == TRUE)
 		{
@@ -2534,9 +2534,9 @@ long RFile::Write64(	// Returns number of 64 bit items written.
 	// can use the FILE* that is made available.  Returns 0 on success.
 	//
 	//////////////////////////////////////////////////////////////////////////////
-	short RFile::Disconnect(void)
+	int16_t RFile::Disconnect(void)
 		{
-		short	sRes	= 0;	// Assume success.
+		int16_t	sRes	= 0;	// Assume success.
 		
 		// Must be disk file and must be connected.
 		ASSERT(IsFile()			== TRUE);
@@ -2565,9 +2565,9 @@ long RFile::Write64(	// Returns number of 64 bit items written.
 	// Returns 0 on success.
 	//
 	//////////////////////////////////////////////////////////////////////////////
-	short RFile::Reconnect(void)
+	int16_t RFile::Reconnect(void)
 		{
-		short	sRes	= 0;	// Assume success.
+		int16_t	sRes	= 0;	// Assume success.
 
 		// Must be disk file.
 		ASSERT(IsFile()			== TRUE);
@@ -2609,9 +2609,9 @@ long RFile::Write64(	// Returns number of 64 bit items written.
 	// (static)
 	//
 	//////////////////////////////////////////////////////////////////////////////
-	short RFile::MakeStreamAvailable(void)
+	int16_t RFile::MakeStreamAvailable(void)
 		{
-		short	sRes	= 0;	// Assume success.
+		int16_t	sRes	= 0;	// Assume success.
 
 		// Find the open RFile attached to disk that was accessed longest ago.
 		// All RFiles in the ms_listOpen list are attached to disk files.

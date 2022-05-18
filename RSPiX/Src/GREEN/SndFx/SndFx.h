@@ -82,8 +82,8 @@ class RSndFx
 		// This costs sNumStemps * 256 * bits per sample / 8 bytes of memory.
 		// This function should only be called after the bits per sample have
 		// been set via a call to SetDataType().
-		static short SetFadeAccuracy(	// Returns 0 on success.
-			short sNumSteps);				// Number of steps to fades; see above.
+		static int16_t SetFadeAccuracy(	// Returns 0 on success.
+			int16_t sNumSteps);				// Number of steps to fades; see above.
 
 		// Release any dynamic memory referenced by static members.
 		static void CleanUp(void);
@@ -117,22 +117,22 @@ class RSndFx
 		/////////////////////// Fade In /////////////////////////////////////////
 
 		// Set up a fade in.
-		short SetUpFadeIn(	// Returns 0 on success.
+		int16_t SetUpFadeIn(	// Returns 0 on success.
 			long lDuration);	// Duration until silence in milliseconds.
 
 		// Activate/Deactivate fade in.
 		void ActivateFadeIn(	// Returns nothing.
-			short	sActivate);	// TRUE to activate, FALSE to deactivate.
+			int16_t	sActivate);	// TRUE to activate, FALSE to deactivate.
 
 		/////////////////////// Fade Out ////////////////////////////////////////
 
 		// Set up a fade out.
-		short SetUpFadeOut(	// Returns 0 on success.
+		int16_t SetUpFadeOut(	// Returns 0 on success.
 			long lDuration);	// Duration until full volume in milliseconds.
 		
 		// Activate/Deactivate fade out.
 		void ActivateFadeOut(	// Returns nothing.
-			short	sActivate);		// TRUE to activate, FALSE to deactivate.
+			int16_t	sActivate);		// TRUE to activate, FALSE to deactivate.
 
 	////////////////////////// Internal Methods ///////////////////////////////
 	protected:
@@ -192,7 +192,7 @@ class RSndFx
 		static S16*		ms_ps16Fade;		// Signed 16 bit output
 													// fade table.
 
-		static short	ms_sNumFadeSteps;		// Number of fade steps.
+		static int16_t	ms_sNumFadeSteps;		// Number of fade steps.
 	};
 
 #endif // SNDFX_H

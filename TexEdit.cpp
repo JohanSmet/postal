@@ -87,26 +87,26 @@ const double	c_fTransRate	= 0.25f / c_dScale;
 const double	c_fScaleRate	= 0.1f / c_dScale;
 const double	c_fRotRate		= 1.0f;
 
-const short		c_sPalStart		= 106;
-const short		c_sPalEnd		= 201;
-const	short		c_sPalNum		= c_sPalEnd - c_sPalStart + 1;
+const int16_t		c_sPalStart		= 106;
+const int16_t		c_sPalEnd		= 201;
+const	int16_t		c_sPalNum		= c_sPalEnd - c_sPalStart + 1;
 
 #if 0	// Swatch center colors only -- to guarantee good matching.
-	const short		c_sPalColorsPerSwatch	= 8;
-	const short		c_sPalCols		= 2;
+	const int16_t		c_sPalColorsPerSwatch	= 8;
+	const int16_t		c_sPalCols		= 2;
 #else	// All swatch colors -- to allow more flexibility when texturing guys.
-	const short		c_sPalColorsPerSwatch	= 1;
-	const short		c_sPalCols		= 8;
+	const int16_t		c_sPalColorsPerSwatch	= 1;
+	const int16_t		c_sPalCols		= 8;
 #endif
 
-const short		c_sPalDispColorOffset	= c_sPalColorsPerSwatch / 2;
-const short		g_sPalFirstColor			= c_sPalStart + c_sPalDispColorOffset;
+const int16_t		c_sPalDispColorOffset	= c_sPalColorsPerSwatch / 2;
+const int16_t		g_sPalFirstColor			= c_sPalStart + c_sPalDispColorOffset;
 
-const	short		c_sMinBrightness		= -64;
-const	short		c_sMaxBrightness		= 64;
-const short		c_sBrightnessRange	= c_sMaxBrightness - c_sMinBrightness + 1;
+const	int16_t		c_sMinBrightness		= -64;
+const	int16_t		c_sMaxBrightness		= 64;
+const int16_t		c_sBrightnessRange	= c_sMaxBrightness - c_sMinBrightness + 1;
 
-const	short		c_sDefAdjustFrequency	= 2;
+const	int16_t		c_sDefAdjustFrequency	= 2;
 const	float		c_fDefAdjustment			= 0.85f;
 
 
@@ -326,8 +326,8 @@ TriAIntersectsLineSegmentB(
 	};
 
 ////////////////////////////////////////////////////////////////////////////////
-bool shorterdist(RP3d &pt1, RP3d &pt2)
 // true if pt1 is shorter dist than pt2
+bool int16_terdist(RP3d &pt1, RP3d &pt2)
 	{
 	return ((pt1.x*pt1.x + pt1.y*pt1.y + pt1.z*pt1.z) < (pt2.x*pt2.x + pt2.y*pt2.y + pt2.z*pt2.z));
 	};
@@ -343,13 +343,13 @@ TrianglesIntersectLineSegment(
 	RP3d &linept2, 			// In: line segment point 2 closest to this point. this should be the first point.
 	U16 *ptri, 					// In: mesh
 	RP3d *soparr, 				// In: points for mesh
-	short smeshNum,			// In: number of points in mesh
+	int16_t smeshNum,			// In: number of points in mesh
 	RP3d &hitpoint,			// Out: point where line hit triangle
 	long &lHitTriIndex)		// Out: index of triangle it hit
 
 	{    
 	lHitTriIndex=-1;
-	short sJ=0;
+	int16_t sJ=0;
 	RP3d normalA;
 	RP3d pt0A, pt1A, pt2A;
 	RP3d t_pt1A, t_pt2A;
@@ -422,12 +422,12 @@ void Transform(RSop* psopSrc, RSop* psopDst, RPipeLine* ppipe, RTransform& tObj)
 	// trasnform each pt by two transforms separately!
 	tFull.PreMulBy(ppipe->m_tScreen.T);
 	// Add this in to get the model in the correctly offset spot.
-	const short sMisUnderstoodValueX	= -85;	// *** WTF is this not sOffsetX?  No time for that now.
-	const short sMisUnderstoodValueY	= -20;	// *** WTF is this not sOffsetY?  No time for that now.
+	const int16_t sMisUnderstoodValueX	= -85;	// *** WTF is this not sOffsetX?  No time for that now.
+	const int16_t sMisUnderstoodValueY	= -20;	// *** WTF is this not sOffsetY?  No time for that now.
 
 #if 0	// Find the magic offset.
-	static short sOffX = 0;
-	static short sOffY = 0;
+	static int16_t sOffX = 0;
+	static int16_t sOffY = 0;
 	static U8*	pau8KeyStatus = rspGetKeyStatusArray();
 	if (pau8KeyStatus[RSP_SK_LEFT] & 1)
 		sOffX--;
@@ -456,19 +456,19 @@ void
 CreatePalette(
 	RGuiItem* pgui)		// In:  GUI to contain palette.
 	{
-	short sCells	= c_sPalNum / c_sPalColorsPerSwatch;
-	short	sCols		= c_sPalCols;
-	short	sRows		= sCells / sCols;
+	int16_t sCells	= c_sPalNum / c_sPalColorsPerSwatch;
+	int16_t	sCols		= c_sPalCols;
+	int16_t	sRows		= sCells / sCols;
 
 	RRect	rcClient;
 	pgui->GetClient(&rcClient.sX, &rcClient.sY, &rcClient.sW, &rcClient.sH);
 
-	short sCellW	= rcClient.sW / sCols;
-	short	sCellH	= rcClient.sH / sRows;
+	int16_t sCellW	= rcClient.sW / sCols;
+	int16_t	sCellH	= rcClient.sH / sRows;
 
-	short	sRow, sCol;
-	short	sX, sY;
-	short sColor = g_sPalFirstColor;
+	int16_t	sRow, sCol;
+	int16_t	sX, sY;
+	int16_t sColor = g_sPalFirstColor;
 	for (sRow = 0, sY = rcClient.sY; sRow < sRows; sRow++, sY += sCellH)
 		{
 		for (sCol = 0, sX = rcClient.sX; sCol < sCols; sCol++, sX += sCellW)
@@ -520,11 +520,11 @@ SetText(
 void
 ValidateTextures(
 	RTexture*	ptex,	// In:  Texture to validate.
-	short			sNum)	// In:  Number of textures it should have.
+	int16_t			sNum)	// In:  Number of textures it should have.
 	{
 	if (ptex->m_sNum < sNum)
 		{
-		short	sRes = rspMsgBox(
+		int16_t	sRes = rspMsgBox(
 			RSP_MB_ICN_QUERY | RSP_MB_BUT_YESNO,
 			"Incorrect Texture File",
 			"This texture file does not have enough entries to cover the entire mesh.\n"
@@ -534,13 +534,13 @@ ValidateTextures(
 			{
 			case RSP_MB_RET_YES:
 				{
-				short	sOrigNum	= ptex->m_sNum;
+				int16_t	sOrigNum	= ptex->m_sNum;
 
 				// Create temp space for the existing colors.
 				U8*	pau8	= new U8[sOrigNum];
 				
 				// Duplicate the existing colors.
-				short sColor;
+				int16_t sColor;
 				for (sColor = 0; sColor < sOrigNum; sColor++)
 					{
 					pau8[sColor]	= ptex->m_pIndices[sColor];
@@ -677,8 +677,8 @@ CTexEdit::DoModal(
 		RRect rcClient;
 		m_pguiAnim->GetClient(&rcClient.sX, &rcClient.sY, &rcClient.sW, &rcClient.sH);
 
-		short sOffsetX = rcClient.sX + rcClient.sW / 2;
-		short sOffsetY = rcClient.sY + rcClient.sH - 5;
+		int16_t sOffsetX = rcClient.sX + rcClient.sW / 2;
+		int16_t sOffsetY = rcClient.sY + rcClient.sH - 5;
 
 		ResetTransformation();
 
@@ -795,7 +795,7 @@ CTexEdit::DoModal(
 				if (m_bModified)
 					{
 					// Query if user wants to apply the work textures (and not lose changes).
-					short	sRes	= rspMsgBox(
+					int16_t	sRes	= rspMsgBox(
 						RSP_MB_ICN_QUERY | RSP_MB_BUT_YESNOCANCEL,
 						g_pszAppName,
 						"Apply changes before exiting texture editor?");
@@ -849,8 +849,8 @@ CTexEdit::DoOutput(
 	RTransform& trans,	// In:  Transformation.
 	RAlpha* palphaLight,	// In:  Light.
 	RImage* pimDst,		// In:  Destination for result.
-	short sOffsetX,		// In:  X offset.
-	short sOffsetY,		// In:  Y offset.
+	int16_t sOffsetX,		// In:  X offset.
+	int16_t sOffsetY,		// In:  Y offset.
 	RRect& rcClip)			// In:  Dst clip rect.
 	{
 	m_scene.Render3D(
@@ -863,7 +863,7 @@ CTexEdit::DoOutput(
 
 #if 0	// Draw wire frame.
 	RMesh*	pmesh	= psprite->m_pmesh;
-	short sTris = pmesh->m_sNum;
+	int16_t sTris = pmesh->m_sNum;
 	U16* pu16Vertex	= pmesh->m_pArray;
 	while (sTris--)
 		{
@@ -920,12 +920,12 @@ CTexEdit::ProcessManip(
 			m_bDragging = true;
 			}
 
-		short sCursorX, sCursorY;
+		int16_t sCursorX, sCursorY;
 		rspGetMouse(&sCursorX, &sCursorY, NULL);
 		rspSetMouse(m_sCursorResetX, m_sCursorResetY);
 
-		short sDeltaX = sCursorX - m_sCursorResetX;
-		short sDeltaY = m_sCursorResetY - sCursorY;
+		int16_t sDeltaX = sCursorX - m_sCursorResetX;
+		int16_t sDeltaY = m_sCursorResetY - sCursorY;
 
 		static U8*	pau8KeyStatus = rspGetKeyStatusArray();
 		
@@ -974,7 +974,7 @@ CTexEdit::ProcessManip(
 		RP3d	hitpoint;
 		RP3d	linept1, linept2;
 
-		short sMouseX, sMouseY;
+		int16_t sMouseX, sMouseY;
 		rspGetMouse(&sMouseX, &sMouseY, NULL);
 		m_pguiAnim->TopPosToChild(&sMouseX, &sMouseY);
 
@@ -1037,7 +1037,7 @@ CTexEdit::ProcessManip(
 	// Color Palette Processing ///////////////////
 	if (m_pguiPal->m_sPressed)
 		{
-		short sMouseX, sMouseY;
+		int16_t sMouseX, sMouseY;
 		rspGetMouse(&sMouseX, &sMouseY, NULL);
 		m_pguiPal->TopPosToChild(&sMouseX, &sMouseY);
 
@@ -1187,7 +1187,7 @@ CTexEdit::SetColor(
 		if (m_pguiCurColor)
 			{
 			// Show current color in this item.
-			short	sX, sY, sW, sH;
+			int16_t	sX, sY, sW, sH;
 			m_pguiCurColor->GetClient(&sX, &sY, &sW, &sH);
 			rspRect(
 				u8Color,

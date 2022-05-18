@@ -164,7 +164,7 @@ void CRes::Reset(void)
 	{
 	#ifdef _DEBUG
 		// All lists should be empty.
-		for (short i = 0; i < HASH_SIZE; i++)
+		for (int16_t i = 0; i < HASH_SIZE; i++)
 			ASSERT(m_alistRes[i].IsEmpty() == TRUE);
 	#endif // _DEBUG
 
@@ -177,11 +177,11 @@ void CRes::Reset(void)
 // Handles data callbacks from dispatch.
 //
 //////////////////////////////////////////////////////////////////////////////
-short CRes::UseCall(	UCHAR* puc, long lSize, USHORT usType, UCHAR ucFlags, 
+int16_t CRes::UseCall(	UCHAR* puc, long lSize, USHORT usType, UCHAR ucFlags, 
 							long lTime)
 	{
-	short	sRes		= RET_DONTFREE;	// Assume success.
-	short	sError	= 0;
+	int16_t	sRes		= RET_DONTFREE;	// Assume success.
+	int16_t	sError	= 0;
 
 	ASSERT(usType	== RT_TYPE_FILEIMAGE);
 	ASSERT(puc		!= NULL);
@@ -239,7 +239,7 @@ short CRes::UseCall(	UCHAR* puc, long lSize, USHORT usType, UCHAR ucFlags,
 // (static)
 //
 //////////////////////////////////////////////////////////////////////////////
-short CRes::UseCallStatic(	UCHAR* puc, long lSize, USHORT usType, 
+int16_t CRes::UseCallStatic(	UCHAR* puc, long lSize, USHORT usType, 
 									UCHAR ucFlags, long lTime, long l_pRes)
 	{
 	return ((CRes*)l_pRes)->UseCall(puc, lSize, usType, ucFlags, lTime);
@@ -408,7 +408,7 @@ void CRes::FreeAll(void)
 	{
 	PRESITEM	pri;
 	
-	for (short i = 0; i < HASH_SIZE; i++)
+	for (int16_t i = 0; i < HASH_SIZE; i++)
 		{
 		pri = m_alistRes[i].GetHead();
 		while (pri != NULL)
@@ -430,10 +430,10 @@ void CRes::FreeAll(void)
 // (static)
 //
 //////////////////////////////////////////////////////////////////////////////
-short CRes::FileOpenHook(	CNFile* pfile, char* pszFileName, 
-									char* pszFlags, short sEndian, long lUser)
+int16_t CRes::FileOpenHook(	CNFile* pfile, char* pszFileName, 
+									char* pszFlags, int16_t sEndian, long lUser)
 	{
-	short	sRes	= 1;	// Assume we fail to find file.
+	int16_t	sRes	= 1;	// Assume we fail to find file.
 
 	CRes*	pres	= ms_listRes.GetHead();
 	while (pres != NULL && sRes > 0)
@@ -482,9 +482,9 @@ short CRes::FileOpenHook(	CNFile* pfile, char* pszFileName,
 // (static)
 //
 //////////////////////////////////////////////////////////////////////////////
-short CRes::FileCloseHook(CNFile* pfile, long lUser)
+int16_t CRes::FileCloseHook(CNFile* pfile, long lUser)
 	{
-	short	sRes	= 0;	// Assume we find the file.
+	int16_t	sRes	= 0;	// Assume we find the file.
 
 	// Get user value (which is the pointer to the CResItem).
 	PRESITEM	pri	= (PRESITEM)pfile->GetUserVal();

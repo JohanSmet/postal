@@ -180,7 +180,7 @@ extern long g_lReleaseTime;
 // dude's stockpile
 extern CStockPile	g_stockpile;
 extern bool       g_bTransferStockpile;
-extern short	   g_sRealmNumToSave;
+extern int16_t	   g_sRealmNumToSave;
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -200,7 +200,7 @@ extern void TheGame(void);
 //
 ////////////////////////////////////////////////////////////////////////////////
 extern void Game_StartSinglePlayerGame(
-	short sMenuItem);
+	int16_t sMenuItem);
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -209,7 +209,7 @@ extern void Game_StartSinglePlayerGame(
 //
 ////////////////////////////////////////////////////////////////////////////////
 extern bool Game_StartMultiPlayerGame(
-	short sMenuItem);
+	int16_t sMenuItem);
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -218,7 +218,7 @@ extern bool Game_StartMultiPlayerGame(
 //
 ////////////////////////////////////////////////////////////////////////////////
 extern void Game_JoinMultiPlayerGame(
-	short sMenuItem);
+	int16_t sMenuItem);
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -227,7 +227,7 @@ extern void Game_JoinMultiPlayerGame(
 //
 ////////////////////////////////////////////////////////////////////////////////
 extern void Game_HostMultiPlayerGame(
-	short sMenuItem);
+	int16_t sMenuItem);
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -235,7 +235,7 @@ extern void Game_HostMultiPlayerGame(
 //
 ////////////////////////////////////////////////////////////////////////////////
 extern void Game_InitMainMenu(	// Returns nothing.
-	short sInit);						// In:  TRUE, if initializing; FALSE, if killing.
+	int16_t sInit);						// In:  TRUE, if initializing; FALSE, if killing.
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -244,7 +244,7 @@ extern void Game_InitMainMenu(	// Returns nothing.
 //
 ////////////////////////////////////////////////////////////////////////////////
 extern void Game_StartDemoGame(
-	short sMenuItem);
+	int16_t sMenuItem);
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -267,7 +267,7 @@ extern void Game_Buy(void);
 //
 ////////////////////////////////////////////////////////////////////////////////
 extern void Game_ControlsMenu(	// Returns nothing.
-	short sMenuItem);					// In:  Chosen menu item.
+	int16_t sMenuItem);					// In:  Chosen menu item.
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -275,7 +275,7 @@ extern void Game_ControlsMenu(	// Returns nothing.
 //
 ////////////////////////////////////////////////////////////////////////////////
 extern void Game_StartChallengeGame(	// Returns nothing.
-	short sMenuItem);							// In:  Chosen menu item.
+	int16_t sMenuItem);							// In:  Chosen menu item.
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -283,7 +283,7 @@ extern void Game_StartChallengeGame(	// Returns nothing.
 //
 ////////////////////////////////////////////////////////////////////////////////
 extern void Game_AudioOptionsChoice(	// Returns nothing.
-	short sMenuItem);							// In:  Chosen item.
+	int16_t sMenuItem);							// In:  Chosen item.
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -293,9 +293,9 @@ extern void Game_AudioOptionsChoice(	// Returns nothing.
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-extern short Game_SavePlayersGame(	// Returns SUCCESS if all goes well
+extern int16_t Game_SavePlayersGame(	// Returns SUCCESS if all goes well
 				const char* pszSaveName,		// In:  Name of the save file
-				short sDifficulty);		// In:  Current realm difficulty.
+				int16_t sDifficulty);		// In:  Current realm difficulty.
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -405,7 +405,7 @@ extern void PalTranOff(void);
 #define GAME_PATH_HOODS		5
 
 extern char* FullPath(									// Returns full path in system format
-	short sPathType,										// In:  PATH_CD, PATH_HD, or PATH_VD
+	int16_t sPathType,										// In:  PATH_CD, PATH_HD, or PATH_VD
 	const char* pszPartialPath);								// In:  Partial path in RSPiX format
 
 extern char* FullPathCD(								// Returns full path in system format
@@ -439,7 +439,7 @@ extern char* FullPathCustom(							// Returns full path in system format
 // character, depending on which system we're running on.
 //
 ////////////////////////////////////////////////////////////////////////////////
-short CorrectifyBasePath(								// Returns 0 if successfull, non-zero otherwise
+int16_t CorrectifyBasePath(								// Returns 0 if successfull, non-zero otherwise
 	char* pszBasePath,									// I/O: Base path to be corrected
 	size_t sMaxPathLen);								// In:  Maximum length of base path
 
@@ -448,13 +448,13 @@ short CorrectifyBasePath(								// Returns 0 if successfull, non-zero otherwise
 // Get a subpath relative to the specified game path.
 //
 ////////////////////////////////////////////////////////////////////////////////
-extern short SubPathOpenBox(		// Returns 0 on success, negative on error, 1 if 
+extern int16_t SubPathOpenBox(		// Returns 0 on success, negative on error, 1 if 
 											// not subpathable (i.e., returned path is full path).
 	const char*	pszFullPath,				// In:  Full path to be relative to.
 	const char* pszBoxTitle,				// In:  Title of box.
 	const char*	pszDefFileName,			// In:  Default filename.
 	char* pszChosenFileName,		// Out: User's choice.
-	short sStrSize,					// In:  Amount of memory pointed to by pszChosenFileName.
+	int16_t sStrSize,					// In:  Amount of memory pointed to by pszChosenFileName.
 	const char*	pszFilter = NULL);		// In:  If not NULL, '.' delimited extension based filename
 											//	filter specification.  Ex: ".cpp.h.exe.lib" or "cpp.h.exe.lib"
 											// Note: Cannot use '.' in filter.  Preceding '.' ignored.
@@ -465,7 +465,7 @@ extern short SubPathOpenBox(		// Returns 0 on success, negative on error, 1 if
 //
 ////////////////////////////////////////////////////////////////////////////////
 extern void SetGammaLevel(
-	short sBase);											// In:  New brighten value
+	int16_t sBase);											// In:  New brighten value
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -483,7 +483,7 @@ extern	void	SetBrightnessContrast(
 // Get gamma/brighten-effect value from palette map (not from settings).
 //
 ////////////////////////////////////////////////////////////////////////////////
-extern short GetGammaLevel(void);					// Returns current brighten value
+extern int16_t GetGammaLevel(void);					// Returns current brighten value
 
 #ifdef WIN32
 #define snprintf _snprintf

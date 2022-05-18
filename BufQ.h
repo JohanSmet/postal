@@ -97,10 +97,10 @@ class CBufQ
 	//----------------------------------------------------------------------------
 
 	// Calculate the next position in the queue, relative to the specified position 'i'
-	#define BUFQ_NEXT(i) 	(((i)+(short)1) >= QueueSize ? (short)0 : ((i)+(short)1))
+	#define BUFQ_NEXT(i) 	(((i)+(int16_t)1) >= QueueSize ? (int16_t)0 : ((i)+(int16_t)1))
 	
 	// Calculate the previous position in the queue, relative to the specified position 'i'
-	#define BUFQ_PREV(i)		(((i)-(short)1) >= 0 ? ((i)-(short)1) : (QueueSize-(short)1))
+	#define BUFQ_PREV(i)		(((i)-(int16_t)1) >= 0 ? ((i)-(int16_t)1) : (QueueSize-(int16_t)1))
 
 	//----------------------------------------------------------------------------
 	// Types, enums, etc.
@@ -123,8 +123,8 @@ class CBufQ
 	//----------------------------------------------------------------------------
 	public:
 		U8			m_au8Buf[QueueSize];		// Buffer.
-		short		m_sPutPos;					// Current put position in buffer.
-		short		m_sGetPos;					// Current get position in buffer.
+		int16_t		m_sPutPos;					// Current put position in buffer.
+		int16_t		m_sGetPos;					// Current get position in buffer.
 
 	//----------------------------------------------------------------------------
 	// Functions
@@ -489,9 +489,9 @@ class CBufQ
 		// Un-put a byte.  Can be called repeatedly until all data has been "removed".
 		// Use caution when mixing with other functions, especially UnGet().
 		///////////////////////////////////////////////////////////////////////////////
-		short UnPut(void)								// Returns 1 if able to unput, 0 if nothing to unput
+		int16_t UnPut(void)								// Returns 1 if able to unput, 0 if nothing to unput
 			{
-			short sResult = 0;
+			int16_t sResult = 0;
 			// Being able to get a byte also happens to indicate that we can unput a byte!
 			// In other words, if we can move the get pointer forward 1 byte, it means we
 			// can instead move the put pointer back 1 byte.  Get it?
@@ -508,9 +508,9 @@ class CBufQ
 		// Un-Get a byte.  Can be called repeatedly until all data has been "restored".
 		// Use caution when mixing with other functions, especially UnPut().
 		///////////////////////////////////////////////////////////////////////////////
-		short UnGet(void)								// Returns 1 if able to unget, 0 if nothing to unget
+		int16_t UnGet(void)								// Returns 1 if able to unget, 0 if nothing to unget
 			{
-			short sResult = 0;
+			int16_t sResult = 0;
 			// Being able to put a byte also happens to indicate that we can unput a byte!
 			// In other words, if we can move the put pointer forward 1 byte, it means we
 			// can instead move the get pointer back 1 byte.  Get it?

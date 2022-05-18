@@ -89,7 +89,7 @@ class CTime
 		long m_lLastTime;
 		long m_lGameTime;
 		long m_lForceInterval;
-		short	m_sNumSuspends;		// Number of Suspend()s that have occurred w/o
+		int16_t	m_sNumSuspends;		// Number of Suspend()s that have occurred w/o
 											// corresponding Resume()s.
 
 	//---------------------------------------------------------------------------

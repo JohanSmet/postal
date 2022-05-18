@@ -118,7 +118,7 @@ RSample::RSample(void)
 //
 //////////////////////////////////////////////////////////////////////////////
 RSample::RSample(	void *pData, long lBufSize, long lSamplesPerSec, 
-						short sBitsPerSample, short sNumChannels)
+						int16_t sBitsPerSample, int16_t sNumChannels)
 	{
 	// Intialize instantiables.
 	Init();
@@ -205,7 +205,7 @@ static long IffReadUntil(char* pcForm, FILE* fsIn)
 	long lRes = 0;
 
 	// Search for pcForm.
-	short sMatch = 0;
+	int16_t sMatch = 0;
 	int	c;
 	
 	while (lRes == 0)
@@ -270,7 +270,7 @@ long RSample::ReadWaveHeader(void)
 					long lAvgBytesPerSec;
 					if (m_iff.Read(&lAvgBytesPerSec) == 1L)
 						{
-						short sBlockAlign;
+						int16_t sBlockAlign;
 						if (m_iff.Read(&sBlockAlign) == 1L)
 							{
 							if (m_iff.Read(&m_sBitsPerSample) == 1L)
@@ -381,12 +381,12 @@ long RSample::ReadWaveHeader(void)
 ///////////////////////////////////////////////////////////////////////////////
 //
 //	Determines the file type of the supplied file stream, if possible, and 
-// returns a short value indicating that file type.
+// returns a int16_t value indicating that file type.
 //
 ///////////////////////////////////////////////////////////////////////////////
-static short GetFileType(RIff* piff)
+static int16_t GetFileType(RIff* piff)
 	{
-	short sRes = SAMPLE_TYPE_UNKNOWN; // Assume unknown.
+	int16_t sRes = SAMPLE_TYPE_UNKNOWN; // Assume unknown.
 
 	// Read some info to determine file type.
 	static char acHeader[128];
@@ -581,9 +581,9 @@ long RSample::Read(long lAmount)
 // (public)
 //
 ///////////////////////////////////////////////////////////////////////////////
-short RSample::Close(void)
+int16_t RSample::Close(void)
 	{
-	short sRes = 0;
+	int16_t sRes = 0;
 
 	ASSERT(m_iff.IsOpen() != FALSE);
 
@@ -611,9 +611,9 @@ short RSample::Close(void)
 // (public)
 //
 ///////////////////////////////////////////////////////////////////////////////
-short RSample::Load(char* pszSampleName)
+int16_t RSample::Load(char* pszSampleName)
 	{
-	short sRes = 0;
+	int16_t sRes = 0;
 	
 	// Attempt to open sample file.
 	m_lBufSize = Open(pszSampleName, DEFAULT_READBUFSIZE);
@@ -649,10 +649,10 @@ short RSample::Load(char* pszSampleName)
 // size.
 //
 ///////////////////////////////////////////////////////////////////////////////
-short RSample::Load(	// Returns 0 on success.
+int16_t RSample::Load(	// Returns 0 on success.
 	RFile*	pfile)	// Open RFile.
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	// Reset variables and free data if any.
 	Reset();
@@ -726,10 +726,10 @@ short RSample::Load(	// Returns 0 on success.
 // Saves entire sample to file specified in RIFF WAVE format.
 //
 ///////////////////////////////////////////////////////////////////////////////
-short RSample::Save(		// Returns 0 on success.
+int16_t RSample::Save(		// Returns 0 on success.
 	char* pszFileName)	// Filename for sample file.
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	// Open file for write . . .
 	RFile file;
@@ -752,10 +752,10 @@ short RSample::Save(		// Returns 0 on success.
 // Saves entire sample to file specified in RIFF WAVE format.
 //
 ///////////////////////////////////////////////////////////////////////////////
-short RSample::Save(		// Returns 0 on success.
+int16_t RSample::Save(		// Returns 0 on success.
 	RFile* pfile)			// Open RFile for sample.
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	// Attempt to synchronize . . .
 	RIff	iff;
@@ -775,7 +775,7 @@ short RSample::Save(		// Returns 0 on success.
 				// Average bytes per second.
 				iff.Write((m_lSamplesPerSec * (long)m_sBitsPerSample * (long)m_sNumChannels) / 8L);
 				// Block align.
-				iff.Write((short)(m_sBitsPerSample * m_sNumChannels / 8) );
+				iff.Write((int16_t)(m_sBitsPerSample * m_sNumChannels / 8) );
 				iff.Write(m_sBitsPerSample);
 
 				// End 'fmt ' chunk.
@@ -835,9 +835,9 @@ short RSample::Save(		// Returns 0 on success.
 // (public)
 //
 ///////////////////////////////////////////////////////////////////////////////
-short RSample::Lock(void)
+int16_t RSample::Lock(void)
 	{
-	short sRes = 0; // Assume success.
+	int16_t sRes = 0; // Assume success.
 
 	// If not being read . . .
 	if (m_iff.IsOpen() == FALSE || m_sRefCnt == 0)
@@ -861,7 +861,7 @@ short RSample::Lock(void)
 // (public)
 //
 ///////////////////////////////////////////////////////////////////////////////
-short RSample::Unlock(void)
+int16_t RSample::Unlock(void)
 	{
 	ASSERT(m_sRefCnt > 0);
 
@@ -875,9 +875,9 @@ short RSample::Unlock(void)
 // Returns 0 on success.
 //
 //////////////////////////////////////////////////////////////////////////////
-short RSample::Convert8to16(void)
+int16_t RSample::Convert8to16(void)
 	{
-	short	sRes	= 0;	// Assume success.
+	int16_t	sRes	= 0;	// Assume success.
 
 	ASSERT(m_sBitsPerSample	== 8);
 	ASSERT(m_sRefCnt			== 0);
