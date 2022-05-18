@@ -119,7 +119,7 @@ extern void Mouse_Event(SDL_Event *event)
 
 
     if (!mouse_grabbed)
-        return;  // drop mouse events if input isn't grabbed.
+		return;  // drop mouse events if input isn't grabbed.
 
 	// Get next event.  We do not "new" a RSP_MOUSE_EVENT here to avoid 
 	// memory fragmentation.
