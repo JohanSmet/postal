@@ -366,7 +366,7 @@ extern short rspStricmp(	// Returns 0 if equivalent.
 
 	while (*pszStr1 != '\0' && *pszStr2 != '\0' && sRes == 0)
 		{
-		sRes	= ms_asUpper2Lower[*pszStr1++] - ms_asUpper2Lower[*pszStr2++];
+		sRes	= ms_asUpper2Lower[(unsigned char) *pszStr1++] - ms_asUpper2Lower[(unsigned char) *pszStr2++];
 		}
 
 	// If identical . . .
@@ -411,7 +411,7 @@ extern short rspStrnicmp(	// Returns 0 if equivalent.
 
 	while (*pszStr1 != '\0' && *pszStr2 != '\0' && sRes == 0 && count--)
 		{
-		sRes	= ms_asUpper2Lower[*pszStr1++] - ms_asUpper2Lower[*pszStr2++];
+		sRes	= ms_asUpper2Lower[(unsigned char) *pszStr1++] - ms_asUpper2Lower[(unsigned char) *pszStr2++];
 		}
 
 	// If identical . . .

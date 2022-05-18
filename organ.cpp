@@ -83,7 +83,7 @@ void	PlayWithMyOrgan()
 
 		for (i=0;i<sNumValid;i++)
 			{
-			if ( pau8KeyStatus[acValidKeys[i]] )
+			if ( pau8KeyStatus[(unsigned int) acValidKeys[i]] )
 				{
 				// he just pressed this key - play the note:
 				// Play sample CSoundCatalogue::ms_ppcNameList[
@@ -100,7 +100,7 @@ void	PlayWithMyOrgan()
 					}
 
 				// Clear key.
-				pau8KeyStatus[acValidKeys[i]]	= 0;
+				pau8KeyStatus[(unsigned int) acValidKeys[i]]	= 0;
 				}
 			}
 
