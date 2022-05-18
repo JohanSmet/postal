@@ -35,6 +35,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
 
 #ifdef WIN32
 // !!! FIXME: use SDL_snprintf() in SDL2.
@@ -95,12 +96,12 @@ typedef char *PSZ;
 	// S == signed, U == unsigned, # == number of bits
 	typedef signed		char		S8;
 	typedef unsigned	char		U8;
-	typedef signed		short		S16;
-	typedef unsigned	short		U16;
-	typedef signed		long		S32;
-	typedef unsigned	long		U32;
-	typedef signed long long S64;
-	typedef unsigned long long U64;
+	typedef int16_t					S16;
+	typedef uint16_t				U16;
+	typedef int32_t					S32;
+	typedef uint32_t				U32;
+	typedef int64_t					S64;
+	typedef uint64_t				U64;
 
 	// 128-bit got a little trickier...
 	#ifdef SYS_ENDIAN_LITTLE
