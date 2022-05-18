@@ -125,7 +125,7 @@ void RZBuffer::TestHeight(RImage* pimDst,short sDepth,
 		{
 		pDst = pDstLine;
 		pZB = pZLine;
-		for (i=0;i<sW;i++,pDst++,*pZB++)
+		for (i=0;i<sW;i++,pDst++,pZB++)
 			{
 			if (*pZB < sDepth)
 				*pDst = 255; // draw it!
