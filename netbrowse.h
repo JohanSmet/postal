@@ -104,7 +104,7 @@ class CNetBrowse
 	protected:
 		RSocket			m_socketBrowse;						// Socket used to browse for hosts
 		long				m_lLastBroadcast;						// Last broadcast time
-		unsigned short	m_usBasePort;							// Base port
+		uint16_t	m_usBasePort;							// Base port
 
 	//------------------------------------------------------------------------------
 	// Functions

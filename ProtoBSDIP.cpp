@@ -325,7 +325,7 @@ void RProtocolBSDIP::Shutdown(void)
 // not supported.
 //////////////////////////////////////////////////////////////////////////////
 short RProtocolBSDIP::Open(							// Returns 0 if successful, non-zero otherwise
-	unsigned short usPort,								// In:  Port number or 0 for any port
+	uint16_t usPort,								// In:  Port number or 0 for any port
 	short sType,											// In:  Any one RSocket::typ* enum
 	short sOptionFlags,									// In:  Any combo of RSocket::opt* enums
 	RSocket::BLOCK_CALLBACK callback /*NULL */)	// In:  Blocking callback (or NULL to keep current)
@@ -1507,7 +1507,7 @@ short RProtocolBSDIP::GetAddress(					// Returns 0 if successfull, non-zero othe
 ////////////////////////////////////////////////////////////////////////////////
 // static
 void RProtocolBSDIP::CreateBroadcastAddress(
-	unsigned short usPort,								// In:  Port to broadcast to
+	uint16_t usPort,								// In:  Port to broadcast to
 	RSocket::Address* paddress)						// Out: Broadcast address returned here
 	{
 	// Cast address to IP address to make it easier to work with
@@ -1531,7 +1531,7 @@ void RProtocolBSDIP::CreateBroadcastAddress(
 // Get the specified address' current port number
 //////////////////////////////////////////////////////////////////////////////
 /* static */
-unsigned short RProtocolBSDIP::GetAddressPort(	// Returns port number
+uint16_t RProtocolBSDIP::GetAddressPort(	// Returns port number
 	RSocket::Address* paddress)						// In:  Address from which to get port
 	{
 	PSOCKADDR_IN pin = (PSOCKADDR_IN) &(paddress->address);

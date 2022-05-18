@@ -562,7 +562,7 @@ void CNetClient::Update(void)
 					case NetMsg::JOIN_ACCEPT:
 						{
 						// Calculate our peer port based on the server's base port
-						unsigned short usPeerPort = RSocket::GetAddressPort(&m_addressServer) + Net::FirstPeerPortOffset + m_id;
+						uint16_t usPeerPort = RSocket::GetAddressPort(&m_addressServer) + Net::FirstPeerPortOffset + m_id;
 
 						// Open peer socket (this is an unconnected datagram socket, so all the peers
 						// simply hurl their data at this port, and we figure out who it came from).

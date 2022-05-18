@@ -202,7 +202,7 @@ void CNetBrowse::Update(
 			host.m_lLastHeardFrom = rspGetMilliseconds();
 
 			// Change the host's port number from its antenna port to its base port
-			unsigned short usHostBasePort = RSocket::GetAddressPort(&host.m_address) - Net::AntennaPortOffset;
+			uint16_t usHostBasePort = RSocket::GetAddressPort(&host.m_address) - Net::AntennaPortOffset;
 			RSocket::SetAddressPort(usHostBasePort, &host.m_address);
 
 			// Check if this host already exists in the list

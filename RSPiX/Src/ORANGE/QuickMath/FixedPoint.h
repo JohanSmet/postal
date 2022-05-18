@@ -79,10 +79,10 @@ typedef union	{
 				unsigned char lower;
 				};
 			};
-		unsigned short frac; // unsigned 16-bit fractional part
+		uint16_t frac; // unsigned 16-bit fractional part
 //-----------------------------------------------
 #else // little endian
-		unsigned short frac;
+		uint16_t frac;
 		union	// for 256v level z-coloring:
 			{
 			short	mod;
@@ -133,7 +133,7 @@ inline void rspfpSub(RFixedS32& s32fx,RFixedS32& s32fxSub)
 		{ 
 		union {
 			unsigned long val;
-			struct { unsigned short lo; unsigned short hi; };
+			struct { uint16_t lo; uint16_t hi; };
 			} temp;
 		long temp2;
 
@@ -178,7 +178,7 @@ public:
 
 //======================================= unsigned 8:8 fixed point
 typedef union	{
-	unsigned short	val;
+	uint16_t	val;
 	struct	
 		{
 #ifdef SYS_ENDIAN_BIG // big endian

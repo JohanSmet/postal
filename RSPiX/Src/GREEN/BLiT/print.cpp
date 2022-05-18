@@ -308,7 +308,7 @@ short	RFontOld::Save(RFile* /*pFile*/)
 				for (long i=0;i < (long)pInfo->m_lSize;i++,pCode++)
 					ucCheckSum ^= *pCode;
 
-				fprintf(fp,"%02x\n",(unsigned short) ucCheckSum);
+				fprintf(fp,"%02x\n",(uint16_t) ucCheckSum);
 				fprintf(fp,"%ld\n",pInfo->m_lSize);
 				for (i=0,pCode = pInfo->m_pCode;i < (long)pInfo->m_lSize;
 							i++,pCode++)
@@ -445,7 +445,7 @@ short	RFontOld::Load(char*	pszName)
 					TRACE("ERROR: character %02x, parity error\n"
 							"%02x vs %02x\n",
 							(unsigned long)pInfo->m_u16ASCII,
-							(unsigned long)ucCheckSum,(unsigned short)ucCheck);
+							(unsigned long)ucCheckSum,(uint16_t)ucCheck);
 					fscanf(fp,"%c",&c);	// remove trailing newline...
 					TRACE("Next character is %02x\n",(unsigned long) c);
 					sDone = TRUE;

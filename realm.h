@@ -499,7 +499,7 @@ class CRealm
 			} Layer;
 
 		// Scoring modes
-		typedef unsigned short ScoringMode;
+		typedef uint16_t ScoringMode;
 		enum
 			{
 			Standard = 0,		// Standard single player showing population, hostiles, kills and kill %

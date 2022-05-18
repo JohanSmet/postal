@@ -322,7 +322,7 @@ class RString
 		// is, to reiterate, very clumsy.
 		#if 0
 		void Insert(long lPos, short s);
-		void Insert(long lPos, unsigned short us);
+		void Insert(long lPos, uint16_t us);
 		void Insert(long lPos, long l);
 		void Insert(long lPos, unsigned long ul);
 		#endif
@@ -410,10 +410,10 @@ class RString
 			}
 
 		// Assign string representation of specified number
-		const RString& operator=(unsigned short rhs)
+		const RString& operator=(uint16_t rhs)
 			{
 			Grow(MaxUShortLen + 1); // size is always > 0, so this will always return with a valid buffer
-			m_lStrLen = sprintf(m_pBuf, "%hu", (unsigned short)rhs);
+			m_lStrLen = sprintf(m_pBuf, "%hu", (uint16_t)rhs);
 			return *this;
 			}
 
@@ -501,10 +501,10 @@ class RString
 			}
 
 		// Append string representation of specified number
-		const RString& operator+=(unsigned short rhs)
+		const RString& operator+=(uint16_t rhs)
 			{
 			Grow(m_lStrLen + MaxUShortLen + 1); // size is always > 0, so this will always return with a valid buffer
-			m_lStrLen += sprintf(m_pBuf + m_lStrLen, "%hu", (unsigned short)rhs);
+			m_lStrLen += sprintf(m_pBuf + m_lStrLen, "%hu", (uint16_t)rhs);
 			return *this;
 			}
 
@@ -558,7 +558,7 @@ class RString
 			return str;
 			}
 
-		RString operator+(unsigned short rhs) const
+		RString operator+(uint16_t rhs) const
 			{
 			RString str = *this;
 			str += rhs;

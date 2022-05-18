@@ -174,7 +174,7 @@ class RSocket
 				// A return value of RSocket::errNotSupported means this protocol is
 				// not supported.
 				virtual short Open(										// Returns 0 if connection was opened
-					unsigned short usPort,								// In:  Port number on which to make a connection
+					uint16_t usPort,								// In:  Port number on which to make a connection
 					short sType,											// In:  Any one RSocket::typ* enum
 					short sOptionFlags,									// In:  Any combo of RSocket::opt* enums
 					BLOCK_CALLBACK callback = NULL)					// In:  Blocking callback (or NULL to keep current callback)
@@ -310,7 +310,7 @@ class RSocket
 		// RSocket::errNotSupported.
 		////////////////////////////////////////////////////////////////////////////////
 		short Open(													// Returns 0 if successfull, non-zero otherwise
-			unsigned short usPort,								// In:  Port number or 0 for any port
+			uint16_t usPort,								// In:  Port number or 0 for any port
 			short sType,											// In:  Any one RSocket::typ* enum
 			short sOptionFlags,									// In:  Any combo of RSocket::opt* enums
 			BLOCK_CALLBACK callback = NULL);					// In:  Blocking callback (or NULL to keep current callback)
@@ -536,7 +536,7 @@ class RSocket
 		// Create broadcast address using specified port
 		////////////////////////////////////////////////////////////////////////////////
 		static void CreateBroadcastAddress(
-			unsigned short usPort,								// In:  Port to broadcast to
+			uint16_t usPort,								// In:  Port to broadcast to
 			RSocket::Address* paddress);						// Out: Broadcast address returned here
 
 
@@ -544,7 +544,7 @@ class RSocket
 		// Get the port of an existing (valid) address
 		////////////////////////////////////////////////////////////////////////////////
 		static
-		unsigned short GetAddressPort(						// Returns port number
+		uint16_t GetAddressPort(						// Returns port number
 			Address* paddress);									// In:  Address to get port from
 
 

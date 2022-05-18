@@ -167,7 +167,7 @@ void RSocket::Reset(void)
 // RSocket::errNotSupported.
 ////////////////////////////////////////////////////////////////////////////////
 short RSocket::Open(										// Returns 0 on success, non-zero otherwise
-	unsigned short usPort,								// In:  Port number or 0 for any port
+	uint16_t usPort,								// In:  Port number or 0 for any port
 	short sType,											// In:  Any one RSocket::typ* enum
 	short sOptionFlags,									// In:  Any combo of RSocket::opt* enums
 	RSocket::BLOCK_CALLBACK callback)				// In:  Blocking callback (or NULL to keep current)
@@ -754,7 +754,7 @@ short RSocket::GetAddress(								// Returns 0 on success, non-zero otherwise
 ////////////////////////////////////////////////////////////////////////////////
 // static
 void RSocket::CreateBroadcastAddress(
-	unsigned short usPort,								// In:  Port to broadcast to
+	uint16_t usPort,								// In:  Port to broadcast to
 	RSocket::Address* paddress)						// Out: Broadcast address returned here
 	{
 	switch (ms_prototype)
@@ -777,10 +777,10 @@ void RSocket::CreateBroadcastAddress(
 // function is called before any protocol has been selected, it fails.
 ////////////////////////////////////////////////////////////////////////////////
 // static
-unsigned short RSocket::GetAddressPort(			// Returns the port number
+uint16_t RSocket::GetAddressPort(			// Returns the port number
 	RSocket::Address* paddress)						// In:  Address to get port from
 	{
-	unsigned short usPort = 0;
+	uint16_t usPort = 0;
 	
 	switch (ms_prototype)
 		{

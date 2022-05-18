@@ -158,7 +158,7 @@ class CNetServer
 		RSocket			m_socketAntenna;							// Socket used to receive browse broadcasts
 	protected:
 		RSocket::BLOCK_CALLBACK m_callback;						// Blocking callback
-		unsigned short	m_usBasePort;								// Base port number
+		uint16_t	m_usBasePort;								// Base port number
 
 		CClient			m_aClients[Net::MaxNumIDs];			// Array of clients
 		Net::ID			m_idPrevGet;								// Client we got last msg from
@@ -231,7 +231,7 @@ class CNetServer
 		// Startup
 		////////////////////////////////////////////////////////////////////////////////
 		short Startup(												// Returns 0 if successfull, non-zero otherwise
-			unsigned short usPort,								// In:  Server base port number
+			uint16_t usPort,								// In:  Server base port number
 			char* pszHostName,									// In:  Host name (max size is MaxHostName!!!)
 			RSocket::BLOCK_CALLBACK callback);				// In:  Blocking callback
 

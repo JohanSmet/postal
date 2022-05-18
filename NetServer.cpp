@@ -44,7 +44,7 @@
 // Startup
 ////////////////////////////////////////////////////////////////////////////////
 short CNetServer::Startup(								// Returns 0 if successfull, non-zero otherwise
-	unsigned short usPort,								// In:  Server base port number
+	uint16_t usPort,								// In:  Server base port number
 	char* pszHostName,									// In:  Host name (max size is MaxHostName!!!)
 	RSocket::BLOCK_CALLBACK callback)				// In:  Blocking callback
 	{

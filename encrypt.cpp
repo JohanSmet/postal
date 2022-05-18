@@ -83,13 +83,13 @@ static const char *ms_aszSeed[NUM_KEYS]=				{	"S3D5Lf6klfdsjiureLJKHLKmnblkjshgw
 
 
 
-static unsigned short ms_usCRCtable[UCHAR_MAX + 1];
-static unsigned short ms_usCRC;
+static uint16_t ms_usCRCtable[UCHAR_MAX + 1];
+static uint16_t ms_usCRC;
 
 //////////////////////////////////////////////////////////////////////////////////////
 // Modular functions.
 //////////////////////////////////////////////////////////////////////////////////////
-short Verify(char *szSource,short sLength,unsigned short usCRC);
+short Verify(char *szSource,short sLength,uint16_t usCRC);
 void MakeCRCTable();
 //////////////////////////////////////////////////////////////////////////////////////
 // Globally externable variables.
@@ -304,7 +304,7 @@ short Decrypt(char* szFileName,char* szOutputString)
 			sLength;
 	RFile cnFile;
 	char szDecrypted[MAX_STRING_LENGTH];
-	unsigned short usCRC=0;
+	uint16_t usCRC=0;
 
 	if(cnFile.Open(szFileName,"rb",RFile::LittleEndian)==0)
 		{
@@ -337,7 +337,7 @@ short Decrypt(char* szFileName,char* szOutputString)
 //	History:			03/25/97, AJM,		Created.
 //
 //////////////////////////////////////////////////////////////////////////////////////
-short Verify(char *szSource,short sLength,unsigned short usCRC)
+short Verify(char *szSource,short sLength,uint16_t usCRC)
 	{
 	short rc=0;	//assume success
 	
@@ -358,7 +358,7 @@ short Verify(char *szSource,short sLength,unsigned short usCRC)
 
 void MakeCRCTable()
 	{
-	unsigned short i, j, r;
+	uint16_t i, j, r;
 
 	for (i = 0; i <= UCHAR_MAX; i++) 
 		{
