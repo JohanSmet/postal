@@ -219,7 +219,7 @@ void CNetServer::Update(void)
 				buf2[5] = (U8)((m_lHostMagic >>  8) & 0xff);
 				buf2[6] = (U8)((m_lHostMagic >> 16) & 0xff);
 				buf2[7] = (U8)((m_lHostMagic >> 24) & 0xff);
-				strncpy((char*)&buf2[8], m_acHostName, sizeof(m_acHostName));
+				strncpy((char*)&buf2[8], m_acHostName, sizeof(buf2) - 8);
 
 				// Send the message directly to the sender of the previous message
 				long lBytesSent;
