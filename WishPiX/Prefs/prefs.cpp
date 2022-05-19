@@ -757,7 +757,7 @@ int16_t RPrefs::SetVal(				// Returns 0 if successfull, non-zero otherwise
 
 	ASSERT(pszSection);
 	ASSERT(pszVariable);
-	sprintf(pszValue, "%lu", (unsigned long) u32Value);
+	sprintf(pszValue, "%lu", (uint32_t) u32Value);
 	SetVal(pszSection, pszVariable, pszValue);
 
 	return m_sErrorStatus;

@@ -354,8 +354,8 @@ class NetMsg
 			{
 			enum { Size = 9 };
 			unsigned char	ucType;								// Message type
-			unsigned long	ulMagic;								// Magic number
-			unsigned long	ulVersion;							// Version number
+			uint32_t	ulMagic;								// Magic number
+			uint32_t	ulVersion;							// Version number
 
 			static void Read(NetMsg* pmsg, CBufQ* pBuf)
 				{
@@ -378,8 +378,8 @@ class NetMsg
 			enum { Size = 10 };
 			unsigned char	ucType;								// Message type
 			Net::ID idAssigned;									// Assigned ID
-			unsigned long	ulMagic;								// Magic number
-			unsigned long	ulVersion;							// Version number
+			uint32_t	ulMagic;								// Magic number
+			uint32_t	ulVersion;							// Version number
 
 			static void Read(NetMsg* pmsg, CBufQ* pBuf)
 				{

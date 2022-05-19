@@ -386,7 +386,7 @@ int16_t RProtocolBSDIP::Open(							// Returns 0 if successful, non-zero otherwi
 					// Check if they want blocking turned off
 					if (sOptionFlags & RSocket::optDontBlock)
 						{
-						unsigned long ulEnableNonBlockingMode = 1;
+						uint32_t ulEnableNonBlockingMode = 1;
 						if (ioctlsocket(m_sock, FIONBIO, &ulEnableNonBlockingMode) == SOCKET_ERROR)
 							{
 							sResult = -1;
@@ -1297,7 +1297,7 @@ long RProtocolBSDIP::CheckReceivableBytes(void)
 			
 			// Get amount of data available for reading
 			ms_funcnum = RSocket::OtherFunc;
-			if (ioctlsocket(m_sock, FIONREAD, (unsigned long*)&lResult) == SOCKET_ERROR)
+			if (ioctlsocket(m_sock, FIONREAD, (uint32_t*)&lResult) == SOCKET_ERROR)
 				{
 				lResult = 0;
 				TRACE("RProtocolBSDIP::GetAvailableForReceive(): Error returned by ioctrlsocket(): %ld\n", WSAGetLastError());
@@ -1454,7 +1454,7 @@ int16_t RProtocolBSDIP::GetAddress(					// Returns 0 if successfull, non-zero ot
 		if ((strspn(pszName, "0123456789.") >= strlen(pszName)) && (strchr(pszName, '.') != NULL))
 			{
 			// Convert dotted address into value (returned in network order!)
-			unsigned long ulAddr = inet_addr(pszName);
+			uint32_t ulAddr = inet_addr(pszName);
 			if (ulAddr != INADDR_NONE)
 				{
 				// Fill in the address

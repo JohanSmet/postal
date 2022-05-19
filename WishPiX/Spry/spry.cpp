@@ -234,8 +234,8 @@ int16_t RSpry::Save(
 	int16_t sResult = 0;
 
 	// Write out file ID and version
-	pFile->Write((unsigned long)RSpry::FileID);
-	pFile->Write((unsigned long)RSpry::FileVersion);
+	pFile->Write((uint32_t)RSpry::FileID);
+	pFile->Write((uint32_t)RSpry::FileVersion);
 
 	// Write out number of sprites
 	pFile->Write((int16_t)m_listSprites.GetCount());

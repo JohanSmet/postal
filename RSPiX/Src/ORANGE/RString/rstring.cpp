@@ -58,7 +58,7 @@
 //
 //		* Characters (char), which are treated as ASCII codes
 //
-//		* Integers (int16_t, uint16_t, long, and unsigned long) converted
+//		* Integers (int16_t, uint16_t, long, and uint32_t) converted
 //		  into string representations of their numerical values.  The exception
 //		  is that there are no constructors to take these types, only because
 //		  it caused a conflict with other, more usefull constructors.

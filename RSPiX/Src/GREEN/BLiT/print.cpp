@@ -444,10 +444,10 @@ int16_t	RFontOld::Load(char*	pszName)
 					{
 					TRACE("ERROR: character %02x, parity error\n"
 							"%02x vs %02x\n",
-							(unsigned long)pInfo->m_u16ASCII,
-							(unsigned long)ucCheckSum,(uint16_t)ucCheck);
+							(uint32_t)pInfo->m_u16ASCII,
+							(uint32_t)ucCheckSum,(uint16_t)ucCheck);
 					fscanf(fp,"%c",&c);	// remove trailing newline...
-					TRACE("Next character is %02x\n",(unsigned long) c);
+					TRACE("Next character is %02x\n",(uint32_t) c);
 					sDone = TRUE;
 					break;
 					}

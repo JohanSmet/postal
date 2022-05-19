@@ -132,7 +132,7 @@ inline void rspfpSub(RFixedS32& s32fx,RFixedS32& s32fxSub)
 	inline void rspfpMul(RFixedS32 &lC,long lA,long lB)
 		{ 
 		union {
-			unsigned long val;
+			uint32_t val;
 			struct { uint16_t lo; uint16_t hi; };
 			} temp;
 		long temp2;
@@ -165,7 +165,7 @@ inline double rspfpGetValue(RFixedS32& s32fx)
 const RFixedS32	s32fxERROR = {-65536};
 
 // For fixed32 type stuff:
-//extern unsigned long OneOver[256];
+//extern uint32_t OneOver[256];
 //extern void SetOneOver();
 #define NUM_ONEOVER_FP32 1280
 

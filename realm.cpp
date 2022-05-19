@@ -1147,8 +1147,8 @@ int16_t CRealm::Save(										// Returns 0 if successfull, non-zero otherwise
 	ms_sFileCount++;
 
 	// Write out file ID and version
-	pFile->Write((unsigned long)CRealm::FileID);
-	pFile->Write((unsigned long)CRealm::FileVersion);
+	pFile->Write((uint32_t)CRealm::FileID);
+	pFile->Write((uint32_t)CRealm::FileVersion);
 
 	// Save properties for the realm
 	pFile->Write(m_s2dResPathIndex);

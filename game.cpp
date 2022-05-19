@@ -1333,7 +1333,7 @@ static int16_t GameCore(void)		// Returns 0 on success.
 		#define NEXT_LINE "\n\n"
 	#else
 		char acTime[100];
-		unsigned long lTime = g_lExpTime + (((365 * 70UL) + 17) * 24 * 60 * 60); // time_fudge 1900->1970
+		uint32_t lTime = g_lExpTime + (((365 * 70UL) + 17) * 24 * 60 * 60); // time_fudge 1900->1970
 		strcpy(acTime, ctime(&lTime));
 		char* pCR = strchr(acTime, '\n');
 		if (pCR != NULL)
