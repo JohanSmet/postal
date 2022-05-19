@@ -61,7 +61,7 @@ extern int16_t macGuessTotalHeapBlocks;
 // application is allowed to continue.  If the application exhausts all memory
 // again, an error dialog is displayed and the application is terminated.
 // NOTE: Currently used only with SmartHeap -- see mmain.cpp for details.
-extern long macReserveMemBytes;
+extern int32_t macReserveMemBytes;
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -153,14 +153,14 @@ extern int16_t rspGetMouseEvent(	// Returns 0 if no event was available, non-zer
 	int16_t* psX,							// Event's X position is returned here (unless NULL)
 	int16_t* psY,							// Event's Y position is returned here (unless NULL)
 	int16_t* psButton,					// Event's button status is returned here (unless NULL)
-	long* plTime = NULL,					// Event's time stamp returned here (unless NULL)
+	int32_t* plTime = NULL,					// Event's time stamp returned here (unless NULL)
 	int16_t* psType = NULL);			// Event's type (as per OS) is returned here (unless NULL)
 
 extern int16_t rspGetLastMouseEvent(	// Returns 0 if no event was available, non-zero otherwise
 	int16_t* psX,								// Event's X position is returned here (unless NULL)
 	int16_t* psY,								// Event's Y position is returned here (unless NULL)
 	int16_t* psButton,						// Event's button status is returned here (unless NULL)
-	long* plTime = NULL,					// Event's time stamp returned here (unless NULL)
+	int32_t* plTime = NULL,					// Event's time stamp returned here (unless NULL)
 	int16_t* psType = NULL);				// Event's type (as per OS) is returned here (unless NULL)
 
 extern void rspClearMouseEvents(void);
@@ -179,7 +179,7 @@ extern void rspSetMouseCursorShowLevel(
 	int16_t sLevel);												// In:  New cursor level
 
 // Global variables for setting maximum mouse movement between two events,
-// beyond which they would no longer be considered double-clicks.  These are
+// beyond which they would no int32_t be considered double-clicks.  These are
 // set by this module to reasonable values, but an application CAN change
 // them.  This is, however, a MAC-SPECIFIC EXTENSION, so user beware!
 extern int16_t mMouseDoubleClickX;
@@ -196,8 +196,8 @@ extern void rspScanKeys(
 extern void rspClearKeyEvents(void);
 
 extern int16_t rspGetKey(						// Returns 1 if key was available, 0 if not
-	long* plKey,								// Out: Key info (0 if no key was available)
-	long* plTime = NULL);					// Out: Key's time stamp (unless NULL)
+	int32_t* plKey,								// Out: Key info (0 if no key was available)
+	int32_t* plTime = NULL);					// Out: Key's time stamp (unless NULL)
 
 extern int16_t rspIsKey(void);				// Returns 1 if key is available, 0 if not
 
@@ -224,7 +224,7 @@ extern U8* rspGetKeyStatusArray(void);	// Returns pointer to 128-byte key status
 // Note that the values returned by this function are not guaranteed to be in
 // synchronization with any of the other key functions.  Their state is obtained
 // as close to the actual key status as is possible.
-extern long rspGetToggleKeyStates(void);	// Returns toggle key state flags
+extern int32_t rspGetToggleKeyStates(void);	// Returns toggle key state flags
 
 // Flags used to test value returned by rspGetToggleKeyStates()
 #define RSP_CAPS_LOCK_ON			0x00000001
@@ -296,12 +296,12 @@ extern long rspGetToggleKeyStates(void);	// Returns toggle key state flags
 // Use this as the pjoypos parameter to rspGetJoyPos() and rspGetJoyPrevPos().
 typedef struct
 	{
-	long	lX;
-	long	lY;
-	long	lZ;
-	long	lW;
-	long	lU;
-	long	lV;
+	int32_t	lX;
+	int32_t	lY;
+	int32_t	lZ;
+	int32_t	lW;
+	int32_t	lU;
+	int32_t	lV;
 	} RJoyPos;
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -316,12 +316,12 @@ extern void rspUpdateJoy(
 // This function returns directions in an analog format (0..0xFFFF).
 extern void rspGetJoyPos(
 	int16_t sJoy,					// In:  Joystick to query.
-	long *plX,					// Out: X axis position of joystick, if not NULL.
-	long *plY = NULL,			// Out: Y axis position of joystick, if not NULL.
-	long *plZ = NULL,			// Out: Z axis position of joystick, if not NULL.
-	long *plW = NULL,			// Out: W axis position of joystick, if not NULL.
-	long *plU = NULL,			// Out: U axis position of joystick, if not NULL.
-	long *plV = NULL);		// Out: V axis position of joystick, if not NULL.
+	int32_t *plX,					// Out: X axis position of joystick, if not NULL.
+	int32_t *plY = NULL,			// Out: Y axis position of joystick, if not NULL.
+	int32_t *plZ = NULL,			// Out: Z axis position of joystick, if not NULL.
+	int32_t *plW = NULL,			// Out: W axis position of joystick, if not NULL.
+	int32_t *plU = NULL,			// Out: U axis position of joystick, if not NULL.
+	int32_t *plV = NULL);		// Out: V axis position of joystick, if not NULL.
 
 extern void rspGetJoyPos(
 	int16_t sJoy,					// In:  Joystick to query.
@@ -331,12 +331,12 @@ extern void rspGetJoyPos(
 // This function returns directions in an analog format (0..0xFFFF).
 extern void rspGetJoyPrevPos(
 	int16_t sJoy,					// In:  Joystick to query.
-	long *plX,					// Out: X axis position of joystick, if not NULL.
-	long *plY = NULL,			// Out: Y axis position of joystick, if not NULL.
-	long *plZ = NULL,			// Out: Z axis position of joystick, if not NULL.
-	long *plW = NULL,			// Out: W axis position of joystick, if not NULL.
-	long *plU = NULL,			// Out: U axis position of joystick, if not NULL.
-	long *plV = NULL);		// Out: V axis position of joystick, if not NULL.
+	int32_t *plX,					// Out: X axis position of joystick, if not NULL.
+	int32_t *plY = NULL,			// Out: Y axis position of joystick, if not NULL.
+	int32_t *plZ = NULL,			// Out: Z axis position of joystick, if not NULL.
+	int32_t *plW = NULL,			// Out: W axis position of joystick, if not NULL.
+	int32_t *plU = NULL,			// Out: U axis position of joystick, if not NULL.
+	int32_t *plV = NULL);		// Out: V axis position of joystick, if not NULL.
 
 extern void rspGetJoyPrevPos(
 	int16_t sJoy,					// In:  Joystick to query.
@@ -387,12 +387,12 @@ extern U32 MouseIndexToBitfield(int16_t index);
 #define RSP_MAC_VIDEO_COPYBITS	0		// Use the Mac OS copybits for drawing to screen.
 #define RSP_MAC_VIDEO_DIRECT		1		// Use RSPiX direct-to-screen routines.
 
-extern long rspMacVideoProfile(			// Returns average time per update.
+extern int32_t rspMacVideoProfile(			// Returns average time per update.
 	int16_t	sX,									// In:  X coord of rectangle region to profile
 	int16_t	sY,									// In:  Y coord of rectangle region to profile
 	int16_t	sWidth,								// In:  Width of the rectangle region
 	int16_t	sHeight,								// In:  Height of the rectangle region
-	long	lTimeProfile,						// In:  Duration of time to do the update profile
+	int32_t	lTimeProfile,						// In:  Duration of time to do the update profile
 	int16_t	sMethod);							// In:  Method to perform the profile.
 
 extern void rspSetMacVideoUpdateOptions(
@@ -440,19 +440,19 @@ extern int16_t rspSuggestVideoMode(		// Returns 0 if successfull, non-zero other
 
 extern int16_t rspLockVideoPage(			// Returns 0 if successfull, non-zero otherwise
 	void**	ppvMemory,						// Out: Pointer to video page or NULL
-	long*		plPitch);						// Out: Pitch of video page
+	int32_t*		plPitch);						// Out: Pitch of video page
 
 extern void rspUnlockVideoPage(void);
 
 extern int16_t rspLockVideoFlipPage(		// Returns 0 if successfull, non-zero otherwise
 	void**	ppvMemory,						// Out: Pointer to video flip page or NULL
-	long*		plPitch);						// Out: Pitch of video flip page
+	int32_t*		plPitch);						// Out: Pitch of video flip page
 
 extern void rspUnlockVideoFlipPage(void);
 
 extern int16_t rspLockVideoBuffer(			// Returns 0 if successfull, non-zero otherwise
 	void**	ppvBuffer,						// Out: Pointer to video buffer or NULL
-	long*		plPitch);						// Out: Pitch of video buffer
+	int32_t*		plPitch);						// Out: Pitch of video buffer
 
 extern void rspUnlockVideoBuffer(void);
 
@@ -491,7 +491,7 @@ extern void rspSetPaletteEntries(
 	unsigned char* pucRed,					// In:  Pointer to starting source red value
 	unsigned char* pucGreen,				// In:  Pointer to starting source green value
 	unsigned char* pucBlue,					// In:  Pointer to starting source blue value
-	long lIncBytes);							// In:  What to add to pointers to move to next value
+	int32_t lIncBytes);							// In:  What to add to pointers to move to next value
 
 extern void rspGetPaletteEntries(
 	int16_t sStartEntry,						// In:  Starting source entry (0 to 255)
@@ -499,7 +499,7 @@ extern void rspGetPaletteEntries(
 	unsigned char* pucRed,					// Out: Pointer to starting destination red value
 	unsigned char* pucGreen,				// Out: Pointer to starting destination green value
 	unsigned char* pucBlue,					// Out: Pointer to starting destination blue value
-	long lIncBytes);							// In:  What to add to pointers to move to next value
+	int32_t lIncBytes);							// In:  What to add to pointers to move to next value
 
 inline void rspGetPaletteEntry(
 	int16_t sEntry,								// In:  Palette entry (0 to 255)
@@ -540,7 +540,7 @@ extern void rspSetPaletteMaps(
 	unsigned char* pucRed,					// In:  Pointer to starting source red value
 	unsigned char* pucGreen,				// In:  Pointer to starting source green value
 	unsigned char* pucBlue,					// In:  Pointer to starting source blue value
-	long lIncBytes);							// In:  What to add to pointers to move to next value
+	int32_t lIncBytes);							// In:  What to add to pointers to move to next value
 
 // Set palette mapping tables (see rspSetPaletteMaps() for details.)
 extern void rspGetPaletteMaps(
@@ -549,7 +549,7 @@ extern void rspGetPaletteMaps(
 	unsigned char* pucRed,					// Out: Pointer to starting destination red value
 	unsigned char* pucGreen,				// Out: Pointer to starting destination green value
 	unsigned char* pucBlue,					// Out: Pointer to starting destination blue value
-	long lIncBytes);							// In:  What to add to pointers to move to next value
+	int32_t lIncBytes);							// In:  What to add to pointers to move to next value
 	
 extern void rspUpdatePalette(void);
 
@@ -565,10 +565,10 @@ extern void rspUnshieldMouseCursor(void);
 // Time API
 ////////////////////////////////////////////////////////////////////////////////
 
-extern long rspGetMicroseconds(			// Returns time in microseconds
+extern int32_t rspGetMicroseconds(			// Returns time in microseconds
 	int16_t sReset = FALSE);					// In:  TRUE to reset count, FALSE otherwise
 
-extern long rspGetMilliseconds(void);	// Returns time in milliseconds
+extern int32_t rspGetMilliseconds(void);	// Returns time in milliseconds
 
 extern S64 rspGetAppMicroseconds(void);	// Returns microseconds since app started
 
@@ -579,32 +579,32 @@ extern S64 rspGetAppMicroseconds(void);	// Returns microseconds since app starte
 
 // Callback returns 0 if successfull, non-zero if no data was returned
 typedef int16_t (*RSP_SND_CALLBACK)(UCHAR*	pucBuffer,	// Data buffer to be filled
-											long		lSize,		// Size of buffer (must fill
+											int32_t		lSize,		// Size of buffer (must fill
 																		// entire bufffer - pad with
 																		// silence if necessary)
-											long		lDataPos,	// Data's starting position
+											int32_t		lDataPos,	// Data's starting position
 																		// in sound out data stream
 											ULONG*	pulUser);	// For use by user (can be
 																		// changed as desired)
 
 extern int16_t rspSetSoundOutMode(				// Returns 0 if successfull, non-zero otherwise
-	long lSampleRate,								// In:  Sample rate
-	long lBitsPerSample,							// In:  Bits per sample
-	long lChannels,								// In:  Channels (mono = 1, stereo = 2)
-	long lCurBufferTime,							// In:  Current buffer time (in ms.)
-	long lMaxBufferTime,							// In:  Maximum buffer time (in ms.)
+	int32_t lSampleRate,								// In:  Sample rate
+	int32_t lBitsPerSample,							// In:  Bits per sample
+	int32_t lChannels,								// In:  Channels (mono = 1, stereo = 2)
+	int32_t lCurBufferTime,							// In:  Current buffer time (in ms.)
+	int32_t lMaxBufferTime,							// In:  Maximum buffer time (in ms.)
 	RSP_SND_CALLBACK callback,					// In:  Callback function
 	ULONG ulUser);									// In:  User-defined value to pass to callback
 	
 extern int16_t rspGetSoundOutMode(				// Returns 0 if successfull, non-zero otherwise
-	long* plSampleRate,							// Out: Sample rate or -1 (unless NULL)
-	long* plBitsPerSample = NULL,				// Out: Bits per sample or -1 (unless NULL)
-	long* plChannels = NULL,					// Out: Channels (mono=1, stereo=2) or -1 (unless NULL)
-	long* plCurBufferTime = NULL,				// Out: Current buffer time or -1 (unless NULL)
-	long* plMaxBufferTime = NULL);			// Out: Maximum buffer time or -1 (unless NULL)
+	int32_t* plSampleRate,							// Out: Sample rate or -1 (unless NULL)
+	int32_t* plBitsPerSample = NULL,				// Out: Bits per sample or -1 (unless NULL)
+	int32_t* plChannels = NULL,					// Out: Channels (mono=1, stereo=2) or -1 (unless NULL)
+	int32_t* plCurBufferTime = NULL,				// Out: Current buffer time or -1 (unless NULL)
+	int32_t* plMaxBufferTime = NULL);			// Out: Maximum buffer time or -1 (unless NULL)
 
 extern void rspSetSoundOutBufferTime(
-	long lCurBufferTime);						// In:  New buffer time
+	int32_t lCurBufferTime);						// In:  New buffer time
 
 extern void rspKillSoundOutMode(void);		// Returns 0 if successfull, non-zero otherwise
 
@@ -616,11 +616,11 @@ extern int16_t rspResumeSoundOut(void);		// Returns 0 on success, non-zero other
 
 extern int16_t rspIsSoundOutPaused(void);	// Returns TRUE if paused, FALSE otherwise
 
-extern long rspGetSoundOutPos(void);		// Returns sound output position in bytes
+extern int32_t rspGetSoundOutPos(void);		// Returns sound output position in bytes
 
-extern long rspGetSoundOutTime(void);		// Returns sound output position in time
+extern int32_t rspGetSoundOutTime(void);		// Returns sound output position in time
 
-extern long rspDoSound(void);
+extern int32_t rspDoSound(void);
 
 extern void rspLockSound(void);
 

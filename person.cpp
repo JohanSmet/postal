@@ -289,12 +289,12 @@ double CPerson::ms_dInRangeLow = 190*190;		// Squared distance to be in range wi
 double CPerson::ms_dInRangeHigh = 230*230;	// Squared distance to be in range with weapon
 double CPerson::ms_dThrowHorizVel = 200;		// Throw out at this velocity
 double CPerson::ms_dMaxCrawlVel = 2.5;			// Speed at which cop crawls
-long CPerson::ms_lMinCommentTime = 10000;		// Amount of time before making a comment
-long CPerson::ms_lCommentTimeVariance = 35000;// Random amount added on.
-long CPerson::ms_lRandomAvoidTime = 200;		// Time to wander before looking again
-long CPerson::ms_lReseekTime = 1000;			// Do a 'find' again 
-long CPerson::ms_lWatchWaitTime = 5000;		// Time to watch shot go
-long CPerson::ms_lReselectDudeTime	= 3000;	// Time to go without finding a dude
+int32_t CPerson::ms_lMinCommentTime = 10000;		// Amount of time before making a comment
+int32_t CPerson::ms_lCommentTimeVariance = 35000;// Random amount added on.
+int32_t CPerson::ms_lRandomAvoidTime = 200;		// Time to wander before looking again
+int32_t CPerson::ms_lReseekTime = 1000;			// Do a 'find' again 
+int32_t CPerson::ms_lWatchWaitTime = 5000;		// Time to watch shot go
+int32_t CPerson::ms_lReselectDudeTime	= 3000;	// Time to go without finding a dude
 															// before calling SelectDude() to find
 															// possibly a closer one.
 int16_t CPerson::ms_sLogTabUserGlobal = 0;		// Logic table variable for group effects
@@ -592,7 +592,7 @@ void CPerson::Update(void)
 
 	if (!m_sSuspend)
 	{
-		long lThisTime = m_pRealm->m_time.GetGameTime();
+		int32_t lThisTime = m_pRealm->m_time.GetGameTime();
 
 		// See if its time to reevaluate the states
 		if (lThisTime > m_lEvalTimer)
@@ -1061,7 +1061,7 @@ static void LogicUserBrowse(	// Returns nothing
 		if (rspStrnicmp(szLogicFile, szHDPath, strlen(szHDPath) ) == 0)
 			{
 			// Determine amount of path to ignore.
-			long	lSubPathBegin	= strlen(szHDPath);
+			int32_t	lSubPathBegin	= strlen(szHDPath);
 
 			// Update the GUI that shows the filename.
 			pguiLogicFileName->SetText("%s", rspPathFromSystem(szLogicFile + lSubPathBegin) );
@@ -1185,7 +1185,7 @@ int16_t CPerson::EditModify(void)
 			// Set callback for logic browser button.
 			pbtnLogicUserBrowse->m_bcUser	= LogicUserBrowse;
 			// Set instance data to GUI to query/update.
-			pbtnLogicUserBrowse->m_ulUserInstance	= (ULONG)peditLogicFile;
+			pbtnLogicUserBrowse->m_ulUserInstance	= (intptr_t)peditLogicFile;
 
 			SetGuiToNotify(pGui->GetItemFromId(ID_GUI_EDIT_TEXTURES) );
 
@@ -1698,7 +1698,7 @@ int16_t CPerson::FreeResources(void)						// Returns 0 if successfull, non-zero 
 ////////////////////////////////////////////////////////////////////////////////
 
 SampleMaster::SoundInstance CPerson::PlaySoundWrithing(
-			long* plDuration)					// Out:  Duration of sample, if not NULL.
+			int32_t* plDuration)					// Out:  Duration of sample, if not NULL.
 {
 	m_siPlaying = 0;
 	SampleMasterID*	psmid	= &g_smidNil;
@@ -1748,8 +1748,8 @@ SampleMaster::SoundInstance CPerson::PlaySoundShot(void)
 {
 	m_siPlaying = 0;
 	SampleMasterID*	psmid	= &g_smidNil;
-	long lThisTime = m_pRealm->m_time.GetGameTime();
-	long	lSampleDuration	= 0;	// Safety.
+	int32_t lThisTime = m_pRealm->m_time.GetGameTime();
+	int32_t	lSampleDuration	= 0;	// Safety.
 
 	if (lThisTime > m_lSampleTimeIsPlaying)
 	{

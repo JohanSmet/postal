@@ -195,7 +195,7 @@ bool CNetMsgr::GetMsg(									// True if message was available, false otherwise
 					// Get the expected message length.  A value of -1 indicates a
 					// variable-sized message, in which case the next 2 bytes (if
 					// they are available) would indicate the message size.
-					long lMsgSize = ms_aInfoMsg[ucMsg].size;
+					int32_t lMsgSize = ms_aInfoMsg[ucMsg].size;
 					if (lMsgSize == -1)
 						{
 						// Check if at least enough is available (beyond the ucMsg byte we got)

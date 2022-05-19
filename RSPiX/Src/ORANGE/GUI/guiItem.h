@@ -283,7 +283,7 @@ class RGuiItem : public RProps <U32, U32>
 
 		// Set the text that represents the specified child item.
 		int16_t SetText(		// Returns 0 if item found, non-zero otherwise.
-			long	lId,		// Child item ID (can identify this item).
+			int32_t	lId,		// Child item ID (can identify this item).
 			const char* pszFrmt,	// sprintf formatted format string.
 			...);				// Corresponding good stuff.
 
@@ -626,16 +626,16 @@ class RGuiItem : public RProps <U32, U32>
 
 		// Get the text that represents the specified item.
 		int16_t GetText(		// Returns 0 on success.
-			long	lId,		// In:  Child item ID (can identify this item). 
+			int32_t	lId,		// In:  Child item ID (can identify this item). 
 			char* pszText,	// Out: Location to copy text to.
 			int16_t sMax);	// In:  Total memory pointed to by pszText.
 
 		// Get the number represented by the text in this item.
-		long GetVal(void);		// Returns value.
+		int32_t GetVal(void);		// Returns value.
 
 		// Get the number represented by the text in the specified item.
-		long GetVal(		// Returns value.
-			long	lId);		// In:  Child item ID (can identify this item). 
+		int32_t GetVal(		// Returns value.
+			int32_t	lId);		// In:  Child item ID (can identify this item). 
 
 		// Get the RImage that contains the item.  Feel free to Convert() this
 		// to even a transparent type.  Blah ha ha.
@@ -717,7 +717,7 @@ class RGuiItem : public RProps <U32, U32>
 		// its children.
 		RGuiItem* GetItemFromId(	// Returns pointer to RGuiItem, if found;
 											// otherwise, returns NULL.
-			long lId)					// ID of RGuiItem to find.
+			int32_t lId)					// ID of RGuiItem to find.
 			{
 			RGuiItem*	pguiRes	= NULL;	// Assume not found.
 
@@ -925,11 +925,11 @@ class RGuiItem : public RProps <U32, U32>
 
 		Justification		m_justification;	// { RGuiItem::Right, RGuiItem::Center, RGuiItem::Left }
 
-		ULONG					m_ulUserInstance;	// Space that can be used in any way by 
+		intptr_t				m_ulUserInstance;	// Space that can be used in any way by 
 														// the user but is intended to represent 
 														// a user instance structure such as a 
 														// struct or class.
-		ULONG					m_ulUserData;		// Space that can be used in any way by
+		intptr_t				m_ulUserData;		// Space that can be used in any way by
 														// the user and has no particular intended
 														// use.
 
@@ -949,7 +949,7 @@ class RGuiItem : public RProps <U32, U32>
 																// when using transparent blit
 																// call.
 
-		long					m_lId;				// ID.  Used to identify this RGuiItem
+		intptr_t					m_lId;				// ID.  Used to identify this RGuiItem
 														// from others.  See GetItemFromId().
 
 		Target				m_targetFocus;		// Target when focus received.

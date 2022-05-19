@@ -5611,7 +5611,7 @@ void Play_GetApplicationDescriptor(			// Returns nothing.
 														// memory pointed to by pszText.
 	{
 	// Set default in case there's an error
-	ASSERT(strlen(DEFAULT_APP_TIMESTAMP) < sMaxBytes);
+	ASSERT(strlen(DEFAULT_APP_TIMESTAMP) < (size_t) sMaxBytes);
 	strcpy(pszText, DEFAULT_APP_TIMESTAMP);
 
 	#if defined(WIN32)

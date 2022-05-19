@@ -52,8 +52,8 @@ static U8 ms_au8KeyStatus[128];
 
 typedef struct
 	{
-	long	lKey;
-	long	lTime;
+	int32_t	lKey;
+	int32_t	lTime;
 	} RSP_SK_EVENT, *PRSP_SK_EVENT;
 
 // Non-dynamic memory for RSP_SK_EVENTs in queue.
@@ -190,8 +190,8 @@ extern void rspScanKeys(
 //
 //////////////////////////////////////////////////////////////////////////////
 extern int16_t rspGetKey(			// Returns 1 if a key was available; 0 if not.
-	long* plKey,					// Key info returned here (or 0 if no key available)
-	long* plTime /*= NULL*/)	// Key's time stamp returned here (unless NULL)
+	int32_t* plKey,					// Key info returned here (or 0 if no key available)
+	int32_t* plTime /*= NULL*/)	// Key's time stamp returned here (unless NULL)
 	{
 	int16_t	sRes	= 0;	// Assume no key.
 
@@ -433,7 +433,7 @@ U8* rspGetKeyStatusArray(void)	// Returns a ptr to the key status array.
 // Set keys that must be pressed in combination with the system 'quit' key.
 //////////////////////////////////////////////////////////////////////////////
 extern void rspSetQuitStatusFlags(	// Returns nothing.
-	long	lKeyFlags)						// In:  New keyflags (RSP_GKF_*).
+	int32_t	lKeyFlags)						// In:  New keyflags (RSP_GKF_*).
 												// 0 to clear.
 	{
     //fprintf(stderr, "STUBBED: %s:%d\n", __FILE__, __LINE__);
@@ -452,9 +452,9 @@ extern void rspSetQuitStatusFlags(	// Returns nothing.
 #define RSP_NUM_LOCK_ON			0x00000002
 #define RSP_SCROLL_LOCK_ON		0x00000004
 
-extern long rspGetToggleKeyStates(void)	// Returns toggle key state flags.
+extern int32_t rspGetToggleKeyStates(void)	// Returns toggle key state flags.
 	{
-	long	lKeyStates	= 0;
+	int32_t	lKeyStates	= 0;
 #if 0  // !!! FIXME
     Uint8 *states = SDL_GetKeyState(NULL);
     if (states[SDLK_CAPSLOCK]) lKeyStates |= RSP_CAPS_LOCK_ON;

@@ -237,14 +237,14 @@ typedef struct
 typedef struct
 {
 	ULONG			ulSize;
-	long			lWidth;
-	long			lHeight;
+	int32_t			lWidth;
+	int32_t			lHeight;
 	USHORT		usPlanes;
 	USHORT		usBitCount;
 	ULONG			ulCompression;
 	ULONG			ulSizeImage;
-	long			lXPelsPerMeter;
-	long			lYPelsPerMeter;
+	int32_t			lXPelsPerMeter;
+	int32_t			lYPelsPerMeter;
 	ULONG			ulClrUsed;
 	ULONG			ulClrImportant;
 } DIBHEADER, *PDIBHEADER;
@@ -314,7 +314,7 @@ class RImage
 		int16_t			m_sWinX;				// Position of image in the buffer
 		int16_t			m_sWinY;				// Position of image in the buffer
 
-		long			m_lPitch;			// Pitch of image
+		int32_t			m_lPitch;			// Pitch of image
 		int16_t			m_sDepth;			// Color depth of image
 		UCHAR*		m_pData;				// Pointer to data
 		RPal*			m_pPalette;			// Pointer to palette class
@@ -373,7 +373,7 @@ class RImage
 			int16_t	sWidth,				// Width of new buffer.
 			int16_t	sHeight,				// Height of new buffer.
 			Type type,			// Type of new buffer.
-			long	lPitch	= 0L,		// Pitch of new buffer or 0 to calculate.
+			int32_t	lPitch	= 0L,		// Pitch of new buffer or 0 to calculate.
 			int16_t	sDepth	= 8);		// Color depth of new buffer.
 
 		// Detach the data from the Image.  This function returns a pointer
@@ -448,8 +448,8 @@ class RImage
 		// Query functions
 		int16_t GetHeight(void) 	{return m_sHeight;};
 		int16_t GetWidth(void)		{return m_sWidth;};
-		static long GetPitch(int16_t sWidth, int16_t sDepth)
-			{return ((long)sWidth * ((long)sDepth / 8L) + 0x0000000F) & 0xFFFFFFF0;}
+		static int32_t GetPitch(int16_t sWidth, int16_t sDepth)
+			{return ((int32_t)sWidth * ((int32_t)sDepth / 8L) + 0x0000000F) & 0xFFFFFFF0;}
 		Type GetType(void)		{return m_type;};
 
 		// Memory access functions

@@ -353,7 +353,7 @@ int16_t CNavigationNet::EditPostLoad(void)
 		RGuiItem* pgui = plb->AddString((char*) m_rstrNetName);
 		pgui->m_lId = GetInstanceID();
 		pgui->m_bcUser = NavNetListPressedCall;
-		pgui->m_ulUserInstance = (uint32_t) this;
+		pgui->m_ulUserInstance = (intptr_t) this;
 		plb->AdjustContents();
 		plb->SetSel(pgui);
 	}
@@ -394,7 +394,7 @@ int16_t CNavigationNet::EditNew(									// Returns 0 if successfull, non-zero o
 			RGuiItem* pgui = plb->AddString((char*) m_rstrNetName);
 			pgui->m_lId = GetInstanceID();
 			pgui->m_bcUser = NavNetListPressedCall;
-			pgui->m_ulUserInstance = (uint32_t) this;
+			pgui->m_ulUserInstance = (intptr_t) this;
 			plb->AdjustContents();
 			plb->SetSel(pgui);
 		}
@@ -409,7 +409,7 @@ int16_t CNavigationNet::EditNew(									// Returns 0 if successfull, non-zero o
 inline
 void SetText(					// Returns nothing.
 	RGuiItem*	pguiRoot,	// In:  Root GUI.
-	long			lId,			// In:  ID of GUI to set text.
+	int32_t			lId,			// In:  ID of GUI to set text.
 	char*			str)			// In:  Value to set text to.
 	{
 	RGuiItem*	pgui	= pguiRoot->GetItemFromId(lId);

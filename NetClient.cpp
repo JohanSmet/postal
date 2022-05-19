@@ -1418,7 +1418,7 @@ void CNetClient::SendToPeer(Net::ID id,				// id of peer to send to
 
 	// Calculate size of message.  The peer uses the message size to determine
 	// how many input values it contains.
-	ASSERT((pput - msg) <= PEER_MSG_MAX_SIZE);
+	ASSERT((pput - msg) <= (ptrdiff_t) PEER_MSG_MAX_SIZE);
 	long lSize = pput - msg;
 
 	// Make sure maximum message size is <= maximum datagram size

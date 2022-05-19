@@ -512,8 +512,8 @@ int16_t CGameSettings::SavePrefs(
 	pPrefs->SetVal("Multiplayer", "Protocol", m_usProtocol);
 	pPrefs->SetVal("Multiplayer", "Name", m_szPlayerName);
 	pPrefs->SetVal("Multiplayer", "Color", m_sPlayerColorIndex);
-	pPrefs->SetVal("Multiplayer", "Bandwidth", (long)m_sNetBandwidth);
-	pPrefs->SetVal("Multiplayer", "HostMinBandwidth", (long)m_sHostMinBandwidth);
+	pPrefs->SetVal("Multiplayer", "Bandwidth", (int32_t)m_sNetBandwidth);
+	pPrefs->SetVal("Multiplayer", "HostMinBandwidth", (int32_t)m_sHostMinBandwidth);
 	pPrefs->SetVal("Multiplayer", "HostMaxPlayers", m_sHostMaxPlayers);
 	pPrefs->SetVal("Multiplayer", "HostName", m_szHostName);
 	pPrefs->SetVal("Multiplayer", "HostResetScoresEachLevel", m_sHostResetScoresEachLevel);

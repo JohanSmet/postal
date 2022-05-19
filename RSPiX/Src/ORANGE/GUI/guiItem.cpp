@@ -477,7 +477,7 @@ RGuiItem::RGuiItem()
 	m_sX	= 0;
 	m_sY	= 0;
 
-	m_hot.m_ulUser			= (ULONG)this;
+	m_hot.m_ulUser			= (intptr_t)this;
 	m_hot.m_iecUser		= HotCall;
 
 	m_sEventAreaX			= 0;	// X coord of area in which we care
@@ -985,7 +985,7 @@ void RGuiItem::SetText(
 // Set the text that represents the specified child item.
 ////////////////////////////////////////////////////////////////////////
 int16_t RGuiItem::SetText(	// Returns 0 if item found, non-zero otherwise.
-	long	lId,					// Child item ID (can identify this item).
+	int32_t	lId,					// Child item ID (can identify this item).
 	const char* pszFrmt,				// sprintf formatted format string.
 	...)							// Corresponding good stuff.
 	{
@@ -2574,7 +2574,7 @@ int16_t RGuiItem::GetText(	// Returns 0 on success.
 //
 //////////////////////////////////////////////////////////////////////////////
 int16_t RGuiItem::GetText(	// Returns 0 on success.
-	long	lId,					// In:  Child item ID (can identify this item). 
+	int32_t	lId,					// In:  Child item ID (can identify this item). 
 	char* pszText,				// Out: Location to copy text to.
 	int16_t sMax)					// In:  Total memory pointed to by pszText.
 	{
@@ -2599,7 +2599,7 @@ int16_t RGuiItem::GetText(	// Returns 0 on success.
 // Get the number represented by the text in this item.
 //
 //////////////////////////////////////////////////////////////////////////////
-long RGuiItem::GetVal(void)		// Returns value.
+int32_t RGuiItem::GetVal(void)		// Returns value.
 	{
 	return atol(m_szText);
 	}
@@ -2609,10 +2609,10 @@ long RGuiItem::GetVal(void)		// Returns value.
 // Get the number represented by the text in the specified item.
 //
 //////////////////////////////////////////////////////////////////////////////
-long RGuiItem::GetVal(	// Returns value.
-	long	lId)				// In:  Child item ID (can identify this item). 
+int32_t RGuiItem::GetVal(	// Returns value.
+	int32_t	lId)				// In:  Child item ID (can identify this item). 
 	{
-	long lRes	= 0;	// Assume value.  Ayuh.
+	int32_t lRes	= 0;	// Assume value.  Ayuh.
 
 	RGuiItem*	pgui	= GetItemFromId(lId);
 	if (pgui != NULL)

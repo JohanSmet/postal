@@ -2307,7 +2307,7 @@ const char* CRealm::Make2dResPath(	// Returns a ptr to an internal static buffer
 	{
 	static char	szFullPath[RSP_MAX_PATH];
 
-	ASSERT(m_s2dResPathIndex < NUM_ELEMENTS(ms_apsz2dResPaths) );
+	ASSERT((uint32_t) m_s2dResPathIndex < NUM_ELEMENTS(ms_apsz2dResPaths) );
 
 	// Get resource path.
 	const char*	pszPath	= ms_apsz2dResPaths[m_s2dResPathIndex];

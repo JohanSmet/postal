@@ -221,12 +221,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 static int ms_lRandom;
 
-inline void MySeedRandom(long seed)
+inline void MySeedRandom(int32_t seed)
 	{
 	ms_lRandom = seed;
 	}
 
-inline long MyRandom(void)
+inline int32_t MyRandom(void)
 	{
 	return (((ms_lRandom = ms_lRandom * 214013L + 2531011L) >> 16) & 0x7fff);
 	}
@@ -253,9 +253,9 @@ class	CCutSceneInfo
 		bool m_bDeleteFont;
 		int16_t m_sDelW;
 		int16_t m_sDelH;
-		long m_lTotalBytes;
-		long m_lTimeToUpdate;
-		long m_lBytesSoFar;
+		int32_t m_lTotalBytes;
+		int32_t m_lTimeToUpdate;
+		int32_t m_lBytesSoFar;
 		U8 m_u8BloodColor;
 		int16_t m_sLastDistance;
 		SampleMasterID m_musicID;
@@ -313,12 +313,12 @@ int16_t	MartiniDo(	RImage*	pimBackground,	// actually, this is the ONLY graphic
 						int16_t	sStartX,				// logical start position of image
 						int16_t	sStartY,				// NOTE: it will be clipped so won't actually hit this point!
 						RMultiAlpha*	pAlpha,	// only need 50% - see cut scenes
-						long	lMilliLen,			// how long to do the effect
+						int32_t	lMilliLen,			// how int32_t to do the effect
 						int16_t	sRadius,				// Your tuning pleasure
-						long	lSpinTime,			// in milliseconds
-						long	lSwayTime,			// in milliseconds
+						int32_t	lSpinTime,			// in milliseconds
+						int32_t	lSwayTime,			// in milliseconds
 						RRect*  prCenter,			// if not NULL, use this portion of the image only!
-						long	lFadeTime,			// fade to black, in milliseconds.
+						int32_t	lFadeTime,			// fade to black, in milliseconds.
 						SampleMaster::SoundInstance siFade	// to make sound fade out
 					)
 	{
@@ -369,15 +369,15 @@ int16_t	MartiniDo(	RImage*	pimBackground,	// actually, this is the ONLY graphic
 	UCHAR PaletteCopy[256 * 3] = {0,};
 	rspGetPaletteEntries(10,236,PaletteCopy+30,PaletteCopy + 31,PaletteCopy + 32,3);
 
-	long lStartTime = rspGetMilliseconds();
-	long	lCurrentTime = -1;
+	int32_t lStartTime = rspGetMilliseconds();
+	int32_t	lCurrentTime = -1;
 
-	long	lStartFadeTime = lMilliLen - lFadeTime;  // lCurrentTime is relative to lStartTime
+	int32_t	lStartFadeTime = lMilliLen - lFadeTime;  // lCurrentTime is relative to lStartTime
 
 	// Attempt to do a fade out while swirling....
 	while (((lCurrentTime = (rspGetMilliseconds() - lStartTime)) < lMilliLen) && !(rspGetQuitStatus()))
 		{
-		long	lCurrentFadeTime = lCurrentTime - lStartFadeTime;
+		int32_t	lCurrentFadeTime = lCurrentTime - lStartFadeTime;
 		//==============================================================================
 		// Figure out stage of motion:
 		//==============================================================================
@@ -458,11 +458,11 @@ class	CSwirlMe
 		int16_t m_sRadY;
 		double m_dCenA;	// Alpha level (0.0 to 1.0)
 		double m_dRadA;
-		long	m_lCycleTimeX;	// in milliseconds (Min, Max, Min)
-		long	m_lCycleTimeY;	// in milliseconds (Min, Max, Min)
-		long m_lCycleTimeA;	//
-		long m_lTimeSpin;
-		long	m_lBaseTime;
+		int32_t	m_lCycleTimeX;	// in milliseconds (Min, Max, Min)
+		int32_t	m_lCycleTimeY;	// in milliseconds (Min, Max, Min)
+		int32_t m_lCycleTimeA;	//
+		int32_t m_lTimeSpin;
+		int32_t	m_lBaseTime;
 		RRect	m_rClip;			// To offset and limit the effect to a rect:
 		SampleMaster::SoundInstance m_siSound;
 		CCutSceneInfo* m_pCut;
@@ -492,7 +492,7 @@ class	CSwirlMe
 
 			if (!m_lBaseTime) m_lBaseTime = rspGetMilliseconds();
 
-			long lDeltaTime = rspGetMilliseconds() - m_lBaseTime;
+			int32_t lDeltaTime = rspGetMilliseconds() - m_lBaseTime;
 
 			int16_t sDegX = (360 * lDeltaTime) / m_lCycleTimeX;
 			int16_t sDegY = (360 * lDeltaTime) / m_lCycleTimeY;
@@ -569,10 +569,10 @@ class	CSwirlMe
 		//		Configure effect
 		////////////////////////////////////////////////////////////////////////////
 		int16_t Configure(//RImage* pimDst,RImage* pimSrc,RMultiAlpha* pX,
-					long lTimeSpin,
-					int16_t sMinX,int16_t sMaxX,long lTimeX,
-					int16_t sMinY,int16_t sMaxY,long lTimeY,
-					double dMinA,double dMaxA,long lTimeA,
+					int32_t lTimeSpin,
+					int16_t sMinX,int16_t sMaxX,int32_t lTimeX,
+					int16_t sMinY,int16_t sMaxY,int32_t lTimeY,
+					double dMinA,double dMaxA,int32_t lTimeA,
 					int16_t sX,int16_t sY,int16_t sW,int16_t sH)
 			{
 			ASSERT(m_pCut);
@@ -687,7 +687,7 @@ static CSwirlMe* pSwirl = NULL;
 // Function prototypes
 ////////////////////////////////////////////////////////////////////////////////
 
-static void CutScene_RFileCallback(long lBytes);
+static void CutScene_RFileCallback(int32_t lBytes);
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1021,10 +1021,10 @@ extern void CutSceneStart(
 //
 ////////////////////////////////////////////////////////////////////////////
 extern int16_t CutSceneConfig(
-	long lTimeSpin,
-	int16_t sMinX,int16_t sMaxX,long lTimeX,
-	int16_t sMinY,int16_t sMaxY,long lTimeY,
-	double dMinA,double dMaxA,long lTimeA,
+	int32_t lTimeSpin,
+	int16_t sMinX,int16_t sMaxX,int32_t lTimeX,
+	int16_t sMinY,int16_t sMaxY,int32_t lTimeY,
+	double dMinA,double dMaxA,int32_t lTimeA,
 	int16_t sX,int16_t sY,int16_t sW,int16_t sH)
 	{
 	ASSERT(ms_pCut);
@@ -1118,7 +1118,7 @@ extern void CutSceneEnd(void)
 // Our RFile callback
 //
 ////////////////////////////////////////////////////////////////////////////////
-static void CutScene_RFileCallback(long lBytes)
+static void CutScene_RFileCallback(int32_t lBytes)
 	{
 	static int16_t asWavyY[] =
 		{
@@ -1136,7 +1136,7 @@ static void CutScene_RFileCallback(long lBytes)
 				ms_pCut->m_lBytesSoFar += lBytes;
 
 				// Check if time for an update
-				long lNow = rspGetMilliseconds();
+				int32_t lNow = rspGetMilliseconds();
 				if ((lNow - ms_pCut->m_lTimeToUpdate) > PROGRESS_BAR_UPDATE_TIME)
 					{
 					// Get percentage that's been loaded so far (result is from 0 to 1)

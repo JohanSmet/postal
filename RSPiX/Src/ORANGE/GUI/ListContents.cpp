@@ -165,7 +165,7 @@ int16_t RListContents::LoadChildren(	// Returns 0 on success.
 				// Set callback.
 				pgui->m_bcUser				= RListBox::PressedCall;
 				// Set instance to parent listbox.
-				pgui->m_ulUserInstance	= (ULONG)GetParent();
+				pgui->m_ulUserInstance	= (intptr_t)GetParent();
 				// If pushed in . . .
 				if (pgui->m_sInvertedBorder != FALSE)
 					{

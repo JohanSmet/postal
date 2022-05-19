@@ -3685,15 +3685,15 @@ static int16_t VideoOptionsInit(	// Returns 0 on success, non-zero to cancel men
 			ms_psbGamma->m_upcUser	= GammaScrollUpdate;
 
 			// Get range.
-			long	lMin, lMax;
+			int32_t	lMin, lMax;
 			ms_psbGamma->GetRange(&lMin, &lMax);
 
 			// Determine range of values.
-			long	lRange	= lMax - lMin;
+			int32_t	lRange	= lMax - lMin;
 
 			// Set the initial position.  Gamma value indicator will get set via callback.
 			// Convert to gamma value by ratio.
-			long	lVal	= long(float(lRange) / GAMMA_RANGE * (GetGammaLevel() - MIN_GAMMA_VAL) + 0.5) + lMin;
+			int32_t	lVal	= int32_t(float(lRange) / GAMMA_RANGE * (GetGammaLevel() - MIN_GAMMA_VAL) + 0.5) + lMin;
 			ms_psbGamma->SetPos(lVal);
 
 			// Let menu know about it.
@@ -3807,7 +3807,7 @@ static int16_t VolumesInit(		// Returns 0 on success, non-zero to cancel menu.
 
 				// Let the callback know which item this is.
 				psb->m_ulUserData	= i;
-				long	lMin, lMax, lRange;
+				int32_t	lMin, lMax, lRange;
 				psb->GetRange(&lMin, &lMax);
 				lRange	= lMax - lMin;
 				// Set the initial position.  
@@ -3895,7 +3895,7 @@ static bool VolumesChoice(		// Returns true to accept, false to deny choice.
 				{
 				if (pmenuCurrent->ami[i].pgui)
 					{
-					long	lMin, lMax, lRange;
+					int32_t	lMin, lMax, lRange;
 					( (RScrollBar*)(pmenuCurrent->ami[i].pgui) )->GetRange(&lMin, &lMax);
 					lRange	= lMax - lMin;
 
@@ -3996,7 +3996,7 @@ static int16_t ControlsInit(		// Returns 0 on success, non-zero to cancel menu.
 			// Set the callback.
 			ms_psbMouseSensitivityX->m_upcUser			= MouseSensitivityScrollUpdate;
 			// Set the value to change.
-			ms_psbMouseSensitivityX->m_ulUserInstance	= (ULONG)&g_InputSettings.m_dMouseSensitivityX;
+			ms_psbMouseSensitivityX->m_ulUserInstance	= (intptr_t)&g_InputSettings.m_dMouseSensitivityX;
 
 
 			// Set the initial position.  ms_psbGammaVal will get set via callback.
@@ -4020,7 +4020,7 @@ static int16_t ControlsInit(		// Returns 0 on success, non-zero to cancel menu.
 			// Set the callback.
 			ms_psbMouseSensitivityY->m_upcUser			= MouseSensitivityScrollUpdate;
 			// Set the value to change.
-			ms_psbMouseSensitivityY->m_ulUserInstance	= (ULONG)&g_InputSettings.m_dMouseSensitivityY;
+			ms_psbMouseSensitivityY->m_ulUserInstance	= (intptr_t)&g_InputSettings.m_dMouseSensitivityY;
 
 
 			// Set the initial position.  ms_psbGammaVal will get set via callback.
@@ -4170,7 +4170,7 @@ int16_t SetUpRotationScrollBar(		// Returns 0 on success.
 			}
 
 		// Set the value to change.
-		psb->m_ulUserInstance	= (ULONG)pvtRotationVal;
+		psb->m_ulUserInstance	= (intptr_t)pvtRotationVal;
 
 
 		// Set the initial position.  psb will get set via callback.
@@ -4764,14 +4764,14 @@ static void GammaScrollUpdate(	// Returns nothing.
 	ASSERT(psb != NULL);
 
 	// Get range.
-	long	lMin, lMax;
+	int32_t	lMin, lMax;
 	psb->GetRange(&lMin, &lMax);
 
 	// Determine range of values.
-	long	lRange	= lMax - lMin;
+	int32_t	lRange	= lMax - lMin;
 
 	// Set via scroll position.
-	long	lVal	= psb->GetPos();
+	int32_t	lVal	= psb->GetPos();
 
 	// Convert to gamma value by ratio.
 	int16_t	sVal	= int16_t(GAMMA_RANGE / float(lRange) * (lVal - lMin) + 0.5) + MIN_GAMMA_VAL;
@@ -4837,7 +4837,7 @@ static void VolumesScrollUpdate(	// Returns nothing.
 	ASSERT(psb != NULL);
 
 	SampleMaster::SoundCategory	sc		= (SampleMaster::SoundCategory)psb->m_ulUserData;
-	long									lMin, lMax, lRange;
+	int32_t									lMin, lMax, lRange;
 	psb->GetRange(&lMin, &lMax);
 	lRange	= lMax - lMin;
 

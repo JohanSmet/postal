@@ -104,7 +104,7 @@ class CTexEdit
 
 		typedef struct
 			{
-			long	lTriIndex;		// Triangle affected.
+			int32_t	lTriIndex;		// Triangle affected.
 			U8		u8Color;			// Color applied.
 			U8		u8PrevColor;	// Prev color.
 			} Cmd;
@@ -129,7 +129,7 @@ class CTexEdit
 		float			m_fY;					// Translation.
 		bool			m_bQuit;				// true when done.
 		U8				m_u8Color;			// Current color.
-		long			m_lTriIndex;		// Index of tri selected or < 0, if none.
+		int32_t			m_lTriIndex;		// Index of tri selected or < 0, if none.
 		RTexture		m_texWork;			// Work texture.
 		RTexture*	m_ptexSrc;			// The real thing.
 		ChanTexture*	m_ptexchanSrc;	// Animation being edited.
@@ -253,7 +253,7 @@ class CTexEdit
 		//////////////////////////////////////////////////////////////////////////////
 		void
 		SetToNotify(
-			long lBtnId,					// In:  ID of btn whose callback will be set.
+			int32_t lBtnId,					// In:  ID of btn whose callback will be set.
 			RGuiItem::BtnUpCall pfn)	// In:  Function to notify.
 			;
 
@@ -262,7 +262,7 @@ class CTexEdit
 		//////////////////////////////////////////////////////////////////////////////
 		void
 		SetToNotify(
-			long lId,							// In:  ID of gui whose callback will be set.
+			int32_t lId,							// In:  ID of gui whose callback will be set.
 			RGuiItem::InputEventCall pfn)	// In:  Function to notify.
 			;
 
@@ -271,7 +271,7 @@ class CTexEdit
 		//////////////////////////////////////////////////////////////////////////////
 		void
 		SetToNotify(
-			long lId,								// In:  ID of scrollbar whose callback will be set.
+			int32_t lId,								// In:  ID of scrollbar whose callback will be set.
 			RScrollBar::UpdatePosCall pfn)	// In:  Function to notify.
 			;
 

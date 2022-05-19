@@ -240,7 +240,7 @@ typedef struct
 	{
 	int16_t sType;			// Indicates type of cursor (b&w or color) and also
 								// whether this struct is valid.
-	long lParam;			// Used as CursHandle or CCrsrHandle but declared as long
+	int32_t lParam;			// Used as CursHandle or CCrsrHandle but declared as long
 								// to avoid requiring the use of MacOS header files.
 	} RCursor;
 
@@ -270,7 +270,7 @@ extern void rspSetQuitStatus(
 // Set which modifier keys must be pressed in addition to the whatever ones
 // are normally associated with the system's "quit key".
 extern void rspSetQuitStatusFlags(
-	long lModifiers);							// In:  Modifier key flags (RSP_GKF_*)
+	int32_t lModifiers);							// In:  Modifier key flags (RSP_GKF_*)
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -278,8 +278,8 @@ extern void rspSetQuitStatusFlags(
 ///////////////////////////////////////////////////////////////////////////////
 
 extern int16_t rspSetPrinterResolution(		// Returns 0 if successfull, non-zero otherwise
-	long lReqHorzRes,								// In:  Requested horizontal resolution (dpi)
-	long lReqVertRes,								// In:  Requested vertical resolution (dpi)
+	int32_t lReqHorzRes,								// In:  Requested horizontal resolution (dpi)
+	int32_t lReqVertRes,								// In:  Requested vertical resolution (dpi)
 	int16_t sReqSquareRes);						// In:  Requested square resolution (TRUE or FALSE)
 
 extern int16_t rspPrinterPageSetupDialog(void);	// Returns 0 if successfull, non-zero otherwise
@@ -287,21 +287,21 @@ extern int16_t rspPrinterPageSetupDialog(void);	// Returns 0 if successfull, non
 extern int16_t rspPrinterPrintDialog(void);	// Returns 0 if successfull, non-zero otherwise
 
 extern int16_t rspGetPrinterResolution(		// Returns 0 if successfull, non-zero otherwise
-	long* plHorzRes,								// Out: Horizontal resolution (dpi)
-	long* plVertRes);								// Out: Vertical resolution (dpi)
+	int32_t* plHorzRes,								// Out: Horizontal resolution (dpi)
+	int32_t* plVertRes);								// Out: Vertical resolution (dpi)
 
 extern int16_t rspGetPrinterPageSize(			// Returns 0 if successfull, non-zero otherwise
-	long* plPageWidth,							// Out: Page width (in dots)
-	long* plPageHeight);							// Out: Page height (in dots)
+	int32_t* plPageWidth,							// Out: Page width (in dots)
+	int32_t* plPageHeight);							// Out: Page height (in dots)
 
 extern int16_t rspGetPrinterPageRotation(	// Returns 0 if successfull, non-zero otherwise
 	int16_t* psRotation);							// Out: Rotation (0, 90, or 270 degrees)
 
 extern int16_t rspGetPrinterPageMargins(		// Returns 0 if successfull, non-zero otherwise
-	long* plLeftMargin,							// Out: Page's left margin (in dots)
-	long* plRightMargin,							// Out: Page's right margin (in dots)
-	long* plTopMargin,							// Out: Page's top margin (in dots)
-	long* plBottomMargin);						// Out: Page's bottom margin (in dots)
+	int32_t* plLeftMargin,							// Out: Page's left margin (in dots)
+	int32_t* plRightMargin,							// Out: Page's right margin (in dots)
+	int32_t* plTopMargin,							// Out: Page's top margin (in dots)
+	int32_t* plBottomMargin);						// Out: Page's bottom margin (in dots)
 
 extern int16_t rspGetPrinterJob(				// Returns 0 if successfull, non-zero otherwise
 	int16_t* psFirstPage,							// Out: First page of range to be printed
@@ -318,39 +318,39 @@ extern int16_t rspEndPrinterPage(void);
 
 extern int16_t rspPrintToPage(					// Returns 0 if successfull, non-zero otherwise
 	U8* pu8Src,										// In:  Source data
-	long lPitch,									// In:  Source pitch
-	long lWidth,									// In:  Source width
-	long lHeight,									// In:  Source height
+	int32_t lPitch,									// In:  Source pitch
+	int32_t lWidth,									// In:  Source width
+	int32_t lHeight,									// In:  Source height
 	int16_t sDepth,									// In:  Source depth (1 or 8)
-	long lSrcX,										// In:  Source (image) X coord
-	long lSrcY,										// In:  Source (image) Y coord
-	long lSrcW,										// In:  Source (image) width
-	long lSrcH,										// In:  Source (image) height
-	long lDstX,										// In:  Destination (page) X coord
-	long lDstY,										// In:  Destination (page) Y coord
-	long lDstW,										// In:  Destination (page) width
-	long lDstH);									// In:  Distination (page) height
+	int32_t lSrcX,										// In:  Source (image) X coord
+	int32_t lSrcY,										// In:  Source (image) Y coord
+	int32_t lSrcW,										// In:  Source (image) width
+	int32_t lSrcH,										// In:  Source (image) height
+	int32_t lDstX,										// In:  Destination (page) X coord
+	int32_t lDstY,										// In:  Destination (page) Y coord
+	int32_t lDstW,										// In:  Destination (page) width
+	int32_t lDstH);									// In:  Distination (page) height
 
 extern int16_t rspPrintToPage(					// Returns 0 if successfull, non-zero otherwise
 	U8* pu8Src,										// In:  Source data
-	long lPitch,									// In:  Source pitch
-	long lWidth,									// In:  Source width
-	long lHeight,									// In:  Source height
+	int32_t lPitch,									// In:  Source pitch
+	int32_t lWidth,									// In:  Source width
+	int32_t lHeight,									// In:  Source height
 	int16_t sDepth,									// In:  Source depth (1 or 8 - if 8, palette info must be valid!)
 	int16_t sSrcPalStartIndex,					// In:  Starting palette index (0 to 255)
 	int16_t sSrcPalEntries,						// In:  Number of palette entries (1 to 256)
 	U8* pu8SrcPalRed,								// In:  Pointer to starting source red value
 	U8* pu8SrcPalGreen,							// In:  Pointer to starting source green value
 	U8* pu8SrcPalBlue,							// In:  Pointer to starting source blue value
-	long lSrcPalIncBytes,						// In:  What to add to pointers to move to next value
-	long lSrcX,										// In:  Source (image) X coord
-	long lSrcY,										// In:  Source (image) Y coord
-	long lSrcW,										// In:  Source (image) width
-	long lSrcH,										// In:  Source (image) height
-	long lDstX,										// In:  Destination (page) X coord
-	long lDstY,										// In:  Destination (page) Y coord
-	long lDstW,										// In:  Destination (page) width
-	long lDstH);									// In:  Distination (page) height
+	int32_t lSrcPalIncBytes,						// In:  What to add to pointers to move to next value
+	int32_t lSrcX,										// In:  Source (image) X coord
+	int32_t lSrcY,										// In:  Source (image) Y coord
+	int32_t lSrcW,										// In:  Source (image) width
+	int32_t lSrcH,										// In:  Source (image) height
+	int32_t lDstX,										// In:  Destination (page) X coord
+	int32_t lDstY,										// In:  Destination (page) Y coord
+	int32_t lDstW,										// In:  Destination (page) width
+	int32_t lDstH);									// In:  Distination (page) height
 
 #endif // CYAN
 ///////////////////////////////////////////////////////////////////////////////

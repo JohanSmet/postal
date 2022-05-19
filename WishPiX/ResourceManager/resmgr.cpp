@@ -674,7 +674,7 @@ int16_t RResMgr::CreateSak(RString strScriptFile, RString strSakFile)
 		{
 			script.getline(buffer, 256);
 			resname = buffer;
-			if (resname[(long) 0] != ';' && resname[(long) 0] != ' ' && resname.GetLen() > 0)
+			if (resname[(int32_t) 0] != ';' && resname[(int32_t) 0] != ' ' && resname.GetLen() > 0)
 			{
 				NormalizeResName(&resname);
 				m_LoadList.push_back(resname);
@@ -682,7 +682,7 @@ int16_t RResMgr::CreateSak(RString strScriptFile, RString strSakFile)
 			}
 /*
 			script >> line;
-			if (line[(long) 0] == ';' || line.GetLen() == 0)
+			if (line[(int32_t) 0] == ';' || line.GetLen() == 0)
 				script.getline(buffer, 256);
 			else
 			{
@@ -705,7 +705,7 @@ int16_t RResMgr::CreateSak(RString strScriptFile, RString strSakFile)
 //		typeVector::iterator iType = m_TypeList.begin();
 		RFile	fileRes;
 		U8	au8Transfer[TRANSFER_BUF_SIZE];
-		long	lNumBytes;
+		int32_t	lNumBytes;
 		pair <dupSet::iterator, bool> p(m_duplicateSet.begin(), false);
 		m_duplicateSet.erase(m_duplicateSet.begin(), m_duplicateSet.end());
 
@@ -855,7 +855,7 @@ int16_t RResMgr::OpenSak(RString strSakFile)
 	USHORT usNumPairs;
 	USHORT i;
 	char char_buffer[256];
-	long lOffset;
+	int32_t lOffset;
 	RString strFilename;
 
 	if (m_rfSak.IsOpen())
@@ -944,7 +944,7 @@ void RResMgr::SetBasePath(RString strBasepath)
 		sLast--;
 
 	// If base path doesn't end with a slash, add one
-	if (strBasepath[(long) sLast] != RSP_SYSTEM_PATH_SEPARATOR)
+	if (strBasepath[(int32_t) sLast] != RSP_SYSTEM_PATH_SEPARATOR)
 		strBasepath += RSP_SYSTEM_PATH_SEPARATOR;
 	// Make sure it is int16_t enough to work with rspix functions
 	ASSERT(strBasepath.GetLen() < RSP_MAX_PATH);

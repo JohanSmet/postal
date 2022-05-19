@@ -74,11 +74,11 @@ typedef struct
 		} Type;
 
 	Type	type;		// Type of event { Mouse, Key, Joy }.
-	long	lTime;	// Time at which event occurred.
+	int32_t	lTime;	// Time at which event occurred.
 	int16_t	sUsed;	// Indicates that this event has been used.
 						// Set this if your API utilizes this event so that others
 						// know that it's already been absorbed.
-	long	lUser;	// User value.  Use as you please.
+	int32_t	lUser;	// User value.  Use as you please.
 
 	union
 		{
@@ -92,7 +92,7 @@ typedef struct
 		
 		struct	// Keyboard event.
 			{
-			long	lKey;			// Key value and modifiers (ala rspGetKey).
+			int32_t	lKey;			// Key value and modifiers (ala rspGetKey).
 			};
 		};
 	} RInputEvent;

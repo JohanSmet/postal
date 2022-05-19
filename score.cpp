@@ -245,7 +245,7 @@
 CScoreboard g_scoreboard;
 RPrint		ms_print;
 
-static long	ms_lScoreMaxTimeOut;		// Optional score timeout (max time spent
+static int32_t	ms_lScoreMaxTimeOut;		// Optional score timeout (max time spent
 												// on score screen).
 
 //////////////////////////////////////////////////////////////////////////////
@@ -256,7 +256,7 @@ static long	ms_lScoreMaxTimeOut;		// Optional score timeout (max time spent
 // Helper to make a time value.
 //////////////////////////////////////////////////////////////////////////////
 inline char* CreateTimeString(	// Returns time string.  No failures.
-	long	lTimeVal)					// In:  Time value in milliseconds.
+	int32_t	lTimeVal)					// In:  Time value in milliseconds.
 	{
 	static char	szTime[100];
 
@@ -341,11 +341,11 @@ static void EditInputUserFeedback(	// Called when a user input notification
 // Callback from RProcessGui for system update.
 //
 ////////////////////////////////////////////////////////////////////////////////
-static long SysUpdate(			// Returns a non-zero ID to abort or zero
+static int32_t SysUpdate(			// Returns a non-zero ID to abort or zero
 										// to continue.                          
 	RInputEvent*	pie)			// Out: Next input event to process.     
 	{
-	long	lIdRes	= 0;	// Assume no GUI ID pressed (i.e., continue).
+	int32_t	lIdRes	= 0;	// Assume no GUI ID pressed (i.e., continue).
 
 	UpdateSystem();
 	rspGetNextInputEvent(pie);
@@ -437,7 +437,7 @@ bool ScoreUpdateDisplay(RImage* pim, RRect* prc, CRealm* pRealm, CNetClient* pcl
 	int16_t sSeconds = (pRealm->m_lScoreTimeDisplay / 1000) % 60;
 	bool	bDrew	= false;	// Assume we do not draw.
 
-	long	lCurTime	= pRealm->m_time.GetGameTime();
+	int32_t	lCurTime	= pRealm->m_time.GetGameTime();
 	if (lCurTime > g_scoreboard.m_lLastScoreDrawTime + SCORE_UPDATE_INTERVAL)
 	{
 		ms_print.SetColor(	// set current color
@@ -874,7 +874,7 @@ void ScoreSetMode(CScoreboard::ScoringMode Mode)
 void ScoreDisplayHighScores(	// Returns nothing.
 	CRealm* pRealm,				// In:  Realm won.
 	CNetClient* pclient,			// In:  Client ptr for MP mode, or NULL in SP mode.
-	long lMaxTimeOut)				// In:  Max time on score screen (quits after this
+	int32_t lMaxTimeOut)				// In:  Max time on score screen (quits after this
 										// duration, if not -1).
 {
 	RGuiItem* pguiRoot;
@@ -882,7 +882,7 @@ void ScoreDisplayHighScores(	// Returns nothing.
 	RProcessGui guiDialog;
 	int16_t sResult;
 	char szScoringExplanation[512]	= "";
-	long alScores[MAX_HIGH_SCORES];
+	int32_t alScores[MAX_HIGH_SCORES];
 	char astrNames[MAX_HIGH_SCORES][MAX_PLAYER_NAME_LEN + 1];
 	char szKeyName[256];
 	RPrefs scores;
@@ -901,7 +901,7 @@ void ScoreDisplayHighScores(	// Returns nothing.
 	{
 		// Determine player's score and note how we determined it in a string
 		// for the user.
-		long	lPlayerScore	= 0;
+		int32_t	lPlayerScore	= 0;
 		switch (pRealm->m_ScoringMode)
 			{
 			case CRealm::Standard:
@@ -925,7 +925,7 @@ void ScoreDisplayHighScores(	// Returns nothing.
 				else
 					{
 					// Really bad elapsed time.
-					lPlayerScore	= LONG_MAX;
+					lPlayerScore	= S32_MAX;
 					}
 
 				vtScoringUnit	= Time;
@@ -941,7 +941,7 @@ void ScoreDisplayHighScores(	// Returns nothing.
 				else
 					{
 					// Really bad elapsed time.
-					lPlayerScore	= LONG_MAX;
+					lPlayerScore	= S32_MAX;
 					}
 
 				vtScoringUnit	= Time;
@@ -957,7 +957,7 @@ void ScoreDisplayHighScores(	// Returns nothing.
 				else
 					{
 					// Really bad time.
-					lPlayerScore	= LONG_MIN;
+					lPlayerScore	= S32_MIN;
 					}
 
 				vtScoringUnit	= Time;
@@ -973,7 +973,7 @@ void ScoreDisplayHighScores(	// Returns nothing.
 				else
 					{
 					// Really bad time.
-					lPlayerScore	= LONG_MIN;
+					lPlayerScore	= S32_MIN;
 					}
 
 				vtScoringUnit	= Time;
@@ -1038,7 +1038,7 @@ void ScoreDisplayHighScores(	// Returns nothing.
 				if (vtScoringUnit == Value)
 					{
 					if (sOpenRes == 0)
-						scores.GetVal((char*) pRealm->m_rsRealmString, szKeyName, (long) 0, &(alScores[sDstIndex]));
+						scores.GetVal((char*) pRealm->m_rsRealmString, szKeyName, (int32_t) 0, &(alScores[sDstIndex]));
 					else
 						alScores[sDstIndex] = 0;
 						
@@ -1051,9 +1051,9 @@ void ScoreDisplayHighScores(	// Returns nothing.
 				else
 					{
 					if (sOpenRes == 0)
-						scores.GetVal((char*) pRealm->m_rsRealmString, szKeyName, (long) 3600000, &(alScores[sDstIndex]));
+						scores.GetVal((char*) pRealm->m_rsRealmString, szKeyName, (int32_t) 3600000, &(alScores[sDstIndex]));
 					else
-						alScores[sDstIndex] = (long) 3600000;
+						alScores[sDstIndex] = (int32_t) 3600000;
 			
 					// Did we get a better time than read in score?
 					if (lPlayerScore < alScores[sDstIndex] )
@@ -1086,7 +1086,7 @@ void ScoreDisplayHighScores(	// Returns nothing.
 			{
 			ASSERT(pclient);
 
-			long	alTempScores[MAX_HIGH_SCORES];
+			int32_t	alTempScores[MAX_HIGH_SCORES];
 			char	astrTempNames[MAX_HIGH_SCORES][MAX_PLAYER_NAME_LEN + 1];
 
 			int16_t	sIndex;
@@ -1104,7 +1104,7 @@ void ScoreDisplayHighScores(	// Returns nothing.
 				else
 					{
 					astrTempNames[sIndex][0]	= '\0';
-					alTempScores[sIndex]			= LONG_MIN + 1;
+					alTempScores[sIndex]			= S32_MIN + 1;
 					}
 				}
 
@@ -1113,7 +1113,7 @@ void ScoreDisplayHighScores(	// Returns nothing.
 			int16_t	sDstIndex;
 			int16_t	sSrcIndex;
 			int16_t	sHighestScoreIndex;
-			long	lHighestScore;
+			int32_t	lHighestScore;
 			
 			// This declaration relies on false being zero!!
 			ASSERT(false == 0);
@@ -1122,7 +1122,7 @@ void ScoreDisplayHighScores(	// Returns nothing.
 			for (sDstIndex = 0;	sDstIndex < MAX_HIGH_SCORES; sDstIndex++)
 				{
 				sHighestScoreIndex	= -1;
-				lHighestScore			= LONG_MIN;
+				lHighestScore			= S32_MIN;
 
 				// Find the highest score of the ones not yet copied.
 				for (sSrcIndex = 0; sSrcIndex < MAX_HIGH_SCORES; sSrcIndex++)
@@ -1333,7 +1333,7 @@ void ScoreDisplayHighScores(	// Returns nothing.
 //				rspSetMouseCursorShowLevel(1);
 
 				// Make sure there's no timeout on while player is adding their name.
-				ms_lScoreMaxTimeOut	= LONG_MAX;
+				ms_lScoreMaxTimeOut	= S32_MAX;
 
 				// If we want a high score from this player . . .
 				if (sPlayersScorePosition >= 0 && pRealm->m_flags.bMultiplayer == false)
@@ -1367,7 +1367,7 @@ void ScoreDisplayHighScores(	// Returns nothing.
 					}
 				else
 					{
-					ms_lScoreMaxTimeOut	= LONG_MAX;
+					ms_lScoreMaxTimeOut	= S32_MAX;
 					}
 
 				// Set the focus to the listbox's vertical scrollbar so that the arrows will work.

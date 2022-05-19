@@ -196,14 +196,14 @@ extern int16_t ClipQuiet(	// Returns non-zero if image entirely clipped out.
 //
 //////////////////////////////////////////////////////////////////////////////
 extern int16_t ClipQuiet(	// Returns non-zero if image entirely clipped out.
-	long* px,				// Rectangle to be clipped.
-	long* py, 
-	long*	pw, 
-	long*	ph,
-	long	sx,			// Bounding rectangle.
-	long	sy, 
-	long	sw, 
-	long	sh)
+	int32_t* px,				// Rectangle to be clipped.
+	int32_t* py, 
+	int32_t*	pw, 
+	int32_t*	ph,
+	int32_t	sx,			// Bounding rectangle.
+	int32_t	sy, 
+	int32_t	sw, 
+	int32_t	sh)
 	{
 	int16_t	sX	= (int16_t)(*px);
 	int16_t sY	= (int16_t)(*py);
@@ -894,7 +894,7 @@ extern int16_t rspLockVideoPage(	// Returns 0 if screen memory could be locked.
 											// Returns non-zero otherwise.
 	void**	ppvMemory,				// Pointer to display memory returned here.
 											// NULL returned if not supported.
-	long*		plPitch)					// Pitch of display memory returned here.
+	int32_t*		plPitch)					// Pitch of display memory returned here.
 	{
 	/* no-op. */
 	return 1;
@@ -921,7 +921,7 @@ extern int16_t rspLockVideoFlipPage(	// Returns 0 if flip screen memory could be
 											// locked.  Returns non-zero otherwise.
 	void**	ppvMemory,				// Pointer to flip screen memory returned here.
 											// NULL returned on failure.
-	long*		plPitch)					// Pitch of flip screen memory returned here.
+	int32_t*		plPitch)					// Pitch of flip screen memory returned here.
 	{
 	return -1;
 	}
@@ -946,7 +946,7 @@ extern int16_t rspLockVideoBuffer(	// Returns 0 if system buffer could be locked
 												// Returns non-zero otherwise.
 	void**	ppvBuffer,					// Pointer to system buffer returned here.
 												// NULL returned on failure.
-	long*		plPitch)						// Pitch of system buffer returned here.
+	int32_t*		plPitch)						// Pitch of system buffer returned here.
 	{
     if (!sdlWindow)
         return -1;
@@ -996,7 +996,7 @@ extern void rspSetPaletteEntries(
 	unsigned char* pucRed,		// Pointer to first red component to copy from
 	unsigned char* pucGreen,	// Pointer to first green component to copy from
 	unsigned char* pucBlue,		// Pointer to first blue component to copy from
-	long lIncBytes)				// Number of bytes by which to increment pointers after each copy
+	int32_t lIncBytes)				// Number of bytes by which to increment pointers after each copy
 	{
 	// Set up destination pointers.
 	UCHAR*	pucDstRed	= &(apeApp[sStartIndex].r);
@@ -1083,7 +1083,7 @@ extern void rspGetPaletteEntries(
 	unsigned char* pucRed,		// Pointer to first red component to copy to
 	unsigned char* pucGreen,	// Pointer to first green component to copy to
 	unsigned char* pucBlue,		// Pointer to first blue component to copy to
-	long lIncBytes)				// Number of bytes by which to increment pointers after each copy
+	int32_t lIncBytes)				// Number of bytes by which to increment pointers after each copy
 	{
 	// Set up source pointers.
 	UCHAR*	pucSrcRed	= &(apeApp[sStartIndex].r);
@@ -1133,7 +1133,7 @@ extern void rspSetPaletteMaps(
 	unsigned char* pucRed,		// Pointer to first red component to copy from
 	unsigned char* pucGreen,	// Pointer to first green component to copy from
 	unsigned char* pucBlue,		// Pointer to first blue component to copy from
-	long lIncBytes)				// Number of bytes by which to increment pointers after each copy
+	int32_t lIncBytes)				// Number of bytes by which to increment pointers after each copy
 	{
 	// Set up destination pointers.
 	UCHAR*	pucDstRed	= &(au8MapRed[sStartIndex]);
@@ -1168,7 +1168,7 @@ extern void rspGetPaletteMaps(
 	unsigned char* pucRed,		// Pointer to first red component to copy to
 	unsigned char* pucGreen,	// Pointer to first green component to copy to
 	unsigned char* pucBlue,		// Pointer to first blue component to copy to
-	long lIncBytes)				// Number of bytes by which to increment pointers after each copy
+	int32_t lIncBytes)				// Number of bytes by which to increment pointers after each copy
 	{
 	// Set up source pointers.
 	UCHAR*	pucSrcRed	= &(au8MapRed[sStartIndex]);

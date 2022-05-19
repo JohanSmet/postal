@@ -110,7 +110,7 @@
 #define VPOS2PIXEL(lPos)	POS2PIXEL(lPos, Vertical)
 
 // Converts a pixel value (relative to Tray) to a long position value.
-#define PIXEL2POS(sPix)		((long)((float)(sPix) / m_fPos2PixelRatio) + m_lMinPos)
+#define PIXEL2POS(sPix)		((int32_t)((float)(sPix) / m_fPos2PixelRatio) + m_lMinPos)
 
 // Converts one of two pixel values, dependent on orientation o, to a position
 // value.
@@ -231,7 +231,7 @@ class RScrollBar : public RGuiItem
 		// Set the current position of the thumb in the scroll bar.
 		// This value will be clipped to m_lMin and m_lMax.
 		void SetPos(		// Returns nothing.
-			long lPos)		// New position.
+			int32_t lPos)		// New position.
 			{
 			if (lPos > m_lMaxPos)
 				{
@@ -273,7 +273,7 @@ class RScrollBar : public RGuiItem
 		// This GUI must have the focus for correct operation.
 		// If this GUI does not have the focus, SetPos() is called.
 		void ScrollToPos(		// Returns nothing.
-			long lPos)			// In:  New position.
+			int32_t lPos)			// In:  New position.
 			{
 			// If we don't have the focus . . .
 			if (ms_pguiFocus != this)
@@ -308,8 +308,8 @@ class RScrollBar : public RGuiItem
 		// Sets the range of the scroll bar and sizes & moves the thumb 
 		// appropriately.
 		void SetRange(
-			long lMin, 
-			long lMax);
+			int32_t lMin, 
+			int32_t lMax);
 
 		// Hot call for thumb positioner.
 		void ThumbHotCall(		// Returns nothing.
@@ -370,13 +370,13 @@ class RScrollBar : public RGuiItem
 		////////////////////////////////////////////////////////////////////////
 
 		// Get the current position of the thumb in the scroll bar.
-		long GetPos(void)
+		int32_t GetPos(void)
 			{ return m_lCurPos; }
 
 		// Gets the range of the scroll bar.
 		void GetRange(		// Returns nothing.
-			long* plMin,	// Out: Minimum position unless NULL.
-			long* plMax)	// Out: Maximum position unless NULL.
+			int32_t* plMin,	// Out: Minimum position unless NULL.
+			int32_t* plMax)	// Out: Maximum position unless NULL.
 			{
 			SET_IF_NOT_NULL(plMin, m_lMinPos);
 			SET_IF_NOT_NULL(plMax, m_lMaxPos);
@@ -467,7 +467,7 @@ class RScrollBar : public RGuiItem
 		// Set position, usually as requested by user, using the specified
 		// type of user feedback.
 		void UserSetPos(	// Returns nothing.
-			long	lPos)		// In:  New position.
+			int32_t	lPos)		// In:  New position.
 			{
 			switch (m_scrollage)
 				{
@@ -492,9 +492,9 @@ class RScrollBar : public RGuiItem
 		RBtn			m_btnUp;				// Up or left arrow button.
 		RBtn			m_btnDown;			// Down or right arrow button.
 
-		long			m_lButtonIncDec;	// Amount to increment or decrement the
+		int32_t			m_lButtonIncDec;	// Amount to increment or decrement the
 												// position when a button is pressed.
-		long			m_lTrayIncDec;		// Amount to increment or decrement the
+		int32_t			m_lTrayIncDec;		// Amount to increment or decrement the
 												// position when the tray is pressed.
 
 		int16_t			m_sArrowBorderDistance;	// Number of pixels between arrows'
@@ -505,13 +505,13 @@ class RScrollBar : public RGuiItem
 		Scrollage	m_scrollage;		// { RScrollBar::Instant,
 												// RScrollBar::Smooth }
 
-		long			m_lPosPerSecond;	// Number of positions smoothly scrolled
+		int32_t			m_lPosPerSecond;	// Number of positions smoothly scrolled
 												// through in a second.  The rate of
 												// smooth scrollage.
 
-		long			m_lLastSmoothTime;	// Last time smooth scroll was processed.
+		int32_t			m_lLastSmoothTime;	// Last time smooth scroll was processed.
 
-		long			m_lScrollToPos;	// Position to smoothly scroll to.
+		int32_t			m_lScrollToPos;	// Position to smoothly scroll to.
 												// This GUI should have the focus to get
 												// correct operation.
 
@@ -524,7 +524,7 @@ class RScrollBar : public RGuiItem
 		Orientation	m_oOrientation;	// { RScrollBar::Vertical,
 												// RScrollBar::Horizontal }
 
-		long			m_lMinThumbLength;	// Minimum length for thumb.
+		int32_t			m_lMinThumbLength;	// Minimum length for thumb.
 
 		int16_t			m_sClickOffsetX;	// Position in thumb that was clicked.
 		int16_t			m_sClickOffsetY;	// Position in thumb that was clicked.
@@ -533,10 +533,10 @@ class RScrollBar : public RGuiItem
 
 	protected:	// Protected member variables.
 
-		long			m_lMinPos;				// Minimum value.
-		long			m_lMaxPos;				// Maximum value.
+		int32_t			m_lMinPos;				// Minimum value.
+		int32_t			m_lMaxPos;				// Maximum value.
 
-		long			m_lCurPos;				// Current value.
+		int32_t			m_lCurPos;				// Current value.
 
 		float			m_fPos2PixelRatio;	// Current ratio of scroll bar 
 													// positions pixels to pixels.

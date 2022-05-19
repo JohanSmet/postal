@@ -209,12 +209,12 @@
 // Variables/data
 ////////////////////////////////////////////////////////////////////////////////
 
-long m_lTotalUnits;
-long m_lCummUnits;		// I will brace myself for an onslaught of jokes.
+int32_t m_lTotalUnits;
+int32_t m_lCummUnits;		// I will brace myself for an onslaught of jokes.
 double m_adTitlePercent[MAX_TITLES+1];
 static int16_t	m_sValid			= FALSE;
 
-static long		ms_lTitleRFileCallbackTime = 0;
+static int32_t		ms_lTitleRFileCallbackTime = 0;
 
 // Indicates the currently displayed image.
 static int16_t	ms_sImageNum		= 0;
@@ -253,9 +253,9 @@ static const char*	ms_apszFiles[]	=
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-static void TitleRFileCallback(long lBytes)
+static void TitleRFileCallback(int32_t lBytes)
 {
-	long lCurrentTime = rspGetMilliseconds();
+	int32_t lCurrentTime = rspGetMilliseconds();
 	if ((lCurrentTime - ms_lTitleRFileCallbackTime) > TITLE_SOUND_UPDATE_INTERVAL)
 	{
 		UpdateSystem();
@@ -570,7 +570,7 @@ extern int16_t TitleGetNumTitles(void)
 //
 ////////////////////////////////////////////////////////////////////////////////
 extern int16_t DoTitle(						// Returns 0 if successfull, non-zero otherwise
-	long lUnits)								// In:  Additional progess units
+	int32_t lUnits)								// In:  Additional progess units
 	{
 	int16_t sResult = 0;
 
@@ -677,11 +677,11 @@ extern int16_t EndTitle(void)				// Returns 0 if successfull, non-zero otherwise
 
 void Title_GameEndSequence(void)
 {
-	long lDisplayTime = 0;
-	long lTotalTime = 0;
-	long lSectionTime = 0;
-	long lCurrentTime;
-	long lUpdateTime;
+	int32_t lDisplayTime = 0;
+	int32_t lTotalTime = 0;
+	int32_t lSectionTime = 0;
+	int32_t lCurrentTime;
+	int32_t lUpdateTime;
 	TRACE("So this is the big end of game sequence eh?\n");
 
 	// Play the sound

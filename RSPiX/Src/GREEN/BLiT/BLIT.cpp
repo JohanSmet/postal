@@ -63,7 +63,7 @@
 
 	// removed locking and unlocking except where needed for special cases:
 
-	switch ((int16_t)(((long)pimDst->m_pSpecial))) // 0 = normal image
+	switch ((int16_t)(((intptr_t)pimDst->m_pSpecial))) // 0 = normal image
 		{
 		case 0: // normal image, buffer in image
 		break;
@@ -213,7 +213,7 @@ int16_t	rspLasso(PIXSIZE ignoreColor,RImage* pimSrc,int16_t &x,int16_t &y,int16_
 	int16_t btos[] = {-1,0,1,-1,2};
 	PIXSIZE* pCursor = NULL;
 	PIXSIZE* pCursorLine = NULL;
-	long	lSkipV;
+	int32_t	lSkipV;
 	int16_t i,j;
 
 	if (pimSrc->m_lPitch > 0)
@@ -335,7 +335,7 @@ void instantiateLasso()
 // pre-validated rect copy: (Pitch will be sign based!)
 //
 template <class PIXSIZE>
-inline void _BLiT(PIXSIZE* pSrc,PIXSIZE* pDst,long lSrcPitch, long lDstPitch,
+inline void _BLiT(PIXSIZE* pSrc,PIXSIZE* pDst,int32_t lSrcPitch, int32_t lDstPitch,
 						int16_t sHeight,int16_t	sByteWidth)
 	{
 	union	{
@@ -369,7 +369,7 @@ inline void _BLiT(PIXSIZE* pSrc,PIXSIZE* pDst,long lSrcPitch, long lDstPitch,
 // This uses misaligned 32-bit copies to be "faster" than byte copying:
 //
 // But this is a garatied SegBus on ARM with NEON vectorisation, as misaligned are not possible
-inline void _BLiT_MA(UCHAR* pSrc,UCHAR* pDst,long lSrcPitch, long lDstPitch,
+inline void _BLiT_MA(UCHAR* pSrc,UCHAR* pDst,int32_t lSrcPitch, int32_t lDstPitch,
 						int16_t sHeight,int16_t	sWidth)
 	{
 #ifdef __ARM_NEON__
@@ -440,7 +440,7 @@ int16_t	rspBlitA(RImage* pimSrc,RImage* pimDst,int16_t sX,int16_t sY,
 	int16_t sDepthToShift[] = {-1, 0, 1, -1, 2};
 	int16_t sDepthS = sDepthToShift[sDepth]; // convert to a shift value
 
-	const long clChosenAlignment = 4; // in bytes
+	const int32_t clChosenAlignment = 4; // in bytes
 	// govern the best possible alignment based on pitch
 	int16_t sBestAlign = (int16_t)(clChosenAlignment | pimSrc->m_lPitch | pimDst->m_lPitch);
 	
@@ -725,8 +725,8 @@ int16_t	rspBlit(RImage* pimSrc,RImage* pimDst,int16_t sSrcX,int16_t sSrcY,int16_
 	// IN THIS IMPLEMENTATION, we must do LOCK, BLiT, UNLOCK, so I
 	// must record which UNLOCK (if any) needs to be done AFTER the BLiT
 	// has completed. (Lord help me if a blit gets interrupted)
-	if (pimSrc->m_type == RImage::IMAGE_STUB) sBlitTypeSrc = (int16_t)((long)pimSrc->m_pSpecial);
-	if (pimDst->m_type == RImage::IMAGE_STUB) sBlitTypeDst = (int16_t)((long)pimDst->m_pSpecial);
+	if (pimSrc->m_type == RImage::IMAGE_STUB) sBlitTypeSrc = (int16_t)((intptr_t)pimSrc->m_pSpecial);
+	if (pimDst->m_type == RImage::IMAGE_STUB) sBlitTypeDst = (int16_t)((intptr_t)pimDst->m_pSpecial);
 
 	switch ( (sBlitTypeSrc<<3) + sBlitTypeDst) // 0 = normal image
 		{
@@ -935,7 +935,7 @@ int16_t	rspBlit(RImage* pimSrc,RImage* pimDst,int16_t sSrcX,int16_t sSrcY,int16_
 // pre-validated rect copy: (Pitch will be sign based!)
 //
 template <class WORDSIZE>
-inline void _ClearRect(WORDSIZE color,WORDSIZE* pDst,long lDstPitch,
+inline void _ClearRect(WORDSIZE color,WORDSIZE* pDst,int32_t lDstPitch,
 						int16_t sHeight,int16_t	sByteWidth)
 	{
 	union	{
@@ -1049,7 +1049,7 @@ int16_t rspRect(U32 color,RImage* pimDst,int16_t sX,int16_t sY,int16_t sW,int16_
 	// must record which UNLOCK (if any) needs to be done AFTER the BLiT
 	// has completed. (Lord help me if a blit gets interrupted)
 
-	if (pimDst->m_type == RImage::IMAGE_STUB) sBlitTypeDst = (int16_t)((long)pimDst->m_pSpecial);
+	if (pimDst->m_type == RImage::IMAGE_STUB) sBlitTypeDst = (int16_t)((intptr_t)pimDst->m_pSpecial);
 
 	switch (sBlitTypeDst) // 0 = normal image
 		{
@@ -1287,7 +1287,7 @@ int16_t	rspCrop(RImage* pimSrc,int16_t sX,int16_t sY,int16_t sW,int16_t sH,
 
 #endif
 
-	long lNewPitch;
+	int32_t lNewPitch;
 
 	// 2) Create a new buffer with 128-bit alignment and pitch:
 
@@ -1377,7 +1377,7 @@ int16_t	rspPad(RImage* pimSrc,int16_t sX,int16_t sY, // where to move the old im
 #endif
 
 	// Save size of old image...
-	long lNewPitch;
+	int32_t lNewPitch;
 	int16_t sOldW = pimSrc->m_sWidth;
 	int16_t sOldH = pimSrc->m_sHeight;
 

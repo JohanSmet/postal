@@ -63,23 +63,23 @@
 
 const RString	c_strGuiFile	= "res/editor/TexEdit.gui";
 
-const long		c_lIdAnim			= 100;
-const long		c_lIdPal				= 200;
-const	long		c_lIdSpotLight		= 601;
-const	long		c_lIdBrightness	= 602;
-const	long		c_lIdAdjust			= 701;
-const	long		c_lIdFrequency		= 702;
-const	long		c_lIdAmount			= 703;
-const long		c_lIdCurColor		= 201;
-const long		c_lIdStatus			= 500;
-const	long		c_lIdApply			= 301;
-const	long		c_lIdSave			= 302;
-const	long		c_lIdRevert			= 303;
-const long		c_lIdQuit			= 399;
-const long		c_lIdTrans			= 401;
-const long		c_lIdScale			= 402;
-const long		c_lIdRotate			= 403;
-const long		c_lIdPaint			= 404;
+const int32_t		c_lIdAnim			= 100;
+const int32_t		c_lIdPal			= 200;
+const int32_t		c_lIdSpotLight		= 601;
+const int32_t		c_lIdBrightness		= 602;
+const int32_t		c_lIdAdjust			= 701;
+const int32_t		c_lIdFrequency		= 702;
+const int32_t		c_lIdAmount			= 703;
+const int32_t		c_lIdCurColor		= 201;
+const int32_t		c_lIdStatus			= 500;
+const int32_t		c_lIdApply			= 301;
+const int32_t		c_lIdSave			= 302;
+const int32_t		c_lIdRevert			= 303;
+const int32_t		c_lIdQuit			= 399;
+const int32_t		c_lIdTrans			= 401;
+const int32_t		c_lIdScale			= 402;
+const int32_t		c_lIdRotate			= 403;
+const int32_t		c_lIdPaint			= 404;
 
 const double	c_dScale			= 8.0;
 
@@ -121,7 +121,7 @@ inline
 void
 SetPushBtnState(
 	RGuiItem* pguiRoot,		// In:  Root GUI.
-	long lBtnId,				// In:  ID of btn whose state will be set.
+	int32_t lBtnId,				// In:  ID of btn whose state will be set.
 	RPushBtn::State state)	// In:  New state for btn.
 	{
 	ASSERT(pguiRoot);
@@ -345,7 +345,7 @@ TrianglesIntersectLineSegment(
 	RP3d *soparr, 				// In: points for mesh
 	int16_t smeshNum,			// In: number of points in mesh
 	RP3d &hitpoint,			// Out: point where line hit triangle
-	long &lHitTriIndex)		// Out: index of triangle it hit
+	int32_t &lHitTriIndex)		// Out: index of triangle it hit
 
 	{    
 	lHitTriIndex=-1;
@@ -413,7 +413,7 @@ TrianglesIntersectLineSegment(
 void Transform(RSop* psopSrc, RSop* psopDst, RPipeLine* ppipe, RTransform& tObj)
 	{
 	RTransform tFull;
-	long i;
+	int32_t i;
 	// Use to stretch to z-buffer!
 
 	tFull.Make1();
@@ -491,7 +491,7 @@ CreatePalette(
 void
 SetText(
 	RGuiItem* pguiRoot,		// In:  Root GUI.
-	long	lId,					// In:  ID of GUI to update.
+	int32_t	lId,					// In:  ID of GUI to update.
 	const char* pszFrmt,		// In:  Format specifier ala sprintf.
 	...)							// In:  Arguments as specified by format.
 	{
@@ -738,7 +738,7 @@ CTexEdit::DoModal(
 		RTransform	trans;
 		CSprite3		sprite;
 		RSop			sopView;
-		long			lTime = 0;
+		int32_t			lTime = 0;
 
 		// Process GUI.
 		while (m_bQuit == false)
@@ -886,7 +886,7 @@ CTexEdit::DoOutput(
 
 			if (m_lTriIndex < pmesh->m_sNum)
 				{
-				long	lVertexIndex	= m_lTriIndex * 3;
+				int32_t	lVertexIndex	= m_lTriIndex * 3;
 
 				const RP3d&	v1	= psopView->m_pArray[pmesh->m_pArray[lVertexIndex++] ];
 				const RP3d&	v2	= psopView->m_pArray[pmesh->m_pArray[lVertexIndex++] ];
@@ -985,7 +985,7 @@ CTexEdit::ProcessManip(
 		linept2.y	= sMouseY;
 		linept2.z	= SHRT_MAX;
 
-		long	lTriIndex;
+		int32_t	lTriIndex;
 		bool bHit = TrianglesIntersectLineSegment(
 			linept1,								// In: line segment point 1
 			linept2, 							// In: line segment point 2 closest to this point. this should be the first point.
@@ -1204,7 +1204,7 @@ CTexEdit::SetColor(
 ////////////////////////////////////////////////////////////////////////////////
 void
 CTexEdit::SetToNotify(
-	long lBtnId,					// In:  ID of btn whose callback will be set.
+	int32_t lBtnId,					// In:  ID of btn whose callback will be set.
 	RGuiItem::BtnUpCall pfn)	// In:  Function to notify.
 	{
 	ASSERT(m_pguiRoot);
@@ -1212,7 +1212,7 @@ CTexEdit::SetToNotify(
 	if (pgui)
 		{
 		pgui->m_bcUser				= pfn;
-		pgui->m_ulUserInstance	= (ULONG)this;
+		pgui->m_ulUserInstance	= (intptr_t)this;
 		}
 	}
 
@@ -1221,7 +1221,7 @@ CTexEdit::SetToNotify(
 //////////////////////////////////////////////////////////////////////////////
 void
 CTexEdit::SetToNotify(
-	long lId,							// In:  ID of gui whose callback will be set.
+	int32_t lId,							// In:  ID of gui whose callback will be set.
 	RGuiItem::InputEventCall pfn)	// In:  Function to notify.
 	{
 	ASSERT(m_pguiRoot);
@@ -1229,7 +1229,7 @@ CTexEdit::SetToNotify(
 	if (pgui)
 		{
 		pgui->m_fnInputEvent		= pfn;
-		pgui->m_ulUserInstance	= (ULONG)this;
+		pgui->m_ulUserInstance	= (intptr_t)this;
 		}
 	}
 
@@ -1238,7 +1238,7 @@ CTexEdit::SetToNotify(
 //////////////////////////////////////////////////////////////////////////////
 void
 CTexEdit::SetToNotify(
-	long lId,								// In:  ID of scrollbar whose callback will be set.
+	int32_t lId,								// In:  ID of scrollbar whose callback will be set.
 	RScrollBar::UpdatePosCall pfn)	// In:  Function to notify.
 	{
 	ASSERT(m_pguiRoot);
@@ -1248,7 +1248,7 @@ CTexEdit::SetToNotify(
 		if (psb->m_type == RGuiItem::ScrollBar)
 			{
 			psb->m_upcUser			= pfn;
-			psb->m_ulUserInstance	= (ULONG)this;
+			psb->m_ulUserInstance	= (intptr_t)this;
 			}
 		}
 	}
@@ -1378,7 +1378,7 @@ CTexEdit::SpotCall(RGuiItem* pgui)
 void
 CTexEdit::BrightnessCall(RScrollBar* psb)
 	{
-	long	lMin, lMax;
+	int32_t	lMin, lMax;
 	psb->GetRange(&lMin, &lMax);
 	float	fRange	= lMax - lMin + 1;
 
@@ -1394,7 +1394,7 @@ void
 CTexEdit::AdjustCall(RGuiItem* pgui)
 	{
 	// Get frequency.
-	long	lFreq	= m_pguiRoot->GetVal(c_lIdFrequency);
+	int32_t	lFreq	= m_pguiRoot->GetVal(c_lIdFrequency);
 	
 	char	szText[GUI_MAX_STR];
 	m_pguiRoot->GetText(c_lIdAmount, szText, sizeof(szText) );

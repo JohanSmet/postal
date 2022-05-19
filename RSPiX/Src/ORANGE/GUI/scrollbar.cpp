@@ -199,7 +199,7 @@
 // Module specific (static) variables.
 //////////////////////////////////////////////////////////////////////////////
 
-static long	ms_lNextEventTime	= 0;	// Time of next repeat event.
+static int32_t	ms_lNextEventTime	= 0;	// Time of next repeat event.
 
 //////////////////////////////////////////////////////////////////////////////
 // Construction/Destruction.
@@ -226,20 +226,20 @@ RScrollBar::RScrollBar()
 
 	m_btnThumb.SetParent(this);
 	m_btnThumb.m_hot.m_iecUser	= ThumbHotCall;
-	m_btnThumb.m_hot.m_ulUser	= (ULONG)this;
+	m_btnThumb.m_hot.m_ulUser	= (intptr_t)this;
 	m_btnThumb.m_targetFocus	= Parent;	// Passes focus to parent (this).
 
 	m_btnUp.SetParent(this);
 	m_btnUp.m_hot.m_iecUser		= UpHotCall;
-	m_btnUp.m_hot.m_ulUser		= (ULONG)this;
-	m_btnUp.m_ulUserInstance	= (ULONG)this;
+	m_btnUp.m_hot.m_ulUser		= (intptr_t)this;
+	m_btnUp.m_ulUserInstance	= (intptr_t)this;
 	m_btnUp.m_backcall			= DrawUpArrow;
 	m_btnUp.m_targetFocus		= Parent;	// Passes focus to parent (this).
 
 	m_btnDown.SetParent(this);
 	m_btnDown.m_hot.m_iecUser	= DownHotCall;
-	m_btnDown.m_hot.m_ulUser	= (ULONG)this;
-	m_btnDown.m_ulUserInstance	= (ULONG)this;
+	m_btnDown.m_hot.m_ulUser	= (intptr_t)this;
+	m_btnDown.m_ulUserInstance	= (intptr_t)this;
 	m_btnDown.m_backcall			= DrawDownArrow;
 	m_btnDown.m_targetFocus		= Parent;	// Passes focus to parent (this).
 
@@ -434,8 +434,8 @@ void RScrollBar::DownBtnPressed(void)
 //
 ////////////////////////////////////////////////////////////////////////
 void RScrollBar::SetRange(
-	long lMin, 
-	long lMax)
+	int32_t lMin, 
+	int32_t lMax)
 	{
 	ASSERT(m_lMinThumbLength > 0);
 
@@ -450,7 +450,7 @@ void RScrollBar::SetRange(
 	m_lMaxPos	= lMax;
 
 	// Compute the range of positions.  That is, the number of positions.
-	long	lRange	= lMax - lMin;
+	int32_t	lRange	= lMax - lMin;
 
 	// Compute the scroll bar size that gives us that many positions.
 	int16_t	sX;
@@ -482,12 +482,12 @@ void RScrollBar::SetRange(
 		}
 
 	// Determine length for thumb.
-	long lLength	= (long)(*psTrayLength) - lRange;
+	int32_t lLength	= (int32_t)(*psTrayLength) - lRange;
 
 	// If the size is less than the minimum . . .
 	if (lLength < m_lMinThumbLength)
 		{
-		lLength	= MIN(m_lMinThumbLength, (long)(*psTrayLength));
+		lLength	= MIN(m_lMinThumbLength, (int32_t)(*psTrayLength));
 		}
 
 	// Compute position to pixel ratio.
@@ -737,7 +737,7 @@ void RScrollBar::Do(	// Returns nothing.
 				{
 				case RInputEvent::Key:
 					{
-					long*	plIncDec	= &m_lButtonIncDec;	// Amount to move thumb.
+					int32_t*	plIncDec	= &m_lButtonIncDec;	// Amount to move thumb.
 					// If control held . . .
 					if ( (pie->lKey & RSP_GKF_CONTROL) != 0)
 						{
@@ -820,7 +820,7 @@ void RScrollBar::Do(	// Returns nothing.
 		// If we found a pressed repeatable GUI . . .
 		if (pguiPressed != NULL)
 			{
-			long	lCurTime	= rspGetMilliseconds();
+			int32_t	lCurTime	= rspGetMilliseconds();
 			if (lCurTime > ms_lNextEventTime)
 				{
 				// Get current mouse cursor position.
@@ -846,16 +846,16 @@ void RScrollBar::Do(	// Returns nothing.
 		// If we are smooth scrolling . . .
 		if (m_sInSmoothScroll != FALSE)
 			{
-			long	lCurTime	= rspGetMilliseconds();
+			int32_t	lCurTime	= rspGetMilliseconds();
 			// If any time has occurred . . .
 			if (lCurTime > m_lLastSmoothTime)
 				{
 				// Determine amount to scroll.
 				// This could overflow in extreme circumstances.
-				long	lScroll	= (m_lPosPerSecond * (lCurTime - m_lLastSmoothTime) ) / 1000L;
+				int32_t	lScroll	= (m_lPosPerSecond * (lCurTime - m_lLastSmoothTime) ) / 1000L;
 
 				// Determine distance to destination.
-				long	lDist		= m_lScrollToPos - m_lCurPos;
+				int32_t	lDist		= m_lScrollToPos - m_lCurPos;
 				// If positive distance . . .
 				if (lDist > 0)
 					{

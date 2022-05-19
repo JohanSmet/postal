@@ -155,10 +155,10 @@ public:
 	char	m_szNewName[64];			// resource name
 	bool	m_bActive;					
 	// All times in milliseconds...
-	long	m_lActivationTime;		// also delay time
-	long	m_lFadeOutTime;			//	also in delta time form
-	long	m_lBlackTime;				//	also in delta time form
-	long	m_lFadeInTime;				//	also in delta time form
+	int32_t	m_lActivationTime;		// also delay time
+	int32_t	m_lFadeOutTime;			//	also in delta time form
+	int32_t	m_lBlackTime;				//	also in delta time form
+	int32_t	m_lFadeInTime;				//	also in delta time form
 	UCHAR	m_TransitionPalette[1024];
 	typedef enum { Inactive,FadeOut,Black,FadeIn } BackState;
 	BackState	m_eState;
@@ -233,7 +233,7 @@ public:
 class	CTextChunk
 	{
 public:
-	long	m_lNumPhrases;
+	int32_t	m_lNumPhrases;
 	CTextPhrase m_tHead; // bookends
 	CTextPhrase m_tTail;
 	int16_t	m_sGlobalTopY;
@@ -377,13 +377,13 @@ extern void SetAll();
 class CScrollMaster
 	{
 public:
-	long			m_lGlobalHeight;
-	long			m_lCurrentTopY;
-	long			m_lCurrentBottomY;
-	long			m_lTotalChunks;
+	int32_t			m_lGlobalHeight;
+	int32_t			m_lCurrentTopY;
+	int32_t			m_lCurrentBottomY;
+	int32_t			m_lTotalChunks;
 	CTextChunk*	m_pTopActiveChunk;
 	CTextChunk*	m_pBottomActiveChunk;
-	long			m_lActivationTime;
+	int32_t			m_lActivationTime;
 	RRect			m_rDisplay;
 	double		m_dScrollRate;	// screens/sec
 
@@ -480,7 +480,7 @@ public:
 	int16_t Update(RPrint* pPrint)
 		{
 		// calculate current global scroll location:
-		m_lCurrentBottomY = long(double(rspGetMilliseconds() - m_lActivationTime)
+		m_lCurrentBottomY = int32_t(double(rspGetMilliseconds() - m_lActivationTime)
 			* m_dScrollRate * m_rDisplay.sH / 1000.0);
 		m_lCurrentTopY = (m_lCurrentBottomY - m_rDisplay.sH);
 
@@ -942,15 +942,15 @@ int16_t	ScrollPage(char* pszBackground,char* pszScrollScript,double dScrollRate,
 	pScript->m_pStream->Start(&print);
 
 	// Wait until user input
-	long lKey = 0;
+	int32_t lKey = 0;
 	int16_t sButtons = 0;
 	int16_t sJoyPress = 0;
 
 //******************  STATISTICAL ANALYSIS!
 /*
-long lTimeCount[256] = {0,}; // bucket sort
+int32_t lTimeCount[256] = {0,}; // bucket sort
 */
-long lRunningTime,lPrevTime;
+int32_t lRunningTime,lPrevTime;
 lRunningTime = lPrevTime = rspGetMilliseconds();
 
 	while ( (pScript->m_pStream->Update(&print) == SUCCESS) && !lKey && !sButtons && !(rspGetQuitStatus()) && !sJoyPress)
@@ -1082,7 +1082,7 @@ int16_t Credits(SampleMasterID* pMusic,
 	rspUpdateDisplay();
 
 	// Wait a while or until user input
-	long lKey = 0;
+	int32_t lKey = 0;
 	int16_t sButtons = 0;
 	do	{
 		UpdateSystem();
@@ -1170,8 +1170,8 @@ int16_t Credits(SampleMasterID* pMusic,
 		true);
 
 
-	long	lTimeToFade = 15000;
-	long	lStartTime = rspGetMilliseconds();
+	int32_t	lTimeToFade = 15000;
+	int32_t	lStartTime = rspGetMilliseconds();
 
 	// Copy the palette:
 	UCHAR PaletteCopy[256 * 3] = {0,};
@@ -1179,7 +1179,7 @@ int16_t Credits(SampleMasterID* pMusic,
 	rspGetPaletteEntries(10,236,PaletteCopy+30,PaletteCopy + 31,PaletteCopy + 32,3);
 
 	//====================================================================
-	long lCurTime;
+	int32_t lCurTime;
 
 	while ( (lCurTime = rspGetMilliseconds() - lStartTime) < lTimeToFade)
 		{

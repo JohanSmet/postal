@@ -504,13 +504,13 @@ struct GuiLink
 		Gui
 		};
 
-	long	lId;	// ID of GUI to link to.
+	int32_t	lId;	// ID of GUI to link to.
 	Type	type;
 #if 1
 	union
 		{
 		void*			pvLink;
-		long*			pl;
+		int32_t*			pl;
 		ULONG*		pul;
 		int16_t*		ps;
 		USHORT*		pus;
@@ -556,17 +556,17 @@ static RListBox*	ms_plbHostBrowse	= NULL;		// Browse for host listbox.
 
 // Other static vars.
 
-static long			ms_lWatchdogTime = 0;			// Watchdog timer
+static int32_t			ms_lWatchdogTime = 0;			// Watchdog timer
 static bool			ms_bNetBlockingAbort = false;	// Net blocking abort flag
 
-static long			ms_lNumConsoleEntries		= 0;			// Track number of chat items.
+static int32_t			ms_lNumConsoleEntries		= 0;			// Track number of chat items.
 
 static bool			ms_bGotSetupMsg = false;
 static int16_t		ms_sSetupRealmNum = 0;
 static char			ms_szSetupRealmFile[Net::MaxRealmNameSize];
-// static long			ms_lSetupLastChatComplaint = 0;
+// static int32_t			ms_lSetupLastChatComplaint = 0;
 
-static long			ms_lNextOptionsUpdateTime;		// Next time to send an options update.
+static int32_t			ms_lNextOptionsUpdateTime;		// Next time to send an options update.
 
 static RTxt*		ms_ptxtNetProb	= NULL;			// Net problem GUI.
 static bool			m_bNetWatchdogExpired	= false;	// Whether net blocking expired
@@ -593,7 +593,7 @@ static GuiLink			ms_aglServerLinkage[]	=
 		{ GUI_ID_ENABLE_COOP_MODE,		GuiLink::Gui,		&ms_pmbCoopMode,							},
 		{ GUI_ID_ENABLE_COOP_MODE,		GuiLink::Bool,		&ms_bCoopMode,								},
 
-		{ static_cast<long>(TERMINATING_GUI_ID), },	// Terminator.
+		{ static_cast<int32_t>(TERMINATING_GUI_ID), },	// Terminator.
 	};
 
 static GuiLink			ms_aglClientLinkage[]	=
@@ -601,7 +601,7 @@ static GuiLink			ms_aglClientLinkage[]	=
 		{ GUI_ID_OPTIONS_STATIC,		GuiLink::Gui,		&ms_pguiOptions,							},   
 		{ GUI_ID_RETRY,					GuiLink::Gui,		&ms_pguiRetry,								},
 													 
-		{ static_cast<long>(TERMINATING_GUI_ID), },	// Terminator.
+		{ static_cast<int32_t>(TERMINATING_GUI_ID), },	// Terminator.
 	};
 
 static GuiLink			ms_aglClientServerLinkage[]	=
@@ -613,7 +613,7 @@ static GuiLink			ms_aglClientServerLinkage[]	=
 		{ GUI_ID_OK,						GuiLink::Gui,		&ms_pguiOk,									},
 		{ GUI_ID_CANCEL,					GuiLink::Gui,		&ms_pguiCancel,							},
 													 
-		{ static_cast<long>(TERMINATING_GUI_ID), },	// Terminator.
+		{ static_cast<int32_t>(TERMINATING_GUI_ID), },	// Terminator.
 	};
 
 static GuiLink			ms_aglBrowserLinkage[]	=
@@ -622,7 +622,7 @@ static GuiLink			ms_aglBrowserLinkage[]	=
 		{ GUI_ID_OK,						GuiLink::Gui,		&ms_pguiOk,									},
 		{ GUI_ID_CANCEL,					GuiLink::Gui,		&ms_pguiCancel,							},
 													 
-		{ static_cast<long>(TERMINATING_GUI_ID), },	// Terminator.
+		{ static_cast<int32_t>(TERMINATING_GUI_ID), },	// Terminator.
 	};
 
 
@@ -702,7 +702,7 @@ void UploadLinkInteger(			// Returns nothing.
 			if ((Int)-1 < 0)
 				{
 				// Signed.
-				pgui->SetText("%ld", (long)i);
+				pgui->SetText("%ld", (int32_t)i);
 				}
 			else
 				{
@@ -713,7 +713,7 @@ void UploadLinkInteger(			// Returns nothing.
 			// Hardwire to signed b/c bool was displaying a warning regarding the
 			// above comparison to determine the [un]signed nature of the templated
 			// type.
-			pgui->SetText("%ld", (long)i);
+			pgui->SetText("%ld", (int32_t)i);
 #endif
 			break;
 		}
@@ -1405,7 +1405,7 @@ static DLG_ACTION UpdateDialog(						// Returns dialog action
 	rspNameBuffers(&g_pimScreenBuf);
 
 	// Process GUI through an iteration.
-	long	lPressedId	= ms_pgDoGui.DoModeless(pguiRoot, &ie, g_pimScreenBuf);
+	int32_t	lPressedId	= ms_pgDoGui.DoModeless(pguiRoot, &ie, g_pimScreenBuf);
 
 	// If OK chosen or enter pressed . . .
 	if (lPressedId == GUI_ID_OK || (ie.type == RInputEvent::Key && (ie.lKey & 0x0000FFFF) == '\r') )
@@ -1502,7 +1502,7 @@ static DLG_ACTION UpdateDialog(						// Returns dialog action
 	if (action == DLG_NOTHING)
 		{
 		// Temporarily timed based. ***
-		long	lCurTime	= rspGetMilliseconds();
+		int32_t	lCurTime	= rspGetMilliseconds();
 		if (lCurTime > ms_lNextOptionsUpdateTime)
 			{
 			if (bReset)
@@ -1578,9 +1578,9 @@ static int16_t UpdateListBox(					// Returns 0 on success.
 					MakeMoreReadable(pgui);
 					pgui->Compose();
 					// Point GUI at entry.
-					pgui->m_ulUserData	= (ULONG)phost;
+					pgui->m_ulUserData	= (intptr_t)phost;
 					// Successfully added entry.
-					phost->m_u32User	= (U32)pgui;
+					phost->m_u32User	= (intptr_t)pgui;
 					// Note that we updated the dialog and will need to re-adjust
 					// fields and recompose.
 					bRepaginate	= true;
@@ -1605,7 +1605,7 @@ static int16_t UpdateListBox(					// Returns 0 on success.
 		while (phostslistDropped->GetHead())
 			{
 			// Get pointer to first host in list
-			U32 u32User = phostslistDropped->GetHeadData().m_u32User;
+			intptr_t u32User = phostslistDropped->GetHeadData().m_u32User;
 
 			// We should have already been using this.
 			ASSERT(u32User);
@@ -1930,7 +1930,7 @@ static void OnDroppedMsg(
 	RSP_SAFE_GUI_REF_VOID(pguiConnected, Compose());
 
 	// Get client's GUI . . .
-	RGuiItem* pguiClient = ms_plbPlayers->GetItemFromId( long(pmsg->msg.dropped.id));
+	RGuiItem* pguiClient = ms_plbPlayers->GetItemFromId( int32_t(pmsg->msg.dropped.id));
 	if (pguiClient != NULL)
 		{
 		// Remove the item.
@@ -1978,7 +1978,7 @@ static int16_t OnJoinedMsg(	// Returns 0 on success.
 	if (pguiClient != NULL)
 		{
 		// Let's be able to identify this client by its net ID.
-		pguiClient->m_lId	= (long)pmsg->msg.joined.id;
+		pguiClient->m_lId	= (int32_t)pmsg->msg.joined.id;
 
 		// Don't allow the user to select these in client mode . . .
 		if (bServer == false)
@@ -2447,7 +2447,7 @@ extern int16_t DoNetGameDialog(							// Returns 0 if successfull, non-zero othe
 								bool bServerDone = pserver ? false : true;
 								bool bClientDone = false;
 								bool bUserAbortNow = false;
-								long lCancelDelay;
+								int32_t lCancelDelay;
 								DLG_ACTION action;
 								NetMsg msg;
 								while (!(bClientDone && bServerDone && (bAbort || bStart || bRetry)) && !bUserAbortNow)
@@ -3181,7 +3181,7 @@ static int16_t BrowseForSelf(
 	if (sResult == 0)
 		{
 		// Wait for our own broadcast  
-		long lTime = rspGetMilliseconds() + Net::BroadcastDropTime;
+		int32_t lTime = rspGetMilliseconds() + Net::BroadcastDropTime;
 		while (!bFoundSelf && (rspGetMilliseconds() < lTime))
 			{
 			UpdateSystem();

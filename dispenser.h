@@ -110,7 +110,7 @@ class CDispenser : public CThing
 																	// dispensee.
 
 		LogicType	m_logictype;							// Logic used for dispensing.
-		long			m_alLogicParms[NumParms];			// Generic parameters for logic.
+		int32_t			m_alLogicParms[NumParms];			// Generic parameters for logic.
 
 		int16_t			m_sMaxDispensees;						// Maximum number of dispensees.
 		int16_t			m_sNumDispensees;						// Number of dispensees already
@@ -119,7 +119,7 @@ class CDispenser : public CThing
 		U16			m_u16IdDispensee;						// ID of the last dispensee
 																	// we created.
 
-		long			m_lNextUpdate;							// Time of next update.
+		int32_t			m_lNextUpdate;							// Time of next update.
 
 		bool			m_bEditMode;							// true, if in edit mode, false
 																	// otherwise.
@@ -308,7 +308,7 @@ class CDispenser : public CThing
 
 		// Get the closest dude.
 		int16_t GetClosestDudeDistance(	// Returns 0 on success.  Fails, if no dudes.
-			long* plClosestDistance);	// Out:  Distance to closest dude.
+			int32_t* plClosestDistance);	// Out:  Distance to closest dude.
 
 		// Destroy an instantiated dispensee.
 		void DestroyDispensee(	// Returns nothing.

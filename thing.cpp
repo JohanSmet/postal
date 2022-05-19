@@ -445,7 +445,7 @@ void CThing::SetGuiToNotify(	// Returns nothing.
 //
 ////////////////////////////////////////////////////////////////////////////////
 // static							// Static for use as a callback.
-long CThing::SysUpdate(			// Returns a non-zero ID to abort or zero
+int32_t CThing::SysUpdate(			// Returns a non-zero ID to abort or zero
 										// to continue.                          
 	RInputEvent*	pie)			// Out: Next input event to process.     
 	{
@@ -468,7 +468,7 @@ long CThing::SysUpdate(			// Returns a non-zero ID to abort or zero
 // (static).
 //
 ////////////////////////////////////////////////////////////////////////////////
-long CThing::DoGui(			// Returns ID of item that terminated looping.
+int32_t CThing::DoGui(			// Returns ID of item that terminated looping.
 									// Returns 0 if rspGetQuitStatus() is nonzero.
 									// Returns negative on error.
 	RGuiItem*	pguiRoot)	// Root of GUI items to process through user.

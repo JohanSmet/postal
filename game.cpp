@@ -702,7 +702,7 @@ typedef enum
 CGameSettings g_GameSettings;
 
 // Cookie flag
-long g_lCookieMonster;
+int32_t g_lCookieMonster;
 
 // Global screen buffer
 RImage* g_pimScreenBuf;
@@ -730,11 +730,11 @@ RResMgr	g_resmgrShell;
 RResMgr	g_resmgrRes;
 
 // Time and Date values
-long g_lRegTime;
-long g_lRegValue;
-long g_lExpTime;
-long g_lExpValue;
-long g_lReleaseTime;
+int32_t g_lRegTime;
+int32_t g_lRegValue;
+int32_t g_lExpTime;
+int32_t g_lExpValue;
+int32_t g_lReleaseTime;
 
 // Stockpile used to transfer loaded/saved data to/from the CDude's stockpile
 CStockPile g_stockpile;
@@ -750,8 +750,8 @@ static U32	ms_u32Cookie = COOKIE_VALUE;
 
 // These variables are generally controlled via the menu system
 static ACTION m_action;
-static long m_lDemoBaseTime;
-static long m_lDemoTimeOut;
+static int32_t m_lDemoBaseTime;
+static int32_t m_lDemoTimeOut;
 static char	m_szRealmFile[RSP_MAX_PATH+1];
 static char m_szDemoFile[RSP_MAX_PATH+1];
 static int16_t m_sRealmNum;
@@ -761,11 +761,11 @@ static bool m_bJustOneRealm;
 static int16_t ms_sForegroundCursorShowLevel	= INVALID_CURSOR_SHOW_LEVEL;
 
 // Used by random number stuff
-static long m_lRandom = 1;
+static int32_t m_lRandom = 1;
 static RFile* m_pfileRandom = 0;
 
 // Used by if-logging schtuff.
-// static long	ms_lSynchLogSeq	= 0;
+static int32_t	ms_lSynchLogSeq	= 0;
 
 static RFile	ms_fileSynchLog;
 
@@ -1275,7 +1275,7 @@ void TheGame(void)
 			// scenario where a shitty sound driver causes us to think a sound is always
 			// playing.
 			// Wait for all samples to finish.
-			long	lTimeOutTime	= rspGetMilliseconds() + TIME_OUT_FOR_ABORT_SOUNDS;
+			int32_t	lTimeOutTime	= rspGetMilliseconds() + TIME_OUT_FOR_ABORT_SOUNDS;
 			// Wait for them to stop.
 			while (IsSamplePlaying() == true && rspGetMilliseconds() < lTimeOutTime)
 				{
@@ -2144,7 +2144,7 @@ static int16_t GameCore(void)		// Returns 0 on success.
 				// Oooops
 				//------------------------------------------------------------------------------
 				default:
-					TRACE("GameCore(): Unrecognized action: %ld!\n", (long)m_action);
+					TRACE("GameCore(): Unrecognized action: %ld!\n", (int32_t)m_action);
 					break;
 				}
 
@@ -2304,7 +2304,7 @@ int16_t SubPathOpenBox(		// Returns 0 on success, negative on error, 1 if
 		if (sResult == 0)
 			{
 			// Attempt to remove path from the specified name
-			long	lFullPathLen	= strlen(szBasePath);
+			int32_t	lFullPathLen	= strlen(szBasePath);
 			if (rspStrnicmp(szChosenFileName, szBasePath, lFullPathLen) == 0)
 				{
 				// Copy sub path to destination.
@@ -2371,8 +2371,8 @@ static int16_t GetDemoFile(
 // Macro to get the sound SAK and (for the event there is no SAK) dir path.
 ////////////////////////////////////////////////////////////////////////////////
 inline void GetSoundPaths(		// Returns nothing.
-	long	lSamplesPerSec,		// In:  The sample rate in samples per second.
-	long	lBitsPerSample,		// In:  The number of bits per sample.
+	int32_t	lSamplesPerSec,		// In:  The sample rate in samples per second.
+	int32_t	lBitsPerSample,		// In:  The number of bits per sample.
 	char* pszSakPath,				// Out: The subpath and name of the sound SAK.
 										// Should be able to store at least RSP_MAX_PATH
 										// characters here.
@@ -2385,7 +2385,7 @@ inline void GetSoundPaths(		// Returns nothing.
 	char	szAudioResDescriptor[256];
 	sprintf(
 		szAudioResDescriptor,
-		"%ld%c%ld",
+		"%d%c%d",
 		lSamplesPerSec,
 		AUDIO_SAK_SEPARATOR_CHAR,
 		lBitsPerSample);
@@ -2439,10 +2439,10 @@ static int16_t OpenSaks(void)
 
 	// Get the current audio mode, if any.
 	int16_t	sInSoundMode;
-	long	lSamplesPerSec;
-	long	lDevBitsPerSample;
-	long	lSrcBitsPerSample;
-	long	lMixBitsPerSample;
+	int32_t	lSamplesPerSec;
+	int32_t	lDevBitsPerSample;
+	int32_t	lSrcBitsPerSample;
+	int32_t	lMixBitsPerSample;
 	if (RMix::GetMode(				// Returns 0 on success;            
 											// nonzero if no mode.              
 			&lSamplesPerSec,			// Sample rate in samples per second
@@ -2505,7 +2505,7 @@ static int16_t OpenSaks(void)
 		lSamplesPerSec = 44100;
 	else
 		{
-		TRACE("OpenSaks(): Unsupported sample rate: %ld!\n", (long)lSamplesPerSec);
+		TRACE("OpenSaks(): Unsupported sample rate: %ld!\n", (int32_t)lSamplesPerSec);
 		ASSERT(0);
 		}
 
@@ -2552,8 +2552,8 @@ static int16_t OpenSaks(void)
 			// them all to make sure.
 			struct
 				{
-				long	lSamplesPerSec;
-				long	lBitsPerSample;
+				int32_t	lSamplesPerSec;
+				int32_t	lBitsPerSample;
 				}	amodes[]	=
 					{
 						// Put the smaller ones first b/c they use less memory.
@@ -2661,14 +2661,14 @@ static int16_t LoadAssets(void)
 		}
 
 	int16_t i;
-	long lTotalTime = 0;
+	int32_t lTotalTime = 0;
 	for (i = 0; i < TitleGetNumTitles(); i++)
 		lTotalTime += g_GameSettings.m_alTitleDurations[i];
 
 	// Fake lots of loading with a simple timing loop
-	long	lTime;
-	long	lLastTime	= rspGetMilliseconds();
-	long	lEndTime		= lLastTime + lTotalTime;
+	int32_t	lTime;
+	int32_t	lLastTime	= rspGetMilliseconds();
+	int32_t	lEndTime		= lLastTime + lTotalTime;
 	do
 		{
 		lTime		= rspGetMilliseconds();
@@ -3408,12 +3408,12 @@ void GameEndingSequence(void)
 // Returns a ptr to just the portion of the file path that specifies the file
 // name (excluding the path).
 ////////////////////////////////////////////////////////////////////////////////
-/*
-static char* GetFileNameFromPath(	// Returns file name.
-	char*	pszFullPath)					// In:  File's full path.
+
+static const char* GetFileNameFromPath(	// Returns file name.
+	const char*	pszFullPath)					// In:  File's full path.
 	{
 	// Scan back for the separator or the beginning.
-	char*	pszIndex	= pszFullPath + (strlen(pszFullPath) - 1);
+	const char*	pszIndex	= pszFullPath + (strlen(pszFullPath) - 1);
 
 	while (pszIndex >= pszFullPath && *pszIndex != RSP_SYSTEM_PATH_SEPARATOR)
 		{
@@ -3422,7 +3422,7 @@ static char* GetFileNameFromPath(	// Returns file name.
 
 	return (pszIndex + 1);
 	}
-*/
+
 ////////////////////////////////////////////////////////////////////////////////
 // Opens the synchronization log with the specified access flags if in a 
 // TRACENASSERT mode and synchronization logging is enabled.
@@ -3502,7 +3502,7 @@ static void CloseSynchLogs(void)	// Returns nothing.
 extern int SynchLog(	// Result of expr.
 	double	expr,		// In:  Expression to evaluate.
 	char*		pszFile,	// In:  Calling file.
-	long		lLine,	// In:  Calling line.
+	int32_t		lLine,	// In:  Calling line.
 	char*		pszExpr,	// In:  Original C++ source expression.
 	U32		u32User)	// In:  A user value that is intended to be consistent.
 	{
@@ -3513,7 +3513,7 @@ extern int SynchLog(	// Result of expr.
 				{
 				fprintf(
 					ms_fileSynchLog.m_fs, 
-					"[Seq: %ld] %s : %ld  <$%s$> == %0.8f; User == %lu\n", 
+					"[Seq: %d] %s : %d  <$%s$> == %0.8f; User == %u\n", 
 					ms_lSynchLogSeq++,
 					GetFileNameFromPath(pszFile),
 					lLine,
@@ -3525,14 +3525,14 @@ extern int SynchLog(	// Result of expr.
 				{
 				char		szFileIn[RSP_MAX_PATH];
 				char		szExprIn[1024];
-				long		lLineIn;
-				long		lSeqIn;
+				int32_t		lLineIn;
+				int32_t		lSeqIn;
 				double	exprIn;
 				U32		u32UserIn;
 
 				if (fscanf(
 					ms_fileSynchLog.m_fs,
-					"[Seq: %ld] %s : %ld  <$%1024[^$]$> == %g; User == %lu\n", 
+					"[Seq: %d] %s : %d  <$%1024[^$]$> == %lg; User == %u\n", 
 					&lSeqIn,
 					szFileIn,
 					&lLineIn,
@@ -3546,12 +3546,12 @@ extern int SynchLog(	// Result of expr.
 						|| (exprIn != expr) 
 						|| (u32UserIn != u32User) )
 						{
-						char	szOut[2048];
+						char	szOut[2048*4];
 						sprintf(
 							szOut,
-							"'If' sequence (%ld) mismatch!\n\n"
-							"   Was <<%s>> at %s(%ld) which got %g; User == %lu\n\n"
-							"   Now <<%s>> at %s(%ld) which got %g; User == %lu",
+							"'If' sequence (%d) mismatch!\n\n"
+							"   Was <<%s>> at %s(%d) which got %g; User == %u\n\n"
+							"   Now <<%s>> at %s(%d) which got %g; User == %u",
 							ms_lSynchLogSeq,
 							szExprIn,
 							szFileIn,
@@ -3657,7 +3657,7 @@ static void GameGetRegistry(void)
 	DWORD dwType;
 	DWORD dwNameSize = 255;
 	HKEY hkResult;
-	long lError;
+	int32_t lError;
 	int16_t sEncryptedValueLength = 9;
 
 
@@ -3872,7 +3872,7 @@ static void GameSetRegistry(void)
 	DWORD dwSize = 255;
 	DWORD dwNameSize = 255;
 	HKEY hkResult;
-	long lError;
+	int32_t lError;
 	int16_t sEncryptedValueLength = 9;
 
 	unsigned char szIn[10];
@@ -3966,7 +3966,7 @@ static void GameSetRegistry(void)
 //
 ////////////////////////////////////////////////////////////////////////////////
 extern void SeedRand(
-	long lSeed)
+	int32_t lSeed)
 	{
 	m_lRandom = lSeed;
 	}
@@ -3978,10 +3978,10 @@ extern void SeedRand(
 //
 ////////////////////////////////////////////////////////////////////////////////
 #if defined(_DEBUG) || defined(TRACENASSERT)
-	extern long GetRandomDebug(char* FILE_MACRO, long LINE_MACRO)
+	extern int32_t GetRandomDebug(const char* FILE_MACRO, int32_t LINE_MACRO)
 		{
 		// Get next random number
-		long lNewVal = (((m_lRandom = m_lRandom * 214013L + 2531011L) >> 16) & 0x7fff);
+		int32_t lNewVal = (((m_lRandom = m_lRandom * 214013L + 2531011L) >> 16) & 0x7fff);
 
 		if (m_pfileRandom)
 			{
@@ -3989,7 +3989,7 @@ extern void SeedRand(
 				{
 				fprintf(
 					m_pfileRandom->m_fs,
-					"%s : %ld rand = %ld\n", 
+					"%s : %d rand = %d\n", 
 					GetFileNameFromPath(FILE_MACRO),
 					LINE_MACRO,
 					lNewVal);
@@ -3999,12 +3999,12 @@ extern void SeedRand(
 				}
 			else
 				{
-				long lSavedVal;
-				long lSavedLine;
+				int32_t lSavedVal;
+				int32_t lSavedLine;
 				char szSavedFile[1024];
 				fscanf(
 					m_pfileRandom->m_fs,
-					"%s : %ld rand = %ld\n", 
+					"%s : %d rand = %d\n", 
 					szSavedFile,
 					&lSavedLine,
 					&lSavedVal);
@@ -4021,11 +4021,11 @@ extern void SeedRand(
 						"   Was %s(%ld) which got %ld\n\n"
 						"   Now %s(%ld) which got %ld",
 						szSavedFile,
-						(long)lSavedLine,
-						(long)lSavedVal,
+						(int32_t)lSavedLine,
+						(int32_t)lSavedVal,
 						GetFileNameFromPath(FILE_MACRO),
 						LINE_MACRO,
-						(long)lNewVal);
+						(int32_t)lNewVal);
 
 					// Make this easy to debug
 					ASSERT(0);
@@ -4035,7 +4035,7 @@ extern void SeedRand(
 		return lNewVal;
 		}
 #else
-	extern long GetRandom(void)
+	extern int32_t GetRandom(void)
 		{
 		// Get next random number
 		return (((m_lRandom = m_lRandom * 214013L + 2531011L) >> 16) & 0x7fff);
@@ -4075,7 +4075,7 @@ extern int rand(void)
 //
 ////////////////////////////////////////////////////////////////////////////////
 extern void PalTranOn(
-	long lTime /* = -1 */)								// In:  How long transition should take (or -1 for default)
+	int32_t lTime /* = -1 */)								// In:  How long transition should take (or -1 for default)
 	{
 	if (lTime == -1)
 		lTime = NORMAL_PAL_TRAN_TIME;

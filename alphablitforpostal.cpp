@@ -62,9 +62,9 @@ void rspAlphaMaskBlit(RMultiAlpha* pX,RImage* pimMask,
 		rDstClip.sX,rDstClip.sY,rDstClip.sW,rDstClip.sH) == -1) return ; // clipped out
 	
 	int16_t i,j;
-	long lSrcP = pimSrc->m_lPitch;
-	long lDstP = pimDst->m_lPitch;
-	long lMaskP = pimMask->m_lPitch;
+	int32_t lSrcP = pimSrc->m_lPitch;
+	int32_t lDstP = pimDst->m_lPitch;
+	int32_t lMaskP = pimMask->m_lPitch;
 	UCHAR* pSrc,*pSrcLine = pimSrc->m_pData + sSrcX + sSrcY * lSrcP;
 	UCHAR* pMask,*pMaskLine = pimMask->m_pData + sSrcX + sSrcY * lSrcP;
 	UCHAR* pDst,*pDstLine = pimDst->m_pData + sDstX + lDstP * sDstY;
@@ -105,8 +105,8 @@ void rspAlphaBlit(RAlpha* pX,RImage* pimSrc,RImage* pimDst,int16_t sDstX,int16_t
 		pimDst->m_sWidth,pimDst->m_sHeight) == -1) return ; // clipped out
 	
 	int16_t i,j;
-	long lSrcP = pimSrc->m_lPitch;
-	long lDstP = pimDst->m_lPitch;
+	int32_t lSrcP = pimSrc->m_lPitch;
+	int32_t lDstP = pimDst->m_lPitch;
 	UCHAR* pSrc,*pSrcLine = pimSrc->m_pData + sSrcX + sSrcY * lSrcP;
 	UCHAR* pDst,*pDstLine = pimDst->m_pData + sDstX + lDstP * sDstY;
 
@@ -142,8 +142,8 @@ void rspMaskBlit(RImage* pimSrc,RImage* pimDst,int16_t sDstX,int16_t sDstY)
 		pimDst->m_sWidth,pimDst->m_sHeight) == -1) return ; // clipped out
 	
 	int16_t i,j;
-	long lSrcP = pimSrc->m_lPitch;
-	long lDstP = pimDst->m_lPitch;
+	int32_t lSrcP = pimSrc->m_lPitch;
+	int32_t lDstP = pimDst->m_lPitch;
 	UCHAR* pSrc,*pSrcLine = pimSrc->m_pData + sSrcX + sSrcY * lSrcP;
 	UCHAR* pDst,*pDstLine = pimDst->m_pData + sDstX + lDstP * sDstY;
 
@@ -163,7 +163,7 @@ void rspMaskBlit(RImage* pimSrc,RImage* pimDst,int16_t sDstX,int16_t sDstY)
 void rspMakeMask(RImage* pimSrc,UCHAR ucVal)
 	{
 	int16_t i,j;
-	long lSrcP = pimSrc->m_lPitch;
+	int32_t lSrcP = pimSrc->m_lPitch;
 	UCHAR* pSrc,*pSrcLine = pimSrc->m_pData;
 
 	for (j=0;j<pimSrc->m_sHeight;j++,pSrcLine += lSrcP)
@@ -181,8 +181,8 @@ void rspMakeMask(RImage* pimSrc,UCHAR ucVal)
 void rspCopyAsMask(RImage* pimSrc,RImage* pimDst,UCHAR ucVal)
 	{
 	int16_t i,j;
-	long lSrcP = pimSrc->m_lPitch;
-	long lDstP = pimDst->m_lPitch;
+	int32_t lSrcP = pimSrc->m_lPitch;
+	int32_t lDstP = pimDst->m_lPitch;
 	UCHAR* pSrc,*pSrcLine = pimSrc->m_pData;
 	UCHAR* pDst,*pDstLine = pimDst->m_pData;
 
@@ -322,9 +322,9 @@ void test(RImage* pimF,RImage* pimB)
 	// Wait until user input
 	bool bContinue = TRUE;
 
-	// long	lTime = rspGetMilliseconds();
-	long lKey = 0;
-	// long lPrevTime = lTime;
+	// int32_t	lTime = rspGetMilliseconds();
+	int32_t lKey = 0;
+	// int32_t lPrevTime = lTime;
 	rspSetMouse(sCenterX,sCenterY);
 
 	while (bContinue)

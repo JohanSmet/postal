@@ -371,7 +371,7 @@ static int16_t SetupVideo(					// Returns 0 on success.
 static char* CreateChunk(	// Returns the memory ptr that will hold the chunk
 									// in place.  Needs to be freed with free() when done
 									// with the chunk.
-	long lChunkSize)			// In:  Size of chunk to create.
+	int32_t lChunkSize)			// In:  Size of chunk to create.
 	{
 	char*	pcOrig		= (char*)malloc(lChunkSize);
 	char* pcReAlloc	= (char*)realloc(pcOrig, 1024);
@@ -417,7 +417,7 @@ static void assert_types_are_sane(void)
 int _argc = 0;
 char **_argv = NULL;
 
-long playthroughMS = 0;
+int32_t playthroughMS = 0;
 
 #if WITH_STEAMWORKS
 bool WaitingForInitialSteamStats = true;
@@ -865,7 +865,7 @@ rspSetProfileOutput("profile.out");
 					while (bRetry)
 						{
 						// Keep trying until it works or time runs out, whichever comes first
-						long	lTime = rspGetMilliseconds();
+						int32_t	lTime = rspGetMilliseconds();
 						bool	bDone	= false;
 						do	{
 							// Try to set mode

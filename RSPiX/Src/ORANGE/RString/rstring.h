@@ -429,7 +429,7 @@ class RString
 		const RString& operator=(uint32_t rhs)
 			{
 			Grow(MaxULongLen + 1); // size is always > 0, so this will always return with a valid buffer
-			m_lStrLen = sprintf(m_pBuf, "%lu", (uint32_t)rhs);
+			m_lStrLen = sprintf(m_pBuf, "%u", rhs);
 			return *this;
 			}
 
@@ -520,7 +520,7 @@ class RString
 		const RString& operator+=(uint32_t rhs)
 			{
 			Grow(m_lStrLen + MaxULongLen + 1); // size is always > 0, so this will always return with a valid buffer
-			m_lStrLen += sprintf(m_pBuf + m_lStrLen, "%lu", (uint32_t)rhs);
+			m_lStrLen += sprintf(m_pBuf + m_lStrLen, "%u", rhs);
 			return *this;
 			}
 

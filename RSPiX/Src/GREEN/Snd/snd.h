@@ -102,10 +102,10 @@ class RSnd
 		State GetState(void)	{ return m_sState; }
 		
 		// Gets/returns the current position of the audio in bytes.
-		long GetPos(void);
+		int32_t GetPos(void);
 
 		// Gets/returns the current time of the audio in milliseconds.
-		long GetTime(void);
+		int32_t GetTime(void);
 
 		// Gets/returns the current sample.
 		RSample* GetSample(void)
@@ -129,8 +129,8 @@ class RSnd
 		// Returns 0 on success.
 		int16_t Stream(						// Returns 0 on success.
 			char* pszSampleName,			// In:  Name of sample file.
-			long lPlayBufSize,			// In:  Size of play buffer in bytes.
-			long lReadBufSize,			// In:  Size of file read buffer in bytes.
+			int32_t lPlayBufSize,			// In:  Size of play buffer in bytes.
+			int32_t lReadBufSize,			// In:  Size of file read buffer in bytes.
 			UCHAR	ucMainVolume = 255,	// In:  Primary Volume (0 - 255)
 			UCHAR ucVolume2 = 255);		// In:  Secondary Volume (0 - 255)
 
@@ -147,13 +147,13 @@ class RSnd
 		// 3..4 is played.
 		int16_t Play(							// Returns 0 on success.
 			RSample* psample,				// In:  Sample to play.
-			long lPlayBufSize,			// In:  Size of play buffer in bytes.
+			int32_t lPlayBufSize,			// In:  Size of play buffer in bytes.
 			UCHAR	ucMainVolume = 255,	// In:  Primary Volume (0 - 255)
 			UCHAR ucVolume2 = 255,		// In:  Secondary Volume (0 - 255)
-			long lLoopStartTime = -1,	// In:  Where to loop back to in milliseconds.
+			int32_t lLoopStartTime = -1,	// In:  Where to loop back to in milliseconds.
 												//	-1 indicates no looping (unless m_sLoop is
 												// explicitly set).
-			long lLoopEndTime = 0);		// In:  Where to loop back from in milliseconds.
+			int32_t lLoopEndTime = 0);		// In:  Where to loop back from in milliseconds.
 												// In:  If less than 1, the end + lLoopEndTime is used.
 
 		// Aborts current play or stream.
@@ -190,7 +190,7 @@ class RSnd
 		void* StreamCall(	RMix::Msg msg, 
 								void* pData, 
 								ULONG* pulNewBufSize,
-								ULONG	 ulUser,
+								intptr_t	 ulUser,
 								UCHAR* pucVolume = NULL,
 								UCHAR* pucVol2 = NULL);
 								
@@ -200,7 +200,7 @@ class RSnd
 		static void* StreamCallStatic(RMix::Msg msg, 
 												 void* pData,
 												 ULONG* pulNewBufSize,
-												 ULONG ulUser,
+												 intptr_t ulUser,
 												 UCHAR* pucVolume = NULL,
 												 UCHAR* pucVol2 = NULL);
 
@@ -218,16 +218,16 @@ class RSnd
 		static void* PlayCallStatic(RMix::Msg msg, 
 											 void* pData,
 											 ULONG* pulNewBufSize,
-											 ULONG ulUser,
+											 intptr_t ulUser,
 											 UCHAR* pucVolume = NULL,
 											 UCHAR* pucVol2 = NULL);
 
 	////////////////////////// Member vars ////////////////////////////////////
 	public:
 		int16_t			m_sLoop;				// If TRUE, Play() will loop until FALSE.
-		long			m_lLoopStartPos;	// Where to loop back to in bytes.
+		int32_t			m_lLoopStartPos;	// Where to loop back to in bytes.
 												// Play() only.
-		long			m_lLoopEndPos;		// Where to loop back from in bytes.
+		int32_t			m_lLoopEndPos;		// Where to loop back from in bytes.
 												// Play() only.
 
 		DoneCall		m_dcUser;		// User callback when done playing/streaming
@@ -239,7 +239,7 @@ class RSnd
 		int16_t			m_sTypeVolume;	// 0-255	= Secondary (category) Volume
 				
 	protected:
-		long			m_lBufSize;		// Buffer unit to stream in.
+		int32_t			m_lBufSize;		// Buffer unit to stream in.
 		State			m_sState;		// One of the enums above representing 
 											// this RSnd's state.
 		RMix			m_mix;			// For playing/mixing sound data.

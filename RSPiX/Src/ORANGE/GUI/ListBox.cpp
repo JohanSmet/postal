@@ -160,7 +160,7 @@ RListBox::RListBox()
 	m_sbVert.m_im.m_sWidth		= DEF_SCROLL_THICKNESS;
 	m_sbVert.m_oOrientation		= RScrollBar::Vertical;
 	m_sbVert.m_upcUser			= ScrollCall;
-	m_sbVert.m_ulUserInstance	= (ULONG)this;
+	m_sbVert.m_ulUserInstance	= (intptr_t)this;
 
 	// Priority for scrollbars should be higher than any other sibling.
 	m_sbVert.m_hot.SetPriority(SCROLLBAR_PRIORITY);
@@ -168,7 +168,7 @@ RListBox::RListBox()
 	m_sbHorz.m_im.m_sHeight		= DEF_SCROLL_THICKNESS;
 	m_sbHorz.m_oOrientation		= RScrollBar::Horizontal;
 	m_sbHorz.m_upcUser			= ScrollCall;
-	m_sbHorz.m_ulUserInstance	= (ULONG)this;
+	m_sbHorz.m_ulUserInstance	= (intptr_t)this;
 
 	// Priority for scrollbars should be higher than any other sibling.
 	m_sbHorz.m_hot.SetPriority(SCROLLBAR_PRIORITY);
@@ -952,7 +952,7 @@ RGuiItem* RListBox::CreateStringItem(	// Returns new item on success;
 
 		// Set callback.
 		pgui->m_bcUser				= PressedCall;
-		pgui->m_ulUserInstance	= (ULONG)this;
+		pgui->m_ulUserInstance	= (intptr_t)this;
 
 		// Get thickness of border.
 		int16_t sBorder	= pgui->GetTopLeftBorderThickness()
@@ -1022,7 +1022,7 @@ RGuiItem* RListBox::CreateEncapsulator(	// Returns new item on success; NULL,
 
 		// Set callback.
 		pguiRes->m_bcUser				= PressedCall;
-		pguiRes->m_ulUserInstance	= (ULONG)this;
+		pguiRes->m_ulUserInstance	= (intptr_t)this;
 
 		// Get thickness of border.
 		int16_t sBorder	= pguiRes->GetTopLeftBorderThickness()

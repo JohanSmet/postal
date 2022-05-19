@@ -44,7 +44,7 @@ typedef struct
 	int16_t	sX;
 	int16_t	sY;
 	int16_t	sButton;
-	long	lTime;
+	int32_t	lTime;
 	int16_t	sType;
 	} RSP_MOUSE_EVENT, *PRSP_MOUSE_EVENT;
 
@@ -233,7 +233,7 @@ extern int16_t rspGetLastMouseEvent(	// Returns 0 if no event was available, non
 	int16_t*	psX,						// Event's X position is returned here (unless NULL)
 	int16_t*	psY,						// Event's Y position is returned here (unless NULL)
 	int16_t*	psButton,				// Event's button status is returned here (unless NULL)
-	long*		plTime,					// Event's time stamp returned here (unless NULL)
+	int32_t*		plTime,					// Event's time stamp returned here (unless NULL)
 	int16_t*	psType /*= NULL*/)	// Event's type (as per OS) is returned here (unless NULL)
 	{
 	int16_t	sRes	= TRUE;	// Assume success.
@@ -281,7 +281,7 @@ extern int16_t rspGetMouseEvent(	// Returns 0 if no event was available, non-zer
 	int16_t*	psX,						// Event's X position is returned here (unless NULL)
 	int16_t*	psY,						// Event's Y position is returned here (unless NULL)
 	int16_t*	psButton,				// Event's button status is returned here (unless NULL)
-	long*		plTime,					// Event's time stamp returned here (unless NULL)
+	int32_t*		plTime,					// Event's time stamp returned here (unless NULL)
 	int16_t*	psType /*= NULL*/)	// Event's type (as per OS) is returned here (unless NULL)
 	{
 	int16_t	sRes	= TRUE;	// Assume success.

@@ -298,7 +298,7 @@ int16_t CDispenser::Load(		// Returns 0 if successfull, non-zero otherwise
 				m_logictype	= (LogicType)u16LogicType;
 				pFile->Read(m_alLogicParms, 4);
 				pFile->Read(&m_ulFileVersion);
-				long	lSize;
+				int32_t	lSize;
 				if (pFile->Read(&lSize) == 1)
 					{
 					// Open memory file to receive the clone data . . .
@@ -376,7 +376,7 @@ int16_t CDispenser::Load(		// Returns 0 if successfull, non-zero otherwise
 					}
 
 				pFile->Read(&m_ulFileVersion);
-				long	lSize;
+				int32_t	lSize;
 				if (pFile->Read(&lSize) == 1)
 					{
 					// Open memory file to receive the clone data . . .
@@ -518,7 +518,7 @@ void CDispenser::Suspend(void)
 	if (m_sSuspend == 0)
 		{
 		// Store current delta so we can restore it.
-		long	lCurTime				= m_pRealm->m_time.GetGameTime();
+		int32_t	lCurTime				= m_pRealm->m_time.GetGameTime();
 		m_lNextUpdate				= lCurTime - m_lNextUpdate;
 		}
 
@@ -537,7 +537,7 @@ void CDispenser::Resume(void)
 	// This method is far from precise, but I'm hoping it's good enough.
 	if (m_sSuspend == 0)
 		{
-		long	lCurTime				= m_pRealm->m_time.GetGameTime();
+		int32_t	lCurTime				= m_pRealm->m_time.GetGameTime();
 		m_lNextUpdate				= lCurTime - m_lNextUpdate;
 		}
 	}
@@ -549,7 +549,7 @@ void CDispenser::Update(void)
 	{
 	if (!m_sSuspend)
 		{
-		long	lCurTime	= m_pRealm->m_time.GetGameTime();
+		int32_t	lCurTime	= m_pRealm->m_time.GetGameTime();
 
 		if (m_sNumDispensees < m_sMaxDispensees || m_sMaxDispensees < 0)
 			{
@@ -623,7 +623,7 @@ void CDispenser::Update(void)
 					if (lCurTime >= m_lNextUpdate)
 						{
 						// If in range . . .
-						long	lDudeDist;
+						int32_t	lDudeDist;
 						if (GetClosestDudeDistance(&lDudeDist) == 0)
 							{
 							if ( (lDudeDist >= m_alLogicParms[0] || m_alLogicParms[0] == 0) && (lDudeDist <= m_alLogicParms[1] || m_alLogicParms[1] == 0) )
@@ -677,9 +677,9 @@ int16_t CDispenser::EditNew(									// Returns 0 if successfull, non-zero other
 ////////////////////////////////////////////////////////////////////////////////
 inline void SetLogicText(	// Returns nothing.
 	RGuiItem*	pguiRoot,	// In:  Root item.
-	long			lId,			// In:  ID of item to update text.
+	int32_t			lId,			// In:  ID of item to update text.
 	const char*		pszText,		// In:  New text or NULL for none and to disable lIdEdit.
-	long			lIdEdit)		// In:  Item to enable or disable.
+	int32_t			lIdEdit)		// In:  Item to enable or disable.
 	{
 	RGuiItem*	pguiEdit	= pguiRoot->GetItemFromId(lIdEdit);
 	RGuiItem*	pguiText	= pguiRoot->GetItemFromId(lId);
@@ -742,7 +742,7 @@ inline void SetupLogicParms(	// Returns nothing.
 void LogicItemCall(
 	RGuiItem*	pguiLogicItem)	// In:  Logic item that was pressed.
 	{
-	ASSERT(pguiLogicItem->m_ulUserInstance != NULL);
+	ASSERT(pguiLogicItem->m_ulUserInstance != 0);
 	RListBox*	plb	= (RListBox*)pguiLogicItem->m_ulUserInstance;
 	ASSERT(plb->m_type == RGuiItem::ListBox);
 
@@ -842,7 +842,7 @@ int16_t CDispenser::EditModify(void)					// Returns 0 if successfull, non-zero o
 
 				// Point instance data at the max dispensees edit so it can show and
 				// hide it.
-				pmbInfiniteDispensees->m_ulUserInstance	= (ULONG)peditMaxDispensees;
+				pmbInfiniteDispensees->m_ulUserInstance	= (intptr_t)peditMaxDispensees;
 				pmbInfiniteDispensees->m_sState				= (m_sMaxDispensees < 0) ? 2 : 1;
 				pmbInfiniteDispensees->m_bcUser				= UpdateMaxDispensees;
 				pmbInfiniteDispensees->Compose();
@@ -862,7 +862,7 @@ int16_t CDispenser::EditModify(void)					// Returns 0 if successfull, non-zero o
 						// Set item number.
 						pguiItem->m_ulUserData		= i;
 						// Set listbox ptr.
-						pguiItem->m_ulUserInstance	= (ULONG)plbLogics;
+						pguiItem->m_ulUserInstance	= (intptr_t)plbLogics;
 						// Set callback.
 						pguiItem->m_bcUser			= LogicItemCall;
 						// If this item is the current logic type . . .
@@ -1512,7 +1512,7 @@ int16_t CDispenser::RenderDispensee(	// Returns 0 on success.
 // Get the distance to the closest dude.
 ////////////////////////////////////////////////////////////////////////////////
 int16_t CDispenser::GetClosestDudeDistance(	// Returns 0 on success.  Fails, if no dudes.
-	long* plClosestDistance)					// Out:  Distance to closest dude.
+	int32_t* plClosestDistance)					// Out:  Distance to closest dude.
 	{
 	int16_t	sRes	= 1;	// Assume no dude found.
 

@@ -100,7 +100,7 @@ inline void GetSocketAddress(
 	RSocket::Address* paddress)
 	{
 	// Stuff that's common to all sockets
-	long lTmp;
+	int32_t lTmp;
 	pBuf->Get(&lTmp);
  	paddress->prototype = (RSocket::ProtoType)lTmp;
 	pBuf->Get(&paddress->lAddressLen);
@@ -134,7 +134,7 @@ inline void PutSocketAddress(
 	RSocket::Address* paddress)
 	{
 	// The RSocket::Address is a bit tricky, and different for each protocol
-	pBuf->Put((long)paddress->prototype);
+	pBuf->Put((int32_t)paddress->prototype);
 	pBuf->Put(paddress->lAddressLen);
 	switch(paddress->prototype)
 		{
@@ -287,7 +287,7 @@ class NetMsg
 			enum { Size = 1 };
 			unsigned char	ucType;								// Message type
 
-			long lSize;												// Size of message for variable-sized messages
+			int32_t lSize;												// Size of message for variable-sized messages
 																		// This is not an integral part of the Nothing
 																		//	message, but rather it's a way for us to
 																		// generically access the size member of a
@@ -718,7 +718,7 @@ class NetMsg
 			{
 			enum { Size = -1 };									// -1 indicates variable-sized message
 			unsigned char	ucType;								// Message type
-			long lSize;												// Message size (must follow type!)
+			int32_t lSize;												// Message size (must follow type!)
 			Net::ID id;												// ID whose input is being sent
 			Net::SEQ seqStart;									// Starting seq of range
 			int16_t sNum;												// Number of seq's in range
@@ -734,16 +734,16 @@ class NetMsg
 				pBuf->Get(&pmsg->msg.inputData.sNum);
 				
 				// Allocate buffer for variable-sized data
-				pmsg->msg.inputData.pInputs = (UINPUT*)AllocVar(pmsg, (long)pmsg->msg.inputData.sNum * sizeof(UINPUT));
+				pmsg->msg.inputData.pInputs = (UINPUT*)AllocVar(pmsg, (int32_t)pmsg->msg.inputData.sNum * sizeof(UINPUT));
 
 				// Get the variable-sized data
-				pBuf->Get(pmsg->msg.inputData.pInputs, (long)(pmsg->msg.inputData.sNum));
+				pBuf->Get(pmsg->msg.inputData.pInputs, (int32_t)(pmsg->msg.inputData.sNum));
 				}
 
 			static void Write(NetMsg* pmsg, CBufQ* pBuf)
 				{
 				// Calculate message size
-				pmsg->msg.inputData.lSize = 1 + 4 + 1 + sizeof(Net::SEQ) + 2 + ((long)(pmsg->msg.inputData.sNum) * sizeof(UINPUT));
+				pmsg->msg.inputData.lSize = 1 + 4 + 1 + sizeof(Net::SEQ) + 2 + ((int32_t)(pmsg->msg.inputData.sNum) * sizeof(UINPUT));
 
 				// Write message
 				pBuf->Put(&pmsg->msg.inputData.ucType);
@@ -751,7 +751,7 @@ class NetMsg
 				pBuf->Put(&pmsg->msg.inputData.id);
 				pBuf->Put(&pmsg->msg.inputData.seqStart);
 				pBuf->Put(&pmsg->msg.inputData.sNum);
-				pBuf->Put(pmsg->msg.inputData.pInputs, (long)(pmsg->msg.inputData.sNum));
+				pBuf->Put(pmsg->msg.inputData.pInputs, (int32_t)(pmsg->msg.inputData.sNum));
 				}
 			} InputData;
 
@@ -1080,8 +1080,8 @@ class NetMsg
 			{
 			enum { Size = 1 + 4 + 4 };
 			unsigned char	ucType;								// Message type
-			long				lTimeStamp;							// Timestap for this ping
-			long				lLatestPingResult;				// Latest ping result (round trip time)
+			int32_t				lTimeStamp;							// Timestap for this ping
+			int32_t				lLatestPingResult;				// Latest ping result (round trip time)
 
 			static void Read(NetMsg* pmsg, CBufQ* pBuf)
 				{
@@ -1103,8 +1103,8 @@ class NetMsg
 			{
 			enum { Size = 1 + 4 + 4 };
 			unsigned char	ucType;								// Message type
-			long				lFrame;								// Current frame
-			long				lRand;								// Current rand()
+			int32_t				lFrame;								// Current frame
+			int32_t				lRand;								// Current rand()
 
 			static void Read(NetMsg* pmsg, CBufQ* pBuf)
 				{
@@ -1176,7 +1176,7 @@ class NetMsg
 		// messages that require a separate memory block for their data.  Note that
 		// the size refers to the size of this data, not the whole msg.
 		U8*	m_pVarData;
-		long	m_lVarSize;
+		int32_t	m_lVarSize;
 
 	//------------------------------------------------------------------------------
 	// Functions
@@ -1201,7 +1201,7 @@ class NetMsg
 			}
 
 		U8* AllocVar(
-			long lSize)
+			int32_t lSize)
 			{
 			FreeVar();
 			m_lVarSize = lSize;
@@ -1218,7 +1218,7 @@ class NetMsg
 
 		static U8* AllocVar(
 			NetMsg* pmsg,
-			long lSize)
+			int32_t lSize)
 			{
 			return pmsg->AllocVar(lSize);
 			}
@@ -1305,8 +1305,8 @@ class CNetMsgr
 		RSocket::Address	m_address;							// Address we're connected to
 		CBufQ					m_bufIn;								// Input buffer
 		CBufQ					m_bufOut;							// Output buffer
-		long					m_lMsgRecvTime;					// When most-recent message was recieved
-		long					m_lMsgSentTime;					// When most-recent message was sent
+		int32_t					m_lMsgRecvTime;					// When most-recent message was recieved
+		int32_t					m_lMsgSentTime;					// When most-recent message was sent
 		NetMsg::Error		m_error;								// Error value.
 
 	// Made public by JMB for TAPI access
@@ -1496,12 +1496,12 @@ class CNetMsgr
 		////////////////////////////////////////////////////////////////////////////////
 		// Determine the time of the most-recently received or sent message
 		////////////////////////////////////////////////////////////////////////////////
-		long GetMostRecentMsgReceiveTime(void)
+		int32_t GetMostRecentMsgReceiveTime(void)
 			{
 			return m_lMsgRecvTime;
 			}
 
-		long GetMostRecentMsgSentTime(void)
+		int32_t GetMostRecentMsgSentTime(void)
 			{
 			return m_lMsgSentTime;
 			}

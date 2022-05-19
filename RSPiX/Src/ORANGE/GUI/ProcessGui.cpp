@@ -94,7 +94,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 // ID of last item pressed.
-long RProcessGui::ms_lPressedId;
+int32_t RProcessGui::ms_lPressedId;
 
 //////////////////////////////////////////////////////////////////////////////
 // Helper Functions.
@@ -266,7 +266,7 @@ void RProcessGui::SetGuisToNotify(	// Returns nothing.
 // with an ID other than 0 or the update callback, m_fnUpdate, if any,
 // returns non-zero.
 //////////////////////////////////////////////////////////////////////////////
-long RProcessGui::DoModal(				// Returns ID of pressed GUI that terminated 
+int32_t RProcessGui::DoModal(				// Returns ID of pressed GUI that terminated 
 												// modal loop or value returned from 
 												// m_fnUpdate, if any.
 	RGuiItem* pgui,						// In:  GUI to be processed or NULL.
@@ -281,7 +281,7 @@ long RProcessGui::DoModal(				// Returns ID of pressed GUI that terminated
 												// screen image unless pimDst is the screen
 												// image.
 	{
-	long	lId	= 0;
+	int32_t	lId	= 0;
 
 	// Set up ptrs and erase buffer.
 	Prepare(pgui, pguiOk, pguiCancel);
@@ -321,7 +321,7 @@ long RProcessGui::DoModal(				// Returns ID of pressed GUI that terminated
 // Call this to process a GUI modelessly.  This function processes the
 // GUI for only one iteration allowing the caller continuous control.
 //////////////////////////////////////////////////////////////////////////////
-long RProcessGui::DoModeless(		// Returns ID of pressed GUI or value.
+int32_t RProcessGui::DoModeless(		// Returns ID of pressed GUI or value.
 	RGuiItem* pgui,					// In:  GUI to be processed or NULL.
 	RInputEvent* pie,					// In:  Input event to process.
 	RImage* pimDst /*= NULL*/)		// Where to draw dialog and rspBlit from.

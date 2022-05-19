@@ -1507,11 +1507,11 @@ void PlaySample(										// Returns nothing.
 	SampleMaster::SoundCategory eType,			// In:  Sound Volume Category for user adjustment
 	int16_t	sInitialVolume	= 255,					// In:  Initial Sound Volume (0 - 255)
 	SampleMaster::SoundInstance*	psi = NULL,	// Out: Handle for adjusting sound volume
-	long* plSampleDuration = NULL,				// Out: Sample duration in ms, if not NULL.
-	long lLoopStartTime = -1,						// In:  Where to loop back to in milliseconds.
+	int32_t* plSampleDuration = NULL,				// Out: Sample duration in ms, if not NULL.
+	int32_t lLoopStartTime = -1,						// In:  Where to loop back to in milliseconds.
 															//	-1 indicates no looping (unless m_sLoop is
 															// explicitly set).
-	long lLoopEndTime = 0,							// In:  Where to loop back from in milliseconds.
+	int32_t lLoopEndTime = 0,							// In:  Where to loop back from in milliseconds.
 															// In:  If less than 1, the end + lLoopEndTime is used.
 	bool bPurgeSample = false);					// In:  Call ReleaseAndPurge rather than Release after playing
 

@@ -586,7 +586,7 @@ class CThing
 		// Processing involves using queued RSPiX user input via
 		// rspGetNextInputEvent().
 		static							// Static for your usage pleasure.
-		long DoGui(						// Returns ID of item that terminated looping.
+		int32_t DoGui(						// Returns ID of item that terminated looping.
 											// Returns 0 if rspGetQuitStatus() is nonzero.
 											// Returns negative on error.
 			RGuiItem*	pguiRoot);	// Root of GUI items to process through user.
@@ -600,7 +600,7 @@ class CThing
 
 		// Callback from ms_pgDoGui for system update.
 		static								// Static for use as a callback.
-		long SysUpdate(					// Returns a non-zero ID to abort or zero
+		int32_t SysUpdate(					// Returns a non-zero ID to abort or zero
 												// to continue.                          
 			RInputEvent*	pie);			// Out: Next input event to process.     
 
@@ -803,13 +803,13 @@ class CThing
 			return false;
 			}
 
-		long rspGetMilliseconds(void)
+		int32_t rspGetMilliseconds(void)
 			{
 			ASSERT(0);
 			return 0;
 			}
 		
-		long rspGetMicroseconds(
+		int32_t rspGetMicroseconds(
 			int16_t /*sReset	= FALSE*/)
 			{
 			ASSERT(0);

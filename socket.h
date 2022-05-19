@@ -94,8 +94,8 @@ class RSocket
 			{
 			public:
 				ProtoType	prototype;						// Type of protocol
-				long			lAddressLen;					// Actual address length (depends on protocol, always <= MaxAddressSize)
-				char			address[MaxAddressSize];	// Raw address (interpretation depends on protocol type)
+				int32_t		lAddressLen;					// Actual address length (depends on protocol, always <= MaxAddressSize)
+				char		address[MaxAddressSize];	// Raw address (interpretation depends on protocol type)
 
 				// Note: operator== is defined at global scope, outside this class definition,
 				// because it needs access to each protocol's specific address type, which isn't

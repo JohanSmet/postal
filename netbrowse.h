@@ -51,7 +51,7 @@ class CNetBrowse
 				RSocket::Address	m_address;								// Address
 				long					m_lMagic;								// Magic number
 				long					m_lLastHeardFrom;						// Time we last heard from this host
-				U32					m_u32User;								// User-definable value
+				int32_t					m_u32User;								// User-definable value
 
 			public:
 				// Constructor

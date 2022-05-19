@@ -560,7 +560,7 @@ void CThing3d::Suspend(void)
 	if (m_sSuspend == 0)
 		{
 		// Store current delta so we can restore it.
-		long	lCurTime				= m_pRealm->m_time.GetGameTime();
+		int32_t	lCurTime				= m_pRealm->m_time.GetGameTime();
 		m_lPrevTime					= lCurTime - m_lPrevTime;
 		m_lAnimPrevUpdateTime	= lCurTime - m_lAnimPrevUpdateTime;
 		}
@@ -580,7 +580,7 @@ void CThing3d::Resume(void)
 	// This method is far from precise, but I'm hoping it's good enough.
 	if (m_sSuspend == 0)
 		{
-		long	lCurTime				= m_pRealm->m_time.GetGameTime();
+		int32_t	lCurTime				= m_pRealm->m_time.GetGameTime();
 		m_lPrevTime					= lCurTime - m_lPrevTime;
 		m_lAnimPrevUpdateTime	= lCurTime - m_lAnimPrevUpdateTime;
 		}
@@ -850,7 +850,7 @@ bool CThing3d::WhileBlownUp(void)	// Returns true until state is complete.
 	double	dNewX, dNewY, dNewZ;
 
 	// Get time from last call in seconds.
-	long		lCurTime	= m_pRealm->m_time.GetGameTime();
+	int32_t		lCurTime	= m_pRealm->m_time.GetGameTime();
 	double	dSeconds	= double(lCurTime - m_lPrevTime) / 1000.0;
 
 	// Update Velocities ////////////////////////////////////////////////////////
@@ -876,7 +876,7 @@ bool CThing3d::WhileBlownUp(void)	// Returns true until state is complete.
 		if (m_lAnimTime > m_panimCur->m_psops->TotalTime())
 			bStatePersists = false;
 		
-		// No longer above the terrain.
+		// No int32_t above the terrain.
 		m_bAboveTerrain	= false;
 	}
 	else
@@ -1816,11 +1816,11 @@ void CThing3d::PlaySample(									// Returns nothing.
 																	// Negative indicates to use the distance to the
 																	// ear to determine the volume.
 	SampleMaster::SoundInstance*	psi /*= NULL*/,	// Out: Handle for adjusting sound volume
-	long* plSampleDuration /*= NULL*/,					// Out: Sample duration in ms, if not NULL.
-	long lLoopStartTime /*= -1*/,							// In:  Where to loop back to in milliseconds.
+	int32_t* plSampleDuration /*= NULL*/,					// Out: Sample duration in ms, if not NULL.
+	int32_t lLoopStartTime /*= -1*/,							// In:  Where to loop back to in milliseconds.
 																	//	-1 indicates no looping (unless m_sLoop is
 																	// explicitly set).
-	long lLoopEndTime /*= 0*/,								// In:  Where to loop back from in milliseconds.
+	int32_t lLoopEndTime /*= 0*/,								// In:  Where to loop back from in milliseconds.
 																	// In:  If less than 1, the end + lLoopEndTime is used.
 	bool bPurgeSample /*= false*/)						// In:  Call ReleaseAndPurge rather than Release after playing
 	{

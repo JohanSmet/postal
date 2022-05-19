@@ -1125,7 +1125,7 @@ lineset m_NetLines;
 static bool	ms_bDrawNetwork = true;
 
 // ID of item most recently pressed or 0, if none.
-static long	ms_lPressedId	= 0;
+static int32_t	ms_lPressedId	= 0;
 // Realm filename.  Assuming only one Realm loaded at once.
 static char	ms_szFileName[RSP_MAX_PATH]	= "";
 
@@ -1221,8 +1221,8 @@ static U16				ms_u16TerrainMask;
 static U16				ms_u16LayerMask;
 
 // Used by RFile callback function
-static long		ms_lRFileCallbackTime;
-static long		ms_lFileBytesSoFar;
+static int32_t		ms_lRFileCallbackTime;
+static int32_t		ms_lFileBytesSoFar;
 static char		ms_szFileOpDescriptionFrmt[512];
 static RPrint	ms_printFile;
 static int16_t	ms_sFileOpTextX;
@@ -1231,7 +1231,7 @@ static int16_t	ms_sFileOpTextW;
 static int16_t	ms_sFileOpTextH;
 
 // Amount to scroll off edge of realm.
-static long	ms_lEdgeOvershoot	= 1000;
+static int32_t	ms_lEdgeOvershoot	= 1000;
 
 ////////////////////////////////////////////////////////////////////////////////
 // Function prototypes
@@ -1572,7 +1572,7 @@ static void RlmNameToRgnName(	// Returns nothing.
 	char* pszRgnName);		// Out: .RGN name.
 
 // Our RFile callback
-static void MyRFileCallback(long lBytes);
+static void MyRFileCallback(int32_t lBytes);
 
 // Update selection info in the info GUI.
 static void UpdateSelectionInfo(	// Returns nothing.
@@ -1610,7 +1610,7 @@ static void KillFileCounter(void);	// Returns nothing.
 ////////////////////////////////////////////////////////////////////////////////
 inline void SetPressedCall(	// Returns nothing.
 	RGuiItem*	pguiRoot,		// Root item.
-	long	lId)						// ID of GUI item to set.
+	int32_t	lId)						// ID of GUI item to set.
 	{
 	ASSERT(pguiRoot != NULL);
 
@@ -1633,9 +1633,9 @@ inline void SetPressedCall(	// Returns nothing.
 ////////////////////////////////////////////////////////////////////////////////
 inline void SetMBValsAndCallback(		// Returns nothing.
 	RGuiItem*	pguiRoot,					// In:  Root item.
-	long			lId,							// In:  ID of child to set user vals on.
-	U32			u32UserInstance,			// In:  Value for m_ulUserInstance.
-	U32			u32UserData,				// In:  Value for m_ulUserData.
+	int32_t			lId,							// In:  ID of child to set user vals on.
+	intptr_t		u32UserInstance,			// In:  Value for m_ulUserInstance.
+	intptr_t		u32UserData,				// In:  Value for m_ulUserData.
 	int16_t			sState)						// In:  Initial MultiBtn state.
 	{
 	RMultiBtn*	pmb	= (RMultiBtn*)pguiRoot->GetItemFromId(lId);
@@ -1896,10 +1896,10 @@ extern void GameEdit(
 			ms_pguiNavNets->SetVisible(ms_pguiNavNets->m_sVisible);
 
 			// ---------- Show Attribs --------
-			SetMBValsAndCallback(ms_pguiShowAttribs, GUI_ID_ATTRIB_LAYERS, (U32)(&ms_u16LayerMask), REALM_ATTR_LAYER_MASK, 1);
-			SetMBValsAndCallback(ms_pguiShowAttribs, GUI_ID_ATTRIB_HEIGHT, (U32)(&ms_u16TerrainMask), REALM_ATTR_HEIGHT_MASK, 1);
-			SetMBValsAndCallback(ms_pguiShowAttribs, GUI_ID_ATTRIB_NOWALK, (U32)(&ms_u16TerrainMask), REALM_ATTR_NOT_WALKABLE, 1);
-			SetMBValsAndCallback(ms_pguiShowAttribs, GUI_ID_ATTRIB_LIGHT, (U32)(&ms_u16TerrainMask), REALM_ATTR_LIGHT_BIT, 1);
+			SetMBValsAndCallback(ms_pguiShowAttribs, GUI_ID_ATTRIB_LAYERS, (intptr_t)(&ms_u16LayerMask), REALM_ATTR_LAYER_MASK, 1);
+			SetMBValsAndCallback(ms_pguiShowAttribs, GUI_ID_ATTRIB_HEIGHT, (intptr_t)(&ms_u16TerrainMask), REALM_ATTR_HEIGHT_MASK, 1);
+			SetMBValsAndCallback(ms_pguiShowAttribs, GUI_ID_ATTRIB_NOWALK, (intptr_t)(&ms_u16TerrainMask), REALM_ATTR_NOT_WALKABLE, 1);
+			SetMBValsAndCallback(ms_pguiShowAttribs, GUI_ID_ATTRIB_LIGHT, (intptr_t)(&ms_u16TerrainMask), REALM_ATTR_LIGHT_BIT, 1);
 
 			ms_pguiShowAttribs->SetVisible(TRUE);
 
@@ -2112,7 +2112,7 @@ static bool DoInput(		// Returns true when done.
 		// Menu on top (even of cursor).
 		DoMenuInput(&ie, 0);
 
-		// If there is no longer a menu . . .
+		// If there is no int32_t a menu . . .
 		if (GetCurrentMenu() == NULL)
 			{
 			// Show the mouse.
@@ -3234,7 +3234,7 @@ static void GetCursor(	// Returns nothing.
 	// Init mouse drag stuff
 	static int16_t sDragX;
 	static int16_t sDragY;
-	static long lDragTime;
+	static int32_t lDragTime;
 
 	// Init mouse pressed stuff.
 	static int16_t sPressed	= FALSE;
@@ -3789,7 +3789,7 @@ static int16_t LoadRealm(
 						rc.sH,							// Dimensions.
 						ThingHotCall,					// Callback.
 						TRUE,								// TRUE, if active.
-						(U32)phood,						// User value (CThing*).
+						(intptr_t)phood,						// User value (CThing*).
 						FRONTMOST_HOT_PRIORITY);	// New items towards front.
 					// If successful . . .
 					if (ms_photHood != NULL)
@@ -3834,7 +3834,7 @@ static int16_t LoadRealm(
 									rc.sH,							// Dimensions.
 									ThingHotCall,					// Callback.
 									sActivateHot,					// TRUE, if initially active.
-									(U32)pthing,					// User value (CThing*).
+									(intptr_t)pthing,				// User value (CThing*).
 									FRONTMOST_HOT_PRIORITY);	// New items towards front.
 
 								// If successful . . .
@@ -4343,10 +4343,10 @@ static void PlayRealm(
 							INFO_STATUS_RECT_W,
 							INFO_STATUS_RECT_H);
 
-						// long	lLastDispTime			= 0;
-						// long	lFramesTime				= 0;
-						// long	lUpdateDisplayTime		= 0;
-						// long	lNumFrames				= 0;
+						// int32_t	lLastDispTime			= 0;
+						// int32_t	lFramesTime				= 0;
+						// int32_t	lUpdateDisplayTime		= 0;
+						// int32_t	lNumFrames				= 0;
 
 						RPrint	printDisp;
 						printDisp.SetFont(DISP_INFO_FONT_H, &g_fontBig);
@@ -4877,7 +4877,7 @@ static int16_t CreateNewThing(		// Returns 0 on success.
 							rc.sH,							// Dimensions.
 							ThingHotCall,					// Callback.
 							sActivateHot,					// TRUE, if initially active.
-							(U32)*ppthing,					// User value (CThing*).
+							(intptr_t)*ppthing,					// User value (CThing*).
 							FRONTMOST_HOT_PRIORITY);	// New items towards front.
 
 						if (*pphot != NULL)
@@ -5250,7 +5250,7 @@ static int16_t SizeUpdate(		// Returns 0 on success.
 		ms_pguiInfo->Move(INFO_X, INFO_Y);
 		}
 
-	long	lEdgeOvershoot;
+	int32_t	lEdgeOvershoot;
 	// If not clipping to realm . . .
 	if (pcamera->m_bClip == false)
 		{
@@ -5975,7 +5975,7 @@ static int16_t AddView(		// Returns 0 on success.
 			char	szTitle[256];
 			sprintf(szTitle, "Camera %d", ++sNum);
 			RGuiItem*	pgui			= plb->AddString(szTitle);
-			pgui->m_lId					= (long)pview;
+			pgui->m_lId					= (intptr_t)pview;
 			plb->AdjustContents();
 
 			pview->pgui->SetText("%s", szTitle);
@@ -6007,7 +6007,7 @@ static void RemoveView(		// Returns nothing.
 		RGuiItem*	pguiRemove;
 		if (pview != NULL)
 			{
-			pguiRemove	= plb->GetItemFromId((long)pview);
+			pguiRemove	= plb->GetItemFromId((intptr_t)pview);
 			}
 		else
 			{
@@ -7210,7 +7210,7 @@ static void AttribBlit(			// Returns nothing.
 	// Get dst start.
 	U8*	pu8RowDst	= pimDst->m_pData;
 	U8*	pu8Dst;
-	long	lPitch;
+	int32_t	lPitch;
 
 	int16_t	sGridW, sGridH;
 	pmg->GetGridDimensions(&sGridW, &sGridH);
@@ -7352,11 +7352,11 @@ static int16_t SizeShowAttribsSprite(void)	// Returns 0 on success.
 // Our RFile callback
 //
 ////////////////////////////////////////////////////////////////////////////////
-static void MyRFileCallback(long lBytes)
+static void MyRFileCallback(int32_t lBytes)
 	{
 	ms_lFileBytesSoFar	+= lBytes;
 
-	long lNow = rspGetMilliseconds();
+	int32_t lNow = rspGetMilliseconds();
 	if ((lNow - ms_lRFileCallbackTime) > MY_RFILE_CALLBACK_INTERVAL)
 		{
 		// Do an update
@@ -7624,7 +7624,7 @@ static int16_t ShowRealmStatistics(	// Returns 0 on success.
 			char	szY[256];
 			char	szZ[256];
 			double	dX, dY, dZ;
-			long	lNum	= 0;
+			int32_t	lNum	= 0;
 			CListNode<CThing>*	pthingnode	= prealm->m_everythingHead.m_pnNext;
 			CThing*	pthing;
 			while (pthingnode != &(prealm->m_everythingTail))
@@ -7641,7 +7641,7 @@ static int16_t ShowRealmStatistics(	// Returns 0 on success.
 
 				sprintf(
 					szThingDescription, 
-					"%ld) \"%s\" ID: %u X: %s Y: %s Z: %s",
+					"%d) \"%s\" ID: %u X: %s Y: %s Z: %s",
 					lNum,
 					CThing::ms_aClassInfo[pthing->GetClassID()].pszClassName,
 					pthing->GetInstanceID(),
@@ -7654,7 +7654,7 @@ static int16_t ShowRealmStatistics(	// Returns 0 on success.
 				if (pguiThing)
 					{
 					// Success.
-					pguiThing->m_lId	= (long)pthing;
+					pguiThing->m_lId	= (intptr_t)pthing;
 					}
 				else
 					{
