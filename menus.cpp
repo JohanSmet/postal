@@ -4470,12 +4470,12 @@ static bool EditorMenuChoice(	// Returns true to accept, false to deny choice.
 	switch (sMenuItem)
 		{
 		case 0:
-			Edit_Menu_Continue();
+			//Edit_Menu_Continue();
 			break;
 		case 1:
 			break;
 		case 2:
-			Edit_Menu_ExitEditor();
+			//Edit_Menu_ExitEditor();
 			break;
 		}
 

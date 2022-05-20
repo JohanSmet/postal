@@ -71,7 +71,7 @@ target_sources(${TARGET_POSTAL} PRIVATE
 	crawler.cpp
 	cutscene.cpp
 	encrypt.cpp
-	gameedit.cpp
+	# gameedit.cpp
 	GameSettings.cpp
 	grip.cpp
 	IdBank.cpp
@@ -208,6 +208,7 @@ target_compile_definitions(${TARGET_POSTAL} PRIVATE LOCALE=US)
 target_compile_definitions(${TARGET_POSTAL} PRIVATE TARGET=POSTAL_2015)
 target_compile_definitions(${TARGET_POSTAL} PRIVATE ALLOW_TWINSTICK)
 target_compile_definitions(${TARGET_POSTAL} PRIVATE "$<$<CONFIG:DEBUG>:_DEBUG>")
+target_compile_definitions(${TARGET_POSTAL} PRIVATE EDITOR_DISABLED)
 
 target_include_directories(${TARGET_POSTAL} PRIVATE
 	.

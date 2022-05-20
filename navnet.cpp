@@ -345,6 +345,7 @@ int16_t CNavigationNet::EditPostLoad(void)
 {
 	int16_t sResult = 0;
 
+	/*
 	CListNode<CThing>* pEditorList = m_pRealm->m_aclassHeads[CThing::CGameEditThingID].m_pnNext;
 	CGameEditThing* peditor = (CGameEditThing*) pEditorList->m_powner;
 	RListBox* plb = peditor->m_plbNavNetList;
@@ -362,6 +363,7 @@ int16_t CNavigationNet::EditPostLoad(void)
 		sResult = -1;
 		TRACE("CNavigationNet::EditLoad - Error setting up NavNet list box in editor\n");
 	}
+*/
 
 	return sResult;
 }
@@ -375,7 +377,7 @@ int16_t CNavigationNet::EditNew(									// Returns 0 if successfull, non-zero o
 	int16_t sZ)												// In:  New z coord
 	{
 	int16_t sResult = 0;
-	
+/*
 	// Use specified position
 	m_dX = (double)sX;
 	m_dY = (double)sY;
@@ -399,7 +401,7 @@ int16_t CNavigationNet::EditNew(									// Returns 0 if successfull, non-zero o
 			plb->SetSel(pgui);
 		}
 	}
-
+*/
 	return sResult;
 	}
 

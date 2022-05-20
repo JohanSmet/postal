@@ -949,7 +949,7 @@ class RGuiItem : public RProps <U32, U32>
 																// when using transparent blit
 																// call.
 
-		intptr_t					m_lId;				// ID.  Used to identify this RGuiItem
+		int32_t					m_lId;				// ID.  Used to identify this RGuiItem
 														// from others.  See GetItemFromId().
 
 		Target				m_targetFocus;		// Target when focus received.
