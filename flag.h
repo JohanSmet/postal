@@ -63,7 +63,7 @@ class CFlag : public CThing3d
 		U32			m_u32IncludeBits;					// Bits to include for Smash collision
 		U32			m_u32DontcareBits;				// Bits to ignore for Smash collision
 		U32			m_u32ExcludeBits;					// Bits to exclude for Smash collision
-		long			m_lTimeBonus;						// Flag stores a time bonus for
+		int32_t			m_lTimeBonus;						// Flag stores a time bonus for
 																// special game play modes.
 		U16			m_u16FlagColor;					// Color of flag;
 		int16_t			m_sSavedX;							// Save the position of the flagbase

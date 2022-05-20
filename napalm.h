@@ -81,7 +81,7 @@ class CNapalm : public CWeapon
 
 		// "Constant" values that we want to be able to tune using the editor
 		static double ms_dAccDrag;				// Acceleration due to drag (always towards 0)
-		static long   ms_lGrenadeFuseTime;	// Time from throw to blow
+		static int32_t   ms_lGrenadeFuseTime;	// Time from throw to blow
 		static double ms_dThrowVertVel;		// Throw up at this velocity
 		static double ms_dThrowHorizVel;		// Throw out at this velocity
 		static double ms_dMinFireInterval;	// Lay fire down every this amount of distance

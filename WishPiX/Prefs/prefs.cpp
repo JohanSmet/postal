@@ -377,9 +377,9 @@ int16_t RPrefs::Write()
 					strcpy(acTmpFileName, m_pszFileName);
 					char* pTmp = strrchr(acTmpFileName, RSP_SYSTEM_PATH_SEPARATOR);
 					pTmp = (pTmp != NULL) ? pTmp + 1 : acTmpFileName;
-					for (long lCount = 0; !bGotTmp && (lCount < 9999999L); lCount++)
+					for (int32_t lCount = 0; !bGotTmp && (lCount < 9999999L); lCount++)
 						{
-						sprintf(pTmp, "t%07ld.tmp", (long)lCount);
+						sprintf(pTmp, "t%07d.tmp", (int32_t)lCount);
 						FILE* fpTmp = fopen(FindCorrectFile(acTmpFileName, "r"), "r");
 						if (fpTmp != NULL)
 							fclose(fpTmp);
@@ -431,7 +431,7 @@ int16_t RPrefs::Write()
                                         if (out) fclose(out);
                                         remove(FindCorrectFile(acTmpFileName, "w"));
 
-                                        if (in && out)
+										if (in && out)
 										{
 										// Open the new file using the original mode
 										m_pFile = fopen(FindCorrectFile(m_pszFileName, m_pszFileMode), m_pszFileMode);
@@ -446,7 +446,7 @@ int16_t RPrefs::Write()
 											m_sErrorStatus = -1;
 											}
 										}
-									else
+										else
 										{
 										TRACE("RPrefs::Write(): rename() of temp file to original file: %s\n", strerror(errno));
 										m_sErrorStatus = -4;
@@ -741,7 +741,7 @@ int16_t RPrefs::SetVal(				// Returns 0 if successfull, non-zero otherwise
 
 	ASSERT(pszSection);
 	ASSERT(pszVariable);
-	sprintf(pszValue, "%ld", (long) s32Value);
+	sprintf(pszValue, "%d", s32Value);
 	SetVal(pszSection, pszVariable, pszValue);
 
 	return m_sErrorStatus;
@@ -980,7 +980,7 @@ int16_t RPrefs::GetVal(							// Returns 0 if successfull, non-zero otherwise
 	S8* s8Value)						// Out: Value returned here
 	{
 	char	pszValue[RPrefs::MaxStrLen], pszDefault[RPrefs::MaxStrLen], *pszEndPtr;
-	long	lRes;
+	int32_t	lRes;
 
 	ASSERT(pszSection);
 	ASSERT(pszVariable);
@@ -1012,7 +1012,7 @@ int16_t RPrefs::GetVal(							// Returns 0 if successfull, non-zero otherwise
 	U8* u8Value)						// Out: Value returned here
 	{
 	char	pszValue[RPrefs::MaxStrLen], pszDefault[RPrefs::MaxStrLen], *pszEndPtr;
-	long	lRes;
+	int32_t	lRes;
 
 	ASSERT(pszSection);
 	ASSERT(pszVariable);
@@ -1042,7 +1042,7 @@ int16_t RPrefs::GetVal(							// Returns 0 if successfull, non-zero otherwise
 	S16* s16Value)						// Out: Value returned here
 	{
 	char				pszValue[RPrefs::MaxStrLen], pszDefault[RPrefs::MaxStrLen], *pszEndPtr;
-	long	lRes;
+	int32_t	lRes;
 
 	ASSERT(pszSection);
 	ASSERT(pszVariable);
@@ -1072,7 +1072,7 @@ int16_t RPrefs::GetVal(							// Returns 0 if successfull, non-zero otherwise
 	U16* u16Value)						// Out: Value returned here
 	{
 	char	pszValue[RPrefs::MaxStrLen], pszDefault[RPrefs::MaxStrLen], *pszEndPtr;
-	long	lRes;
+	int32_t	lRes;
 
 	ASSERT(pszSection);
 	ASSERT(pszVariable);

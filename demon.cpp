@@ -110,8 +110,8 @@
 // Static variables
 ////////////////////////////////////////////////////////////////////////////////
 
-long CDemon::ms_lMinIdleTime = 2000;		// Time before saying next thing
-long CDemon::ms_lBonusKillTime = 5000;		// Kill an amount in this time, get bonus
+int32_t CDemon::ms_lMinIdleTime = 2000;		// Time before saying next thing
+int32_t CDemon::ms_lBonusKillTime = 5000;		// Kill an amount in this time, get bonus
 
 // Sound banks of explosion comments indexed by m_sSoundBank.
 SampleMasterID* CDemon::ms_apsmidExplosion[NumSoundBanks][NumExplosionComments]	=
@@ -468,10 +468,10 @@ int16_t CDemon::Load(								// Returns 0 if successfull, non-zero otherwise
 			case 1:
 				{
 				// For backwards compatability.
-				long	alDummy[2];
+				int32_t	alDummy[2];
 				char	szResNameDummy[RSP_MAX_PATH];
-				pFile->Read(&alDummy[0]/*(long*)&m_bInitiallyEnabled*/);
-				pFile->Read(&alDummy[0]/*(long*)&m_bInitiallyRepeats*/);
+				pFile->Read(&alDummy[0]/*(int32_t*)&m_bInitiallyEnabled*/);
+				pFile->Read(&alDummy[0]/*(int32_t*)&m_bInitiallyRepeats*/);
 				pFile->Read(alDummy/*m_lMinTime*/, 2);
 				pFile->Read(alDummy/*m_lRndTime*/, 2);
 				pFile->Read(szResNameDummy/*m_szResName*/);
@@ -815,7 +815,7 @@ void CDemon::ProcessMessages(void)
 {
 	SampleMasterID* psmid = &g_smidNil;
 	bool bFoundSample = false;
-	long lThisTime = m_pRealm->m_time.GetGameTime();
+	int32_t lThisTime = m_pRealm->m_time.GetGameTime();
 
 	// Check queue of messages.
 	GameMessage	msg;

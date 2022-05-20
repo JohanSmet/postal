@@ -44,12 +44,12 @@ U8 RAlpha::ms_f[256] = {0,};
 int16_t RMultiAlpha::ms_sIsInitialized = FALSE;
 UCHAR	RMultiAlpha::ms_aucLiveDimming[65536];
 
-UCHAR rspMatchColorRGB(long r,long g,long b,int16_t sStart,int16_t sNum,
-					 UCHAR* pr,UCHAR* pg,UCHAR* pb,long linc)
+UCHAR rspMatchColorRGB(int32_t r,int32_t g,int32_t b,int16_t sStart,int16_t sNum,
+					 UCHAR* pr,UCHAR* pg,UCHAR* pb,int32_t linc)
 	{
-	long lMatch = 0,i;
-	long lMax =  long(16777217),lDist;
-	long lOffset = linc * sStart; // array offset
+	int32_t lMatch = 0,i;
+	int32_t lMax =  int32_t(16777217),lDist;
+	int32_t lOffset = linc * sStart; // array offset
 
 	pr += lOffset;
 	pg += lOffset;
@@ -57,7 +57,7 @@ UCHAR rspMatchColorRGB(long r,long g,long b,int16_t sStart,int16_t sNum,
 	
 	for (i=0;i<sNum;i++)
 		{
-		lDist = SQR(long(*pr)-r)+SQR(long(*pg)-g)+SQR(long(*pb)-b);
+		lDist = SQR(int32_t(*pr)-r)+SQR(int32_t(*pg)-g)+SQR(int32_t(*pb)-b);
 		pr += linc;
 		pg += linc;
 		pb += linc;
@@ -437,7 +437,7 @@ int16_t RAlpha::CreateAlphaRGB(double dOpacity,int16_t sPalStart, int16_t sPalLe
 
 	// If you use a 256 x 256 table for calculating BYTE * OPACITY = BYTE, you may double
 	// your net speed
-	int16_t lSrc = (long)256 * dOpacity;
+	int16_t lSrc = (int32_t)256 * dOpacity;
 	int16_t lDst = 256 - lSrc;
 
 	// If you use a 256 x 256 table for calculating BYTE * OPACITY = BYTE, you may double
@@ -462,8 +462,8 @@ int16_t RAlpha::CreateAlphaRGB(double dOpacity,int16_t sPalStart, int16_t sPalLe
 	}
 
 // dOpacity for now is between 0 (background) and 255 (foreground)
-// Input description should be arrays at least sAlphaDepth long.
-int16_t RAlpha::CreateLightEffectRGB(UCHAR* pa,UCHAR* pr,UCHAR* pg,UCHAR* pb,long linc,
+// Input description should be arrays at least sAlphaDepth int32_t.
+int16_t RAlpha::CreateLightEffectRGB(UCHAR* pa,UCHAR* pr,UCHAR* pg,UCHAR* pb,int32_t linc,
 			int16_t sPalStart, int16_t sPalLen, int16_t sAlphaDepth)
 	{
 #ifdef _DEBUG
@@ -479,14 +479,14 @@ int16_t RAlpha::CreateLightEffectRGB(UCHAR* pa,UCHAR* pr,UCHAR* pg,UCHAR* pb,lon
 
 	// If you use a 256 x 256 table for calculating BYTE * OPACITY = BYTE, you may double
 	RFixedU16 r,g,b;
-	long lSrc,lFog;
+	int32_t lSrc,lFog;
 
 	int16_t s,f;
 	for (s=0;s<256;s++)
 		{
 		for (f = 0;f < sAlphaDepth;f++)
 			{
-			lSrc = long(pa[f]);
+			lSrc = int32_t(pa[f]);
 			lFog = 255 - lSrc;
 			// This can be replaced with a 256K table
 			r.val = U16( ms_red[s] * lSrc + pr[f] * lFog);
@@ -512,14 +512,14 @@ int16_t RAlpha::CreateLightEffectRGB(int16_t sPalStart, int16_t sPalLen)
 #endif
 
 	RFixedU16 r,g,b;
-	long lSrc,lFog;
+	int32_t lSrc,lFog;
 
 	int16_t s,f;
 	for (s=0;s<256;s++)
 		{
 		for (f = 0;f < m_sAlphaDepth;f++)
 			{
-			lSrc = long(ms_a[f]);
+			lSrc = int32_t(ms_a[f]);
 			lFog = 255 - lSrc;
 
 			// This can be replaced with a 256K table
@@ -548,7 +548,7 @@ RMultiAlpha::RMultiAlpha()
 	if (!ms_sIsInitialized)
 		{
 		// FILL THE TABLE!
-		long lSrcVal,lDimVal,lCurValue,lNumerator;
+		int32_t lSrcVal,lDimVal,lCurValue,lNumerator;
 		UCHAR*	pCur = ms_aucLiveDimming;
 		// This is DimVal major!
 
@@ -882,10 +882,10 @@ int16_t RMultiAlpha::Finish(int16_t sGeneral)
 UCHAR*** RMultiAlpha::pppucCreateFastMultiAlpha(
 		int16_t sStartSrc,int16_t sNumSrc,	// color indices
 		int16_t sStartDst,int16_t sNumDst,
-		long*	plAlignedSize)
+		int32_t*	plAlignedSize)
 	{
 	// Assumes a fully correct this pointer!
-	long lTotSize = 1024 + long(m_sNumLevels) * sNumSrc * (4L + sNumDst);
+	int32_t lTotSize = 1024 + int32_t(m_sNumLevels) * sNumSrc * (4L + sNumDst);
 	// align it to 4096 to save cache memory!
 	UCHAR*** pppucFastMem = (UCHAR***) calloc(1,lTotSize + 4095);
 	// WARNING:  these arrays of pointers are 4 bytes in size, so be careful
@@ -897,7 +897,7 @@ UCHAR*** RMultiAlpha::pppucCreateFastMultiAlpha(
 	if (!pppucFastMem) return NULL;
 	UCHAR* pInfo = (UCHAR*)pppucFastAligned;
 	// For freeing:
-	long lMemOffset = intptr_t(pppucFastAligned) - intptr_t(pppucFastMem);
+	int32_t lMemOffset = intptr_t(pppucFastAligned) - intptr_t(pppucFastMem);
 
 	// Remember offsets for each main memory structure:
 
@@ -909,7 +909,7 @@ UCHAR*** RMultiAlpha::pppucCreateFastMultiAlpha(
 
 	// I AM COUNTING ON 4 byte array increments!
 	// ( + 4LS bytes)
-	UCHAR* pucData = (UCHAR*) (ppucFirstSrcArray + long(m_sNumLevels) * sNumSrc);
+	UCHAR* pucData = (UCHAR*) (ppucFirstSrcArray + int32_t(m_sNumLevels) * sNumSrc);
 	UCHAR* pData = pucData;
 
 	//------------------------------------------------------------------------
@@ -969,7 +969,7 @@ int16_t	RMultiAlpha::DeleteFastMultiAlpha(UCHAR ****pfmaDel)
 	ASSERT(*pfmaDel);
 
 	UCHAR ***pAligned = *pfmaDel;
-	long lDelta = 0;
+	int32_t lDelta = 0;
 	UCHAR* pByteAligned = (UCHAR*)pAligned;
 	lDelta = pByteAligned[2] + (pByteAligned[3] << 8);
 
@@ -996,17 +996,17 @@ int16_t	RMultiAlpha::DeleteFastMultiAlpha(UCHAR ****pfmaDel)
 //				optional:  separate sizes for header and data
 ///////////////////////////////////////////////////////////////////////////
 int16_t RMultiAlpha::QueryFastMultiAlpha(int16_t sNumSrcCol, int16_t sNumDstCol,
-													long lTotMem, long* plHeaderSize,
-													long* plDataSize)
+													int32_t lTotMem, int32_t* plHeaderSize,
+													int32_t* plDataSize)
 	{
 	// This is for version I, naturally.
-	long lLevMem;
-	long lDataPerLev;
-	long lHeaderPerLev;
+	int32_t lLevMem;
+	int32_t lDataPerLev;
+	int32_t lHeaderPerLev;
 	int16_t sNumLev;
 	
-	long lHeaderMem = 1024; // ucClear & deltaMemFree16, + 255 pointer array (UCHAR**)
-	lDataPerLev = long(sNumSrcCol) * sNumDstCol; // Src * Dst BYTE table
+	int32_t lHeaderMem = 1024; // ucClear & deltaMemFree16, + 255 pointer array (UCHAR**)
+	lDataPerLev = int32_t(sNumSrcCol) * sNumDstCol; // Src * Dst BYTE table
 	lHeaderPerLev = 4L * sNumSrcCol; // UCHAR* array of len Src
 	lLevMem = lDataPerLev + lHeaderPerLev;
 
@@ -1150,7 +1150,7 @@ int16_t RFastMultiAlphaWrapper::Save(RFile* pf)
 	pf->Write(int16_t(0));
 	pf->Write(int16_t(0));
 	pf->Write(int16_t(0));
-	pf->Write(long(0));
+	pf->Write(int32_t(0));
 
 	//======================= Write out the secret header from the FMA:
 	UCHAR	*pucHeader = (UCHAR*)m_pppucFastMultiAlpha;
@@ -1178,7 +1178,7 @@ int16_t RFastMultiAlphaWrapper::Save(RFile* pf)
 	//==========  CALCULATE THE START OF THE DATA  ===============
 
 	UCHAR *pucData = &(m_pppucFastMultiAlpha[*pucHeader][m_sStartSrc][m_sStartDst]);
-	long lDataLen = long(m_sNumLayers) * long(m_sNumSrc) * long(m_sNumDst);
+	int32_t lDataLen = int32_t(m_sNumLayers) * int32_t(m_sNumSrc) * int32_t(m_sNumDst);
 
 	//==========  Write out the DATA
 	pf->Write(pucData,lDataLen);
@@ -1223,7 +1223,7 @@ int16_t RFastMultiAlphaWrapper::Load(RFile* pf)
 
 	// RESERVED:
 	int16_t sRes;
-	long lRes;
+	int32_t lRes;
 
 	pf->Read(&sRes); 
 	pf->Read(&sRes);
@@ -1242,10 +1242,10 @@ int16_t RFastMultiAlphaWrapper::Load(RFile* pf)
 	pf->Read(ucLevels,256); // we never save element zero!
 
 	//==========  Allocate the FMA  ===============
-	long lDataLen = long(m_sNumLayers) * long(m_sNumSrc) * long(m_sNumDst);
+	int32_t lDataLen = int32_t(m_sNumLayers) * int32_t(m_sNumSrc) * int32_t(m_sNumDst);
 
 	// Assumes a fully correct this pointer!
-	long lTotSize = 1024 + long(m_sNumLayers) * m_sNumSrc * (4L + m_sNumDst);
+	int32_t lTotSize = 1024 + int32_t(m_sNumLayers) * m_sNumSrc * (4L + m_sNumDst);
 	// align it to 4096 to save cache memory!
 	UCHAR*** pppucFastMem = (UCHAR***) calloc(1,lTotSize + 4095);
 	if (!pppucFastMem) return FAILURE;
@@ -1257,7 +1257,7 @@ int16_t RFastMultiAlphaWrapper::Load(RFile* pf)
 	UCHAR*** pppucFastAligned = (UCHAR***) ((intptr_t(pppucFastMem)+4095) & (~4095) );
 
 	// For freeing (in bytes):
-	long lMemOffset = intptr_t(pppucFastAligned) - intptr_t(pppucFastMem);
+	int32_t lMemOffset = intptr_t(pppucFastAligned) - intptr_t(pppucFastMem);
 
 	//==============  Idenitfy the different data sections  ===============
 	// NOTE:  once debugged, remove ppucFirstSrcArray,pucData
@@ -1266,7 +1266,7 @@ int16_t RFastMultiAlphaWrapper::Load(RFile* pf)
 	UCHAR** ppucCurSrc = ppucFirstSrcArray;
 
 	// ( + 4LS bytes)
-	UCHAR* pucData = (UCHAR*) (ppucFirstSrcArray + long(m_sNumLayers) * m_sNumSrc);
+	UCHAR* pucData = (UCHAR*) (ppucFirstSrcArray + int32_t(m_sNumLayers) * m_sNumSrc);
 	UCHAR* pData = pucData;
 
 	//=============  Insert the actual data  ==================
@@ -1303,18 +1303,18 @@ int16_t RFastMultiAlphaWrapper::Load(RFile* pf)
 	//=============  Populate the index tables  ===============
 
 	/*
-	long lNumSrcTable = m_sNumLayers * m_sNumSrc;
-	long lSrcPtrOffset = m_sNumDst;
+	int32_t lNumSrcTable = m_sNumLayers * m_sNumSrc;
+	int32_t lSrcPtrOffset = m_sNumDst;
 
 	UCHAR* pSrcTableValue = pData - m_sStartDst; // offset base dest
 
-	for (long i=0;i < lNumSrcTable;i++,pSrcTableValue += lSrcPtrOffset)
+	for (int32_t i=0;i < lNumSrcTable;i++,pSrcTableValue += lSrcPtrOffset)
 		{
 		*ppucCurSrc++ = pSrcTableValue;
 		}
 
 	//============  Populate the alpha table  ==================
-	long lAlphaPtrOffset = m_sNumSrc; // SHOULD advance by 4
+	int32_t lAlphaPtrOffset = m_sNumSrc; // SHOULD advance by 4
 	UCHAR** ppucCurPtrVal = ppucFirstSrcArray - m_sStartSrc; // offset source
 	UCHAR*** pppAlphaEntry = pppucFastAligned;
 
@@ -1362,7 +1362,7 @@ int16_t RFastMultiAlphaWrapper::IsSrcValid(RImage* pimSrc)
 
 	// The ever so standard 2d memory loop:
 	UCHAR* pDst,*pDstLine = pimSrc->m_pData;
-	long lP = pimSrc->m_lPitch;
+	int32_t lP = pimSrc->m_lPitch;
 	int16_t	sW = pimSrc->m_sWidth;
 
 	for (j = pimSrc->m_sHeight;j; j--,pDstLine += lP)

@@ -130,16 +130,16 @@ double CSentry::ms_dInRangeLow = 30*30;	// Squared distance to be in range with 
 double CSentry::ms_dInRangeHigh = 230*230;// Squared distance to be in range with weapon
 double CSentry::ms_dGravity = -19.5;		// Cheater gravity
 double CSentry::ms_dBlowupVelocity = 190;	// Initial vertical velocity
-long CSentry::ms_lRandomAvoidTime = 200;	// Time to wander before looking again
-long CSentry::ms_lReseekTime = 1000;		// Do a 'find' again 
-long CSentry::ms_lWatchWaitTime = 2500;		// Time to watch shot go
-long CSentry::ms_lPatrolTime = 5000;		// Time to patrol before shooting
-long CSentry::ms_lDeathTimeout = 20000;	// Wait around after dying
-long CSentry::ms_lBurningRunTime = 50;		// Run this time before turning
+int32_t CSentry::ms_lRandomAvoidTime = 200;	// Time to wander before looking again
+int32_t CSentry::ms_lReseekTime = 1000;		// Do a 'find' again 
+int32_t CSentry::ms_lWatchWaitTime = 2500;		// Time to watch shot go
+int32_t CSentry::ms_lPatrolTime = 5000;		// Time to patrol before shooting
+int32_t CSentry::ms_lDeathTimeout = 20000;	// Wait around after dying
+int32_t CSentry::ms_lBurningRunTime = 50;		// Run this time before turning
 int16_t CSentry::ms_sHitLimit = 150;			// Number of starting hit points
 int16_t CSentry::ms_sBurntBrightness = -40;	// Brightness after being burnt
-long CSentry::ms_lMaxShootTime = MS_BETWEEN_BULLETS;		// Maximum in ms of continuous shooting.
-long CSentry::ms_lReselectDudeTime	= 3000;	// Time to go without finding a dude
+int32_t CSentry::ms_lMaxShootTime = MS_BETWEEN_BULLETS;		// Maximum in ms of continuous shooting.
+int32_t CSentry::ms_lReselectDudeTime	= 3000;	// Time to go without finding a dude
 															// before calling SelectDude() to find
 															// possibly a closer one.
 U32 CSentry::ms_u32WeaponIncludeBits = CSmash::Character | CSmash::Barrel | CSmash::Misc;
@@ -566,9 +566,9 @@ void CSentry::Resume(void)
 void CSentry::Update(void)
 {
 	// int16_t sHeight = m_sPrevHeight;
-	long lThisTime;
-	long lTimeDifference;
-	long lSqDistanceToDude = 0;
+	int32_t lThisTime;
+	int32_t lTimeDifference;
+	int32_t lSqDistanceToDude = 0;
 	int16_t sTargetAngle;
 	int16_t sAngleCCL;
 	int16_t sAngleCL;
@@ -937,7 +937,7 @@ int16_t CSentry::EditModify(void)
 					}
 
 					m_sNumRounds = RSP_SAFE_GUI_REF(peditAmmoCount, GetVal());
-					long lDist = RSP_SAFE_GUI_REF(peditRange, GetVal());
+					int32_t lDist = RSP_SAFE_GUI_REF(peditRange, GetVal());
 					m_lSqDistRange = lDist * lDist;
 					m_lShootDelay = RSP_SAFE_GUI_REF(peditShotDelay, GetVal());
 					m_dAngularVelocity = (double) RSP_SAFE_GUI_REF(peditRotVel, GetVal());

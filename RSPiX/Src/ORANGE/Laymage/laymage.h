@@ -102,8 +102,8 @@ class RLaymage
 		int16_t m_sSpecialNumChannels;
 
 		int16_t m_sNumLayers;
-		long	m_lWidth;
-		long	m_lHeight;
+		int32_t	m_lWidth;
+		int32_t	m_lHeight;
 
 		// General Constructor
 		RLaymage();
@@ -171,10 +171,10 @@ class RLaymage
 //		char* m_apszLayerNames[LAYMAGE_MAXLAYERS];
 
 		// File position to Layer Headers
-		long m_lTellLayers;
+		int32_t m_lTellLayers;
 
 		// file position to Channel data
-		long m_lTellChannels;
+		int32_t m_lTellChannels;
 
 		// save the Photoshop filename for virtual loading
 		char m_szPhotoshopFilename[1024];

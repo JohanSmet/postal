@@ -691,8 +691,8 @@ void RListBox::AdjustContents(void)					// Returns nothing.
 	// Minimum is viewable area (when vertical scrollbar shown).
 	m_sLargestWidth		= sClientW - m_sbVert.m_im.m_sWidth;
 
-	long	lTotalHeight	= 0;	// Used for averaging heights.
-	long	lTotalItems		= 0;	// Used for averaging heights.
+	int32_t	lTotalHeight	= 0;	// Used for averaging heights.
+	int32_t	lTotalItems		= 0;	// Used for averaging heights.
 
 	// Get largest width.
 	RGuiItem*	pguiItem	= m_lcContents.m_listguiChildren.GetHead();
@@ -821,7 +821,7 @@ void RListBox::AdjustContents(void)					// Returns nothing.
 		}
 
 	// Calculate average height of item.
-	long	lAvgHeight	= 0;
+	int32_t	lAvgHeight	= 0;
 	if (lTotalItems > 0)
 		{
 		lAvgHeight	= (int16_t)(lTotalHeight / lTotalItems);

@@ -1140,10 +1140,10 @@ int16_t RLaymage::ConvertToImage(int16_t sLayerNum, ULONG ulTop, ULONG ulBottom,
 		pImage->m_sWidth = (int16_t)m_lWidth;
 		pImage->m_sHeight = (int16_t)m_lHeight;	
 		pImage->m_sDepth = 32;
-		pImage->m_lPitch = (long)pImage->m_sWidth * (pImage->m_sDepth/8);
+		pImage->m_lPitch = (int32_t)pImage->m_sWidth * (pImage->m_sDepth/8);
 
 		ULONG* ulp32 = (ULONG*) pImage->m_pData;
-		long lDestPitch = pImage->m_lPitch / 4;
+		int32_t lDestPitch = pImage->m_lPitch / 4;
 
 		i = 0;
 		for (row = ulTop; row < ulBottom; row++)

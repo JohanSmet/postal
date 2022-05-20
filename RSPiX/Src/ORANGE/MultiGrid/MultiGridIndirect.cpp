@@ -125,16 +125,16 @@ int16_t	RMultiGridIndirect::Alloc(int16_t sW, int16_t sH, int16_t sMaxPlanes,
 	int16_t sGridW = (sW / sTileW) + 1;
 	int16_t sGridH = (sH / sTileH) + 1;
 
-	m_pucPalette = (UCHAR*) calloc(sMaxPlanes,long(sGridW) * sGridH);
+	m_pucPalette = (UCHAR*) calloc(sMaxPlanes,int32_t(sGridW) * sGridH);
 	ASSERT(m_pucPalette);
-	m_plAccessX = (ULONG*) calloc(sizeof(long),sGridW * sTileW);
+	m_plAccessX = (ULONG*) calloc(sizeof(int32_t),sGridW * sTileW);
 	ASSERT(m_plAccessX);
-	m_ppucAccessY = (UCHAR**) calloc( sizeof(UCHAR*),long(sGridH)*sTileH );
+	m_ppucAccessY = (UCHAR**) calloc( sizeof(UCHAR*),int32_t(sGridH)*sTileH );
 	ASSERT(m_ppucAccessY);
 
 	// Populate the pointer list:
 	UCHAR*	pY = m_pucPalette;
-	long	lOffset = long(sGridW)*sMaxPlanes;
+	int32_t	lOffset = int32_t(sGridW)*sMaxPlanes;
 	int16_t i,j;
 
 	for (i=0,j=0;i<sGridH;pY += lOffset,i++)
@@ -145,7 +145,7 @@ int16_t	RMultiGridIndirect::Alloc(int16_t sW, int16_t sH, int16_t sMaxPlanes,
 			}
 		}
 
-	long lX = 0;
+	int32_t lX = 0;
 	for (i=0,j=0;i<sGridW;lX += sMaxPlanes,i++) 
 		{
 		for (int16_t k=0;k < sTileW;k++)
@@ -165,7 +165,7 @@ int16_t	RMultiGridIndirect::Alloc(int16_t sW, int16_t sH, int16_t sMaxPlanes,
 	m_pimTempTile = new RImage;
 	// Keep pitch equal to width:
 	m_pimTempTile->CreateImage(m_sTileW,m_sTileH,RImage::BMP8,m_sTileW);
-	m_lTileLen = long(m_sTileW) * m_sTileH;
+	m_lTileLen = int32_t(m_sTileW) * m_sTileH;
 
 	return SUCCESS;
 	}
@@ -321,13 +321,13 @@ int16_t RMultiGridIndirect::AddFSPR1(RImage* pimSrc,int16_t sLogX,int16_t sLogY,
 			if ( (sW < 1) || (sH < 1) ) return; // clipped out
 			}
 
-		long	lDstP = m_pmg->m_sWidth; // (in int16_ts)
-		long	lSrcP = m_sTileW;
+		int32_t	lDstP = m_pmg->m_sWidth; // (in int16_ts)
+		int32_t	lSrcP = m_sTileW;
 		UCHAR*	pSrc,*pSrcLine = m_pimTempTile->m_pData;
 		USHORT*  pDst,*pDstLine = (USHORT*)m_pmg->m_psGrid;
 
 		// Adjust for actual coordinates!!!!
-		pDstLine += long(m_pmg->m_sWidth) * sDstY + sDstX;
+		pDstLine += int32_t(m_pmg->m_sWidth) * sDstY + sDstX;
 		int16_t	i,j;
 
 		for (j=0;j < sH;j++,pSrcLine += lSrcP,pDstLine += lDstP)
@@ -378,14 +378,14 @@ int16_t RMultiGridIndirect::Load(RFile* fp)
 
 	fp->Read(&m_sMaxPlanes);
 
-	long lRes = 0;
+	int32_t lRes = 0;
 	fp->Read(&lRes);
 	fp->Read(&lRes);
 	fp->Read(&lRes);
 	fp->Read(&lRes);
 
 	// just the palette data:
-	long lLen = long(m_sGridW) * m_sGridH * m_sMaxPlanes;
+	int32_t lLen = int32_t(m_sGridW) * m_sGridH * m_sMaxPlanes;
 	m_pucPalette = (UCHAR*) calloc(1,lLen);
 
 	fp->Read(m_pucPalette,lLen);
@@ -400,14 +400,14 @@ int16_t RMultiGridIndirect::Load(RFile* fp)
 		}
 
 	// Need to hook up all the access variables!
-	m_plAccessX = (ULONG*) calloc(sizeof(long),m_sGridW * m_sTileW);
+	m_plAccessX = (ULONG*) calloc(sizeof(int32_t),m_sGridW * m_sTileW);
 	ASSERT(m_plAccessX);
-	m_ppucAccessY = (UCHAR**) calloc( sizeof(UCHAR*),long(m_sGridH)*m_sTileH );
+	m_ppucAccessY = (UCHAR**) calloc( sizeof(UCHAR*),int32_t(m_sGridH)*m_sTileH );
 	ASSERT(m_ppucAccessY);
 
 	// Populate the pointer list:
 	UCHAR*	pY = m_pucPalette;
-	long	lOffset = long(m_sGridW)*m_sMaxPlanes;
+	int32_t	lOffset = int32_t(m_sGridW)*m_sMaxPlanes;
 
 	int16_t i,j;
 	for (i=0,j=0;i<m_sGridH;pY += lOffset,i++)
@@ -418,7 +418,7 @@ int16_t RMultiGridIndirect::Load(RFile* fp)
 			}
 		}
 
-	long lX = 0;
+	int32_t lX = 0;
 	for (i=0,j=0;i<m_sGridW;lX += m_sMaxPlanes,i++) 
 		{
 		for (int16_t k=0;k < m_sTileW;k++)
@@ -430,7 +430,7 @@ int16_t RMultiGridIndirect::Load(RFile* fp)
 	m_pimTempTile = new RImage;
 	// Keep pitch equal to width:
 	m_pimTempTile->CreateImage(m_sTileW,m_sTileH,RImage::BMP8,m_sTileW);
-	m_lTileLen = long(m_sTileW) * m_sTileH;
+	m_lTileLen = int32_t(m_sTileW) * m_sTileH;
 
 	return SUCCESS;
 	}
@@ -458,14 +458,14 @@ int16_t RMultiGridIndirect::Save(RFile* fp)
 
 	fp->Write(m_sMaxPlanes);
 
-	long lRes = 0;
+	int32_t lRes = 0;
 	fp->Write(lRes);
 	fp->Write(lRes);
 	fp->Write(lRes);
 	fp->Write(lRes);
 
 	// just the palette data:
-	long lLen = long(m_sGridW) * m_sGridH * m_sMaxPlanes;
+	int32_t lLen = int32_t(m_sGridW) * m_sGridH * m_sMaxPlanes;
 	fp->Write(m_pucPalette,lLen);
 
 	// And send out the sttribute map:

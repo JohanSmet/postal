@@ -38,7 +38,7 @@ class	RZBuffer // a 16-bit signed z-buffer
 public:
 	int16_t m_sW;
 	int16_t m_sH;
-	long m_lP; // pitch in WORDS! (Not a real pitch!)
+	int32_t m_lP; // pitch in WORDS! (Not a real pitch!)
 	int16_t* m_pBuf; // for now, don't have great need for alignment!
 	//----------------------------------------------
 	void	Init();

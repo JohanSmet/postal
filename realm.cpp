@@ -1261,7 +1261,7 @@ int16_t CRealm::Startup(void)							// Returns 0 if successfull, non-zero otherw
 	// set.  Keep in mind that since objects may be interacting with one another,
 	// calling one object may result in indirectly changing another's flag!
 	int16_t sDone;
-	long lPassNum = 0;
+	int32_t lPassNum = 0;
 	do	{
 		// Always assume this will be the last pass.  If it isn't, this flag will
 		// be reset to 0, and we'll do the whole thing again.
@@ -1311,7 +1311,7 @@ int16_t CRealm::Shutdown(void)							// Returns 0 if successfull, non-zero other
 	// calling one object may result in indirectly changing another's flag!
 	int16_t sDone;
 	int16_t sFirstTime = 1;
-	long lPassNum = 0;
+	int32_t lPassNum = 0;
 	do	{
 		// Always assume this will be the last pass.  If it isn't, this flag will
 		// be reset to 0, and we'll do the whole thing again.
@@ -1618,8 +1618,8 @@ void CRealm::EditModify(void)
 		REdit* peditFlagsNum = (REdit*) pguiRoot->GetItemFromId(FLAGS_NUM_EDIT_ID);
 		RListBox* plbScoreModes = (RListBox*) pguiRoot->GetItemFromId(SCORE_MODE_LB_ID);
 		RGuiItem* pguiItem = NULL;
-		long lMinutes;
-		long lSeconds;
+		int32_t lMinutes;
+		int32_t lSeconds;
 
 		if (peditMinutes != NULL && peditSeconds != NULL && peditKillsNum != NULL &&
 		    peditKillsPct != NULL && peditFlagsNum != NULL && plbScoreModes != NULL)
@@ -2009,7 +2009,7 @@ void CRealm::DrawStatus(	// Returns nothing.
 	RImage*	pim,				// In:  Image in which to draw status.
 	RRect*	prc)				// In:  Rectangle in which to draw status.  Clips to.
 	{
-	long	lCurTime	= m_time.GetGameTime();
+	int32_t	lCurTime	= m_time.GetGameTime();
 	if (lCurTime > m_lLastStatusDrawTime + STATUS_UPDATE_INTERVAL)
 		{
 		// Set print/clip to area.

@@ -659,15 +659,15 @@ class CRealm
 
 		// Timer values for different scoring methods.
 		bool m_bScoreTimerCountsUp;		// Which direction the timer runs, up or down
-		long m_lScoreInitialTime;			// What timer was initially set to.
-		long m_lScoreTimeDisplay;			// Time in ms that is used for the Score display
+		int32_t m_lScoreInitialTime;			// What timer was initially set to.
+		int32_t m_lScoreTimeDisplay;			// Time in ms that is used for the Score display
 													// (score converts it to minutes:seconds)
-		long m_lPrevTime;						// Previous read of the clock
-		long m_lElapsedTime;
-		long m_lThisTime;
+		int32_t m_lPrevTime;						// Previous read of the clock
+		int32_t m_lElapsedTime;
+		int32_t m_lThisTime;
 		
 
-		long	m_lLastStatusDrawTime;		// Last time the status was drawn.
+		int32_t	m_lLastStatusDrawTime;		// Last time the status was drawn.
 
 		// Goals for different modes of play.
 		ScoringMode m_ScoringMode;			// Scoring mode that score module uses

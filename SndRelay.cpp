@@ -136,7 +136,7 @@ int16_t CSndRelay::Load(								// Returns 0 if successfull, non-zero otherwise
 				pFile->Read(&m_dY);
 				pFile->Read(&m_dZ);
 
-				long	lBool;
+				int32_t	lBool;
 				pFile->Read(&lBool);
 				m_bInitiallyEnabled	= lBool ? true : false;
 
@@ -174,7 +174,7 @@ int16_t CSndRelay::Save(										// Returns 0 if successfull, non-zero otherwis
 		pFile->Write(m_dX);
 		pFile->Write(m_dY);
 		pFile->Write(m_dZ);
-		pFile->Write((long)m_bInitiallyEnabled);
+		pFile->Write((int32_t)m_bInitiallyEnabled);
 		pFile->Write(m_idParent);
 
 		// Make sure there were no file errors
@@ -299,8 +299,8 @@ int16_t CSndRelay::EditNew(								// Returns 0 if successfull, non-zero otherwi
 ////////////////////////////////////////////////////////////////////////////////
 inline void SetGuiItemVal(	// Returns nothing.
 	RGuiItem*	pguiRoot,	// In:  GUI Root.
-	long			lId,			// In:  ID of item whose text we'll change.
-	long			lVal)			// In:  New value.
+	int32_t			lId,			// In:  ID of item whose text we'll change.
+	int32_t			lVal)			// In:  New value.
 	{
 	RGuiItem*	pgui	= pguiRoot->GetItemFromId(lId);
 	if (pgui)

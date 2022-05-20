@@ -28,8 +28,8 @@
 #endif
 //==================================
 
-extern	UCHAR rspMatchColorRGB(long r,long g,long b,int16_t sStart,int16_t sNum,
-					 UCHAR* pr,UCHAR* pg,UCHAR* pb,long linc);
+extern	UCHAR rspMatchColorRGB(int32_t r,int32_t g,int32_t b,int16_t sStart,int16_t sNum,
+					 UCHAR* pr,UCHAR* pg,UCHAR* pb,int32_t linc);
 
 // designed for 2 dimenional input. For example, fog = source color +
 // eye distance = dst color.
@@ -53,7 +53,7 @@ public:
 	// This can also be used to create a light map.
 	// This is the simplest colored lighting effect.
 	// It is really only of use for fog.
-	int16_t CreateLightEffectRGB(UCHAR* pa,UCHAR* pr,UCHAR* pg,UCHAR* pb,long linc = 4,
+	int16_t CreateLightEffectRGB(UCHAR* pa,UCHAR* pr,UCHAR* pg,UCHAR* pb,int32_t linc = 4,
 			int16_t sPalStart=0, int16_t sPalLen = 256, int16_t sAlphaDepth = 256);
 	// This uses the built in scratch space and assumes to be already alloc'ed
 	int16_t CreateLightEffectRGB(int16_t sPalStart=0, int16_t sPalLen = 256);
@@ -137,15 +137,15 @@ public:
 
 	// Find optimum # of alpha level for your cache
 	static int16_t QueryFastMultiAlpha(
-		int16_t sNumSrcCol, int16_t sNumDstCol,long lTotMem, 
-		long* plHeaderSize = NULL,long* plDataSize = NULL);
+		int16_t sNumSrcCol, int16_t sNumDstCol,int32_t lTotMem, 
+		int32_t* plHeaderSize = NULL,int32_t* plDataSize = NULL);
 
 	// Create a FastMultiAlpha which MUST be freed BY the USER
 	// USING the DeleteFastMultiAlpha command ising THIS MALPHA:
 	UCHAR*** pppucCreateFastMultiAlpha(
 		int16_t sStartSrc,int16_t sNumSrc,	// color indices
 		int16_t sStartDst,int16_t sNumDst,
-		long*	plAlignedSize = NULL);
+		int32_t*	plAlignedSize = NULL);
 
 	// USER MUST call this to free the fast multi alpha
 	static int16_t DeleteFastMultiAlpha(UCHAR ****pfmaDel);

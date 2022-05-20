@@ -453,7 +453,7 @@ int16_t REdit::DrawText(		// Returns 0 on success.
 		m_pprint->SetColumn(sX, sY, sW, sH);
 		m_pprint->GetWidth(pszText);
 
-		long	lLen				= strlen(pszText);
+		int32_t	lLen				= strlen(pszText);
 
 		// Whenever the caret hits or passes the left edge, jump the first visible
 		// character back.
@@ -502,7 +502,7 @@ int16_t REdit::DrawText(		// Returns 0 on success.
 	
 
 		REdit::Point*	ppt	= m_aptTextPos;
-		long	lIndex;
+		int32_t	lIndex;
 		for (lIndex	= 0; lIndex < lLen; lIndex++, ppt++)
 			{
 			// Store its position in the pim.
@@ -553,13 +553,13 @@ void REdit::Do(		// Returns nothing.
 			m_sCaretState	= 1;
 
 			// Get length of current text.  Always handy.
-			long	lStrLen	= strlen(m_szText);
+			int32_t	lStrLen	= strlen(m_szText);
 
 			// Remember caret position.
 			int16_t	sCaretPosIn	= m_sCaretPos;
 
 			// Char to add or 0.
-			long	lNewChar	= 0;
+			int32_t	lNewChar	= 0;
 
 			// Make sure the caret is inside the string.
 			ClipCaret();
@@ -797,7 +797,7 @@ void REdit::Do(		// Returns nothing.
 		if (m_lCaretBlinkRate != 0)
 			{
 			// If the next blink time has expired . . .
-			long	lCurTime	= rspGetMilliseconds();
+			int32_t	lCurTime	= rspGetMilliseconds();
 			if (lCurTime >= m_lNextCaretUpdate)
 				{
 				// Set next blink time.
@@ -1000,7 +1000,7 @@ int16_t REdit::WriteMembers(			// Returns 0 on success.
 ////////////////////////////////////////////////////////////////////////
 void REdit::ClipCaret(void)		// Returns nothing.
 	{
-	long	lLen	= strlen(m_szText);
+	int32_t	lLen	= strlen(m_szText);
 	if (m_sCaretPos > lLen)
 		{
 		// After last char.

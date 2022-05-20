@@ -279,7 +279,7 @@ typedef struct
 	{
 	char	szCheat[21];
 	UINPUT	input;
-	long	lLastValidInputTime;
+	int32_t	lLastValidInputTime;
 	int16_t	sCurrentIndex;
 	} Cheat;
 
@@ -301,8 +301,8 @@ INPUT_MODE m_mode;
 
 // Buffer-related stuff
 U32* m_pBuf = 0;				// Pointer to buffer. Must be a U32 to maintain demo compatibility!
-long m_lBufIndex;					// Current index into buffer
-long m_lBufEntries;				// Total entries in buffer
+int32_t m_lBufIndex;					// Current index into buffer
+int32_t m_lBufEntries;				// Total entries in buffer
 
 // Cheat structs.
 // Add one plus the index of each string item so it's not recognizable when 
@@ -487,7 +487,7 @@ extern int16_t InputDemoLoad(							// Returns 0 if successfull, non-zero otherw
 				{
 
 				// Load all entries
-				for (long l = 0; l < m_lBufEntries; l++)
+				for (int32_t l = 0; l < m_lBufEntries; l++)
 					pFile->Read(&m_pBuf[l]);
 				
 				// Check for errors
@@ -536,7 +536,7 @@ extern int16_t InputDemoSave(							// Returns 0 if successfull, non-zero otherw
 		pFile->Write(m_lBufEntries);
 
 		// Save all entries
-		for (long l = 0; l < m_lBufEntries; l++)
+		for (int32_t l = 0; l < m_lBufEntries; l++)
 			pFile->Write(m_pBuf[l]);
 
 		// Check for errors
@@ -594,13 +594,13 @@ static void FindCheatCombos(	// Returns nothing.
 										// Out: Input with cheats.
 	RInputEvent* pie)				// In:  Latest input event or NULL.
 	{
-	long		lNow		= rspGetMilliseconds();
+	int32_t		lNow		= rspGetMilliseconds();
 
 	if (pie)
 		{
 		if (pie->type == RInputEvent::Key)
 			{
-			long	lKey	= (pie->lKey & 0x00FF);
+			int32_t	lKey	= (pie->lKey & 0x00FF);
 			// Force alpha lower keys to upper keys
 			if (islower(lKey))
 				lKey	= toupper(lKey);
@@ -623,7 +623,7 @@ static void FindCheatCombos(	// Returns nothing.
 				// obvious when searching/viewing the exe.
 				char	c = DETWEAK_CHAR(pcheat->szCheat, pcheat->sCurrentIndex);
 				// If current key is hit . . .
-				if ( lKey == (long)c && c != 0)
+				if ( lKey == (int32_t)c && c != 0)
 					{
 					// Remember time of this key.
 					pcheat->lLastValidInputTime				= lNow;
@@ -671,9 +671,9 @@ bool CanCycleThroughWeapons()
 {
 #define WEAPON_SWITCH_HOLD_TIME 750
 #define WEAPON_SWITCH_CYCLE_TIME 350
-	static long lLastWeaponSwitchTime = 0;
+	static int32_t lLastWeaponSwitchTime = 0;
 	static bool bFastWeaponSwitching = false;
-	long lCurTime = rspGetMilliseconds();
+	int32_t lCurTime = rspGetMilliseconds();
 	bool bResult = false;
 
 	if (lLastWeaponSwitchTime == 0)
@@ -727,8 +727,8 @@ extern UINPUT GetLocalInput(				// Returns local input.
 		{
 // Set this to 0 to disable all possibility of any user input during the game
 #if 1
-		long				lCurTime			= prealm->m_time.GetGameTime();
-		static long		lPrevTime		= lCurTime;
+		int32_t				lCurTime			= prealm->m_time.GetGameTime();
+		static int32_t		lPrevTime		= lCurTime;
 		// Get ptr to Blue's key status array.  Only need to do this
 		// once.
 		static U8*		pu8KeyStatus	= rspGetKeyStatusArray();

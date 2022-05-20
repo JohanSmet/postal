@@ -58,7 +58,7 @@ public:
 	//-------------------------------------
 	RPipeLine();
 	~RPipeLine();
-	int16_t Create(long lScratchSpace=0,int16_t sZBufWidth=0);
+	int16_t Create(int32_t lScratchSpace=0,int16_t sZBufWidth=0);
 	int16_t CreateShadow(int16_t sAngleY,double dTanDeclension,int16_t sBufSize = -1);
 	void Destroy(); // will NOT kill transform scratch space
 	void Init();
@@ -156,9 +156,9 @@ public:
 	// static storage:
 
 	// Transformation buffer:
-	static long ms_lNumPts;
+	static int32_t ms_lNumPts;
 	static RP3d* ms_pPts;
-	static long	ms_lNumPipes; // used to free ms_pPts
+	static int32_t	ms_lNumPipes; // used to free ms_pPts
 	};
 
 //================================================== 

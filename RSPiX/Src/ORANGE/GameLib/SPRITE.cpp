@@ -148,7 +148,7 @@ RSprite::RSprite(RImage* pImage, ULONG ulFlags)
 //*****************************************************************************
 
 RSprite::RSprite(int16_t sX, int16_t sY, int16_t sZ, int16_t sAngle, 
-                 long lWidth, long lHeight, ULONG ulFlags, RImage* pImage)
+                 int32_t lWidth, int32_t lHeight, ULONG ulFlags, RImage* pImage)
 {
 	// This basic init, among other things, adds this RSprite to the
 	// list with the key pointing at m_sZ.

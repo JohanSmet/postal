@@ -92,8 +92,8 @@ class CBarrel : public CThing3d
 		static int16_t ms_sFileCount;
 
 		// "Constant" values that we want to be able to tune using the editor
-		static long ms_lExplosionWait;		// Amount of time to wait before staring fire
-		static long ms_lExplosionDelay;		// Time before explosion triggers another.
+		static int32_t ms_lExplosionWait;		// Amount of time to wait before staring fire
+		static int32_t ms_lExplosionDelay;		// Time before explosion triggers another.
 		static int16_t ms_sNumFires;				// Number of fires to create after explosion
 
 	//---------------------------------------------------------------------------

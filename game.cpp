@@ -765,7 +765,7 @@ static int32_t m_lRandom = 1;
 static RFile* m_pfileRandom = 0;
 
 // Used by if-logging schtuff.
-static int32_t	ms_lSynchLogSeq	= 0;
+[[maybe_unused]] static int32_t	ms_lSynchLogSeq	= 0;
 
 static RFile	ms_fileSynchLog;
 
@@ -3409,7 +3409,7 @@ void GameEndingSequence(void)
 // name (excluding the path).
 ////////////////////////////////////////////////////////////////////////////////
 
-static const char* GetFileNameFromPath(	// Returns file name.
+[[maybe_unused]] static const char* GetFileNameFromPath(	// Returns file name.
 	const char*	pszFullPath)					// In:  File's full path.
 	{
 	// Scan back for the separator or the beginning.

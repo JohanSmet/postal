@@ -271,7 +271,7 @@ int16_t CPowerUp::Load(								// Returns 0 if successfull, non-zero otherwise
 				pFile->Read(&m_dZ);
 				U8	u8Type	= (U8)CStockPile::Bullets; 
 				pFile->Read(&u8Type);
-				long	lPowerVal;
+				int32_t	lPowerVal;
 				pFile->Read(&lPowerVal);
 				switch (u8Type)
 					{
@@ -356,10 +356,10 @@ void CPowerUp::Update(void)
 	if (!m_sSuspend)
 		{
 		// Get new time
-		long lThisTime = m_pRealm->m_time.GetGameTime();
+		int32_t lThisTime = m_pRealm->m_time.GetGameTime();
 
 		// Advance the animation timer.
-		long	lDifTime		= lThisTime - m_lAnimPrevUpdateTime;
+		int32_t	lDifTime		= lThisTime - m_lAnimPrevUpdateTime;
 		m_lAnimTime			+= lDifTime;
 
 		// Update prev time.

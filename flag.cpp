@@ -354,8 +354,8 @@ int16_t CFlag::Shutdown(void)							// Returns 0 if successfull, non-zero otherw
 void CFlag::Update(void)
 {
 	// int16_t sHeight = m_sPrevHeight;
-	long lThisTime;
-	long lTimeDifference;
+	int32_t lThisTime;
+	int32_t lTimeDifference;
 	CSmash* pSmashed = NULL;
 
 	if (!m_sSuspend)
@@ -644,8 +644,8 @@ int16_t CFlag::EditModify(void)
 		REdit* peditSeconds = (REdit*) pguiRoot->GetItemFromId(GUI_SECONDS_EDIT_ID);
 		REdit* peditFlagID  = (REdit*) pguiRoot->GetItemFromId(GUI_FLAGID_EDIT_ID);
 		REdit* peditColor   = (REdit*) pguiRoot->GetItemFromId(GUI_COLOR_EDIT_ID);
-		long lMinutes;
-		long lSeconds;
+		int32_t lMinutes;
+		int32_t lSeconds;
 
 		if (peditMinutes != NULL && peditSeconds != NULL && peditFlagID != NULL && peditColor != NULL)
 		{
@@ -673,7 +673,7 @@ int16_t CFlag::EditModify(void)
 				lSeconds = peditSeconds->GetVal() % 60;
 				m_lTimeBonus = (lMinutes * 60000) + (lSeconds * 1000);
 				m_u16FlagID = peditFlagID->GetVal();
-				m_u16FlagColor = MIN((long) (EndOfColors-1), peditColor->GetVal());
+				m_u16FlagColor = MIN((int32_t) (EndOfColors-1), peditColor->GetVal());
 			}
 		}
 	}

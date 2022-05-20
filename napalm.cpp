@@ -158,7 +158,7 @@ double CNapalm::ms_dAccDrag     = 300.0;				// Acceleration due to drag
 double CNapalm::ms_dThrowVertVel = 30.0;				// Throw up at this velocity
 double CNapalm::ms_dThrowHorizVel = 300;				// Throw out at this velocity
 double CNapalm::ms_dMinFireInterval = 5*5;
-long CNapalm::ms_lGrenadeFuseTime = 1500;			// Time from throw to blow
+int32_t CNapalm::ms_lGrenadeFuseTime = 1500;			// Time from throw to blow
 
 // Let this auto-init to 0
 int16_t CNapalm::ms_sFileCount;
@@ -280,7 +280,7 @@ void CNapalm::Update(void)
 	if (!m_sSuspend)
 		{
 		// Get new time
-		long lThisTime = m_pRealm->m_time.GetGameTime(); 
+		int32_t lThisTime = m_pRealm->m_time.GetGameTime(); 
 
 		// If elapsed time is too int16_t, skip this update.
 
@@ -473,7 +473,7 @@ void CNapalm::Update(void)
 ////////////////////////////////////////////////////////////////////////////////
 void CNapalm::Render(void)
 {
-	long lThisTime = m_pRealm->m_time.GetGameTime();
+	int32_t lThisTime = m_pRealm->m_time.GetGameTime();
 
 	m_sprite.m_pmesh = (RMesh*) m_anim.m_pmeshes->GetAtTime(lThisTime);
 	m_sprite.m_psop = (RSop*) m_anim.m_psops->GetAtTime(lThisTime);

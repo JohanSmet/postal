@@ -101,7 +101,7 @@ class CMine : public CWeapon
 		CBulletFest	m_bulletfest;					// Used for bouncing betty
 		double		m_dVertVel;						// Vertical velocity 
 		double		m_dVertDeltaVel;				// Change in vertical velocity
-		long			m_lFuseTime;					// Time before timed mine goes off
+		int32_t			m_lFuseTime;					// Time before timed mine goes off
 		SampleMaster::SoundInstance m_siMineBeep;// Arming beep sound that loops
 		// Tracks file counter so we know when to load/save "common" data 
 		static int16_t ms_sFileCount;
@@ -111,9 +111,9 @@ class CMine : public CWeapon
 		static int16_t ms_sProximityRadius;		// Distance at which mine goes off
 		static int16_t ms_sBettyRadius;				// Distance at which mine goes off
 		static int16_t ms_sBettyRange;				// Affected area for Bouncing Betty
-		static long ms_lFuseTime;					// Timed mine explodes after this time
-		static long ms_lArmingTime;				// Proximity mines arm after this time
-		static long ms_lExplosionDelay;			// Delay before explosion triggers mine
+		static int32_t ms_lFuseTime;					// Timed mine explodes after this time
+		static int32_t ms_lArmingTime;				// Proximity mines arm after this time
+		static int32_t ms_lExplosionDelay;			// Delay before explosion triggers mine
 		static double ms_dInitialBounceVelocity;//Bouncing Betty popup velocity
 
 
@@ -303,7 +303,7 @@ class CMine : public CWeapon
 			int16_t sX,												// In: New x coord
 			int16_t sY,												// In: New y coord
 			int16_t sZ,												// In: New z coord
-			long lFuseTime);										// In: Time in ms for fuse
+			int32_t lFuseTime);										// In: Time in ms for fuse
 
 		// Override base class Setup().
 		virtual				// Overridden here.

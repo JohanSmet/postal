@@ -191,7 +191,7 @@ class RTexture
 			UCHAR* pr,
 			UCHAR* pg,
 			UCHAR* pb,
-			long linc);
+			int32_t linc);
 
 		// Unmap colors from the specified palette and put them into the colors
 		// array.  If the array of colors doesn't exist, it will be created.
@@ -200,7 +200,7 @@ class RTexture
 			UCHAR* pr,
 			UCHAR* pg,
 			UCHAR* pb,
-			long lInc)
+			int32_t lInc)
 			;
 
 		// Muddy or brighten or darken.  Applies the specified brightness value
@@ -208,7 +208,7 @@ class RTexture
 		void
 		Adjust(
 			float fAdjustment,	// In:  Adjustment factor (1.0 == same, < 1 == dimmer, > 1 == brighter).
-			long lInc)				// In:  Number of colors to skip.
+			int32_t lInc)				// In:  Number of colors to skip.
 			;
 
 	private:
@@ -336,7 +336,7 @@ class RSop
 	// Variables
 	//------------------------------------------------------------------------------
 	public:
-		long m_lNum;												// Number of points in array (only 65536 currently accessible)
+		int32_t m_lNum;												// Number of points in array (only 65536 currently accessible)
 		RP3d*	m_pArray;											// Array of points
 
 	//------------------------------------------------------------------------------
@@ -357,7 +357,7 @@ class RSop
 			}
 
 		// Alternate constructor
-		RSop(long lNum)
+		RSop(int32_t lNum)
 			{
 			Init();
 			Alloc(lNum);
@@ -410,7 +410,7 @@ class RSop
 			}
 
 		// Allocate specified number of points
-		void Alloc(long lNum);
+		void Alloc(int32_t lNum);
 		
 		// Free points
 		void Free(void);

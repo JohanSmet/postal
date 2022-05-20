@@ -33,8 +33,8 @@
 //
 ///////////////////////////////////////////////////////////////
 
-long RPipeLine::ms_lNumPts = 0;
-long	RPipeLine::ms_lNumPipes = 0;
+int32_t RPipeLine::ms_lNumPts = 0;
+int32_t	RPipeLine::ms_lNumPipes = 0;
 
 RP3d*  RPipeLine::ms_pPts = NULL;
 
@@ -59,7 +59,7 @@ void RPipeLine::Init()
 
 // assume the clip rect is identical situation to zBUF:
 //
-int16_t RPipeLine::Create(long lNum,int16_t sW)
+int16_t RPipeLine::Create(int32_t lNum,int16_t sW)
 	{
 	if (sW)
 		{
@@ -177,7 +177,7 @@ RPipeLine::~RPipeLine()
 void RPipeLine::Transform(RSop* pPts,RTransform& tObj)
 	{
 	RTransform tFull;
-	long i;
+	int32_t i;
 	// Use to stretch to z-buffer!
 
 	tFull.Make1();
@@ -200,7 +200,7 @@ void RPipeLine::TransformShadow(RSop* pPts,RTransform& tObj,
 	ASSERT(m_pimShadowBuf);
 
 	RTransform tFull;
-	long i;
+	int32_t i;
 	// Use to stretch to z-buffer!
 
 	tFull.Make1();
@@ -273,10 +273,10 @@ int16_t RPipeLine::NotCulled(RP3d *p1,RP3d *p2,RP3d *p3)
 void RPipeLine::Render(RImage* pimDst,int16_t sDstX,int16_t sDstY,
 		RMesh* pMesh,UCHAR ucColor) // wire!
 	{
-	long i;
-	long v1,v2,v3;
+	int32_t i;
+	int32_t v1,v2,v3;
 	USHORT *psVertex = pMesh->m_pArray;
-	long lNumHidden = 0;
+	int32_t lNumHidden = 0;
 
 	for (i=0;i < pMesh->m_sNum; i++)
 		{
@@ -303,8 +303,8 @@ void RPipeLine::Render(RImage* pimDst,int16_t sDstX,int16_t sDstY,
 //
 void RPipeLine::RenderShadow(RImage* pimDst,RMesh* pMesh,UCHAR ucColor)
 	{
-	long i;
-	long v1,v2,v3;
+	int32_t i;
+	int32_t v1,v2,v3;
 	USHORT *psVertex = pMesh->m_pArray;
 
 	for (i=0;i < pMesh->m_sNum; i++)
@@ -332,11 +332,11 @@ void RPipeLine::Render(RImage* pimDst,int16_t sDstX,int16_t sDstY,
 		int16_t sOffsetX/* = 0*/,		// In: 2D offset for pimDst and pZB.
 		int16_t sOffsetY/* = 0*/) 	// In: 2D offset for pimDst and pZB.
 	{
-	long i;
-	long v1,v2,v3;
+	int32_t i;
+	int32_t v1,v2,v3;
 	USHORT *psVertex = pMesh->m_pArray;
 	UCHAR *pColor = pTexColors->m_pIndices;
-	long lDstP = pimDst->m_lPitch;
+	int32_t lDstP = pimDst->m_lPitch;
 	UCHAR* pDst = pimDst->m_pData + (sDstX + sOffsetX) + lDstP * (sDstY + sOffsetY);
 
 	for (i=0;i < pMesh->m_sNum; i++,pColor++)
@@ -366,11 +366,11 @@ void RPipeLine::Render(RImage* pimDst,int16_t sDstX,int16_t sDstY,
 		int16_t sOffsetX/* = 0*/,		// In: 2D offset for pimDst and pZB.
 		int16_t sOffsetY/* = 0*/) 	// In: 2D offset for pimDst and pZB.
 	{
-	long i;
-	long v1,v2,v3;
+	int32_t i;
+	int32_t v1,v2,v3;
 	USHORT *psVertex = pMesh->m_pArray;
 	UCHAR *pColor = pTexColors->m_pIndices;
-	long lDstP = pimDst->m_lPitch;
+	int32_t lDstP = pimDst->m_lPitch;
 	UCHAR* pDst = pimDst->m_pData + (sDstX + sOffsetX) + lDstP * (sDstY + sOffsetY);
 
 	for (i=0;i < pMesh->m_sNum; i++,pColor++)
