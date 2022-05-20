@@ -124,7 +124,7 @@ typedef struct tag_ANIM
 
 typedef struct tag_ANIMSET
 {
- 	long lNumAnims;
+ 	int32_t lNumAnims;
 	ANIM* apAnims[1];
 } ANIMSET;
 
@@ -230,7 +230,7 @@ typedef struct tag_ANIMSET
 
 // Sample access stuff.  We coerce generic pointers into pointers to specific
 // structs.
-	ANIM* pAnim = (long*)pLoadingAddress[1];
+	ANIM* pAnim = (int32_t*)pLoadingAddress[1];
 	int16_t sNumFrames = pAnim->sNumFrames;
 	FRAME* pFrame = pAnim->aFrames[3];
 

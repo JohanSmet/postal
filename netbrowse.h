@@ -49,8 +49,8 @@ class CNetBrowse
 			public:
 				char					m_acName[Net::MaxHostNameSize];	// Name
 				RSocket::Address	m_address;								// Address
-				long					m_lMagic;								// Magic number
-				long					m_lLastHeardFrom;						// Time we last heard from this host
+				int32_t					m_lMagic;								// Magic number
+				int32_t					m_lLastHeardFrom;						// Time we last heard from this host
 				int32_t					m_u32User;								// User-definable value
 
 			public:
@@ -103,7 +103,7 @@ class CNetBrowse
 	//------------------------------------------------------------------------------
 	protected:
 		RSocket			m_socketBrowse;						// Socket used to browse for hosts
-		long				m_lLastBroadcast;						// Last broadcast time
+		int32_t				m_lLastBroadcast;						// Last broadcast time
 		uint16_t	m_usBasePort;							// Base port
 
 	//------------------------------------------------------------------------------

@@ -63,7 +63,7 @@ class CHeatseeker : public CWeapon
 		bool			m_bArmed;				// Initially missile is not armed so it doesn't
 													// collide with the person who shot it.
 		CSprite3		m_sprite;				// 3D sprite to render this thing.
-		long			m_lSmokeTimer;			// Time to wait between emitting smoke
+		int32_t			m_lSmokeTimer;			// Time to wait between emitting smoke
 		U32			m_u32CollideBitsInclude;	// Bits that cause a collision
 		U32			m_u32CollideBitsDontCare;	// Bits that are ignored for collisions
 		U32			m_u32CollideBitsExclude;	// Bits that invalidate a collision
@@ -84,8 +84,8 @@ class CHeatseeker : public CWeapon
 		static double ms_dMaxVelBack;		// Maximum backward velocity
 		static double ms_dCloseDistance;	// Close enough to hit CDude
 		static double ms_dLineCheckRate;	// Pixel distance for line checking
-		static long ms_lArmingTime;		// Time before weapons arms.
-		static long ms_lSeekRadius;		// Radius of Heatseeking circle
+		static int32_t ms_lArmingTime;		// Time before weapons arms.
+		static int32_t ms_lSeekRadius;		// Radius of Heatseeking circle
 		static int16_t ms_sOffScreenDist;  // Distance off screen before self destructing
 		static int16_t ms_sAngularVelocity;// Degrees per second that it can turn
 		static U32 ms_u32CollideIncludeBits;
@@ -94,8 +94,8 @@ class CHeatseeker : public CWeapon
 		static U32 ms_u32SeekIncludeBits;
 		static U32 ms_u32SeekDontcareBits;
 		static U32 ms_u32SeekExcludeBits;
-		static long ms_lSmokeTrailInterval;	// Time between smoke releases
-		static long ms_lSmokeTimeToLive;		// Time for smoke to stick around.
+		static int32_t ms_lSmokeTrailInterval;	// Time between smoke releases
+		static int32_t ms_lSmokeTimeToLive;		// Time for smoke to stick around.
 
 	//---------------------------------------------------------------------------
 	// Constructor(s) / destructor

@@ -96,10 +96,10 @@ extern int16_t GetMemFileResource(	// Returns 0 on successful open.
 
 	int16_t	sIndex;
 	bool	bFound;
-	long	lReqResNameLen	= strlen(pszResName);
+	int32_t	lReqResNameLen	= strlen(pszResName);
 	for (sIndex = 0, bFound = false; sIndex < NUM_ELEMENTS(ms_memdisk) && bFound == false; sIndex++)
 		{
-		long lEmbeddedResNameLen	= strlen(ms_memdisk[sIndex].pszResName);
+		int32_t lEmbeddedResNameLen	= strlen(ms_memdisk[sIndex].pszResName);
 		// If the requested name is long enough . . .
 		if (lReqResNameLen >= lEmbeddedResNameLen)
 			{

@@ -295,7 +295,7 @@ void CBall::Update(void)
 	{
 	if (!m_sSuspend)
 		{
-		long	lCurTime				= m_pRealm->m_time.GetGameTime();
+		int32_t	lCurTime				= m_pRealm->m_time.GetGameTime();
 		double dDeltaSeconds		= (lCurTime - m_lPrevTime) / 1000.0;
 
 		// Adjust vertical velocity and calculate new position.
@@ -384,7 +384,7 @@ void CBall::Render(void)
 	m_trans.Ry(rspMod360(m_dDX));
 	m_trans.Rz(rspMod360(m_dDZ));
 
-	long lTime	= m_pRealm->m_time.GetGameTime();
+	int32_t lTime	= m_pRealm->m_time.GetGameTime();
 
 	m_sprite.m_pmesh		= (RMesh*)m_anim.m_pmeshes->GetAtTime(lTime);
 	m_sprite.m_psop		= (RSop*)m_anim.m_psops->GetAtTime(lTime);

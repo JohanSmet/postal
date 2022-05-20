@@ -458,7 +458,7 @@ int16_t CNavigationNet::EditModify(void)
 		RGuiItem*	pguiRemove;
 		if (pview != NULL)
 			{
-			pguiRemove	= plb->GetItemFromId((long)pview);
+			pguiRemove	= plb->GetItemFromId((int32_t)pview);
 			}
 		else
 			{

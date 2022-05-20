@@ -99,14 +99,14 @@ class RSndFx
 
 		// Set type of PCM data in use.  This will reset all effects.
 		static void SetDataType(	// Returns nothing.
-			long lSamplesPerSec,		// Samples per second.
-			long lBitsPerSample,		// Bits per sample.
-			long lNumChannels);		// Number of channels.
+			int32_t lSamplesPerSec,		// Samples per second.
+			int32_t lBitsPerSample,		// Bits per sample.
+			int32_t lNumChannels);		// Number of channels.
 		
 		// Implements the effect on the provided buffer.
 		void Do(								// Returns nothing.
 			UCHAR* pucSrcData,			// Data to affect.
-			long lBufSize,					// Amount of data.
+			int32_t lBufSize,					// Amount of data.
 			UCHAR* pucDstData = NULL);	// Destination for data, defaults to
 												// same as source.
 		
@@ -118,7 +118,7 @@ class RSndFx
 
 		// Set up a fade in.
 		int16_t SetUpFadeIn(	// Returns 0 on success.
-			long lDuration);	// Duration until silence in milliseconds.
+			int32_t lDuration);	// Duration until silence in milliseconds.
 
 		// Activate/Deactivate fade in.
 		void ActivateFadeIn(	// Returns nothing.
@@ -128,7 +128,7 @@ class RSndFx
 
 		// Set up a fade out.
 		int16_t SetUpFadeOut(	// Returns 0 on success.
-			long lDuration);	// Duration until full volume in milliseconds.
+			int32_t lDuration);	// Duration until full volume in milliseconds.
 		
 		// Activate/Deactivate fade out.
 		void ActivateFadeOut(	// Returns nothing.
@@ -151,34 +151,34 @@ class RSndFx
 
 		/////////////////////// Fade In /////////////////////////////////////////
 		
-		long	m_lFadeInMillisecondsDuration;	// Original duration.
-		long	m_lFadeInBytesDurationAffected;	// Amount left to fade.
-		long	m_lFadeInBytesDuration;				// Duration in bytes.
+		int32_t	m_lFadeInMillisecondsDuration;	// Original duration.
+		int32_t	m_lFadeInBytesDurationAffected;	// Amount left to fade.
+		int32_t	m_lFadeInBytesDuration;				// Duration in bytes.
 
-		long	m_lFadeInRate;
+		int32_t	m_lFadeInRate;
 
 		/////////////////////// Fade Out ////////////////////////////////////////
 
-		long	m_lFadeOutMillisecondsDuration;		// Original duration.
-		long	m_lFadeOutBytesDurationRemaining;	// Amount left to fade.
-		long	m_lFadeOutBytesDuration;				// Duration in bytes.
+		int32_t	m_lFadeOutMillisecondsDuration;		// Original duration.
+		int32_t	m_lFadeOutBytesDurationRemaining;	// Amount left to fade.
+		int32_t	m_lFadeOutBytesDuration;				// Duration in bytes.
 
-		long	m_lFadeOutRate;
+		int32_t	m_lFadeOutRate;
 
 		///////////////////// Protected Typedefs ///////////////////////////////
 		typedef struct		// Stores info particular PCM type.
 			{
-			long	lMin;		// Mininum value (silence).
-			long	lMax;		// Maximum value (saturation).
+			int32_t	lMin;		// Mininum value (silence).
+			int32_t	lMax;		// Maximum value (saturation).
 			} PCMINFO;
 
 		/////////////////////// Static members /////////////////////////////////
 
-		static long	ms_lSamplesPerSec;	// Samples per second.
-		static long	ms_lBitsPerSample;	// Bits per sample.
-		static long	ms_lNumChannels;		// Number of channels.
+		static int32_t	ms_lSamplesPerSec;	// Samples per second.
+		static int32_t	ms_lBitsPerSample;	// Bits per sample.
+		static int32_t	ms_lNumChannels;		// Number of channels.
 
-		static long	ms_lBitsPerSec;	// Number of bits per second.
+		static int32_t	ms_lBitsPerSec;	// Number of bits per second.
 												// Can be used to convert bytes to milliseconds
 												// and convert milliseconds into bytes.  See
 												// macros BYTES2MS and MS2BYTES in SndFx.CPP.

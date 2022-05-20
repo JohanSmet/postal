@@ -327,10 +327,10 @@ void CItem3d::Update(void)
 	if (!m_sSuspend)
 		{
 		// Get new time
-		long lThisTime = m_pRealm->m_time.GetGameTime();
+		int32_t lThisTime = m_pRealm->m_time.GetGameTime();
 
 		// Advance the animation timer.
-		long	lDifTime		= lThisTime - m_lAnimPrevUpdateTime;
+		int32_t	lDifTime		= lThisTime - m_lAnimPrevUpdateTime;
 		m_lAnimTime			+= lDifTime;
 
 		// Update prev time.

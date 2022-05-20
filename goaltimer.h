@@ -51,7 +51,7 @@ class CGoalTimer : public CThing
 		double m_dZ;												// z coord
 		RImage* m_pImage;											// Pointer to only image (replace with 3d anim, soon)
 		CSprite2 m_sprite;										// Sprite (replace with CSprite3, soon)
-		long		m_lTimerMS;										// Timer value in Milliseconds
+		int32_t		m_lTimerMS;										// Timer value in Milliseconds
 		int16_t		m_sKillGoal;									// Number of kills to achieve
 		int16_t		m_sUpDown;										// Up or down timer
 

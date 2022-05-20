@@ -109,11 +109,11 @@ S16*	RSndFx::ms_ps16Fade	= NULL;	// Signed 16 bit output
 
 int16_t	RSndFx::ms_sNumFadeSteps	= 0;	// Number of fade steps.
 
-long	RSndFx::ms_lSamplesPerSec	= 0;	// Samples per second.
-long	RSndFx::ms_lBitsPerSample	= 0;	// Bits per sample.
-long	RSndFx::ms_lNumChannels		= 0;	// Number of channels.
+int32_t	RSndFx::ms_lSamplesPerSec	= 0;	// Samples per second.
+int32_t	RSndFx::ms_lBitsPerSample	= 0;	// Bits per sample.
+int32_t	RSndFx::ms_lNumChannels		= 0;	// Number of channels.
 
-long	RSndFx::ms_lBitsPerSec	= 0;	// Number of bits per second.
+int32_t	RSndFx::ms_lBitsPerSec	= 0;	// Number of bits per second.
 										// Can be used to convert bytes to milliseconds
 										// and convert milliseconds into bytes.  See
 										// macros BYTES2MS and MS2BYTES in SndFx.CPP.
@@ -273,7 +273,7 @@ int16_t RSndFx::SetFadeAccuracy(	// Returns 0 on success.
 			{
 			case 8:
 				{
-				ms_pu8Fade	= (U8*)malloc((long)sNumSteps * 256L * sizeof(S16));
+				ms_pu8Fade	= (U8*)malloc((int32_t)sNumSteps * 256L * sizeof(S16));
 				if (ms_pu8Fade != NULL)
 					{
 					int16_t	sStep;
@@ -313,7 +313,7 @@ int16_t RSndFx::SetFadeAccuracy(	// Returns 0 on success.
 
 			case 16:
 				{
-				ms_ps16Fade	= (S16*)malloc((long)sNumSteps * 256L * sizeof(S16));
+				ms_ps16Fade	= (S16*)malloc((int32_t)sNumSteps * 256L * sizeof(S16));
 				if (ms_ps16Fade != NULL)
 					{
 					int16_t	sStep;
@@ -372,9 +372,9 @@ int16_t RSndFx::SetFadeAccuracy(	// Returns 0 on success.
 //
 //////////////////////////////////////////////////////////////////////////////
 void RSndFx::SetDataType(	// Returns nothing.
-	long lSamplesPerSec,		// Samples per second.
-	long lBitsPerSample,		// Bits per sample.
-	long lNumChannels)		// Number of channels.
+	int32_t lSamplesPerSec,		// Samples per second.
+	int32_t lBitsPerSample,		// Bits per sample.
+	int32_t lNumChannels)		// Number of channels.
 	{
 	ms_lSamplesPerSec	= lSamplesPerSec;
 	ms_lBitsPerSample	= lBitsPerSample;
@@ -394,10 +394,10 @@ template <
 inline void Decimate(	// Returns nothing.
 	TYPE* psnSrcData,		// Data buffer to decimate.
 	TYPE* psnDstData,		// Decimation destination.
-	long lNumBytes,		// Number of bytes in buffer.
+	int32_t lNumBytes,		// Number of bytes in buffer.
 	TYPE* psnTable)		// Attenuation table.
 	{
-	long	lNumSamples	= lNumBytes / sizeof(TYPE);
+	int32_t	lNumSamples	= lNumBytes / sizeof(TYPE);
 	while (lNumSamples-- > 0)
 		{
 		*psnDstData++	= psnTable[((*psnSrcData++ + 0x0080) >> 8) + 128];
@@ -414,11 +414,11 @@ template <
 inline void UnsignedDecimate(	// Returns nothing.
 	UTYPE* punSrcData,			// Data buffer to decimate.
 	UTYPE* punDstData,			// Decimation destination.
-	long lNumBytes,				// Number of bytes in buffer.
+	int32_t lNumBytes,				// Number of bytes in buffer.
 	UTYPE* punTable)				// Attenuation table.
 	{
 
-	long	lNumSamples	= lNumBytes / sizeof(UTYPE);
+	int32_t	lNumSamples	= lNumBytes / sizeof(UTYPE);
 	while (lNumSamples-- > 0)
 		{
 		*punDstData++	= punTable[*punSrcData++];
@@ -432,7 +432,7 @@ inline void UnsignedDecimate(	// Returns nothing.
 /////////////////////////////////////////////////////////////////////////
 void RSndFx::Do(						// Returns nothing.
 	UCHAR* pucSrcData,				// Data to affect.
-	long lBufSize,						// Amount of data.
+	int32_t lBufSize,						// Amount of data.
 	UCHAR* pucDstData /*= NULL*/)	// Destination for data, defaults 
 											// to same as source.
 	{
@@ -548,7 +548,7 @@ void RSndFx::Do(						// Returns nothing.
 //
 /////////////////////////////////////////////////////////////////////////
 int16_t RSndFx::SetUpFadeIn(	// Returns 0 on success.
-	long lDuration)			// Duration until silence in milliseconds.
+	int32_t lDuration)			// Duration until silence in milliseconds.
 	{
 	int16_t	sRes	= 0;	// Assume success.
 
@@ -600,7 +600,7 @@ void RSndFx::ActivateFadeIn(	// Returns nothing.
 //
 /////////////////////////////////////////////////////////////////////////
 int16_t RSndFx::SetUpFadeOut(	// Returns 0 on success.
-	long lDuration)				// Duration until full volume in milliseconds.
+	int32_t lDuration)				// Duration until full volume in milliseconds.
 	{
 	int16_t	sRes	= 0;	// Assume success.
 

@@ -1416,7 +1416,7 @@ int16_t RImage::LoadDib(RFile* pcf)
 																			m_sWinX = m_sWinY = 0;
 
 																			// Pre calc width in bits.
-																			long lBitsWidth	= dh.lWidth * (long)dh.usBitCount;
+																			int32_t lBitsWidth	= dh.lWidth * (int32_t)dh.usBitCount;
 																			m_lPitch		= WIDTH128(((lBitsWidth + 7) & ~7) / 8);
 																			lDibPitch	= WIDTHUCHAR(((lBitsWidth + 7) & ~7) / 8);
 
@@ -1463,7 +1463,7 @@ int16_t RImage::LoadDib(RFile* pcf)
 																						// If we read in the upside down way . . .
 																						// "Upside down" way.
 																						// Read the dib a line at a time and flip it upside down (which is really right side up)
-																						for (long l = dh.lHeight - 1L; l >= 0L; l--)
+																						for (int32_t l = dh.lHeight - 1L; l >= 0L; l--)
 																						{
 																							if (pcf->Read(m_pData + (l * m_lPitch), lDibPitch) != lDibPitch)
 																							{
@@ -1476,7 +1476,7 @@ int16_t RImage::LoadDib(RFile* pcf)
 																					else
 																						{
 																						// Read in one kerchunk.
-																						if (pcf->Read(m_pData, m_ulSize) != (long)m_ulSize)
+																						if (pcf->Read(m_pData, m_ulSize) != (int32_t)m_ulSize)
 																							{
 																							TRACE("RImage::LoadDib(): Unable to read all the compressed bits.\n");
 																							sRes = -19;
@@ -1828,7 +1828,7 @@ int16_t RImage::SaveDib(RFile* pcf)
 																	{
 																		if (m_pPalette != NULL)
 																		{
-																			if (pcf->Write(m_pPalette->m_pData, m_pPalette->m_ulSize) == (long)m_pPalette->m_ulSize)
+																			if (pcf->Write(m_pPalette->m_pData, m_pPalette->m_ulSize) == (int32_t)m_pPalette->m_ulSize)
 																			{
 																			}
 																			else
@@ -1846,8 +1846,8 @@ int16_t RImage::SaveDib(RFile* pcf)
 																			{
 																				// Upside down way.
 																				// Write the dib a line at a time and flip it upside down (which is really right side up)
-																				lHeight	= (long)m_sHeight;
-																				for (long l = lHeight - 1L; l >= 0L; l--)
+																				lHeight	= (int32_t)m_sHeight;
+																				for (int32_t l = lHeight - 1L; l >= 0L; l--)
 																				{
 																					if (pcf->Write(m_pData + (l * m_lPitch), lDibPitch) != lDibPitch)
 																					{
@@ -1860,7 +1860,7 @@ int16_t RImage::SaveDib(RFile* pcf)
 																			else
 																			{
 																				// Write in one big kerchunk.
-																				if (pcf->Write(m_pData, m_ulSize) == (long)m_ulSize)
+																				if (pcf->Write(m_pData, m_ulSize) == (int32_t)m_ulSize)
 																				{
 																				}
 																				else

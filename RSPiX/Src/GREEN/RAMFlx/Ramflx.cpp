@@ -180,7 +180,7 @@ int16_t CRamFlx::Open(
 			// previous frame and the previous color palette.
 			if (pimage == NULL)
 				{
-				sError = AllocBuf(&m_imagePrev, (long)m_filehdr.sWidth, (long)m_filehdr.sHeight, 256);
+				sError = AllocBuf(&m_imagePrev, (int32_t)m_filehdr.sWidth, (int32_t)m_filehdr.sHeight, 256);
 				}
 			}
 		else
@@ -202,7 +202,7 @@ int16_t CRamFlx::Open(
 	
 	// If pointer to buf not NULL, then allocate memory
 	if ((sError == 0) && (pimage != NULL))
-		sError = CreateBuf(pimage, (long)m_filehdr.sWidth, (long)m_filehdr.sHeight, 256);
+		sError = CreateBuf(pimage, (int32_t)m_filehdr.sWidth, (int32_t)m_filehdr.sHeight, 256);
 	
 	// If no errors, then file is finally marked "open for reading"
 	if (sError == 0)
@@ -420,7 +420,7 @@ int16_t CRamFlx::ReadNextFrame(
 // Returns 0 if successfull, non-zero otherwise.
 //
 ///////////////////////////////////////////////////////////////////////////////
-int16_t CRamFlx::CreateBuf(CImage* pimage, long lWidth, long lHeight, int16_t sColors)
+int16_t CRamFlx::CreateBuf(CImage* pimage, int32_t lWidth, int32_t lHeight, int16_t sColors)
 	{
 	InitBuf(pimage);
 	return AllocBuf(pimage, lWidth, lHeight, sColors);

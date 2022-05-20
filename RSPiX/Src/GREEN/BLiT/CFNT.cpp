@@ -139,7 +139,7 @@ int16_t RFont::Add(RFile* pcf)
 			pcf->Read(&ucASCII);
 			pim->Load(pcf);
 			AddLetter(pim,(int16_t)ucASCII);
-			/*long lBogus = */pcf->Tell();
+			/*int32_t lBogus = */pcf->Tell();
 			}
 		}
 

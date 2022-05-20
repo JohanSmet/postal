@@ -120,7 +120,7 @@
 double COstrich::ms_dExplosionVelocity = 180.0;
 double COstrich::ms_dMaxMarchVel = 30.0;
 double COstrich::ms_dMaxRunVel = 80.0;
-long COstrich::ms_lStateChangeTime = 10000;
+int32_t COstrich::ms_lStateChangeTime = 10000;
 int16_t COstrich::ms_sStartingHitPoints = 100;
 
 // Let this auto-init to 0
@@ -398,8 +398,8 @@ void COstrich::Update(void)
 	double dNewZ;
 	double dX;
 	double dZ;
-	long lThisTime;
-	long lTimeDifference;
+	int32_t lThisTime;
+	int32_t lTimeDifference;
 
 
 	if (!m_sSuspend)

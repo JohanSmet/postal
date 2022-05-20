@@ -366,8 +366,8 @@ int16_t RSocket::Connect(
 ////////////////////////////////////////////////////////////////////////////////
 int16_t RSocket::Send(										// Return 0 on success, non-zero otherwise
 	void* pBuf,												// In:  Pointer to data buffer
-	long lNumBytes,										// In:  Number of bytes to send
-	long* plActualBytes)									// Out: Actual number of bytes sent
+	int32_t lNumBytes,										// In:  Number of bytes to send
+	int32_t* plActualBytes)									// Out: Actual number of bytes sent
 	{
 	int16_t sResult = FAILURE;
 	
@@ -389,8 +389,8 @@ int16_t RSocket::Send(										// Return 0 on success, non-zero otherwise
 ////////////////////////////////////////////////////////////////////////////////
 int16_t RSocket::SendTo(									// Return 0 on success, non-zero otherwise
 	void* pBuf,												// In:  Pointer to data buffer
-	long lNumBytes,										// In:  Number of bytes to send
-	long* plActualBytes,									// Out: Actual number of bytes sent
+	int32_t lNumBytes,										// In:  Number of bytes to send
+	int32_t* plActualBytes,									// Out: Actual number of bytes sent
 	RSocket::Address* paddress)						//In:  Address to send to
 	{
 	int16_t sResult = FAILURE;
@@ -428,8 +428,8 @@ int16_t RSocket::SendTo(									// Return 0 on success, non-zero otherwise
 ////////////////////////////////////////////////////////////////////////////////
 int16_t RSocket::Receive(									// Returns 0 on success, non-zero otherwise
 	void* pBuf,												// In:  Pointer to data buffer
-	long lMaxBytes,										// In:  Maximum bytes that can fit in buffer
-	long* plActualBytes)									// Out: Actual number of bytes received
+	int32_t lMaxBytes,										// In:  Maximum bytes that can fit in buffer
+	int32_t* plActualBytes)									// Out: Actual number of bytes received
 	{
 	int16_t sResult = FAILURE;
 	
@@ -450,8 +450,8 @@ int16_t RSocket::Receive(									// Returns 0 on success, non-zero otherwise
 ////////////////////////////////////////////////////////////////////////////////
 int16_t RSocket::ReceiveFrom(							// Returns 0 on success, non-zero otherwise
 	void* pBuf,												// In:  Pointer to data buffer
-	long lMaxBytes,										// In:  Maxiumm bytes that fit in buffer
-	long* plActualBytes,									// Out: Actual number of bytes received into buffer
+	int32_t lMaxBytes,										// In:  Maxiumm bytes that fit in buffer
+	int32_t* plActualBytes,									// Out: Actual number of bytes received into buffer
 	RSocket::Address* paddress)						// Out: Source address returned here
 	{
 	int16_t sResult = FAILURE;
@@ -474,9 +474,9 @@ int16_t RSocket::ReceiveFrom(							// Returns 0 on success, non-zero otherwise
 // streams, this returns the total amount of data that can be read with a
 // single receive which is normally equal to the total amount of queued data.
 ////////////////////////////////////////////////////////////////////////////////
-long RSocket::CheckReceivableBytes(void)
+int32_t RSocket::CheckReceivableBytes(void)
 	{
-	long lResult = 0;
+	int32_t lResult = 0;
 	
 	if (m_pProtocol != NULL)
 		lResult = m_pProtocol->CheckReceivableBytes();
@@ -630,7 +630,7 @@ void RSocket::Shutdown(void)
 ////////////////////////////////////////////////////////////////////////////////
 // static
 int16_t RSocket::GetMaxDatagramSize(					// Returns 0 on success, non-zero otherwise
-	long* plSize)											// Out: Maximum datagram size (in bytes)
+	int32_t* plSize)											// Out: Maximum datagram size (in bytes)
 	{
 	int16_t sResult = FAILURE;
 	
@@ -660,7 +660,7 @@ int16_t RSocket::GetMaxDatagramSize(					// Returns 0 on success, non-zero other
 ////////////////////////////////////////////////////////////////////////////////
 // static
 int16_t RSocket::GetMaxSockets(							// Returns 0 on success, non-zero otherwise
-	long* plNum)											// Out: Maximum number of sockets
+	int32_t* plNum)											// Out: Maximum number of sockets
 	{
 	int16_t sResult = FAILURE;
 	
@@ -706,7 +706,7 @@ int16_t RSocket::GetAddress(								// Returns 0 on success, non-zero otherwise
 		strcpy(azName, pszName);
 
 		// Convert trailing whitespace to 0's
-		long index;
+		int32_t index;
 		for (index = strlen(azName) - 1; index >= 0; index--)
 			{
 			if (isspace(azName[index]))
@@ -723,7 +723,7 @@ int16_t RSocket::GetAddress(								// Returns 0 on success, non-zero otherwise
 	else
 		{
 		sResult = -1;
-		TRACE("RSocket::GetAddress(): Specified string is too long!\n");
+		TRACE("RSocket::GetAddress(): Specified string is too int32_t!\n");
 		}
 
 	// Make sure we don't accidently use this pointer -- must use azName instead!

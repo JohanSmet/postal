@@ -184,7 +184,7 @@ int16_t CRamFlx::DoReadFrame(CImage* pimageRead, CNFile* pfile,
 	// instead of relying on the amount of data that was read from the
 	// chunk because that amount may be less than the indicated chunk size!
 	// (This is not clearly documented, but was discovered the hard way!)
-	long lFramePos = pfile->Tell(); 
+	int32_t lFramePos = pfile->Tell(); 
 			
 	// Read frame chunk header
 	FLX_FRAME_HDR framehdr;
@@ -208,14 +208,14 @@ int16_t CRamFlx::DoReadFrame(CImage* pimageRead, CNFile* pfile,
 			// instead of relying on the amount of data that was read from the
 			// chunk because that amount may be less than the indicated chunk size!
 			// (This is not clearly documented, but was discovered the hard way!)
-			long lDataPos = pfile->Tell();	
+			int32_t lDataPos = pfile->Tell();	
 					
 			// Read data chunk header
 			pfile->Read(&datahdr.lChunkSize);	
 			pfile->Read(&datahdr.wType);			
 
 			// Size of actual data is chunk size minus header size (6)
-			long lDataSize = datahdr.lChunkSize - 6;
+			int32_t lDataSize = datahdr.lChunkSize - 6;
 					
 			// Call the appropriate function based on data type
 			switch(datahdr.wType)
@@ -627,7 +627,7 @@ int16_t CRamFlx::ReadDataBRun(	CImage* pimageRead, CNFile* pfile,
 			}
 		#else
 			// Locals needed (b/c we can't use this->).
-			long		lPitch		= pimageRead->lPitch;
+			int32_t		lPitch		= pimageRead->lPitch;
 			MEM		pCurFlxBuf	= pfile->GetMemory() + pfile->Tell();
 			int16_t		sHeight		= (int16_t)pimageRead->lHeight;
 			int16_t		sWidth		= (int16_t)pimageRead->lWidth;
@@ -708,7 +708,7 @@ int16_t CRamFlx::ReadDataBRun(	CImage* pimageRead, CNFile* pfile,
 					mov	pCurFlxBuf, esi			; Restore file ptr.
 				}
 				
-				pfile->Seek((long)(pCurFlxBuf - pfile->GetMemory()), SEEK_SET);
+				pfile->Seek((int32_t)(pCurFlxBuf - pfile->GetMemory()), SEEK_SET);
 
 		#endif	// def WIN32
 		
@@ -819,7 +819,7 @@ int16_t CRamFlx::ReadDataLC(	CImage* pimageRead, CNFile* pfile,
 		
 	// For debugging, prefetch a bunch of values to view them in the debugger
 	#if 0
-	long lPos = pfile->tellg();
+	int32_t lPos = pfile->tellg();
 	static UCHAR bData[100];
 	pfile->read(bData, sizeof(bData));
 	pfile->seekg(lPos);
@@ -877,7 +877,7 @@ int16_t CRamFlx::ReadDataLC(	CImage* pimageRead, CNFile* pfile,
 			}
 	#else
 		// Locals needed (b/c we can't use this->).
-		long		lPitch		= pimageRead->lPitch;
+		int32_t		lPitch		= pimageRead->lPitch;
 		MEM		pCurFlxBuf	= pfile->GetMemory() + pfile->Tell();
 		
 		__asm
@@ -955,7 +955,7 @@ int16_t CRamFlx::ReadDataLC(	CImage* pimageRead, CNFile* pfile,
 				mov	pCurFlxBuf, esi			; Restore file ptr.
 			}
 
-		pfile->Seek((long)(pCurFlxBuf - pfile->GetMemory()), SEEK_SET);
+		pfile->Seek((int32_t)(pCurFlxBuf - pfile->GetMemory()), SEEK_SET);
 		#endif // ndef WIN32
 
 	return 0;
@@ -1137,8 +1137,8 @@ int16_t CRamFlx::ReadDataSS2(CImage* pimageRead, CNFile* pfile,
 	// Need a local for this-> stuff.
 	MEM	pCurFlxBuf	= pfile->GetMemory() + pfile->Tell();
 	void*	pData			= pimageRead->pData;
-	long	lPitch		= pimageRead->lPitch;
-	long	lWidth		= pimageRead->lWidth;
+	int32_t	lPitch		= pimageRead->lPitch;
+	int32_t	lWidth		= pimageRead->lWidth;
 
 	__asm
 		{
@@ -1278,7 +1278,7 @@ int16_t CRamFlx::ReadDataSS2(CImage* pimageRead, CNFile* pfile,
 
 		// Get pointer to end of this row.
 		; pbPix	= (UCHAR*)pimageRead->pData 
-		;				+ ((long)y * pimageRead->lPitch) 
+		;				+ ((int32_t)y * pimageRead->lPitch) 
 		;				+ pimageRead->lWidth - 1L;
 
 		mov	eax, lPitch					; pimageRead->lPitch
@@ -1308,7 +1308,7 @@ SS2MainLoopDone:
 		mov	pCurFlxBuf, esi			; Restore file ptr.
 		}
 
-	pfile->Seek((long)(pCurFlxBuf - pfile->GetMemory()), SEEK_SET);
+	pfile->Seek((int32_t)(pCurFlxBuf - pfile->GetMemory()), SEEK_SET);
 
 #endif // ndef WIN32
 
@@ -1370,7 +1370,7 @@ int16_t CRamFlx::ReadHeader(CNFile* pfile)
 		// to FLC's milliseconds.
 		int16_t sJiffies;
 		pfile->Read(&sJiffies);
-		m_filehdr.lMilliPerFrame = (long)( (double)sJiffies * ((double)1000 / (double)70L) + (double)0.5 );
+		m_filehdr.lMilliPerFrame = (int32_t)( (double)sJiffies * ((double)1000 / (double)70L) + (double)0.5 );
 		
 		// Set times to 0 for lack of better value (some day, we could read the
 		// file's date and time stamp and put it here).  We use "FLIB" for the
@@ -1391,7 +1391,7 @@ int16_t CRamFlx::ReadHeader(CNFile* pfile)
 		
 		// Get size of frame 1's chunk in order to calculate the starting
 		// position of frame 2.
-		long lSizeFrame1;
+		int32_t lSizeFrame1;
 		pfile->Read(&lSizeFrame1);
 		m_filehdr.lOffsetFrame2 = m_filehdr.lOffsetFrame1 + lSizeFrame1;
 		
@@ -1401,7 +1401,7 @@ int16_t CRamFlx::ReadHeader(CNFile* pfile)
 
 	// Allocate space for RAM buffer
 	int16_t sError=0;
- 	long lSizeFile = m_filehdr.lEntireFileSize - m_filehdr.lOffsetFrame1;
+ 	int32_t lSizeFile = m_filehdr.lEntireFileSize - m_filehdr.lOffsetFrame1;
 
 	if ((m_pucFlxBuf = (UCHAR*)malloc(lSizeFile)) != NULL)
 		{
@@ -1475,7 +1475,7 @@ void CRamFlx::InitBuf(CImage* pimage)
 	}
 	
 	
-int16_t CRamFlx::AllocBuf(CImage* pimage, long lWidth, long lHeight, int16_t sColors)
+int16_t CRamFlx::AllocBuf(CImage* pimage, int32_t lWidth, int32_t lHeight, int16_t sColors)
 	{
 	int16_t sError=0;
 	
@@ -1574,10 +1574,10 @@ void CRamFlx::CopyBuf(CImage* pimageDst, CImage* pimageSrc)
 int16_t CRamFlx::CreateFramePointers(void)
 	{
 	int16_t sError = 0;
-	long  lSizeFrame;
+	int32_t  lSizeFrame;
 
 	// Allocate the space for the frame pointers
-	if ((m_plFrames = (long*)malloc((m_filehdr.sNumFrames+1) * sizeof(long))) == NULL)
+	if ((m_plFrames = (int32_t*)malloc((m_filehdr.sNumFrames+1) * sizeof(int32_t))) == NULL)
 		sError = -1;
 	else
 		{

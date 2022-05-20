@@ -182,7 +182,7 @@ bool CNetMsgr::GetMsg(									// True if message was available, false otherwise
 	if (m_error == NetMsg::NoError)
 		{
 		// See how much data (if any) is available
-		long lGetable = m_bufIn.CheckGetable();
+		int32_t lGetable = m_bufIn.CheckGetable();
 		if (lGetable >= 1)
 			{
 			// Peek at first byte of data, which ought to be the message type
@@ -199,7 +199,7 @@ bool CNetMsgr::GetMsg(									// True if message was available, false otherwise
 					if (lMsgSize == -1)
 						{
 						// Check if at least enough is available (beyond the ucMsg byte we got)
-						if (lGetable >= (long) (sizeof(ucMsg) + sizeof(lMsgSize)) )
+						if (lGetable >= (int32_t) (sizeof(ucMsg) + sizeof(lMsgSize)) )
 							{
 							// Get the message size.  We assume this will always succeed because
 							// we were just told that enough was available.
@@ -231,7 +231,7 @@ bool CNetMsgr::GetMsg(									// True if message was available, false otherwise
 						(ms_aInfoMsg[ucMsg].funcRead)(pmsg, &m_bufIn);
 
 						// Verify that the correct number of bytes were read
-						long lNewGetable = m_bufIn.CheckGetable();
+						int32_t lNewGetable = m_bufIn.CheckGetable();
 						if ((lGetable - lNewGetable) == lMsgSize)
 							{
 							// Update most-recent receive time
@@ -358,12 +358,12 @@ void CNetMsgr::SendMsg(
 			{
 			// Determine message size.  A size of -1 indicates a variable-sized message,
 			// in which case the actual size is stored within the message itself.
-			long lMsgSize = ms_aInfoMsg[ucMsg].size;
+			int32_t lMsgSize = ms_aInfoMsg[ucMsg].size;
 			if (lMsgSize == -1)
 				lMsgSize = pmsg->msg.nothing.lSize;
 
 			// Check available space in the queue, and if it's enough for the message, go ahead
-			long lPutable = m_bufOut.CheckPutable();
+			int32_t lPutable = m_bufOut.CheckPutable();
 			if (lPutable >= lMsgSize)
 				{
 				// Make sure the write func is the right one . . .
@@ -373,7 +373,7 @@ void CNetMsgr::SendMsg(
 				(ms_aInfoMsg[ucMsg].funcWrite)(pmsg, &m_bufOut);
 
 				// Verify that the correct number of bytes were written
-				long lNewPutable = m_bufOut.CheckPutable();
+				int32_t lNewPutable = m_bufOut.CheckPutable();
 				if ((lPutable - lNewPutable) == lMsgSize)
 					{
 					// Update time last message was sent (hmmmm....not really!  This merely indicates
@@ -458,11 +458,11 @@ void CNetMsgr::ReceiveData(void)
 			NetBlockingWatchdog();
 
 			// No bytes received yet
-			long lReceivedBytes = 0;
+			int32_t lReceivedBytes = 0;
 
 			// Lock the buffer so we can write directly into it
 			U8* pu8Put;
-			long lMaxPuttableBytes;
+			int32_t lMaxPuttableBytes;
 			m_bufIn.LockPutPtr(&pu8Put, &lMaxPuttableBytes);
 
 			// Make sure there's room in the buffer
@@ -509,11 +509,11 @@ void CNetMsgr::SendData(void)
 			NetBlockingWatchdog();
 
 			// No bytes sent yet
-			long lSentBytes = 0;
+			int32_t lSentBytes = 0;
 
 			// Lock the buffer so we can read directly from it
 			U8* pu8Get;
-			long lMaxGettableBytes;
+			int32_t lMaxGettableBytes;
 			m_bufOut.LockGetPtr(&pu8Get, &lMaxGettableBytes);
 
 			// Make sure we can get something from buffer (this is not really

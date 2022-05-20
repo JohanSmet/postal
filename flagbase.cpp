@@ -329,9 +329,9 @@ int16_t CFlagbase::Shutdown(void)							// Returns 0 if successfull, non-zero ot
 void CFlagbase::Update(void)
 {
 	// int16_t sHeight = m_sPrevHeight;
-	long lThisTime;
-	long lTimeDifference;
-	// long lSqDistanceToDude = 0;
+	int32_t lThisTime;
+	int32_t lTimeDifference;
+	// int32_t lSqDistanceToDude = 0;
 	CSmash* pSmashed = NULL;
 
 	if (!m_sSuspend)
@@ -549,7 +549,7 @@ int16_t CFlagbase::EditModify(void)
 			if (sResult == 1)
 			{
 				m_u16FlagID = peditFlagID->GetVal();
-				m_u16Color = MIN((long) (CFlag::EndOfColors - 1), peditColor->GetVal());
+				m_u16Color = MIN((int32_t) (CFlag::EndOfColors - 1), peditColor->GetVal());
 			}
 		}
 	}

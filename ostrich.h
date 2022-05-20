@@ -62,7 +62,7 @@ class COstrich : public CDoofus
 		static double ms_dExplosionVelocity;// How high he will get blown up.
 		static double ms_dMaxMarchVel;		// How fast to march
 		static double ms_dMaxRunVel;			// Hos fast to run
-		static long ms_lStateChangeTime;		// How long to go before changing states
+		static int32_t ms_lStateChangeTime;		// How long to go before changing states
 		static int16_t ms_sStartingHitPoints;	// How many hit points to start with
 	
 	//---------------------------------------------------------------------------

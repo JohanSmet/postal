@@ -72,7 +72,7 @@ int16_t rspBlitToMono(
 		return -1;
 		}
 
-	long	lDstP = pimDst->m_lPitch;
+	int32_t	lDstP = pimDst->m_lPitch;
 
 	if ( (sDstX < 0) || (sDstY < 0) ||
 		( (sDstX + sDstW) > pimDst->m_sWidth) ||
@@ -102,7 +102,7 @@ int16_t rspBlitToMono(
 	afrSkipY = rspfrU16Strafe256(sDstH,sDenY);
 	// Make magnification possible:
 	int16_t i;
-	long *alDstSkip = (long*)calloc(sizeof(long),afrSkipY[1].mod + 2);
+	int32_t *alDstSkip = (int32_t*)calloc(sizeof(int32_t),afrSkipY[1].mod + 2);
 	for (i=1;i<(afrSkipY[1].mod + 2);i++) 
 		alDstSkip[i] = alDstSkip[i-1] + lDstP;
 	UCHAR	bits[] = {128,64,32,16,8,4,2,1};
@@ -210,7 +210,7 @@ int16_t rspRectToMono(ULONG ulColor,RImage* pimDst,int16_t sX,int16_t sY,
 		return -1;
 		}
 
-	long lP = pimDst->m_lPitch;
+	int32_t lP = pimDst->m_lPitch;
 
 	UCHAR	ucStart = 0,ucEnd = 0;
 	UCHAR *pDst,*pDstLine;

@@ -198,7 +198,7 @@ int16_t ConvertToFSPR1(RImage* pImage)
 	// pattern would need h * (w+1) + 2.  This seems like a reasonable Max,
 	// Since every run of 3 counteracts an overrun.
 
-	long	lMaxSize = (long)sW * (sH + 2) * 2 + sH;
+	int32_t	lMaxSize = (int32_t)sW * (sH + 2) * 2 + sH;
 	lMaxSize = (lMaxSize + 15) & ~15; // 128 bit alignment
 
 	UCHAR*	pCodeBuf = (UCHAR*) calloc(1,lMaxSize);
@@ -210,7 +210,7 @@ int16_t ConvertToFSPR1(RImage* pImage)
 		}
 	
 	UCHAR*	pCode = pCodeBuf;
-	long	lP =  pImage->m_lPitch;
+	int32_t	lP =  pImage->m_lPitch;
 	UCHAR	*pBuf,*pBufLine = pImage->m_pData + sX + lP*sY; // 8-bit for now!
 	UCHAR	ucTranCol = (UCHAR) (gFSPR1.u32TransparentColor & 0xff); // 8-bit for now!
 	int16_t sLineLen,sLineW = sW;
@@ -312,8 +312,8 @@ int16_t ConvertToFSPR1(RImage* pImage)
 	*pCode++ = 255;
 
 	//****************** SHRINK THE BUFFER!
-	long lCompressedSize = pCode - pCodeBuf + 1;
-	long lAlignSize = (lCompressedSize + 15) & ~15;
+	int32_t lCompressedSize = pCode - pCodeBuf + 1;
+	int32_t lAlignSize = (lCompressedSize + 15) & ~15;
 	UCHAR* pNewCodeBuf = (UCHAR*) calloc(1,lAlignSize); //+ Free problem
 	if (pNewCodeBuf == NULL)
 		{
@@ -324,7 +324,7 @@ int16_t ConvertToFSPR1(RImage* pImage)
 		}
 
 	memcpy(pNewCodeBuf,pCodeBuf,lCompressedSize);
-	if (long(pCode - pCodeBuf + 1) > lMaxSize)
+	if (int32_t(pCode - pCodeBuf + 1) > lMaxSize)
 		{
 		TRACE("ConvertToFSPR1: I overran my own buffer!\n");
 		}
@@ -347,7 +347,7 @@ int16_t ConvertToFSPR1(RImage* pImage)
 	pimNew->m_sWinX = 0;
 	pimNew->m_sWinY = 0;
 	pimNew->m_sDepth = (int16_t)8;
-	pimNew->m_lPitch = (long)pimNew->m_sWidth; // Pitch is meaningless here!
+	pimNew->m_lPitch = (int32_t)pimNew->m_sWidth; // Pitch is meaningless here!
 
 	//*********************  should we transfer it over?  **************
 	if (gFSPR1.ppimNew != NULL) // make a copy:
@@ -401,7 +401,7 @@ void _rspBLiT(UCHAR ucColor,RImage* pimSrc,RImage* pimDst,
 
 #endif
 
-	long lP = pimDst->m_lPitch;
+	int32_t lP = pimDst->m_lPitch;
 	UCHAR *pDst,*pDstLine = pimDst->m_pData + sDstX + lP*sDstY;
 	UCHAR	*pCode = ((RSpecialFSPR1*)pimSrc->m_pSpecialMem)->m_pCode;
 	// Take advantage of the new FSPR1 EOS safety code:
@@ -467,7 +467,7 @@ int16_t		ConvertFromFSPR1(RImage* pImage)
 //
 int16_t		LoadFSPR1(RImage* pImage, RFile* pcf)
 	{
-	/* long	lBogus1	= */ pcf->Tell();
+	/* int32_t	lBogus1	= */ pcf->Tell();
 
 	//------------------
 	// Initial Security:
@@ -631,7 +631,7 @@ int16_t rspBlit(
 	int16_t sClipL=0,sClipR=0,sClipT=0,sClipB=0;
 	int16_t sW = pimSrc->m_sWidth; // clippng parameters...
 	int16_t sH = pimSrc->m_sHeight; // clippng parameters...
-	long	lDstP = pimDst->m_lPitch;
+	int32_t	lDstP = pimDst->m_lPitch;
 
 	// For clipping, adjust the destination accordingly but keep the
 	// source at the origin for decompressed skipping
@@ -689,7 +689,7 @@ int16_t rspBlit(
 	// IN THIS IMPLEMENTATION, we must do LOCK, BLiT, UNLOCK, so I
 	// must record which UNLOCK (if any) needs to be done AFTER the BLiT
 	// has completed. (Lord help me if a blit gets interrupted)
-	if (pimDst->m_type == RImage::IMAGE_STUB) sBlitTypeDst = (int16_t)((long)pimDst->m_pSpecial);
+	if (pimDst->m_type == RImage::IMAGE_STUB) sBlitTypeDst = (int16_t)((intptr_t)pimDst->m_pSpecial);
 
 	switch (sBlitTypeDst) // 0 = normal image
 		{
@@ -929,7 +929,7 @@ int16_t rspBlit(
 	int16_t sClipL=0,sClipR=0,sClipT=0,sClipB=0;
 	int16_t sW = sDstW; // clippng parameters...
 	int16_t sH = sDstH; // clippng parameters...
-	long	lDstP = pimDst->m_lPitch;
+	int32_t	lDstP = pimDst->m_lPitch;
 
 	// For clipping, adjust the destination accordingly but keep the
 	// source at the origin for decompressed skipping
@@ -987,7 +987,7 @@ int16_t rspBlit(
 	// IN THIS IMPLEMENTATION, we must do LOCK, BLiT, UNLOCK, so I
 	// must record which UNLOCK (if any) needs to be done AFTER the BLiT
 	// has completed. (Lord help me if a blit gets interrupted)
-	if (pimDst->m_type == RImage::IMAGE_STUB) sBlitTypeDst = (int16_t)((long)pimDst->m_pSpecial);
+	if (pimDst->m_type == RImage::IMAGE_STUB) sBlitTypeDst = (int16_t)((intptr_t)pimDst->m_pSpecial);
 
 	switch (sBlitTypeDst) // 0 = normal image
 		{
@@ -1066,7 +1066,7 @@ int16_t rspBlit(
 	afrSkipY = rspfrU16Strafe256(sDstH,sDenY);
 	// Make magnification possible:
 	int16_t i;
-	long *alDstSkip = (long*)calloc(sizeof(long),afrSkipY[1].mod + 2);
+	int32_t *alDstSkip = (int32_t*)calloc(sizeof(int32_t),afrSkipY[1].mod + 2);
 	for (i=1;i<(afrSkipY[1].mod + 2);i++) 
 		alDstSkip[i] = alDstSkip[i-1] + lDstP;
 
@@ -1221,7 +1221,7 @@ int16_t rspBlit(
 	
 	// transfer colors:
 	UCHAR	ucForeColor = (UCHAR) ulForeColor;
-	long	lDstP = pimDst->m_lPitch;
+	int32_t	lDstP = pimDst->m_lPitch;
 
 	//**************  INSERT BUFFER HOOKS HERE!  ************************
 
@@ -1239,7 +1239,7 @@ int16_t rspBlit(
 	// IN THIS IMPLEMENTATION, we must do LOCK, BLiT, UNLOCK, so I
 	// must record which UNLOCK (if any) needs to be done AFTER the BLiT
 	// has completed. (Lord help me if a blit gets interrupted)
-	if (pimDst->m_type == RImage::IMAGE_STUB) sBlitTypeDst = (int16_t)((long)pimDst->m_pSpecial);
+	if (pimDst->m_type == RImage::IMAGE_STUB) sBlitTypeDst = (int16_t)((intptr_t)pimDst->m_pSpecial);
 
 	switch (sBlitTypeDst) // 0 = normal image
 		{
@@ -1441,7 +1441,7 @@ int16_t rspBlit(
 
 	//int16_t sW = sDstW; // clippng parameters...
 	//int16_t sH = sDstH; // clippng parameters...
-	long	lDstP = pimDst->m_lPitch;
+	int32_t	lDstP = pimDst->m_lPitch;
 
 	//**************  INSERT BUFFER HOOKS HERE!  ************************
 
@@ -1459,7 +1459,7 @@ int16_t rspBlit(
 	// IN THIS IMPLEMENTATION, we must do LOCK, BLiT, UNLOCK, so I
 	// must record which UNLOCK (if any) needs to be done AFTER the BLiT
 	// has completed. (Lord help me if a blit gets interrupted)
-	if (pimDst->m_type == RImage::IMAGE_STUB) sBlitTypeDst = (int16_t)((long)pimDst->m_pSpecial);
+	if (pimDst->m_type == RImage::IMAGE_STUB) sBlitTypeDst = (int16_t)((intptr_t)pimDst->m_pSpecial);
 
 	switch (sBlitTypeDst) // 0 = normal image
 		{
@@ -1538,7 +1538,7 @@ int16_t rspBlit(
 	afrSkipY = rspfrU16Strafe256(sDstH,sDenY);
 	// Make magnification possible:
 	int16_t i;
-	long *alDstSkip = (long*)calloc(sizeof(long),afrSkipY[1].mod + 2);
+	int32_t *alDstSkip = (int32_t*)calloc(sizeof(int32_t),afrSkipY[1].mod + 2);
 	for (i=1;i<(afrSkipY[1].mod + 2);i++) 
 		alDstSkip[i] = alDstSkip[i-1] + lDstP;
 

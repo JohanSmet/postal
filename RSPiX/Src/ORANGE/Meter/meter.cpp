@@ -292,7 +292,7 @@ int16_t RMeter::Draw(					// Returns 0 on success.
 	// If visible . . .
 	if (m_sVisible != FALSE)
 		{
-		long	lTime	= rspGetMilliseconds();
+		int32_t	lTime	= rspGetMilliseconds();
 		if (lTime >= m_lNextUpdate)
 			{
 			// First copy precomposed stuff.
@@ -311,7 +311,7 @@ int16_t RMeter::Draw(					// Returns 0 on success.
 
 			int16_t	sInfoY	= m_sY + sDstY + m_sInfoY;
 
-			long	lAvg	= 0;
+			int32_t	lAvg	= 0;
 			if (m_lNumValues > 0)
 				{
 				lAvg = m_lCurTotal / m_lNumValues;
@@ -321,7 +321,7 @@ int16_t RMeter::Draw(					// Returns 0 on success.
 			if (m_pprint->GetFont() != NULL)
 				{
 				// Determine info based on type.
-				long	lVal	= lAvg;
+				int32_t	lVal	= lAvg;
 				char	szExtra[32]	= "";
 				switch (m_itType)
 					{
@@ -442,7 +442,7 @@ int16_t RMeter::Draw(					// Returns 0 on success.
 					m_asQHistory[m_lQIndex]	= sMeterVal;
 					// Increase index.
 					m_lQIndex	= (m_lQIndex + 1) % METER_HISTOGRAM_HISTORY;
-					long	l;
+					int32_t	l;
 					int16_t	sVal;
 					int16_t	sBarWidth	= sMeterW / METER_HISTOGRAM_HISTORY;
 					int16_t	sBarPos		= sMeterX;

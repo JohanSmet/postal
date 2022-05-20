@@ -408,7 +408,7 @@ public:
 	RPrint&	operator|(char* psz);
 	RPrint&	operator<<(char* psz);
 	RPrint& operator|(int16_t	in);
-	RPrint& operator|(long	in);
+	RPrint& operator|(int32_t	in);
 	RPrint& operator|(float	in);
 	RPrint& operator|(double	in);
 	RPrint& operator|(char	in);
@@ -536,7 +536,7 @@ extern	int16_t rspStrafeRotate(void *pReturnArray,	// Output
 							 // generic user stucture must be an array:
 							 RImage* pIm = NULL, int16_t *psHotX = NULL, int16_t *psHotY = NULL,
 							 int16_t **ppsX = NULL,int16_t **ppsY = NULL,
-							 long lStructSize = sizeof(CStrafe));
+							 int32_t lStructSize = sizeof(CStrafe));
 
 extern	int16_t rspBlitToMono(
 				  RImage* pimSrc,
@@ -597,7 +597,7 @@ extern	int16_t rspMonoRectLightenTo(int16_t sThickness,int16_t rspBrightness,RIm
 extern	int16_t	rspMonoRectDarkenTo(int16_t sThickness,int16_t rspBrightness,RImage* pimDst,int16_t sX,int16_t sY,int16_t sW,int16_t sH,
 						const RRect* prClip = NULL);
 
-extern	int16_t rspGetBrightness(int16_t sIndex,UCHAR* pR,UCHAR* pG,UCHAR* pB,long lInc = 4);
+extern	int16_t rspGetBrightness(int16_t sIndex,UCHAR* pR,UCHAR* pG,UCHAR* pB,int32_t lInc = 4);
 
 //**********************************  FAST CONVERTS:  *******************************
 //----- BYTE dpeth to shift amount:

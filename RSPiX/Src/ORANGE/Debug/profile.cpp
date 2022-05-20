@@ -326,12 +326,12 @@ void RProfile::Report()
 						double(m_lFastTimeOut - m_lBeginTime)/1000000.0);
 
 		if (m_lCount) // safety
-		fprintf(fp,"Profiler overhead: Tot(ms) = %g, # of calls = %ld, Avg(ms) = %g\n\n",
-			double(m_lTotTime)/1000.0,long(m_lCount),double(m_lTotTime)/double(m_lCount * S64(1000)));
+		fprintf(fp,"Profiler overhead: Tot(ms) = %g, # of calls = %d, Avg(ms) = %g\n\n",
+			double(m_lTotTime)/1000.0,int32_t(m_lCount),double(m_lTotTime)/double(m_lCount * S64(1000)));
 		
 		fprintf(fp,"Number of profile ranges was %hd.\n",m_sNumTracked);
 
-		fprintf(fp,"Maximum nesting depth was %hd\n\n",m_sMaxDepth-1);
+		fprintf(fp,"Maximum nesting depth was %d\n\n",m_sMaxDepth-1);
 		//--------------------------------------------------------------------------------------------
 		// See if there are any typos which make this run invalid:
 
@@ -391,8 +391,8 @@ void RProfile::Report()
 				{
 				fprintf(fp,"-------------------------------------------------------\n%s:\n",
 					m_aList[i].m_szFieldName);
-				fprintf(fp,"				# of passes = %ld, Tot(ms) = %g, Avg(ms) = %g",
-					long(m_aList[i].m_lNumCalls),
+				fprintf(fp,"				# of passes = %d, Tot(ms) = %g, Avg(ms) = %g",
+					int32_t(m_aList[i].m_lNumCalls),
 					double(m_aList[i].m_lTotTime)/1000.0,
 					double(m_aList[i].m_lTotTime)/double(m_aList[i].m_lNumCalls * S64(1000)));
 
@@ -400,7 +400,7 @@ void RProfile::Report()
 					{
 					double dRat = double(m_aList[i].m_lTotTime)/dRel;
 
-					fprintf(fp,"  [%+1.6g %%]\n",double( long(dRat*10000.0) )/10000.0);
+					fprintf(fp,"  [%+1.6g %%]\n",double( int32_t(dRat*10000.0) )/10000.0);
 					}
 				else
 					fprintf(fp,"\n");

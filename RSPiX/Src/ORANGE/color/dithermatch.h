@@ -61,10 +61,10 @@ extern	int16_t	rspDither(
 					UCHAR*	pRed,		// Palette to match to
 					UCHAR*	pGreen,
 					UCHAR*	pBlue,
-					long	lInc = 4,
+					int32_t	lInc = 4,
 					// User interaction
 					PDitherCallBack func = NULL,
-					long  lMilli = 500 // time between callbacks
+					int32_t  lMilli = 500 // time between callbacks
 					);
 	
 //==============================================
@@ -88,10 +88,10 @@ extern	int16_t	rspSimpleMap(
 					UCHAR*	pRed,		// Palette to match to
 					UCHAR*	pGreen,
 					UCHAR*	pBlue,
-					long	lInc = 4,
+					int32_t	lInc = 4,
 					// User interaction
 					PDitherCallBack func = NULL,
-					long  lMilli = 500 // time between callbacks
+					int32_t  lMilli = 500 // time between callbacks
 					);
 
 //==============================================
@@ -106,9 +106,9 @@ extern	int16_t	rspSimpleMap(
 //==============================================
 //	
 extern	int16_t	rspDither(	
-					long lBackR,		// Don't dither to this color!
-					long lBackG,
-					long lBackB,
+					int32_t lBackR,		// Don't dither to this color!
+					int32_t lBackG,
+					int32_t lBackB,
 					UCHAR ucBack,		// index to make BKGD
 					RImage* pimSrc,	// MUST BE 24-bit!
 					RImage* pimDst,	// MUST be 8-bit
@@ -117,10 +117,10 @@ extern	int16_t	rspDither(
 					UCHAR*	pRed,		// Palette to match to
 					UCHAR*	pGreen,
 					UCHAR*	pBlue,
-					long	lInc = 4,
+					int32_t	lInc = 4,
 					// User interaction
 					PDitherCallBack func = NULL,
-					long  lMilli = 500 // time between callbacks
+					int32_t  lMilli = 500 // time between callbacks
 					);
 
 //==============================================
@@ -146,10 +146,10 @@ int16_t	rspDither(
 					UCHAR*	pRed,		// Palette to match to
 					UCHAR*	pGreen,
 					UCHAR*	pBlue,
-					long	lInc = 4,
+					int32_t	lInc = 4,
 					// User interaction
 					PDitherCallBack func = NULL,
-					long  lMilli = 500 // time between callbacks
+					int32_t  lMilli = 500 // time between callbacks
 					);
 
 //==============================================
@@ -178,10 +178,10 @@ int16_t	rspSimpleMap(
 					UCHAR*	pRed,		// Palette to match to
 					UCHAR*	pGreen,
 					UCHAR*	pBlue,
-					long	lInc = 4,
+					int32_t	lInc = 4,
 					// User interaction
 					PDitherCallBack func = NULL,
-					long  lMilli = 500 // time between callbacks
+					int32_t  lMilli = 500 // time between callbacks
 					);
 
 //==============================================

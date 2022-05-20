@@ -116,7 +116,7 @@ int16_t CUniverse::SetSection(
 {
  	FILE* fp;
 	int16_t	sNumEntries;
-	long	lOffset;
+	int32_t	lOffset;
 
 	// open the game information file
 	if (!(fp = fopen(m_strFileGame, "rb")))
@@ -331,7 +331,7 @@ int16_t CUniverse::LoadAnimData()
 
 	AnimFile.DescendChunk();
 
-	long lAnim;
+	int32_t lAnim;
 	int16_t sFrame;
 
 	for (lAnim = 0; lAnim < pAnimSet->lNumAnims; lAnim++)
@@ -342,7 +342,7 @@ int16_t CUniverse::LoadAnimData()
 
 		for (sFrame = 0; sFrame < pAnimSet->apAnims[lAnim]->sNumFrames; sFrame++)
 		{
-		 	ImageFile.SetCurrentChunk((long) pAnimSet->apAnims[lAnim]->aFrames[sFrame].pImage);
+		 	ImageFile.SetCurrentChunk((int32_t) pAnimSet->apAnims[lAnim]->aFrames[sFrame].pImage);
 			ImageFile.ReadHeader(pChunkHeader);
 			pAnimSet->apAnims[lAnim]->aFrames[sFrame].pImage = 
 				(IMAGE*) malloc(pChunkHeader->dwSize);
@@ -405,7 +405,7 @@ int16_t CUniverse::LoadAnimData()
 
 	AnimFile.DescendChunk();
 
-	long lAnim;
+	int32_t lAnim;
 	int16_t sFrames;
 
 	for (lAnim = 0; lAnim < pAnimSet->lNumAnims; lAnim++)

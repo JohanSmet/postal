@@ -40,7 +40,7 @@ class RBatch
 //---------------- USER MEMBERS -------------
 public:
 	FILE* m_fp;
-	long	m_lCurrentLine;
+	int32_t	m_lCurrentLine;
 	int16_t m_sNumTokens;
 	char	m_pszTokenList[SB_MAX_TOKENS][SB_MAX_TOKEN_SIZE];
 	int16_t m_sLinePos[SB_MAX_TOKENS];

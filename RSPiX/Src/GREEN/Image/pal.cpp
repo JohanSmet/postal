@@ -696,7 +696,7 @@ int16_t RPal::GetEntries(
 	unsigned char* pDstRed,					// Out: Starting destination red value
 	unsigned char* pDstGreen,				// Out: Starting destination green value
 	unsigned char* pDstBlue,				// Out: Starting destination blue value
-	long lAddToPointers)						// In:  What to add to pointers to move to next value
+	int32_t lAddToPointers)						// In:  What to add to pointers to move to next value
 	{
 	// Validate parameters
 	ASSERT(pDstRed != NULL);
@@ -851,7 +851,7 @@ int16_t RPal::SetEntries(
 	unsigned char* pSrcRed,					// In:  Starting source red value
 	unsigned char* pSrcGreen,				// In:  Starting source green value
 	unsigned char* pSrcBlue,				// In:  Starting source blue value
-	long lAddToPointers)						// In:  What to add to pointers to move to next value
+	int32_t lAddToPointers)						// In:  What to add to pointers to move to next value
 	{
 	// Validate parameters
 	ASSERT(pSrcRed != NULL);

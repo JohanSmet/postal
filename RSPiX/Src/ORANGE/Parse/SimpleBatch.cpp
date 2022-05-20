@@ -205,7 +205,7 @@ const char* RBatch::CreateError(int16_t sToken)
 			m_pszTokenList[sToken],m_sLinePos[sToken]);
 		}
 	
-	sprintf(ms_Error,"RBatch(%s):\n*   Parse error at line %ld\n*   %s",m_pszFileName,
+	sprintf(ms_Error,"RBatch(%s):\n*   Parse error at line %d\n*   %s",m_pszFileName,
 		m_lCurrentLine,temp);
 
 	return ms_Error;

@@ -163,7 +163,7 @@ int16_t RIff::CreateChunk(FCC fccChunk, FCC fccForm /*= 0*/)
 			pChunk->fccForm	= fccForm;
 			pChunk->lSizePos	= Tell();
 
-			long lDummySize = 0L;
+			int32_t lDummySize = 0L;
 			// Attempt to write 32 bit size field space . . .
 			if (Write(&lDummySize, 1L) == 1L)
 				{
@@ -246,9 +246,9 @@ int16_t RIff::EndChunk(FCC fccChunk /*= 0*/, FCC fccForm /*= 0*/)
 			}
 
 		// Get current file position.
-		long	lCurPos	= Tell();
+		int32_t	lCurPos	= Tell();
 		// Get size.
-		long lSize = lCurPos - (pChunk->lSizePos + sizeof(pChunk->ulSize));
+		int32_t lSize = lCurPos - (pChunk->lSizePos + sizeof(pChunk->ulSize));
 		// If size is not WORD aligned . . .
 		if ((lSize % 2) != 0)
 			{
@@ -410,7 +410,7 @@ int16_t RIff::Next(void)	// Returns 0 if successful, 1 if no more chunks,
 	{
 	int16_t	sRes	= 0;	// Assume success.
 
-	long	lNextPos		= GetNextChunkPos(&m_chunk);
+	int32_t	lNextPos		= GetNextChunkPos(&m_chunk);
 	
 	// Get the containing chunk.
 	PCHUNK	pchunk;
@@ -588,12 +588,12 @@ void RIff::Init()
 // Returns 0 on success.
 //
 //////////////////////////////////////////////////////////////////////////////
-int16_t RIff::RelSeek(long lPos)
+int16_t RIff::RelSeek(int32_t lPos)
 	{
 	int16_t	sRes	= 0;	// Assume success.
 
 	// Determine distance to destination.
-	long	lDistance	= lPos - Tell();
+	int32_t	lDistance	= lPos - Tell();
 	// If there is a distance . . .
 	if (lDistance != 0)
 		{

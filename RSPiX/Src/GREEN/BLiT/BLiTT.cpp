@@ -35,7 +35,7 @@
 // pre-validated rect copy: (Pitch will be sign based!)
 //
 template <class PIXSIZE>
-inline void _BLiTT(PIXSIZE ucTransparent,PIXSIZE* pSrc,PIXSIZE* pDst,long lSrcPitch, long lDstPitch,
+inline void _BLiTT(PIXSIZE ucTransparent,PIXSIZE* pSrc,PIXSIZE* pDst,int32_t lSrcPitch, int32_t lDstPitch,
 						int16_t sHeight,int16_t	sPixWidth)
 	{
 	union	{
@@ -184,8 +184,8 @@ int16_t	rspBlitT(ULONG ucTransparent,RImage* pimSrc,RImage* pimDst,int16_t sSrcX
 	// IN THIS IMPLEMENTATION, we must do LOCK, BLiT, UNLOCK, so I
 	// must record which UNLOCK (if any) needs to be done AFTER the BLiT
 	// has completed. (Lord help me if a blit gets interrupted)
-	if (pimSrc->m_type == RImage::IMAGE_STUB) sBlitTypeSrc = (int16_t)((long)pimSrc->m_pSpecial);
-	if (pimDst->m_type == RImage::IMAGE_STUB) sBlitTypeDst = (int16_t)((long)pimDst->m_pSpecial);
+	if (pimSrc->m_type == RImage::IMAGE_STUB) sBlitTypeSrc = (int16_t)((intptr_t)pimSrc->m_pSpecial);
+	if (pimDst->m_type == RImage::IMAGE_STUB) sBlitTypeDst = (int16_t)((intptr_t)pimDst->m_pSpecial);
 
 	switch ( (sBlitTypeSrc<<3) + sBlitTypeDst) // 0 = normal image
 		{

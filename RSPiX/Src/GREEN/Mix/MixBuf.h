@@ -65,9 +65,9 @@ class RMixBuf
 		int16_t Mix(	ULONG		ulStartPos,
 						U8*		pu8Data, 
 						ULONG		ulSize, 
-						long		lSampleRate,
-						long		lBitsPerSample,
-						long		lNumChannels,
+						int32_t		lSampleRate,
+						int32_t		lBitsPerSample,
+						int32_t		lNumChannels,
 						UCHAR		ucVolume = UCHAR(255),
 						UCHAR		ucVol2 = UCHAR(255) );
 
@@ -134,15 +134,15 @@ class RMixBuf
 	public:	// It is safe to change these.
 		int16_t			m_sInUse;				// TRUE if in use, FALSE otherwise.
 
-		static long	ms_lSampleRate;		// Sample rate for audio 
+		static int32_t	ms_lSampleRate;		// Sample rate for audio 
 													// playback/mix.
 		
-		static long	ms_lSrcBitsPerSample;	// Sample size in bits for sample data.
+		static int32_t	ms_lSrcBitsPerSample;	// Sample size in bits for sample data.
 														// 0 for no preference.
-		static long	ms_lMixBitsPerSample;	// Sample size in bits for mixing.
-		static long	ms_lDstBitsPerSample;	// Sample size in bits for Blue data.
+		static int32_t	ms_lMixBitsPerSample;	// Sample size in bits for mixing.
+		static int32_t	ms_lDstBitsPerSample;	// Sample size in bits for Blue data.
 
-		static long	ms_lNumChannels;		// Number of channels (mono
+		static int32_t	ms_lNumChannels;		// Number of channels (mono
 													//  or stereo).
 		static int16_t ms_sCutOffVolume;	// when to not mix samples...
 	};

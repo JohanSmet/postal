@@ -453,7 +453,7 @@ int16_t RImageFile::Load(			// Returns SUCCESS on success or FAILURE on failure.
 				// Seek back for LoadDib() call.  99% of the time this will not cause a seek
 				// b/c it's within the buffered i/o's buffer.
 				// The other 1%.....uhhh...well.
-				pfile->Seek( - (long)sizeof(ulFinger), SEEK_CUR);
+				pfile->Seek( - (int32_t)sizeof(ulFinger), SEEK_CUR);
 				
 				// Invoke LoadDib() . . .
 				sRes	= pim->LoadDib(pfile);

@@ -280,7 +280,7 @@ class RPal
 			unsigned char* pDstRed,					// Out: Starting destination red value
 			unsigned char* pDstGreen,				// Out: Starting destination green value
 			unsigned char* pDstBlue,				// Out: Starting destination blue value
-			long lAddToPointers);					// In:  What to add to pointers to move to next value
+			int32_t lAddToPointers);					// In:  What to add to pointers to move to next value
 
 		int16_t SetEntries(
 			int16_t sStart,								// In:  Starting palette entry
@@ -288,7 +288,7 @@ class RPal
 			unsigned char* pSrcRed,					// In:  Starting source red value
 			unsigned char* pSrcGreen,				// In:  Starting source green value
 			unsigned char* pSrcBlue,				// In:  Starting source blue value
-			long lAddToPointers);					// In:  What to add to pointers to move to next value
+			int32_t lAddToPointers);					// In:  What to add to pointers to move to next value
 
 		// Copy operator overload.
 		// Note that this function could fail.

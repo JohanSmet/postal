@@ -80,7 +80,7 @@ class CRocket : public CWeapon
 		bool			m_bArmed;				// Initially missile is not armed so it doesn't
 													// collide with the person who shot it.
 		CSprite3		m_sprite;				// 3D sprite to render this thing.
-		long			m_lSmokeTimer;			// Time between emitting smoke puffs
+		int32_t			m_lSmokeTimer;			// Time between emitting smoke puffs
 
 		SampleMaster::SoundInstance	m_siThrust;	// Looping thrust play instance.
 
@@ -92,10 +92,10 @@ class CRocket : public CWeapon
 		static double ms_dMaxVelFore;		// Maximum forward velocity
 		static double ms_dMaxVelBack;		// Maximum backward velocity
 		static double ms_dCloseDistance;	// Close enough to hit CDude
-		static long ms_lArmingTime;		// Time before weapons arms.
+		static int32_t ms_lArmingTime;		// Time before weapons arms.
 		static int16_t ms_sOffScreenDist;  // Distance off screen before self destructing
-		static long ms_lSmokeTrailInterval;// Time between creating puffs of smoke
-		static long ms_lSmokeTimeToLive;	  // Time for smoke to stick around.
+		static int32_t ms_lSmokeTrailInterval;// Time between creating puffs of smoke
+		static int32_t ms_lSmokeTimeToLive;	  // Time for smoke to stick around.
 
 	//---------------------------------------------------------------------------
 	// Constructor(s) / destructor

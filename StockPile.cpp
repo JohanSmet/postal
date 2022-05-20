@@ -224,8 +224,8 @@ int16_t		CStockPile::ms_sEnableDoubleBarrel	= FALSE;	// Enable the double barrel
 inline
 void SetText(					// Returns nothing.
 	RGuiItem*	pguiRoot,	// In:  Root GUI.
-	long			lId,			// In:  ID of GUI to set text.
-	long			lVal)			// In:  Value to set text to.
+	int32_t			lId,			// In:  ID of GUI to set text.
+	int32_t			lVal)			// In:  Value to set text to.
 	{
 	RGuiItem*	pgui	= pguiRoot->GetItemFromId(lId);
 	if (pgui != NULL)
@@ -241,7 +241,7 @@ void SetText(					// Returns nothing.
 inline
 void CheckMultiBtn(			// Returns nothing.
 	RGuiItem*	pguiRoot,	// In:  Root GUI.
-	long			lId,			// In:  ID of GUI to set text.
+	int32_t			lId,			// In:  ID of GUI to set text.
 	int16_t			sChecked)	// In:  1 to check, 0 to uncheck.
 	{
 	// int16_t	sRes	= 0;	// Assume nothing;
@@ -263,7 +263,7 @@ void CheckMultiBtn(			// Returns nothing.
 inline
 int16_t IsMultiBtnChecked(	// Returns multibtn's state.
 	RGuiItem*	pguiRoot,	// In:  Root GUI.
-	long			lId)			// In:  ID of GUI to set text.
+	int32_t			lId)			// In:  ID of GUI to set text.
 	{
 	int16_t	sRes	= 0;	// Assume nothing;
 

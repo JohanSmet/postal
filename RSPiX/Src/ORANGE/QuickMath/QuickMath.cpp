@@ -37,12 +37,12 @@ int16_t rspATan(int16_t sDeltaY,int16_t sDeltaX)
 	if (sDelY <= sDelX)
 		if (sDelX != 0)
 			sDeg = ATANQ[
-			long(0.5 + (rspRadToDeg * sDelY) / sDelX)];
+			int32_t(0.5 + (rspRadToDeg * sDelY) / sDelX)];
 		else
 			sDeg = 90;
 	else
 		if (sDelY) sDeg = 90 - ATANQ[
-			long(0.5 + (rspRadToDeg * sDelX) / sDelY)];
+			int32_t(0.5 + (rspRadToDeg * sDelX) / sDelY)];
 		else sDeg = 90;
 
 	// Keep in bounds
@@ -63,10 +63,10 @@ int16_t rspATan(double dVal)
 
 	if (dAbsVal <= 1.0)
 		sDeg = ATANQ[
-		long(0.5 + rspRadToDeg * dAbsVal)];
+		int32_t(0.5 + rspRadToDeg * dAbsVal)];
 	else
 		sDeg = 90 - ATANQ[
-			long(0.5 + rspRadToDeg  / dAbsVal)];
+			int32_t(0.5 + rspRadToDeg  / dAbsVal)];
 
 	// Keep in bounds
 	if (dVal < 0.0) sDeg = 360 - sDeg;
@@ -99,7 +99,7 @@ void InitTrig()
 												rspRadToDeg);
 		}
 
-	long l;
+	int32_t l;
 	for (l=0; l < MAX_FAST_SQRT; l++)
 		{
 		SQRTQ[l] = int16_t(sqrt(double(l)));

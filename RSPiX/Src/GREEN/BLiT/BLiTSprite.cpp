@@ -293,7 +293,7 @@ int16_t   ConvertToFSPR8(RImage*  pImage)
 	//===== The pCtlArry ... points to the start of each line in the control block.
 
 	int16_t x,y;  // For now, clear = 0, but this can be EASILY changed.
-	long i;
+	int32_t i;
 	int16_t	sCount;
 	UCHAR *pucOldMem,*pucOldBuf; // For shrinking the buffer while maintaining alignment
 
@@ -314,10 +314,10 @@ int16_t   ConvertToFSPR8(RImage*  pImage)
 	pHeader->pLineArry = (UCHAR**)calloc(pImage->m_sHeight+1,sizeof(UCHAR*));
 
 	//************** For now, set these to an optimisitically large size: 1:1 compression (could be 2:1 worst case)
-	long	lSizeEstimate = ((long)(pImage->m_sHeight+1))*pImage->m_sWidth*2 + 15;
+	int32_t	lSizeEstimate = ((int32_t)(pImage->m_sHeight+1))*pImage->m_sWidth*2 + 15;
 	pHeader->pCMem = (UCHAR*)malloc((size_t)pImage->m_sHeight*(size_t)pImage->m_sWidth+15);
 
-	pHeader->pCBuf = (UCHAR*)(( (long)(pHeader->pCMem) + 15) & ~ 15); // align it 128!
+	pHeader->pCBuf = (UCHAR*)(( (int32_t)(pHeader->pCMem) + 15) & ~ 15); // align it 128!
 	pHeader->pControlBlock = (UCHAR*)malloc((size_t)lSizeEstimate);
 
 	//******** For convenience, generate the Compressed Buffer immediately:
@@ -331,7 +331,7 @@ int16_t   ConvertToFSPR8(RImage*  pImage)
 	for (y=0;y<sH;y++)
 	{
 	pHeader->pLineArry[y] = (UCHAR*)(pucCPos - pHeader->pCBuf); // set line pointer
-	for (x=0,pucBPos = pImage->m_pData + (long)sP * (long)y; x<sW; x++)
+	for (x=0,pucBPos = pImage->m_pData + (int32_t)sP * (int32_t)y; x<sW; x++)
 		{
 		if (*pucBPos != 0) *(pucCPos++) = *pucBPos;
 		pucBPos++;
@@ -362,7 +362,7 @@ int16_t   ConvertToFSPR8(RImage*  pImage)
 	// NOTE: pucCPos is an open stack!
 	pHeader->pCMem = (UCHAR*)calloc(1,(size_t)(pucCPos - pHeader->pCBuf + 15));
 	// And align it:
-	pHeader->pCBuf = (UCHAR*)(( (long)(pHeader->pCMem) +15)&~15);
+	pHeader->pCBuf = (UCHAR*)(( (int32_t)(pHeader->pCMem) +15)&~15);
 	// Store the size of the Compressed Buffer:
 	pHeader->pLineArry[sH] = (UCHAR*)(size_t)(pucCPos - pHeader->pCBuf);
 
@@ -372,7 +372,7 @@ int16_t   ConvertToFSPR8(RImage*  pImage)
 	free(pucOldMem);
 	
 	// Now update the indexes (pLineArry) which point into PCBuf:
-	for (y=0;y<sH;y++) pHeader->pLineArry[y] += (long)(pHeader->pCBuf);
+	for (y=0;y<sH;y++) pHeader->pLineArry[y] += (int32_t)(pHeader->pCBuf);
 
 	//******** NOW, the challange... Create the Control Block!
 	pucBPos = pImage->m_pData;
@@ -381,7 +381,7 @@ int16_t   ConvertToFSPR8(RImage*  pImage)
 	for (y=0;y<sH;y++)
 		{
 		pHeader->pCtlArry[y] = (UCHAR*)(pucConBlk - pHeader->pControlBlock); // set Block pointer
-		pucBPos = pImage->m_pData + (long)sP * (long)y;
+		pucBPos = pImage->m_pData + (int32_t)sP * (int32_t)y;
 		x=0;
 
 		NextRun:
@@ -443,7 +443,7 @@ int16_t   ConvertToFSPR8(RImage*  pImage)
 										(size_t)(pucConBlk - pHeader->pControlBlock));	
 
 	// Move the indexes in (pCtlArry)
-	for (y=0;y<sH;y++) pHeader->pCtlArry[y] += (long)(pHeader->pControlBlock);
+	for (y=0;y<sH;y++) pHeader->pCtlArry[y] += (int32_t)(pHeader->pControlBlock);
 
 	//******************************************************************
 
@@ -567,7 +567,7 @@ int16_t	rspBlit(RImage* pimSrc,RImage* pimDst,int16_t sDstX,int16_t sDstY,const 
 	int16_t sSrcX = 0,sSrcY = 0; // clippng parameters...
 	int16_t sW = pimSrc->m_sWidth; // clippng parameters...
 	int16_t sH = pimSrc->m_sHeight; // clippng parameters...
-	long	lDstP = pimDst->m_lPitch;
+	int32_t	lDstP = pimDst->m_lPitch;
 
 	if (prDst)
 		{

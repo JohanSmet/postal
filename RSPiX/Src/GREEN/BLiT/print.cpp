@@ -305,12 +305,12 @@ int16_t	RFontOld::Save(RFile* /*pFile*/)
 				UCHAR	ucCheckSum;
 				UCHAR*	pCode = pInfo->m_pCode;
 				ucCheckSum = (UCHAR)0; 
-				for (long i=0;i < (long)pInfo->m_lSize;i++,pCode++)
+				for (int32_t i=0;i < (int32_t)pInfo->m_lSize;i++,pCode++)
 					ucCheckSum ^= *pCode;
 
 				fprintf(fp,"%02x\n",(uint16_t) ucCheckSum);
 				fprintf(fp,"%ld\n",pInfo->m_lSize);
-				for (i=0,pCode = pInfo->m_pCode;i < (long)pInfo->m_lSize;
+				for (i=0,pCode = pInfo->m_pCode;i < (int32_t)pInfo->m_lSize;
 							i++,pCode++)
 					fprintf(fp,"%c",*pCode);
 				fprintf(fp,"\n");
@@ -348,7 +348,7 @@ int16_t	RFontOld::Load(char*	pszName)
 	char	c;
 	int16_t	sDone = FALSE;
 	int16_t	i,s1;//,s2,s3,s4;
-	long l1;
+	int32_t l1;
 	
 	TRACE("Loading font %s\n",pszName);
 	RFile cf;
@@ -375,9 +375,9 @@ int16_t	RFontOld::Load(char*	pszName)
 	// get max cell height:
 	fscanf(fp,"%hd\n",&s1); //m_sMaxCellHeight should be logical
 	RImage*	pimLetter = NULL;
-	long	lCodeLen;
+	int32_t	lCodeLen;
 	UCHAR	ucCheckSum;
-	long	ucCheck;
+	int32_t	ucCheck;
 	UCHAR*	pCode;
 	RSpecialFSPR1* pInfo = NULL;
 
@@ -765,7 +765,7 @@ void	RPrint::GetCell(RImage* pimLetter,int16_t* psH,
 	w = pimLetter->m_sWidth;
 
 	// scale proportionally from pim description to current height:
-	w = (int16_t) ((long)m_sCellH * (long)w / h);
+	w = (int16_t) ((int32_t)m_sCellH * (int32_t)w / h);
 	h = m_sCellH;
 	if (psH) *psH = h;
 
@@ -984,7 +984,7 @@ RPrint& RPrint::operator|(int16_t	in)
 	};
 
 
-RPrint& RPrint::operator|(long	in)
+RPrint& RPrint::operator|(int32_t	in)
 	{
 	sprintf(m_temp,"%ld",in);
 	return (*this) | m_temp;

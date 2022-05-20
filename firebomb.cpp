@@ -282,7 +282,7 @@ void CFirebomb::Update(void)
 	if (!m_sSuspend)
 	{
 		// Get new time
-		long lThisTime = m_pRealm->m_time.GetGameTime();
+		int32_t lThisTime = m_pRealm->m_time.GetGameTime();
 
 		// Calculate elapsed time in seconds
 		double dSeconds = (double)(lThisTime - m_lPrevTime) / 1000.0;
@@ -419,7 +419,7 @@ void CFirebomb::Render(void)
 {
 	// Animate
 
-	long lThisTime = m_pRealm->m_time.GetGameTime();
+	int32_t lThisTime = m_pRealm->m_time.GetGameTime();
 
 	m_sprite.m_pmesh = (RMesh*) m_anim.m_pmeshes->GetAtTime(lThisTime);
 	m_sprite.m_psop = (RSop*) m_anim.m_psops->GetAtTime(lThisTime);
@@ -707,7 +707,7 @@ void CFirefrag::Update(void)
 	if (!m_sSuspend)
 	{
 		// Get new time
-		long lThisTime = m_pRealm->m_time.GetGameTime(); 
+		int32_t lThisTime = m_pRealm->m_time.GetGameTime(); 
 
 		// Calculate elapsed time in seconds
 		double dSeconds = (double)(lThisTime - m_lPrevTime) / 1000.0;

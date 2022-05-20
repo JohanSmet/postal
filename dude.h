@@ -546,11 +546,11 @@ class CDude : public CCharacter
 																// yet been triggered.
 
 
-		long			m_lNextBulletTime;				// Next time a bullet can be fired.
-		long			m_lLastShotTime;					// Last time the dude was shot.
-		long			m_lLastYellTime;					// Last time the dude yelled in pain
+		int32_t			m_lNextBulletTime;				// Next time a bullet can be fired.
+		int32_t			m_lLastShotTime;					// Last time the dude was shot.
+		int32_t			m_lLastYellTime;					// Last time the dude yelled in pain
 																// from being shot or something.
-		long			m_lNextIdleTime;					// Idle animation timer.
+		int32_t			m_lNextIdleTime;					// Idle animation timer.
 
 		WeaponType	m_weapontypeCur;					// Dude's current weapon type.
 		WeaponType	m_weaponShooting;					// The weapon type the dude is currently
@@ -863,7 +863,7 @@ class CDude : public CCharacter
 
 		// Applies accelerations, velocities, reacts to terrain obstructions, etc.
 		void ProcessForces(				// Returns nothing.
-			long		lCurTime,			// In:  Current game time.
+			int32_t		lCurTime,			// In:  Current game time.
 			double	dMaxForeVel,		// Out: Maximum forward velocity.
 			double	dMaxBackVel,		// Out: Maximum backward velocity.
 			int16_t		sStrafeAngle);		// Out: Strafe angle.

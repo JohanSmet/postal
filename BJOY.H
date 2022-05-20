@@ -91,11 +91,11 @@ extern int16_t Blu_UpdateJoy(int16_t sJoy);
 
 // Puts the coordinates of joystick sJoy's position in your longs.
 // Returns nothing.
-extern void Blu_GetJoyPos(int16_t sJoy, long *px, long *py, long *pz);
+extern void Blu_GetJoyPos(int16_t sJoy, int32_t *px, int32_t *py, int32_t *pz);
 
 // Puts the coordinates of the previous joystick sJoy's position in your longs.
 // Returns nothing.
-extern void Blu_GetJoyPrevPos(int16_t sJoy, long *px, long *py, long *pz);
+extern void Blu_GetJoyPrevPos(int16_t sJoy, int32_t *px, int32_t *py, int32_t *pz);
 
 // Returns the current joystick sJoy's state.
 extern USHORT Blu_GetJoyState(int16_t sJoy);

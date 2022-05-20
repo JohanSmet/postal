@@ -819,8 +819,8 @@ void CNetClient::GetMsg(
 					msg.msg.inputData.id			= id;
 					msg.msg.inputData.seqStart	= pmsg->msg.inputReq.seqStart;
 					msg.msg.inputData.sNum		= pmsg->msg.inputReq.sNum;
-					msg.msg.inputData.pInputs	= (UINPUT*)msg.AllocVar((long)pmsg->msg.inputReq.sNum * sizeof(UINPUT));
-					msg.msg.inputData.pFrameTimes	= (U8*)msg.AllocVar((long)pmsg->msg.inputReq.sNum * sizeof(U8));
+					msg.msg.inputData.pInputs	= (UINPUT*)msg.AllocVar((int32_t)pmsg->msg.inputReq.sNum * sizeof(UINPUT));
+					msg.msg.inputData.pFrameTimes	= (U8*)msg.AllocVar((int32_t)pmsg->msg.inputReq.sNum * sizeof(U8));
 					
 					// Copy the requested values into the allocated memory
 					Net::SEQ seq = msg.msg.inputData.seqStart;
@@ -901,7 +901,7 @@ void CNetClient::GetMsg(
 				case NetMsg::START_GAME:
 					// Get some items of interest out of the message
 					m_idServer = pmsg->msg.startGame.idServer;
-					m_lFrameTime = (long)pmsg->msg.startGame.sFrameTime;
+					m_lFrameTime = (int32_t)pmsg->msg.startGame.sFrameTime;
 					m_seqMaxAhead = pmsg->msg.startGame.seqMaxAhead;
 					m_seqInputNotYetSent = m_seqMaxAhead + 1; // *SPA
 
@@ -1170,12 +1170,12 @@ void CNetClient::ReceiveFromPeers(void)
 		// and the unreceived portion is automatically discarded.  Such a message
 		// could come from a foreign app that is using the same port as us.
 		U8 msg[PEER_MSG_MAX_SIZE];
-		long lReceived;
+		int32_t lReceived;
 		int16_t serr = m_socketPeers.ReceiveFrom(msg, sizeof(msg), &lReceived, NULL);
 		if (serr == 0)
 			{
 			// Make sure size is within proper range
-			if ((lReceived >= PEER_MSG_HEADER_SIZE) && (lReceived <= (long) PEER_MSG_MAX_SIZE))
+			if ((lReceived >= PEER_MSG_HEADER_SIZE) && (lReceived <= (int32_t) PEER_MSG_MAX_SIZE))
 				{
 
 				// Get the id from the message
@@ -1190,7 +1190,7 @@ void CNetClient::ReceiveFromPeers(void)
 					if (m_aPeers[id].m_state == CPeer::Joined)
 						{
 						// Calculate the number of input values the message contains. *SPA add sizeof frame time
-						long lNumInputs = (lReceived - PEER_MSG_HEADER_SIZE) / (sizeof(UINPUT) + sizeof(U8));
+						int32_t lNumInputs = (lReceived - PEER_MSG_HEADER_SIZE) / (sizeof(UINPUT) + sizeof(U8));
 
 						// Get the rest of the message
 //						U16 u16SenderPing;
@@ -1257,7 +1257,7 @@ void CNetClient::ReceiveFromPeers(void)
 //							m_aPeers[id].m_seqWhatHeNeeds = seqWhatHeNeeds;
 #if 0
 						// Add his ping time into the average
-						m_aPeers[id].m_lHisPingSum += (long)u16SenderPing;
+						m_aPeers[id].m_lHisPingSum += (int32_t)u16SenderPing;
 						m_aPeers[id].m_sHisNumPings++;
 
 						// Calculate the time our ping took to get back (it won't be valid until
@@ -1419,7 +1419,7 @@ void CNetClient::SendToPeer(Net::ID id,				// id of peer to send to
 	// Calculate size of message.  The peer uses the message size to determine
 	// how many input values it contains.
 	ASSERT((pput - msg) <= (ptrdiff_t) PEER_MSG_MAX_SIZE);
-	long lSize = pput - msg;
+	int32_t lSize = pput - msg;
 
 	// Make sure maximum message size is <= maximum datagram size
 	ASSERT(PEER_MSG_MAX_SIZE <= Net::MaxDatagramSize);
@@ -1428,12 +1428,12 @@ void CNetClient::SendToPeer(Net::ID id,				// id of peer to send to
 	// hopes that the next time we try, it will work.  This may not be a good
 	// idea.  Although datagram messages are not guaranteed to arrive, getting
 	// a send error probably indicates a real problem that may not go away.
-	long lSent;
+	int32_t lSent;
 	int16_t serr = m_socketPeers.SendTo(msg, lSize, &lSent, &m_aPeers[id].m_address);
 	if (serr == 0)
 		{
 		if (lSent != lSize)
-			TRACE("Error sending message to peer -- should have sent %ld bytes but actually sent %ld.\n", (long)lSize, (long)lSent);
+			TRACE("Error sending message to peer -- should have sent %ld bytes but actually sent %ld.\n", (int32_t)lSize, (int32_t)lSent);
 		}
 	else
 		{
@@ -1453,7 +1453,7 @@ bool CNetClient::CanDoFrame(							// Returns true if frame can be done, false o
 	int16_t* psFrameTime)									// Out the current frames elapsed time
 	{
 	bool bResult = false;
-	long		lFrameTime = 0; // The sum of the frame times of the joined players *SPA
+	int32_t		lFrameTime = 0; // The sum of the frame times of the joined players *SPA
 	int16_t		sCount = 0;		// Count of the number of joined players *SPA
 
 	// If we playing, we might be able to do this, otherwise, we definitely can't
@@ -1468,7 +1468,7 @@ bool CNetClient::CanDoFrame(							// Returns true if frame can be done, false o
 				{
 				// Try to get the input for the frame we're trying to do
 				aInputs[id] = m_aPeers[id].m_netinput.Get(m_seqFrame);
-				long temp = m_aPeers[id].m_netinput.GetFrameTime(m_seqFrame); // *SPA
+				int32_t temp = m_aPeers[id].m_netinput.GetFrameTime(m_seqFrame); // *SPA
 				lFrameTime += temp; // *SPA
 				sCount++;
 
@@ -1498,7 +1498,7 @@ bool CNetClient::CanDoFrame(							// Returns true if frame can be done, false o
 			}
 
 		// Check to see if we've not been able to render this frame for a while *SPA
-		long lCurTime = rspGetMilliseconds();
+		int32_t lCurTime = rspGetMilliseconds();
 		if (lCurTime > m_lMaxWaitTime)
 			{
 			for (Net::ID id = 0; id < Net::MaxNumIDs; id++)
@@ -1534,7 +1534,7 @@ bool CNetClient::CanDoFrame(							// Returns true if frame can be done, false o
 			// Calculate frame time of the frame were about to render *SPA
 			// This is the average time for the current frame
 			m_alAvgFrameTimes[m_seqFrame & 0x7] = lFrameTime / sCount;
-			long lAvgTime = 0;
+			int32_t lAvgTime = 0;
 			// This averages the frame times of the last 8 frames
 			for (int16_t i = 0; i< 8; i++)
 				{
@@ -1546,8 +1546,8 @@ bool CNetClient::CanDoFrame(							// Returns true if frame can be done, false o
 			m_lFrameTime = *psFrameTime;
 
 			// Calculate the time since the last time here *SPA
-//			long lCurTime = rspGetMilliseconds();
-			long frameTime = lCurTime - m_lStartTime;
+//			int32_t lCurTime = rspGetMilliseconds();
+			int32_t frameTime = lCurTime - m_lStartTime;
 			m_lStartTime = lCurTime;
 			// Limit our frame rate to minimum set by .ini (TimePerFrame) *SPA
 			if (frameTime > g_GameSettings.m_sNetTimePerFrame)
@@ -1619,7 +1619,7 @@ bool CNetClient::IsLocalInputNeeded(void)
 	if (m_bPlaying)
 		{
 		// Check if timer expired
-//		long lCurTime = rspGetMilliseconds();
+//		int32_t lCurTime = rspGetMilliseconds();
 //		if (lCurTime > m_lNextLocalInputTime)
 //			{
 			// The input seq is only allowed to get m_seqMaxAhead ahead of the
@@ -1745,7 +1745,7 @@ Net::ID CNetClient::CheckForLostPeer(void)
 				{
 				if (id != m_id)
 					{
-					long lElapsedTime = rspGetMilliseconds() - m_aPeers[id].m_lLastReceiveTime;
+					int32_t lElapsedTime = rspGetMilliseconds() - m_aPeers[id].m_lLastReceiveTime;
 					if (lElapsedTime > g_GameSettings.m_lPeerDropMaxWaitTime)
 						return id;
 					}

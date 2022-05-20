@@ -107,7 +107,7 @@ class CGrenade : public CWeapon
 		double		m_dAnimRotVelY;							// Rate of apparent rotation around Y axis.
 		double		m_dAnimRotVelZ;							// Rate of apparent rotation around X axis.
 
-		long			m_lNextSmokeTime;							// Time of dispersion of next smoke.
+		int32_t			m_lNextSmokeTime;							// Time of dispersion of next smoke.
 
 		// Tracks file counter so we know when to load/save "common" data 
 		static int16_t ms_sFileCount;
@@ -122,10 +122,10 @@ class CGrenade : public CWeapon
 
 		static double ms_dDegPerSec;							// Degrees of rotation per second
 		static double ms_dCloseDistance;						// Close enough to hit CDude
-		static long ms_lRandomAvoidTime;						// Time to wander before looking again
-		static long ms_lReseekTime;							// Time to wait before doing the next 'find'
-		static long ms_lGrenadeFuseTime;						// Time from throw to blow
-		static long ms_lSmokeInterval;						// Time between smokes.
+		static int32_t ms_lRandomAvoidTime;						// Time to wander before looking again
+		static int32_t ms_lReseekTime;							// Time to wait before doing the next 'find'
+		static int32_t ms_lGrenadeFuseTime;						// Time from throw to blow
+		static int32_t ms_lSmokeInterval;						// Time between smokes.
 		static double ms_dGravity;								// Acceleration due to gravity
 		static double ms_dThrowVertVel;						// Throw up at this velocity
 		static double ms_dThrowHorizVel;						// Throw out at this velocity

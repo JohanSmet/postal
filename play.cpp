@@ -548,7 +548,7 @@ typedef enum
 static MenuAction ms_menuaction	= MenuActionNone;
 
 // Number used in filename for snapshots
-static long ms_lCurPicture = 0;
+static int32_t ms_lCurPicture = 0;
 
 #ifdef SALES_DEMO
 	// When true, one can advance to the next level without meeting the goal.
@@ -632,7 +632,7 @@ class CPlayInfo
 		U16				m_idLocalDude;					// Local dude's ID
 		U16				m_idGripTarget;				// Grip target's ID
 		bool				m_bDoRealmFrame;				// Whether to do a realm frame
-		long				m_lSumUpdateDisplayTimes;
+		int32_t				m_lSumUpdateDisplayTimes;
 		bool				m_bXRayAll;						// X Ray all status.
 		bool				m_bInMenu;						// Whether we're in the menu
 		bool				m_bUserQuitMP;					// Whether local user wants to quit MP game
@@ -1380,7 +1380,7 @@ class CPlayGroup
 			RDRect*	pdr	= pinfo->m_drl.GetHead();
 			while (pdr)
 				{
-				long lTime = rspGetMilliseconds();
+				int32_t lTime = rspGetMilliseconds();
 
 				// Update the portion of the display.
 				rspCacheDirtyRect(pdr->sX, pdr->sY, pdr->sW, pdr->sH);
@@ -1532,13 +1532,13 @@ class CPlayNet : public CPlay
 
 		bool				m_bCheckForAbortKey;				// Whether to check for user abort
 		bool				m_bTimeBombActive;				// Whether time bomb is active
-		long				m_lTimeBomb;						// Time when bomb explodes
+		int32_t				m_lTimeBomb;						// Time when bomb explodes
 
 		bool				m_bShowNetFeedback;				// Whether to show net feedback thingy
 
 		bool				m_bFirstCoreLoopUserInput;
 		REdit*			m_apeditChats[NUM_CHATS];		// Received chat edit fields.
-		long				m_lLastChatMoveTime;				// Last time chats were adjusted.
+		int32_t				m_lLastChatMoveTime;				// Last time chats were adjusted.
 
 	//------------------------------------------------------------------------------
 	// Functions
@@ -2288,18 +2288,18 @@ class CPlayStatus : public CPlay
 	// Variables
 	//------------------------------------------------------------------------------
 	private:
-		long				m_lLastFrameTime;
-		long				m_lSumFrameTimes;
-		long				m_lNumFrames;
-		long				m_lLastIterationTime;
+		int32_t				m_lLastFrameTime;
+		int32_t				m_lSumFrameTimes;
+		int32_t				m_lNumFrames;
+		int32_t				m_lLastIterationTime;
 		/* 12/3/97 AJC */
 		Net::SEQ			m_seqPrevFrameSeq;
 		Net::SEQ			m_seqCurrFrameSeq;
-		long				m_lFramePerSecond;
-		long				m_lPrevSeqTime;
+		int32_t				m_lFramePerSecond;
+		int32_t				m_lPrevSeqTime;
 		/* 12/3/97 AJC */
-		long				m_lSumIterationTimes;
-		long				m_lNumIterations;
+		int32_t				m_lSumIterationTimes;
+		int32_t				m_lNumIterations;
 		RRect				m_rectDude;
 		RRect				m_rectRealm;
 		RRect				m_rectInfo;
@@ -2452,7 +2452,7 @@ class CPlayStatus : public CPlay
 					// Check if it's the next frame, if it is, calculate frame per sec
 					if (m_seqCurrFrameSeq != m_seqPrevFrameSeq)
 						{
-						long lCurrSeqTime = rspGetMilliseconds();
+						int32_t lCurrSeqTime = rspGetMilliseconds();
 						m_lFramePerSecond = 1000.0 * (m_seqCurrFrameSeq - m_seqPrevFrameSeq) / (lCurrSeqTime - m_lPrevSeqTime);
 
 						m_seqPrevFrameSeq = m_seqCurrFrameSeq;
@@ -2649,7 +2649,7 @@ class CPlayInput : public CPlay
 	// Variables
 	//------------------------------------------------------------------------------
 	private:
-		long				m_lDemoDeadTime;				// Time dude has been dead for
+		int32_t				m_lDemoDeadTime;				// Time dude has been dead for
 		U8*				m_pau8KeyStatus;				// Key status array
 		REdit*			m_peditChatIn;					// Outgoing chat.
 
@@ -3220,7 +3220,7 @@ class CPlayInput : public CPlay
 		void PauseGame(
 			CRealm*	prealm,			// In:  Realm to pause or NULL.
 			const char*		pszMsg,			// In:  Message to be displayed.
-			long		lKey)				// In:  Key to continue or 0 to wait for foreground status
+			int32_t		lKey)				// In:  Key to continue or 0 to wait for foreground status
 			{
 			// Suspend realm.
 			if (prealm)
@@ -3641,7 +3641,7 @@ class CPlayRealm : public CPlay
 		bool				m_bMakeDemoMovie_WaitForClick;	// Flag used when making demo movies
 		double			m_dCurrentFilmScale;
 		int16_t				m_sCurrentGripZoneRadius;
-		long				m_lNumSeqSkippedFrames;
+		int32_t				m_lNumSeqSkippedFrames;
 
 
 	//------------------------------------------------------------------------------
@@ -4437,7 +4437,7 @@ class CPlayRealm : public CPlay
 							bool bMatch = true;
 							int i;
 							U8* pSrcLine = im.m_pData;
-							U8* pDstLine = g_pimScreenBuf->m_pData + ((long)FILM_Y * g_pimScreenBuf->m_lPitch) + (long)FILM_X;
+							U8* pDstLine = g_pimScreenBuf->m_pData + ((int32_t)FILM_Y * g_pimScreenBuf->m_lPitch) + (int32_t)FILM_X;
 							int16_t sHeight = im.m_sHeight;
 							U8* pSrc;
 							U8* pDst;
@@ -4460,7 +4460,7 @@ class CPlayRealm : public CPlay
 								{
 								int i;
 								U8* pSrcLine = im.m_pData;
-								U8* pDstLine = g_pimScreenBuf->m_pData + ((long)FILM_Y * g_pimScreenBuf->m_lPitch) + (long)FILM_X;
+								U8* pDstLine = g_pimScreenBuf->m_pData + ((int32_t)FILM_Y * g_pimScreenBuf->m_lPitch) + (int32_t)FILM_X;
 								int16_t sHeight = im.m_sHeight;
 								U8* pSrc;
 								U8* pDst;
@@ -4760,7 +4760,7 @@ class CPlayCutscene : public CPlay
 			rspUpdateDisplay();
 
 			// A quick delay while on the black screen looks better than no delay
-			long lBlackTime = rspGetMilliseconds();
+			int32_t lBlackTime = rspGetMilliseconds();
 			while (rspGetMilliseconds() - lBlackTime < BLACK_HOLD_TIME)
 				;
 			}
@@ -4782,7 +4782,7 @@ inline void SynchronousSampleAbortion(void)
 	// scenario where a shitty sound driver causes us to think a sound is always
 	// playing.
 	// Wait for all samples to finish.
-	long	lTimeOutTime	= rspGetMilliseconds() + TIME_OUT_FOR_ABORT_SOUNDS;
+	int32_t	lTimeOutTime	= rspGetMilliseconds() + TIME_OUT_FOR_ABORT_SOUNDS;
 	// Wait for them to stop.
 	while (IsSamplePlaying() == true && rspGetMilliseconds() < lTimeOutTime)
 		{
@@ -4959,7 +4959,7 @@ extern int16_t Play(										// Returns 0 if successfull, non-zero otherwise
 					/*** 12/5/97 AJC ***/
 					// Outer loop keeps playing one realm after another
 					do	{
-						long startRealmMS = -1;
+						int32_t startRealmMS = -1;
 
 						// Clear game status
 						info.SetGameState_Ok();
@@ -5006,7 +5006,7 @@ extern int16_t Play(										// Returns 0 if successfull, non-zero otherwise
 								if (pclient)
 								{
 									info.Realm()->m_sKillsGoal = sKillLimit;
-									info.Realm()->m_lScoreInitialTime = info.Realm()->m_lScoreTimeDisplay = (long)sTimeLimit * (long)60000;
+									info.Realm()->m_lScoreInitialTime = info.Realm()->m_lScoreTimeDisplay = (int32_t)sTimeLimit * (int32_t)60000;
 									
 									// If Rejuvenate is allowed, then its not last man standing
 									if (bRejuvenate)
@@ -5191,9 +5191,9 @@ extern int16_t Play(										// Returns 0 if successfull, non-zero otherwise
 						else
 							playgroup.PrepareRealmErr(&info);
 
-						const long endRealmMS = rspGetMilliseconds();
-						const long timePlayedMS = ((startRealmMS > 0) && (endRealmMS > 0) && (endRealmMS > startRealmMS)) ? endRealmMS - startRealmMS : -1;
-						const long newPlaythroughMS = playthroughMS + timePlayedMS;
+						const int32_t endRealmMS = rspGetMilliseconds();
+						const int32_t timePlayedMS = ((startRealmMS > 0) && (endRealmMS > 0) && (endRealmMS > startRealmMS)) ? endRealmMS - startRealmMS : -1;
+						const int32_t newPlaythroughMS = playthroughMS + timePlayedMS;
 						if (!g_bLastLevelDemo)  // don't charge the last level demo to playthroughMS.
 							playthroughMS = ((playthroughMS < 0) || (timePlayedMS < 0) || (newPlaythroughMS < 0)) ? -1 : newPlaythroughMS;
 
@@ -5368,7 +5368,7 @@ extern void Play_SnapPicture(void)
 
 		// Save picture to file
 		char szFileName[RSP_MAX_PATH];
-		sprintf(szFileName, "PostalShot%03ld.bmp", ms_lCurPicture++);
+		sprintf(szFileName, "PostalShot%03d.bmp", ms_lCurPicture++);
 
 		// This will require direct access to the composite buffer.
 		rspLockBuffer();

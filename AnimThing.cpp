@@ -235,7 +235,7 @@ double dScaleInc = 0.025;
 void CAnimThing::Render(void)
 	{
 	// Get current time diff.
-	long lCurTime		= m_pRealm->m_time.GetGameTime(); 
+	int32_t lCurTime		= m_pRealm->m_time.GetGameTime(); 
 	m_lAnimTime			+= lCurTime - m_lAnimPrevTime;
 	m_lAnimPrevTime	= lCurTime;
 

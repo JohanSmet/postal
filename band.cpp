@@ -205,7 +205,7 @@ double CBand::ms_dMingleBouyDist = 15*15;
 double CBand::ms_dExplosionVelocity = 180.0;
 double CBand::ms_dMaxMarchVel = 30.0;
 double CBand::ms_dMaxRunVel = 80.0;
-long CBand::ms_lMingleTime = 400;
+int32_t CBand::ms_lMingleTime = 400;
 int16_t CBand::ms_sStartingHitPoints = 100;
 SampleMaster::SoundInstance CBand::ms_siBandSongInstance = 0;
 U16	CBand::ms_idBandLeader	= CIdBank::IdNil;		// The person who adjusts the band sound
@@ -550,8 +550,8 @@ void CBand::Update(void)
 	double dZ;
 	double dStartX;
 	double dStartZ;
-	long lThisTime;
-	long lTimeDifference;
+	int32_t lThisTime;
+	int32_t lTimeDifference;
 	CThing* pDemon = NULL;
 
 	if (!m_sSuspend)

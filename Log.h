@@ -37,7 +37,7 @@ int16_t WriteTimeStamp(char *pszCaller,						// Name of calling routine
 							char *pszCalleeName,					// Name of player being sent or sending 
 							unsigned char ucMsgType,			// Message type
 							Net::SEQ seqStart,					// Beginning sequent sent/received
-							long sNum,								// Number of seq's sent/received
+							int32_t sNum,								// Number of seq's sent/received
 							char bReceived,							// a received or a sent message? TRUE if received
 							U16 u16PackageID = 0);				// Uniquely identifiable package id
 ////////////////////////////////////////////////////////////////////////////////

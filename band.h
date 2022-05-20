@@ -92,7 +92,7 @@ class CBand : public CDoofus
 		static double ms_dExplosionVelocity;// How high he will get blown up.
 		static double ms_dMaxMarchVel;		// How fast to march
 		static double ms_dMaxRunVel;			// Hos fast to run
-		static long ms_lMingleTime;			// How long to mingle before moving
+		static int32_t ms_lMingleTime;			// How long to mingle before moving
 		static int16_t ms_sStartingHitPoints;	// How many hit points to start with
 		static SampleMaster::SoundInstance ms_siBandSongInstance;		// sound played during band march.
 		static U16	ms_idBandLeader;			// The person who adjusts the band sound

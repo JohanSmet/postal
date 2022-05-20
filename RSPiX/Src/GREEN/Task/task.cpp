@@ -250,7 +250,7 @@ void RTask::Reset(void)
 //////////////////////////////////////////////////////////////////////////////
 void RTask::Do(void)
 	{
-	long	lCurTime;
+	int32_t	lCurTime;
 
 	// Go through each node of the list checking its next execution time
 	// against the current.

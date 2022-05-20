@@ -113,7 +113,7 @@ class CBulletFest
 			bool	bDirChange;		// true, if a direction change (relative to 
 										// source) occured at this point; false, 
 										// otherwise.
-			long	lSqrDistance;	// Squared distance traveled (relative to 
+			int32_t	lSqrDistance;	// Squared distance traveled (relative to 
 										// source) at this point in time.
 			} TargetInfo;
 
@@ -243,7 +243,7 @@ class CBulletFest
 		U16	m_u16IdTarget;		// Last known target or IdNil.
 		int16_t	m_sDirChanges;		// Direction changes (relative to source) over 
 										// last targeting duration.
-		long	m_lSqrDistance;	// Squared distance traveled (relative to 
+		int32_t	m_lSqrDistance;	// Squared distance traveled (relative to 
 										// source) over last targeting duration.
 		RQueue<TargetInfo, TargetUpdatesPerPeriod>	m_qtiHistory;
 		TargetInfo	m_ati;		// Array of target info used for history queue.

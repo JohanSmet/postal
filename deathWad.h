@@ -89,8 +89,8 @@ class CDeathWad : public CWeapon
 		static const double	ms_dTraversalRate;			// Units moved each iteration while traversing the weapon path.
 		static const double	ms_dThrustDelta;				// Distance between thrust feedbacks.
 		static const int16_t	ms_sOffScreenDist;			// Go off screen this far before blowing up		
-		static const long		ms_lSmokeTimeToLive;			// Time for smoke to stick around.
-		static const long		ms_lFireBallTimeToLive;		// Time for fireball to stick around.
+		static const int32_t		ms_lSmokeTimeToLive;			// Time for smoke to stick around.
+		static const int32_t		ms_lFireBallTimeToLive;		// Time for fireball to stick around.
 		static const int16_t	ms_sFinalExplosionStagger;	// Amount to stagger final explosions.
 		static const int16_t	ms_sCollisionRadius;			// Collision radius.
 		static const double	ms_dKickVelocity;				// Velocity for kick from launch.

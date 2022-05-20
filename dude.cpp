@@ -1825,7 +1825,7 @@ void CDude::Suspend(void)
 	if (m_sSuspend == 0)
 		{
 		// Store current delta so we can restore it.
-		long	lCurTime		= m_pRealm->m_time.GetGameTime();
+		int32_t	lCurTime		= m_pRealm->m_time.GetGameTime();
 		m_lNextBulletTime	= lCurTime - m_lNextBulletTime;
 		}
 
@@ -1841,7 +1841,7 @@ void CDude::Resume(void)
 
 	if (m_sSuspend == 0)
 		{
-		long	lCurTime		= m_pRealm->m_time.GetGameTime();
+		int32_t	lCurTime		= m_pRealm->m_time.GetGameTime();
 		m_lNextBulletTime	= lCurTime - m_lNextBulletTime;
 		}
 	}
@@ -1855,10 +1855,10 @@ void CDude::Update(void)
 	if (!m_sSuspend)
 		{
 		// Get new time
-		long lThisTime = m_pRealm->m_time.GetGameTime();
+		int32_t lThisTime = m_pRealm->m_time.GetGameTime();
 
 		// Advance the animation timer.
-		long	lDifTime		= lThisTime - m_lAnimPrevUpdateTime;
+		int32_t	lDifTime		= lThisTime - m_lAnimPrevUpdateTime;
 		m_lAnimTime			+= lDifTime;
 
 		// Update prev time.
@@ -2149,7 +2149,7 @@ void CDude::Update(void)
 				m_lAnimTime	-= lDifTime;
 				// Tune the time.  Note that this is automathematically negative when
 				// velocity is negative.
-				long	lDifAnimTime	= lDifTime * (m_dVel / RUN_ANIM_VELOCITY);
+				int32_t	lDifAnimTime	= lDifTime * (m_dVel / RUN_ANIM_VELOCITY);
 
 				m_lAnimTime	+= lDifAnimTime;
 
@@ -2164,7 +2164,7 @@ void CDude::Update(void)
 				m_lAnimTime	-= lDifTime;
 				// Tune the time.  Note that this is automathematically negative when
 				// velocity is negative.
-				long	lDifAnimTime	= lDifTime * (m_dVel / RUN_ANIM_VELOCITY);
+				int32_t	lDifAnimTime	= lDifTime * (m_dVel / RUN_ANIM_VELOCITY);
 
 				m_lAnimTime	+= lDifAnimTime;
 
@@ -3389,7 +3389,7 @@ else
 // Applies accelerations, velocities, reacts to terrain obstructions, etc.
 ////////////////////////////////////////////////////////////////////////////////
 void CDude::ProcessForces(	// Returns nothing.
-	long		lCurTime,		// In:  Current game time.
+	int32_t		lCurTime,		// In:  Current game time.
 	double	dMaxForeVel,	// Out: Maximum forward velocity.
 	double	dMaxBackVel,	// Out: Maximum backward velocity.
 	int16_t		sStrafeAngle)	// Out: Strafe angle.
@@ -3598,8 +3598,8 @@ int16_t CDude::EditNew(									// Returns 0 if successfull, non-zero otherwise
 inline
 void SetText(					// Returns nothing.
 	RGuiItem*	pguiRoot,	// In:  Root GUI.
-	long			lId,			// In:  ID of GUI to set text.
-	long			lVal)			// In:  Value to set text to.
+	int32_t			lId,			// In:  ID of GUI to set text.
+	int32_t			lVal)			// In:  Value to set text to.
 	{
 	RGuiItem*	pgui	= pguiRoot->GetItemFromId(lId);
 	if (pgui != NULL)
@@ -5229,7 +5229,7 @@ bool CDude::WhileBlownUp(void)	// Returns true until state is complete.
 	double	dNewX, dNewY, dNewZ;
 
 	// Get time from last call in seconds.
-	long		lCurTime	= m_pRealm->m_time.GetGameTime();
+	int32_t		lCurTime	= m_pRealm->m_time.GetGameTime();
 	double	dSeconds	= double(lCurTime - m_lPrevTime) / 1000.0;
 
 	// Update Velocities ////////////////////////////////////////////////////////

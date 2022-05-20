@@ -1367,7 +1367,7 @@ void CScene::Render2D(		// Returns nothing.
 							*	m_bXRayAll
 							)
 						)
-					*	(long)psprXRayee
+					*	(int32_t)psprXRayee
 					*	(	g_GameSettings.m_sXRayEffect
 						+	m_bXRayAll
 						)

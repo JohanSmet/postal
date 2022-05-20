@@ -191,7 +191,7 @@ void CNetServer::Update(void)
 		// using the same port as us.  If we do get a message, the address of the sender
 		// will be recorded -- this gives us the host's address!
 		U8 buf1[4];
-		long lReceived;
+		int32_t lReceived;
 		RSocket::Address address;
 		int16_t serr = m_socketAntenna.ReceiveFrom(buf1, sizeof(buf1), &lReceived, &address);
 		if (serr == 0)
@@ -222,7 +222,7 @@ void CNetServer::Update(void)
 				strncpy((char*)&buf2[8], m_acHostName, sizeof(buf2) - 8);
 
 				// Send the message directly to the sender of the previous message
-				long lBytesSent;
+				int32_t lBytesSent;
 				int16_t serr = m_socketAntenna.SendTo(buf2, sizeof(buf2), &lBytesSent, &address);
 				if (serr == 0)
 					{

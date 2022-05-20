@@ -96,8 +96,8 @@
 // I believe the memptrs are to the UNCLIPPED rects...
 //
 inline void _Blit_HS_VS_C(
-							UCHAR* pSrc,long lSrcP,int16_t sSrcW,int16_t sSrcH,
-							UCHAR* pDst,long lDstP,int16_t sDstW,int16_t sDstH,
+							UCHAR* pSrc,int32_t lSrcP,int16_t sSrcW,int16_t sSrcH,
+							UCHAR* pDst,int32_t lDstP,int16_t sDstW,int16_t sDstH,
 							int16_t sClipL,int16_t sClipT,int16_t sClipR,int16_t sClipB,
 							int16_t sMirrorH,int16_t sMirrorV)
 	{
@@ -105,7 +105,7 @@ inline void _Blit_HS_VS_C(
 	// Set up vertical variables:
 	//
 	UCHAR*	pSrcLine = pSrc,*pDstLine = pDst;
-	long	lDelMemY;
+	int32_t	lDelMemY;
 	int16_t	sIncY,sNumY,sClipH;
 
 	if (sMirrorV == -1) lDstP = -lDstP; // make sure pDst is correctly positioned
@@ -186,8 +186,8 @@ inline void _Blit_HS_VS_C(
 // I believe the memptrs are to the UNCLIPPED rects...
 //
 inline void _Blit_HM_VM_C(
-							UCHAR* pSrc,long lSrcP,int16_t sSrcW,int16_t sSrcH,
-							UCHAR* pDst,long lDstP,int16_t sDstW,int16_t sDstH,
+							UCHAR* pSrc,int32_t lSrcP,int16_t sSrcW,int16_t sSrcH,
+							UCHAR* pDst,int32_t lDstP,int16_t sDstW,int16_t sDstH,
 							int16_t sClipL,int16_t sClipT,int16_t sClipR,int16_t sClipB,
 							int16_t sMirrorH,int16_t sMirrorV)
 	{
@@ -275,8 +275,8 @@ inline void _Blit_HM_VM_C(
 // I believe the memptrs are to the UNCLIPPED rects...
 //
 inline void _Blit_HS_VM_C(
-							UCHAR* pSrc,long lSrcP,int16_t sSrcW,int16_t sSrcH,
-							UCHAR* pDst,long lDstP,int16_t sDstW,int16_t sDstH,
+							UCHAR* pSrc,int32_t lSrcP,int16_t sSrcW,int16_t sSrcH,
+							UCHAR* pDst,int32_t lDstP,int16_t sDstW,int16_t sDstH,
 							int16_t sClipL,int16_t sClipT,int16_t sClipR,int16_t sClipB,
 							int16_t sMirrorH,int16_t sMirrorV)
 	{
@@ -364,8 +364,8 @@ inline void _Blit_HS_VM_C(
 // I believe the memptrs are to the UNCLIPPED rects...
 //
 inline void _Blit_HM_VS_C(
-							UCHAR* pSrc,long lSrcP,int16_t sSrcW,int16_t sSrcH,
-							UCHAR* pDst,long lDstP,int16_t sDstW,int16_t sDstH,
+							UCHAR* pSrc,int32_t lSrcP,int16_t sSrcW,int16_t sSrcH,
+							UCHAR* pDst,int32_t lDstP,int16_t sDstW,int16_t sDstH,
 							int16_t sClipL,int16_t sClipT,int16_t sClipR,int16_t sClipB,
 							int16_t sMirrorH,int16_t sMirrorV)
 	{
@@ -373,7 +373,7 @@ inline void _Blit_HM_VS_C(
 	// Set up vertical variables:
 	//
 	UCHAR*	pSrcLine = pSrc,*pDstLine = pDst;
-	long	lDelMemY;
+	int32_t	lDelMemY;
 	int16_t	sIncY,sNumY,sClipH;
 
 	if (sMirrorV == -1) lDstP = -lDstP; // make sure pDst is correctly positioned
@@ -462,8 +462,8 @@ typedef S32 CHOOSE_TRANSPARENT;
 
 // at the internal level, assume all values have been verified..
 //
-inline int16_t	_rspBlit(UCHAR* pSrc,long lSrcP,int16_t sSrcW,int16_t sSrcH,
-								UCHAR* pDst,long lDstP,int16_t sDstW,int16_t sDstH)
+inline int16_t	_rspBlit(UCHAR* pSrc,int32_t lSrcP,int16_t sSrcW,int16_t sSrcH,
+								UCHAR* pDst,int32_t lDstP,int16_t sDstW,int16_t sDstH)
 	{
 	return 0;
 	}

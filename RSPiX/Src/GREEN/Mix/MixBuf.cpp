@@ -133,13 +133,13 @@ typedef union
 //////////////////////////////////////////////////////////////////////////////
 // Instantiate static members.
 //////////////////////////////////////////////////////////////////////////////
-long	RMixBuf::ms_lSampleRate;			// Sample rate for audio 
+int32_t	RMixBuf::ms_lSampleRate;			// Sample rate for audio 
 													// playback/mix.
-long	RMixBuf::ms_lSrcBitsPerSample;	// Sample size in bits for sample data.
+int32_t	RMixBuf::ms_lSrcBitsPerSample;	// Sample size in bits for sample data.
 													// 0 for no preference.
-long	RMixBuf::ms_lMixBitsPerSample;	// Sample size in bits for mixing.
-long	RMixBuf::ms_lDstBitsPerSample;	// Sample size in bits for Blue data.
-long	RMixBuf::ms_lNumChannels;			// Number of channels (mono
+int32_t	RMixBuf::ms_lMixBitsPerSample;	// Sample size in bits for mixing.
+int32_t	RMixBuf::ms_lDstBitsPerSample;	// Sample size in bits for Blue data.
+int32_t	RMixBuf::ms_lNumChannels;			// Number of channels (mono
 													//  or stereo).
 int16_t	RMixBuf::ms_sNumBufs	= 0;			// Number of RMixBufs allocated.
 UCHAR	RMixBuf::ms_ucGlobalVolume = UCHAR(255);	// Full volume is standard
@@ -158,7 +158,7 @@ int16_t	RMixBuf::ms_sCutOffVolume = 1;	// Volume to not bother mixing.
 inline void Conv8to16(	// Returns nothing.
 	U8*	pu8Src,			// In:  8 bit src.
 	S16*	ps16Dst,			// Out: 16 bit dst.  Cannot be the same as the src.
-	long	lSamples)		// In:  Samples to convert.
+	int32_t	lSamples)		// In:  Samples to convert.
 	{
 	while (lSamples--)
 		{
@@ -178,7 +178,7 @@ inline void Conv8to16(	// Returns nothing.
 inline void Conv16to8(	// Returns nothing.
 	S16*	ps16Src,			// In:  16 bit src.
 	U8*	pu8Dst,			// Out: 8 bit dst.  _Can_ be the same as the src.
-	long	lSamples)		// In:  Samples to convert.
+	int32_t	lSamples)		// In:  Samples to convert.
 	{
 	while (lSamples--)
 		{
@@ -200,7 +200,7 @@ inline void Conv16to8(	// Returns nothing.
 inline void Mix(		// Returns nothing.
 	U8*	pu8Src,		// In:  Src.
 	U8*	pu8Dst,		// In:  Dst.
-	long	lSamples)	// In:  Number of samples to mix.
+	int32_t	lSamples)	// In:  Number of samples to mix.
 	{
 	int16_t	sVal;
 
@@ -233,7 +233,7 @@ inline void Mix(		// Returns nothing.
 inline void MixX86(	// Returns nothing.
 	U8*	pu8Src,		// In:  Src.
 	U8*	pu8Dst,		// In:  Dst.
-	long	lSamples)	// In:  Number of samples to mix.
+	int32_t	lSamples)	// In:  Number of samples to mix.
 	{
 	_asm
 		{
@@ -279,16 +279,16 @@ inline void MixX86(	// Returns nothing.
 inline void Mix(		// Returns nothing.
 	S16*	ps16Src,		// In:  Src.
 	S16*	ps16Dst,		// In:  Dst.
-	long	lSamples)	// In:  Number of samples to mix.
+	int32_t	lSamples)	// In:  Number of samples to mix.
 	{
-	long	lVal;
+	int32_t	lVal;
 
 	while (lSamples--)
 		{
 		// Add two signed values, clip sum to fit a 16 bit value and save 
 		// result.
 
-		lVal	= (long)(*ps16Src++) + (long)(*ps16Dst);
+		lVal	= (int32_t)(*ps16Src++) + (int32_t)(*ps16Dst);
 
 		if (lVal > 32767)
 			lVal = 32767;
@@ -309,7 +309,7 @@ inline void Mix(		// Returns nothing.
 inline void MixX86(	// Returns nothing.
 	S16*	ps16Src,		// In:  Src.
 	S16*	ps16Dst,		// In:  Dst.
-	long	lSamples)	// In:  Number of samples to mix.
+	int32_t	lSamples)	// In:  Number of samples to mix.
 	{
 	_asm
 		{
@@ -351,7 +351,7 @@ inline void MixX86(	// Returns nothing.
 inline void Mix(		// Returns nothing.
 	U8*	pu8Src,		// In:  Src.
 	U8*	pu8Dst,		// In:  Dst.
-	long	lSamples,	// In:  Number of samples to mix.
+	int32_t	lSamples,	// In:  Number of samples to mix.
 	S16*	psLowTable)	// In:  Volume scale table.
 	{
 	int16_t	sVal;
@@ -385,7 +385,7 @@ inline void Mix(		// Returns nothing.
 inline void MixX86(	// Returns nothing.
 	U8*	pu8Src,		// In:  Src.
 	U8*	pu8Dst,		// In:  Dst.
-	long	lSamples,	// In:  Number of samples to mix.
+	int32_t	lSamples,	// In:  Number of samples to mix.
 	S16*	psLowTable)	// In:  Volume scale table.
 	{
 	_asm
@@ -435,11 +435,11 @@ inline void MixX86(	// Returns nothing.
 inline void Mix(			// Returns nothing.
 	S16*	ps16Src,			// In:  Src.
 	S16*	ps16Dst,			// In:  Dst.
-	long	lSamples,		// In:  Number of samples to mix.
+	int32_t	lSamples,		// In:  Number of samples to mix.
 	S16*	psLowTable,		// In:  Volume scale table for low byte.
 	S16*	psHighTable)	// In:  Volume scale table for high byte.
 	{
-	long	lVal;
+	int32_t	lVal;
 	int16_t	sVal;
 	int16_t	sHighSrc;
 	int16_t	sLowSrc;
@@ -472,7 +472,7 @@ inline void Mix(			// Returns nothing.
 
 		// Add two signed values, clip sum to fit a 16 bit value, and save 
 		// result.
-		lVal	= (long)(sVal) + (long)(*ps16Dst);
+		lVal	= (int32_t)(sVal) + (int32_t)(*ps16Dst);
 
 		if (lVal > 32767)
 			lVal = 32767;
@@ -493,7 +493,7 @@ inline void Mix(			// Returns nothing.
 inline void MixX86(		// Returns nothing.
 	S16*	ps16Src,			// In:  Src.
 	S16*	ps16Dst,			// In:  Dst.
-	long	lSamples,		// In:  Number of samples to mix.
+	int32_t	lSamples,		// In:  Number of samples to mix.
 	S16*	psTable)			// In:  Volume scale tables for high AND low byte.
 								// One table is used to save registers but we could
 								// have the second table as well instead of offseting
@@ -753,8 +753,8 @@ void RMixBuf::SetDest(	// Returns nothing.
 		else
 			{
 			// Set mix size to the size of the playback buffer but at the mix quality.
-			long	lNumSamples	= m_ulDstSize * 8 / ms_lDstBitsPerSample;
-			long	lSize	= lNumSamples * ms_lMixBitsPerSample / 8;
+			int32_t	lNumSamples	= m_ulDstSize * 8 / ms_lDstBitsPerSample;
+			int32_t	lSize	= lNumSamples * ms_lMixBitsPerSample / 8;
 			if (SetSize(lSize) == 0)
 				{
 				// Note that SetSize() always Silence()s buffer.
@@ -796,7 +796,7 @@ CDVA::CDVA()	// Create the tables!
 		//	DIM Value:	0-255, 255 being identity
 		// Output: 16 bit table yielding Input*256*DIM/255
 		//================================================================
-		long	lSrcVal,lDimVal,lCurValue,lNumerator;
+		int32_t	lSrcVal,lDimVal,lCurValue,lNumerator;
 		int16_t*	psCur = &ms_asHighByte[0][0];	// assume linear addressing:
 		double	dSrcVal;
 		// This is DimVal major!
@@ -851,9 +851,9 @@ CDVA::CDVA()	// Create the tables!
 int16_t RMixBuf::Mix(	ULONG		ulStartPos,
 							U8*		pu8Data, 
 							ULONG		ulSize, 
-							long		lSampleRate,
-							long		lBitsPerSample,
-							long		lNumChannels,
+							int32_t		lSampleRate,
+							int32_t		lBitsPerSample,
+							int32_t		lNumChannels,
 							UCHAR		ucVolume,
 							UCHAR		ucVol2)
 	{

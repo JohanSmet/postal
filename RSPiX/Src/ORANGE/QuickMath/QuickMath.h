@@ -58,7 +58,7 @@ inline double rspCos(sDeg)
 inline float rspfSin(sDeg)
 inline float rspfCos(sDeg)
 
-inline int16_t rspSqrt(long lVal)
+inline int16_t rspSqrt(int32_t lVal)
 
 *****************************************************************
 
@@ -69,7 +69,7 @@ extern float fSINQ[csNumRotSteps],fCOSQ[csNumRotSteps];
 extern int16_t ATANQ[60];
 extern int16_t SQRTQ[MAX_FAST_SQRT];
 /****************************************************************/
-inline int16_t	rspSqrt(long lVal)
+inline int16_t	rspSqrt(int32_t lVal)
 	{
 	if (lVal < MAX_FAST_SQRT) return SQRTQ[lVal];
 	return int16_t(sqrt(double(lVal)));

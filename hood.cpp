@@ -859,7 +859,7 @@ int16_t CHood::Init(void)									// Returns 0 if successfull, non-zero otherwis
 			m_pRealm->m_scene.UpdateSprite(pSprite2);
 
 			// Attempt to load all layers . . .
-			long	lIndex;
+			int32_t	lIndex;
 			// Put the contents of the various spry's onto the other layers
 			for (lIndex	= 0; lIndex < MaxLayers; lIndex++)
 				{
@@ -1073,13 +1073,13 @@ int16_t CHood::GetResources(void)						// Returns 0 if successfull, non-zero oth
 			}
 
 		// Attempt to load all layers . . .
-		long	lIndex;
+		int32_t	lIndex;
 		int16_t	sNumAlphaLayersLoaded	= 0;
 		int16_t	sNumOpaqueLayersLoaded	= 0;
 		for (lIndex	= 0; lIndex < MaxLayers; lIndex++)
 			{
 			// Make alpha layer name.
-			sprintf(szFileName, "%s%02lda.say", szBasePath, lIndex);
+			sprintf(szFileName, "%s%02da.say", szBasePath, lIndex);
 			// Load & convert . . .
 			if (SpryLoadConv(&(m_pRealm->m_resmgr), m_apspryAlphas + lIndex, szFileName, RImage::FSPR8) == 0)
 				{
@@ -1087,7 +1087,7 @@ int16_t CHood::GetResources(void)						// Returns 0 if successfull, non-zero oth
 				}
 
 			// Make opaque layer name.
-			sprintf(szFileName, "%s%02ldo.say", szBasePath, lIndex);
+			sprintf(szFileName, "%s%02do.say", szBasePath, lIndex);
 			// Load & convert . . .
 			if (SpryLoadConv(&(m_pRealm->m_resmgr), m_apspryOpaques + lIndex, szFileName, RImage::FSPR8) == 0)
 				{
@@ -1270,7 +1270,7 @@ int16_t CHood::FreeResources(void)						// Returns 0 if successfull, non-zero ot
 	if (m_pimBackground != NULL)
 		rspReleaseResource(&(m_pRealm->m_resmgr), &m_pimBackground);
 
-	long	lIndex;
+	int32_t	lIndex;
 	for (lIndex	= 0; lIndex < MaxLayers; lIndex++)
 		{
 		if (m_apspryAlphas[lIndex] != NULL)

@@ -335,8 +335,8 @@ int16_t CPylon::EditNew(									// Returns 0 if successfull, non-zero otherwise
 inline
 void SetText(					// Returns nothing.
 	RGuiItem*	pguiRoot,	// In:  Root GUI.
-	long			lId,			// In:  ID of GUI to set text.
-	long			lVal)			// In:  Value to set text to.
+	int32_t			lId,			// In:  ID of GUI to set text.
+	int32_t			lVal)			// In:  Value to set text to.
 	{
 	RGuiItem*	pgui	= pguiRoot->GetItemFromId(lId);
 	if (pgui != NULL)

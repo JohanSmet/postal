@@ -440,12 +440,12 @@ int16_t	ConvertToBMP24(RImage* pImage)
 
 		case RImage::SCREEN32_ARGB:
 		{
-			long r, c, height, width, sPitch;
+			int32_t r, c, height, width, sPitch;
 
 			// Make sure that we copy the whole thing even if the
 			// height and width are negative values
-			height = labs((long)pImage->m_sHeight);
-			width = labs((long)pImage->m_sWidth);
+			height = labs((int32_t)pImage->m_sHeight);
+			width = labs((int32_t)pImage->m_sWidth);
 			sPitch = pImage->m_lPitch;
 
 			// Set a pointer to the 32-bit buffer before detaching
@@ -457,11 +457,11 @@ int16_t	ConvertToBMP24(RImage* pImage)
 			// Create a new 24-bit buffer and set a pointer to the data
 			pImage->m_sDepth = 24;
 			pImage->m_lPitch = RImage::GetPitch(pImage->m_sWidth, pImage->m_sDepth);
-			if (pImage->CreateData(pImage->m_lPitch * (long)pImage->m_sHeight) == 0)
+			if (pImage->CreateData(pImage->m_lPitch * (int32_t)pImage->m_sHeight) == 0)
 				{
 				UCHAR* ucp24 = (UCHAR*) pImage->m_pData;
 
-				long sPitchWidth = sPitch / 4;
+				int32_t sPitchWidth = sPitch / 4;
 				for (r = 0; r < height; r++)
 					for (c = 0; c < width; c++)
 					{
@@ -490,12 +490,12 @@ int16_t	ConvertToBMP24(RImage* pImage)
 
 		case RImage::SCREEN16_555:
 		{
-			long r, c, height, width, sPitch;
+			int32_t r, c, height, width, sPitch;
 
 			// Make sure that we copy the whole thing even if the
 			// height and width are negative values
-			height = labs((long)pImage->m_sHeight);
-			width = labs((long)pImage->m_sWidth);
+			height = labs((int32_t)pImage->m_sHeight);
+			width = labs((int32_t)pImage->m_sWidth);
 			sPitch = pImage->m_lPitch;
 
 	  		// Set up a pointer to the 16-bit buffer before detaching
@@ -507,10 +507,10 @@ int16_t	ConvertToBMP24(RImage* pImage)
 			// Create a new 24-bit buffer and set a pointer to the data
 			pImage->m_sDepth = 24;
 			pImage->m_lPitch = RImage::GetPitch(pImage->m_sWidth, pImage->m_sDepth);
-			pImage->CreateData(pImage->m_lPitch * (long)pImage->m_sHeight);
+			pImage->CreateData(pImage->m_lPitch * (int32_t)pImage->m_sHeight);
 			UCHAR* ucp24 = (UCHAR*) pImage->m_pData;
 
-			long sPitchWidth = sPitch/2;
+			int32_t sPitchWidth = sPitch/2;
 			for (r = 0; r < height; r++)
 				for (c = 0; c < width; c++)
 				{
@@ -529,12 +529,12 @@ int16_t	ConvertToBMP24(RImage* pImage)
 
 		case RImage::SCREEN16_565:
 		{
-			long r, c, height, width, sPitch;
+			int32_t r, c, height, width, sPitch;
 
 			// Make sure that we copy the whole thing even if the
 			// height and width are negative values
-			height = labs((long)pImage->m_sHeight);
-			width = labs((long)pImage->m_sWidth);
+			height = labs((int32_t)pImage->m_sHeight);
+			width = labs((int32_t)pImage->m_sWidth);
 			sPitch = pImage->m_lPitch;
 
 			// Set a pointer to the 16-bit buffer before detaching
@@ -546,9 +546,9 @@ int16_t	ConvertToBMP24(RImage* pImage)
 			// Create a new 24-bit buffer and set a pointer to the data
 			pImage->m_sDepth = 24;
 			pImage->m_lPitch = RImage::GetPitch(pImage->m_sWidth, pImage->m_sDepth);
-			pImage->CreateData(pImage->m_lPitch * (long)pImage->m_sHeight);
+			pImage->CreateData(pImage->m_lPitch * (int32_t)pImage->m_sHeight);
 			UCHAR* ucp24 = (UCHAR*) pImage->m_pData;
-			long sPitchWidth = sPitch/2;
+			int32_t sPitchWidth = sPitch/2;
 
 			for (r = 0; r < height; r++)
 				for (c = 0; c < width; c++)
@@ -904,13 +904,13 @@ int16_t ConvertToSCREEN16_555(RImage* pImage)
 
 		case RImage::BMP8:
 		{
-			long r, c, height, width, pitch;
+			int32_t r, c, height, width, pitch;
 
 			// Make sure that we copy the whole thing even if the
 			// height and width are negative values
 
-			height = labs((long)pImage->m_sHeight);
-			width = labs((long)pImage->m_sWidth);
+			height = labs((int32_t)pImage->m_sHeight);
+			width = labs((int32_t)pImage->m_sWidth);
 			pitch = pImage->m_lPitch;
 
 			// Set up pointers to the 8-bit buffer before detaching
@@ -926,7 +926,7 @@ int16_t ConvertToSCREEN16_555(RImage* pImage)
 			pImage->CreateData(pImage->m_lPitch * (int16_t)pImage->m_sHeight);
 			USHORT* usp16 = (USHORT*) pImage->m_pData;
 			UCHAR  ucIndex;
-			long dPitch = pImage->m_lPitch / (pImage->m_sDepth / 8);
+			int32_t dPitch = pImage->m_lPitch / (pImage->m_sDepth / 8);
 
 			for (r = 0; r < height; r++)
 				for (c = 0; c < width; c++)
@@ -947,12 +947,12 @@ int16_t ConvertToSCREEN16_555(RImage* pImage)
 
 		case RImage::BMP24:
 		{
-			long r, c, height, width, sPitch;
+			int32_t r, c, height, width, sPitch;
 
 			// Make sure that we copy the whole thing even if the
 			// height and width are negative values
-			height = labs((long)pImage->m_sHeight);
-			width = labs((long)pImage->m_sWidth);
+			height = labs((int32_t)pImage->m_sHeight);
+			width = labs((int32_t)pImage->m_sWidth);
 			sPitch = pImage->m_lPitch;
 
 	  		// Set up a pointer to the 24-bit buffer before detaching
@@ -964,9 +964,9 @@ int16_t ConvertToSCREEN16_555(RImage* pImage)
 			// Create a new 16-bit buffer and set a pointer to the data
 			pImage->m_sDepth = 16;
 			pImage->m_lPitch = RImage::GetPitch(pImage->m_sWidth, pImage->m_sDepth);
-			pImage->CreateData(pImage->m_lPitch * (long)pImage->m_sHeight);
+			pImage->CreateData(pImage->m_lPitch * (int32_t)pImage->m_sHeight);
 			USHORT* usp16 = (USHORT*) pImage->m_pData;
-			long dPitch = pImage->m_lPitch / (pImage->m_sDepth / 8);
+			int32_t dPitch = pImage->m_lPitch / (pImage->m_sDepth / 8);
 
 			for (r = 0 ; r < height; r++)
 				for (c = 0; c < width; c++)
@@ -1045,13 +1045,13 @@ int16_t ConvertToSCREEN16_565(RImage* pImage)
 
 		case RImage::BMP8:
 		{
-			long r, c, height, width, pitch;
+			int32_t r, c, height, width, pitch;
 
 			// Make sure that we copy the whole thing even if the
 			// height and width are negative values
 
-			height = labs((long)pImage->m_sHeight);
-			width = labs((long)pImage->m_sWidth);
+			height = labs((int32_t)pImage->m_sHeight);
+			width = labs((int32_t)pImage->m_sWidth);
 			pitch = pImage->m_lPitch;
 
 			// Set up a pointer to the old 8-bit buffer before detaching
@@ -1064,10 +1064,10 @@ int16_t ConvertToSCREEN16_565(RImage* pImage)
 			// Create a new 16-bit buffer and set pointers to the data
 			pImage->m_sDepth = 16;
 			pImage->m_lPitch = RImage::GetPitch(pImage->m_sWidth, pImage->m_sDepth);
-			pImage->CreateData(pImage->m_lPitch * (long)pImage->m_sHeight);
+			pImage->CreateData(pImage->m_lPitch * (int32_t)pImage->m_sHeight);
 			USHORT* usp16 = (USHORT*) pImage->m_pData;
 			UCHAR  ucIndex;
-			long dPitch = pImage->m_lPitch / (pImage->m_sDepth/8);
+			int32_t dPitch = pImage->m_lPitch / (pImage->m_sDepth/8);
 
 			for (r = 0; r < height; r++)
 				for (c = 0; c < width; c++)
@@ -1088,12 +1088,12 @@ int16_t ConvertToSCREEN16_565(RImage* pImage)
 
 		case RImage::BMP24:
 		{
-			long r, c, height, width, sPitch;
+			int32_t r, c, height, width, sPitch;
 
 			// Make sure that we copy the whole thing even if the
 			// height and width are negative values
-			height = labs((long)pImage->m_sHeight);
-			width = labs((long)pImage->m_sWidth);
+			height = labs((int32_t)pImage->m_sHeight);
+			width = labs((int32_t)pImage->m_sWidth);
 			sPitch = pImage->m_lPitch;
 
 			// Set a pointer to the 24-bit buffer before detaching
@@ -1105,9 +1105,9 @@ int16_t ConvertToSCREEN16_565(RImage* pImage)
 			// Create a new 16-bit buffer and set a pointer to the data
 			pImage->m_sDepth = 16;
 			pImage->m_lPitch = RImage::GetPitch(pImage->m_sWidth, pImage->m_sDepth);
-			pImage->CreateData(pImage->m_lPitch * (long)pImage->m_sHeight);
+			pImage->CreateData(pImage->m_lPitch * (int32_t)pImage->m_sHeight);
 			USHORT* usp16 = (USHORT*) pImage->m_pData;
-			long dPitch = pImage->m_lPitch / (pImage->m_sDepth / 8);
+			int32_t dPitch = pImage->m_lPitch / (pImage->m_sDepth / 8);
 
 			for (r = 0 ; r < height; r++)
 				for (c = 0; c < width; c++)  
@@ -1187,13 +1187,13 @@ int16_t ConvertToSCREEN24_RGB(RImage* pImage)
 
 		case RImage::BMP8:
 		{
-			long r, c, height, width, sPitch, dPitch;
+			int32_t r, c, height, width, sPitch, dPitch;
 
 			// Make sure that we copy the whole thing even if the
 			// height and width are negative values
 
-			height = labs((long)pImage->m_sHeight);
-			width = labs((long)pImage->m_sWidth);
+			height = labs((int32_t)pImage->m_sHeight);
+			width = labs((int32_t)pImage->m_sWidth);
 			sPitch = pImage->m_lPitch;
 
 			// Set up a pointer to the 8-bit buffer before detaching
@@ -1206,7 +1206,7 @@ int16_t ConvertToSCREEN24_RGB(RImage* pImage)
 			// Create a new 24-bit buffer and set a pointer to the data
 			pImage->m_sDepth = 24;
 			dPitch = pImage->m_lPitch = RImage::GetPitch(pImage->m_sWidth, pImage->m_sDepth);
-			pImage->CreateData(pImage->m_lPitch * (long)pImage->m_sHeight);
+			pImage->CreateData(pImage->m_lPitch * (int32_t)pImage->m_sHeight);
 			UCHAR* ucp24 = (UCHAR*) pImage->m_pData;
 
 			ULONG ulColor;
@@ -1299,13 +1299,13 @@ int16_t ConvertToSCREEN32_ARGB(RImage* pImage)
 
 		case RImage::BMP8:
 		{
-			long r, c, height, width, pitch;
+			int32_t r, c, height, width, pitch;
 
 			// Make sure that we copy the whole thing even if the
 			// height and width are negative values
 
-			height = labs((long)pImage->m_sHeight);
-			width = labs((long)pImage->m_sWidth);
+			height = labs((int32_t)pImage->m_sHeight);
+			width = labs((int32_t)pImage->m_sWidth);
 			pitch = pImage->m_lPitch;
 
 			// Set up a pointer to the 8-bit buffer before detaching
@@ -1318,9 +1318,9 @@ int16_t ConvertToSCREEN32_ARGB(RImage* pImage)
 			// Create a new 32-bit buffer and set a pointer to the data
 			pImage->m_sDepth = 32;
 			pImage->m_lPitch = RImage::GetPitch(pImage->m_sWidth, pImage->m_sDepth);
-			pImage->CreateData(pImage->m_lPitch * (long)pImage->m_sHeight);
+			pImage->CreateData(pImage->m_lPitch * (int32_t)pImage->m_sHeight);
 			ULONG* ulp32 = (ULONG*) pImage->m_pData;
-			long dLongPitch = pImage->m_lPitch/4;
+			int32_t dLongPitch = pImage->m_lPitch/4;
 
 			for (r = 0; r < height; r++)
 				for (c = 0; c < width; c++)
@@ -1336,12 +1336,12 @@ int16_t ConvertToSCREEN32_ARGB(RImage* pImage)
 
 		case RImage::BMP24:
 		{
-			long r, c, height, width, sPitch;
+			int32_t r, c, height, width, sPitch;
 
 			// Make sure that we copy the whole thing even if the
 			// height and width are negative values
-			height = labs((long)pImage->m_sHeight);
-			width = labs((long)pImage->m_sWidth);
+			height = labs((int32_t)pImage->m_sHeight);
+			width = labs((int32_t)pImage->m_sWidth);
 			sPitch = pImage->m_lPitch;
 
 			// Set a pointer to the 24-bit buffer before detaching
@@ -1353,9 +1353,9 @@ int16_t ConvertToSCREEN32_ARGB(RImage* pImage)
 			// Create a new 32-bit buffer and set a pointer to the data
 			pImage->m_sDepth = 32;
 			pImage->m_lPitch = RImage::GetPitch(pImage->m_sWidth, pImage->m_sDepth);
-			pImage->CreateData(pImage->m_lPitch * (long)pImage->m_sHeight);
+			pImage->CreateData(pImage->m_lPitch * (int32_t)pImage->m_sHeight);
 			ULONG* ulp32 = (ULONG*) pImage->m_pData;
-			long dLongPitch = pImage->m_lPitch/4;
+			int32_t dLongPitch = pImage->m_lPitch/4;
 
 			for (r = 0 ; r < height; r++)
 				for (c = 0; c < width; c++)  
@@ -1457,15 +1457,15 @@ int16_t ConvertFromBMP8RLE(RImage* pImage)
 
 	// Create a new 8-bit uncompressed buffer and set a pointer to the 
 	// data.  Leave the current pitch.
-	if (pImage->CreateData(pImage->m_lPitch * (long)pImage->m_sHeight) == 0)
+	if (pImage->CreateData(pImage->m_lPitch * (int32_t)pImage->m_sHeight) == 0)
 		{
 		U8*	pu8Uncomp	= pImage->m_pData;
 
 		// We must flip the image during decompression.
 		// This should work for both negative and positive
 		// pitch buffers (i.e., upside down and right side up).
-		long	lPitch	= -pImage->m_lPitch;
-		pu8Uncomp		= pu8Uncomp + pImage->m_lPitch * ((long)pImage->m_sHeight - 1);
+		int32_t	lPitch	= -pImage->m_lPitch;
+		pu8Uncomp		= pu8Uncomp + pImage->m_lPitch * ((int32_t)pImage->m_sHeight - 1);
 		U8*	pu8Row	= pu8Uncomp;
 
 		// Actual decompression.  See function header for details.
@@ -1574,8 +1574,8 @@ int16_t ConvertToBMP8RLE(RImage* pImage)
 			// We must flip the image during compression.
 			// This should work for both negative and positive
 			// pitch buffers (i.e., upside down and right side up).
-			long	lPitch	= -pImage->m_lPitch;
-			pu8Uncomp		= pu8Uncomp + pImage->m_lPitch * ((long)pImage->m_sHeight - 1);
+			int32_t	lPitch	= -pImage->m_lPitch;
+			pu8Uncomp		= pu8Uncomp + pImage->m_lPitch * ((int32_t)pImage->m_sHeight - 1);
 
 			// Detach the 8-bit uncompressed buffer from the Image
 			void* pvDetachedMem = pImage->DetachData();
@@ -1591,23 +1591,23 @@ int16_t ConvertToBMP8RLE(RImage* pImage)
 			// assuming 2 times the pixels plus the height times 2 (2 bytes for each end
 			// of line) plus 2 bytes for the end of bitmap is good enough.  
 			// 2 * ulSize + lHeight * 2 + 2.
-			if (pImage->CreateData(2 * pImage->m_ulSize + (long)pImage->m_sHeight * 2 + 2) == 0)
+			if (pImage->CreateData(2 * pImage->m_ulSize + (int32_t)pImage->m_sHeight * 2 + 2) == 0)
 				{
 				U8*	pu8Comp		= pImage->m_pData;
 
 				// Actual compression.  See function header for details.
 				U8*	pu8Row	= pu8Uncomp;
-				long	lRowRemain;
-				long	lRun;
+				int32_t	lRowRemain;
+				int32_t	lRun;
 
 				// Compress until we exceed buffer.  Nothing has explicitly
 				// said we should, but we will try to be row based.  This works
 				// well for flipping the image while we're compressing.
 				// Note that we never use the escape for moving the current position.
 				// It seems to me this would only be useful in animation.
-				for (long lNumLines = (long)pImage->m_sHeight; lNumLines > 0; lNumLines--)
+				for (int32_t lNumLines = (int32_t)pImage->m_sHeight; lNumLines > 0; lNumLines--)
 					{
-					lRowRemain	= (long)pImage->m_sWidth;
+					lRowRemain	= (int32_t)pImage->m_sWidth;
 
 					while (lRowRemain > 0)
 						{
@@ -1756,7 +1756,7 @@ int16_t ConvertFromBMP1(RImage* pImage)
 	pImage->m_sDepth	= 8;
 
 	// Remember old pitch.
-	long	lSrcPitch	= pImage->m_lPitch;
+	int32_t	lSrcPitch	= pImage->m_lPitch;
 
 	// Compute the new pitch.  Preserve sign.
 	if (pImage->m_lPitch > 0)
@@ -1777,11 +1777,11 @@ int16_t ConvertFromBMP1(RImage* pImage)
 		U8*	pu8SrcRow	= pu8Src;
 		U8*	pu8DstRow	= pu8Dst;
 
-		long	lRows	= (long)pImage->m_sHeight;
-		long	lCols;
+		int32_t	lRows	= (int32_t)pImage->m_sHeight;
+		int32_t	lCols;
 		while (lRows-- > 0)
 			{
-			lCols	= (long)pImage->m_sWidth / 8;
+			lCols	= (int32_t)pImage->m_sWidth / 8;
 			while (lCols-- > 0)
 				{
 				// Pack a byte.
@@ -1850,7 +1850,7 @@ int16_t ConvertToBMP1(RImage* pImage)
 			pImage->m_sDepth	= 1;
 
 			// Remember old pitch.
-			long	lSrcPitch	= pImage->m_lPitch;
+			int32_t	lSrcPitch	= pImage->m_lPitch;
 
 			// If there is a partial byte . . .
 			if ((pImage->m_lPitch % 8) != 0)
@@ -1873,7 +1873,7 @@ int16_t ConvertToBMP1(RImage* pImage)
 				}
 
 			// Allocate new data.  This call sets ulSize.  Preserve lWidth, lHeight.
-			if (pImage->CreateData((long)pImage->m_sHeight * ABS(pImage->m_lPitch)) == 0)
+			if (pImage->CreateData((int32_t)pImage->m_sHeight * ABS(pImage->m_lPitch)) == 0)
 				{
 				// Bit packed destination.
 				U8*	pu8Dst	= pImage->m_pData;
@@ -1884,11 +1884,11 @@ int16_t ConvertToBMP1(RImage* pImage)
 				// Converts non-zero values to a 1 and increments ptr.
 				#define CHECK_NONZERO_INC(p)	((*(p)++ == 0) ? 0 : 1)
 
-				long	lRows	= (long)pImage->m_sHeight;
-				long	lCols;
+				int32_t	lRows	= (int32_t)pImage->m_sHeight;
+				int32_t	lCols;
 				while (lRows-- > 0)
 					{
-					lCols	= (long)pImage->m_sWidth / 8;
+					lCols	= (int32_t)pImage->m_sWidth / 8;
 					while (lCols-- > 0)
 						{
 						// Pack a byte.

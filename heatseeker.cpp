@@ -173,8 +173,8 @@ double CHeatseeker::ms_dMaxVelFore  = 250.0;				// Maximum forward velocity
 double CHeatseeker::ms_dMaxVelBack  = -250.0;			// Maximum backward velocity
 double CHeatseeker::ms_dCloseDistance = 30.0;			// Close enough to hit CDude
 double CHeatseeker::ms_dLineCheckRate = 15.0;			// Pixel distance for line checking
-long CHeatseeker::ms_lArmingTime = 500;					// Time before weapon arms.
-long CHeatseeker::ms_lSeekRadius = 150;						// Radius of heatseeking circle
+int32_t CHeatseeker::ms_lArmingTime = 500;					// Time before weapon arms.
+int32_t CHeatseeker::ms_lSeekRadius = 150;						// Radius of heatseeking circle
 int16_t CHeatseeker::ms_sOffScreenDist = 200;				// Go off screen this far before blowing up
 int16_t CHeatseeker::ms_sAngularVelocity = 120;				// Degrees per second
 
@@ -185,8 +185,8 @@ U32 CHeatseeker::ms_u32SeekExcludeBits = CSmash::Ducking | CSmash::AlmostDead;
 U32 CHeatseeker::ms_u32CollideIncludeBits = CSmash::Character | CSmash::Misc | CSmash::Barrel | CSmash::Fire;
 U32 CHeatseeker::ms_u32CollideDontcareBits = CSmash::Good | CSmash::Bad;
 U32 CHeatseeker::ms_u32CollideExcludeBits = CSmash::Ducking; // Miss if they are ducking
-long CHeatseeker::ms_lSmokeTrailInterval = 10;			// MS between smoke releases
-long CHeatseeker::ms_lSmokeTimeToLive = 1000;			// MS for smoke to stay around.
+int32_t CHeatseeker::ms_lSmokeTrailInterval = 10;			// MS between smoke releases
+int32_t CHeatseeker::ms_lSmokeTimeToLive = 1000;			// MS for smoke to stay around.
 
 // Let this auto-init to 0
 int16_t CHeatseeker::ms_sFileCount;
@@ -303,7 +303,7 @@ void CHeatseeker::Update(void)
 	if (!m_sSuspend)
 		{
 		// Get new time
-		long lThisTime = m_pRealm->m_time.GetGameTime(); 
+		int32_t lThisTime = m_pRealm->m_time.GetGameTime(); 
 
 		// Calculate elapsed time in seconds
 		double dSeconds = (double)(lThisTime - m_lPrevTime) / 1000.0;
@@ -609,7 +609,7 @@ void CHeatseeker::Update(void)
 ////////////////////////////////////////////////////////////////////////////////
 void CHeatseeker::Render(void)
 {
-	long lThisTime = m_pRealm->m_time.GetGameTime();
+	int32_t lThisTime = m_pRealm->m_time.GetGameTime();
 
 	m_sprite.m_pmesh = (RMesh*) m_anim.m_pmeshes->GetAtTime(lThisTime);
 	m_sprite.m_psop = (RSop*) m_anim.m_psops->GetAtTime(lThisTime);

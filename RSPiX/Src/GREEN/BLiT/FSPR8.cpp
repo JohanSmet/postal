@@ -342,7 +342,7 @@ int16_t   ConvertToFSPR8(RImage*  pImage)
 	//===== The m_pCodeArry ... points to the start of each line in the control block.
 
 	int16_t x,y;  // For now, clear = 0, but this can be EASILY changed.
-	long i;
+	int32_t i;
 	int16_t	sCount;
 	UCHAR *pucOldMem,*pucOldBuf; // For shrinking the buffer while maintaining alignment
 
@@ -363,10 +363,10 @@ int16_t   ConvertToFSPR8(RImage*  pImage)
 	pHeader->m_pBufArry = (UCHAR**)calloc(pImage->m_sHeight+1,sizeof(UCHAR*));
 
 	//************** For now, set these to an optimisitically large size: 1:1 compression (could be 2:1 worst case)
-	long	lSizeEstimate = ((long)(pImage->m_sHeight+1))*(pImage->m_sWidth*2+1) + 15;
+	int32_t	lSizeEstimate = ((int32_t)(pImage->m_sHeight+1))*(pImage->m_sWidth*2+1) + 15;
 	pHeader->m_pCompMem = (UCHAR*)malloc((size_t)pImage->m_sHeight*(size_t)pImage->m_sWidth+15);
 
-	pHeader->m_pCompBuf = (UCHAR*)(( (long)(pHeader->m_pCompMem) + 15) & ~ 15); // align it 128!
+	pHeader->m_pCompBuf = (UCHAR*)(( (intptr_t)(pHeader->m_pCompMem) + 15) & ~ 15); // align it 128!
 	pHeader->m_pCodeBuf = (UCHAR*)malloc((size_t)lSizeEstimate);
 
 	//******** For convenience, generate the Compressed Buffer immediately:
@@ -380,7 +380,7 @@ int16_t   ConvertToFSPR8(RImage*  pImage)
 	for (y=0;y<sH;y++)
 	{
 	pHeader->m_pBufArry[y] = (UCHAR*)(pucCPos - pHeader->m_pCompBuf); // set line pointer
-	for (x=0,pucBPos = pImage->m_pData + (long)sP * (long)y; x<sW; x++)
+	for (x=0,pucBPos = pImage->m_pData + (int32_t)sP * (int32_t)y; x<sW; x++)
 		{
 		if (*pucBPos != 0) *(pucCPos++) = *pucBPos;
 		pucBPos++;
@@ -411,7 +411,7 @@ int16_t   ConvertToFSPR8(RImage*  pImage)
 	// NOTE: pucCPos is an open stack!
 	pHeader->m_pCompMem = (UCHAR*)calloc(1,(size_t)(pucCPos - pHeader->m_pCompBuf + 15));
 	// And align it:
-	pHeader->m_pCompBuf = (UCHAR*)(( (long)(pHeader->m_pCompMem) +15)&~15);
+	pHeader->m_pCompBuf = (UCHAR*)(( (intptr_t)(pHeader->m_pCompMem) +15)&~15);
 	// Store the size of the Compressed Buffer:
 	pHeader->m_pBufArry[sH] = (UCHAR*)(size_t)(pucCPos - pHeader->m_pCompBuf);
 
@@ -421,7 +421,7 @@ int16_t   ConvertToFSPR8(RImage*  pImage)
 	free(pucOldMem);
 	
 	// Now update the indexes (m_pBufArry) which point into PCBuf:
-	for (y=0;y<sH;y++) pHeader->m_pBufArry[y] += (long)(pHeader->m_pCompBuf);
+	for (y=0;y<sH;y++) pHeader->m_pBufArry[y] += (intptr_t)(pHeader->m_pCompBuf);
 
 	//******** NOW, the challange... Create the Control Block!
 	pucBPos = pImage->m_pData;
@@ -430,7 +430,7 @@ int16_t   ConvertToFSPR8(RImage*  pImage)
 	for (y=0;y<sH;y++)
 		{
 		pHeader->m_pCodeArry[y] = (UCHAR*)(pucConBlk - pHeader->m_pCodeBuf); // set Block pointer
-		pucBPos = pImage->m_pData + (long)sP * (long)y;
+		pucBPos = pImage->m_pData + (int32_t)sP * (int32_t)y;
 		x=0;
 
 		NextRun:
@@ -492,7 +492,7 @@ int16_t   ConvertToFSPR8(RImage*  pImage)
 										(size_t)(pucConBlk - pHeader->m_pCodeBuf));	
 
 	// Move the indexes in (m_pCodeArry)
-	for (y=0;y<sH;y++) pHeader->m_pCodeArry[y] += (long)(pHeader->m_pCodeBuf);
+	for (y=0;y<sH;y++) pHeader->m_pCodeArry[y] += (intptr_t)(pHeader->m_pCodeBuf);
 
 	//******************************************************************
 
@@ -612,7 +612,7 @@ int16_t	rspBlit(RImage* pimSrc,RImage* pimDst,int16_t sDstX,int16_t sDstY,const 
 	// must record which UNLOCK (if any) needs to be done AFTER the BLiT
 	// has completed. (Lord help me if a blit gets interrupted)
 	// NOT NECESSARY!!! THe SOURCE WILL ALWAYS BE A BUFFER!
-	if (pimDst->m_type == RImage::IMAGE_STUB) sBlitTypeDst = (int16_t)((long)pimDst->m_pSpecial);
+	if (pimDst->m_type == RImage::IMAGE_STUB) sBlitTypeDst = (int16_t)((intptr_t)pimDst->m_pSpecial);
 
 	switch (sBlitTypeDst) // 0 = normal image
 		{

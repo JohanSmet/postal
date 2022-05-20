@@ -49,8 +49,8 @@ class RTask
 
 		// Typedef to override this RTask's timer.  If overridden, this RTask
 		// will use this callback to get the time.
-		typedef long (*TimeFunc)(	// Returns time as a long in milliseconds.
-			long lTimeUser);			// User defined m_lTimeUser.
+		typedef int32_t (*TimeFunc)(	// Returns time as a int32_t in milliseconds.
+			int32_t lTimeUser);			// User defined m_lTimeUser.
 
 	/////////////////////// Con/Destruction ////////////////////////////////////
 	public:
@@ -68,7 +68,7 @@ class RTask
 		int16_t IsActive(void) { return m_sActive; }
 
 		// Returns the current time based on either the user base or Blue.
-		long GetTime(void)
+		int32_t GetTime(void)
 			{ return (m_fnTime == NULL ? rspGetMilliseconds() : (*m_fnTime)(m_lTimeUser)); }
 		
 	////////////////////////// Methods ////////////////////////////////////////
@@ -87,7 +87,7 @@ class RTask
 		int16_t Suspend(void);
 
 		// Use a custom timer.
-		void SetTimeFunc(TimeFunc fnTime, long lTimeUser)
+		void SetTimeFunc(TimeFunc fnTime, int32_t lTimeUser)
 			{ m_fnTime = fnTime; m_lTimeUser = lTimeUser; }
 		
 		/////////////////////// Static functions ///////////////////////////////
@@ -109,8 +109,8 @@ class RTask
 		TaskFunc		m_fnTask;		// User specified task function.
 		ULONG			m_ulUser;		// User specified parm to task function.
 
-		long			m_lInterval;	// User specified timer interval.
-		long			m_lNextExpiration;	// Next time to call task.
+		int32_t			m_lInterval;	// User specified timer interval.
+		int32_t			m_lNextExpiration;	// Next time to call task.
 
 	protected:
 		// The following member variables are NOT safe to tamper with from 
@@ -118,7 +118,7 @@ class RTask
 
 		int16_t				m_sActive;	// TRUE if active (in list), FALSE otherwise.
 		TimeFunc			m_fnTime;	// Custom time function.
-		long				m_lTimeUser;// Custom time function user value.
+		int32_t				m_lTimeUser;// Custom time function user value.
 
 
 		/////////////////////// Static members /////////////////////////////////

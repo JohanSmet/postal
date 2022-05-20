@@ -809,7 +809,7 @@ int16_t RProtocolBSDIP::Connect(						// Returns 0 if successfull, non-zero othe
 
 				// Select exception/error sockets
 				ms_funcnum = RSocket::SelectFunc;
-				long lCount = select(0, NULL, NULL, &set, &timeval);
+				int32_t lCount = select(0, NULL, NULL, &set, &timeval);
 				if (lCount == 0)
 					{
 					// Create a set containing just this socket
@@ -822,7 +822,7 @@ int16_t RProtocolBSDIP::Connect(						// Returns 0 if successfull, non-zero othe
 
 					// Select writable sockets
 					ms_funcnum = RSocket::SelectFunc;
-					long lCount = select(0, NULL, &set, NULL, &timeval);
+					int32_t lCount = select(0, NULL, &set, NULL, &timeval);
 					if (lCount > 0)
 						{
 						// Connected!
@@ -868,8 +868,8 @@ int16_t RProtocolBSDIP::Connect(						// Returns 0 if successfull, non-zero othe
 //////////////////////////////////////////////////////////////////////////////
 int16_t RProtocolBSDIP::Send(							// Returns 0 on success, non-zero otherwise
 	void* pBuf,												// In:  Pointer to data buffer
-	long lNumBytes,										// In:  Number of bytes to send
-	long* plActualBytes)									// Out: Actual number of bytes sent
+	int32_t lNumBytes,										// In:  Number of bytes to send
+	int32_t* plActualBytes)									// Out: Actual number of bytes sent
 	{
 #if PLATFORM_UNIX
     return(-1);  // !!! FIXME
@@ -930,8 +930,8 @@ int16_t RProtocolBSDIP::Send(							// Returns 0 on success, non-zero otherwise
 //////////////////////////////////////////////////////////////////////////////
 int16_t RProtocolBSDIP::SendTo(							// Returns 0 on success, non-zero otherwise
 	void* pBuf,												// In:  Pointer to data buffer
-	long lNumBytes,										// In:  Number of bytes to send
-	long* plActualBytes,									// Out: Actual number of bytes sent
+	int32_t lNumBytes,										// In:  Number of bytes to send
+	int32_t* plActualBytes,									// Out: Actual number of bytes sent
 	RSocket::Address* paddress)						// In:  Address to send to
 	{
 #if PLATFORM_UNIX
@@ -1002,8 +1002,8 @@ int16_t RProtocolBSDIP::SendTo(							// Returns 0 on success, non-zero otherwis
 //////////////////////////////////////////////////////////////////////////////
 int16_t RProtocolBSDIP::Receive(						// Returns 0 on success, non-zero otherwise
 	void* pBuf,												// In:  Pointer to data buffer
-	long lMaxBytes,										// In:  Maximum number of bytes that fit in the buffer
-	long* plActualBytes)									// Out: Actual number of bytes recieved into the buffer
+	int32_t lMaxBytes,										// In:  Maximum number of bytes that fit in the buffer
+	int32_t* plActualBytes)									// Out: Actual number of bytes recieved into the buffer
 	{
 #if PLATFORM_UNIX
     return(-1);  // !!! FIXME
@@ -1064,8 +1064,8 @@ int16_t RProtocolBSDIP::Receive(						// Returns 0 on success, non-zero otherwis
 //////////////////////////////////////////////////////////////////////////////
 int16_t RProtocolBSDIP::ReceiveFrom(					// Returns 0 on success, non-zero otherwise
 	void* pBuf,												// In:  Pointer to data buffer
-	long lMaxBytes,										// In:  Maximum bytes that can fit in the buffer
-	long* plActualBytes,									// Out: Actual number of bytes recieved into buffer
+	int32_t lMaxBytes,										// In:  Maximum bytes that can fit in the buffer
+	int32_t* plActualBytes,									// Out: Actual number of bytes recieved into buffer
 	RSocket::Address* paddress)						// Out: Source address returned here
 	{
 #if PLATFORM_UNIX
@@ -1154,7 +1154,7 @@ bool RProtocolBSDIP::CanAcceptWithoutBlocking(void)
 			
 			// Select listening sockets that have actual connections pending
 			ms_funcnum = RSocket::SelectFunc;
-			long lCount = select(0, &set, NULL, NULL, &timeval);
+			int32_t lCount = select(0, &set, NULL, NULL, &timeval);
 			if (lCount > 0)
 				bResult = true;
 			}
@@ -1203,7 +1203,7 @@ bool RProtocolBSDIP::CanSendWithoutBlocking(void)
 			
 			// Select writable sockets
 			ms_funcnum = RSocket::SelectFunc;
-			long lCount = select(0, NULL, &set, NULL, &timeval);
+			int32_t lCount = select(0, NULL, &set, NULL, &timeval);
 			if (lCount > 0)
 				bResult = true;
 			}
@@ -1254,7 +1254,7 @@ bool RProtocolBSDIP::CanReceiveWithoutBlocking(void)
 			
 			// Select readable sockets
 			ms_funcnum = RSocket::SelectFunc;
-			long lCount = select(0, &set, NULL, NULL, &timeval);
+			int32_t lCount = select(0, &set, NULL, NULL, &timeval);
 			if (lCount > 0)
 				bResult = true;
 			}
@@ -1281,12 +1281,12 @@ bool RProtocolBSDIP::CanReceiveWithoutBlocking(void)
 // this returns the total amount of data that can be read with a single
 // Receive() which is normally equal to the total amount of queued data.
 //////////////////////////////////////////////////////////////////////////////
-long RProtocolBSDIP::CheckReceivableBytes(void)
+int32_t RProtocolBSDIP::CheckReceivableBytes(void)
 	{
 #if PLATFORM_UNIX
     return(0);  // !!! FIXME
 #else
-	long lResult = 0;
+	int32_t lResult = 0;
 	
 	if (m_sock != INVALID_SOCKET)
 		{
@@ -1345,7 +1345,7 @@ bool RProtocolBSDIP::IsError(void)
 		
 		// Select exception/error sockets
 		ms_funcnum = RSocket::SelectFunc;
-		long lCount = select(0, NULL, NULL, &set, &timeval);
+		int32_t lCount = select(0, NULL, NULL, &set, &timeval);
 		if (lCount > 0)
 			bResult = true;
 		}
@@ -1379,14 +1379,14 @@ RSocket::BLOCK_CALLBACK RProtocolBSDIP::GetCallback(void)
 //////////////////////////////////////////////////////////////////////////////
 /* static */
 int16_t RProtocolBSDIP::GetMaxDatagramSize(			// Returns zero on success, non-zero otherwise
-	long* plSize)											// Out: Maximum datagram size in bytes
+	int32_t* plSize)											// Out: Maximum datagram size in bytes
 	{
 	int16_t sResult = 0;
 	
     #ifdef WIN32
 	if (ms_bDidStartup)
 		{
-		*plSize = (long)ms_WSAData.iMaxUdpDg;
+		*plSize = (int32_t)ms_WSAData.iMaxUdpDg;
 		}
 	else
 		{
@@ -1408,14 +1408,14 @@ int16_t RProtocolBSDIP::GetMaxDatagramSize(			// Returns zero on success, non-ze
 //////////////////////////////////////////////////////////////////////////////
 /* static */
 int16_t RProtocolBSDIP::GetMaxSockets(				// Returns 0 if successfull, non-zero otherwise
-	long* plNum)											// Out: maximum number of sockets
+	int32_t* plNum)											// Out: maximum number of sockets
 	{
 	int16_t sResult = 0;
 
 	#ifdef WIN32
 	if (ms_bDidStartup)
 		{
-		*plNum = (long)ms_WSAData.iMaxSockets;
+		*plNum = (int32_t)ms_WSAData.iMaxSockets;
 		}
 	else
 		{

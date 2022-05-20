@@ -7720,9 +7720,9 @@ static bool RealmOpProgress(			// Returns true to continue; false to
 	int16_t	sLastItemProcessed,			// In:  Number of items processed so far.
 	int16_t	sTotalItemsToProcess)		// In:  Total items to process.
 	{
-	static long	lLastProgressPos;
-	static long	lProgressX, lProgressY, lProgressW, lProgressH;
-	static long	lLastCallTime;
+	static int32_t	lLastProgressPos;
+	static int32_t	lProgressX, lProgressY, lProgressW, lProgressH;
+	static int32_t	lLastCallTime;
 
 	// Just need to get the key status array once.
 	U8*	pau8KeyStatus	= rspGetKeyStatusArray();
@@ -7765,17 +7765,17 @@ static bool RealmOpProgress(			// Returns true to continue; false to
 			lProgressH + 2);
 		}
 
-	long lNow = rspGetMilliseconds();
+	int32_t lNow = rspGetMilliseconds();
 	if ((lNow - lLastCallTime) > PROGRESS_CALLBACK_INTERVAL)
 		{
 		// Do an update
 		UpdateSystem();
 
 		// Compute new position.
-		long	lNewProgressPos;
+		int32_t	lNewProgressPos;
 		if (sTotalItemsToProcess > 0)
 			{
-			lNewProgressPos	= (long)sLastItemProcessed * lProgressW / (long)sTotalItemsToProcess;
+			lNewProgressPos	= (int32_t)sLastItemProcessed * lProgressW / (int32_t)sTotalItemsToProcess;
 			}
 		else
 			{

@@ -283,7 +283,7 @@ class Net
 	#endif
 
 	// Lookup tables associated with the NetBandwidth enums.
-	NETCRAPTHING long	lBandwidthValues[Net::NumBandwidths];
+	NETCRAPTHING int32_t	lBandwidthValues[Net::NumBandwidths];
 	NETCRAPTHING const char* BandwidthText[Net::NumBandwidths];
 	};
 

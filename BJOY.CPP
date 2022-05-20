@@ -193,14 +193,14 @@ extern int16_t Blu_UpdateJoy(int16_t sJoy)
 // Returns nothing.
 //
 //////////////////////////////////////////////////////////////////////////////
-extern void Blu_GetJoyPos(int16_t sJoy, long *px, long *py, long *pz)
+extern void Blu_GetJoyPos(int16_t sJoy, int32_t *px, int32_t *py, int32_t *pz)
 	{
 	ASSERT(sJoy == 0 || sJoy == 1);
 
 	// Copy the coordinates.
-	*px = (long)ms_ajiCurr[sJoy].wXpos;
-	*py = (long)ms_ajiCurr[sJoy].wYpos;
-	*pz = (long)ms_ajiCurr[sJoy].wZpos;
+	*px = (int32_t)ms_ajiCurr[sJoy].wXpos;
+	*py = (int32_t)ms_ajiCurr[sJoy].wYpos;
+	*pz = (int32_t)ms_ajiCurr[sJoy].wZpos;
 	}
 
 //////////////////////////////////////////////////////////////////////////////
@@ -209,14 +209,14 @@ extern void Blu_GetJoyPos(int16_t sJoy, long *px, long *py, long *pz)
 // Returns nothing.
 //
 //////////////////////////////////////////////////////////////////////////////
-extern void Blu_GetJoyPrevPos(int16_t sJoy, long *px, long *py, long *pz)
+extern void Blu_GetJoyPrevPos(int16_t sJoy, int32_t *px, int32_t *py, int32_t *pz)
 	{
 	ASSERT(sJoy == 0 || sJoy == 1);
 
 	// Copy the coordinates.
-	*px = (long)ms_ajiPrev[sJoy].wXpos;
-	*py = (long)ms_ajiPrev[sJoy].wYpos;
-	*pz = (long)ms_ajiPrev[sJoy].wZpos;
+	*px = (int32_t)ms_ajiPrev[sJoy].wXpos;
+	*py = (int32_t)ms_ajiPrev[sJoy].wYpos;
+	*pz = (int32_t)ms_ajiPrev[sJoy].wZpos;
 	}
 
 //////////////////////////////////////////////////////////////////////////////

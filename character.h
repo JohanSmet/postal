@@ -156,7 +156,7 @@ class CCharacter : public CThing3d
 		CThing::ClassIDType m_eWeaponType;	// Type of weapon to be shot
 		CBulletFest	m_bullets;					// Generic bullet interface.
 
-		long	m_lCharacterTimer;				// This timer is intended for use by
+		int32_t	m_lCharacterTimer;				// This timer is intended for use by
 														// CCharacter's On/While* functions.
 		U16	m_u16KillerId;						// ID of the person who killed you
 		// Used to track the current channel
@@ -165,7 +165,7 @@ class CCharacter : public CThing3d
 		SampleMaster::SoundInstance	m_siLastWeaponPlayInstance;
 		// Set time that sound should be stopped (as long as we keep updating
 		// this, it won't get stopped).
-		long	m_lStopLoopingWeaponSoundTime;
+		int32_t	m_lStopLoopingWeaponSoundTime;
 
 
 

@@ -475,7 +475,7 @@ int16_t suxRect(			// Returns 0 on success, 1 if clipped out entirely.
 
 	if (sW > 0 && sH > 0)
 		{
-		long		lPitch	= pimDst->m_lPitch;
+		int32_t		lPitch	= pimDst->m_lPitch;
 		COLOR*	pclrRow	= (COLOR*)(pimDst->m_pData + sY * lPitch) + sX;
 		COLOR*	pclrBlt;
 		int16_t		sWidth;
@@ -512,7 +512,7 @@ int16_t EvalPixel(						// Returns TRUE if pixel is not clrDisjoin.
 	COLOR* pclrData,					// Pixel data.
 	int16_t sX,							// X coordinate to check.
 	int16_t sY,							// Y coordinate to check.
-	long lPitch,						// Pitch of pclrData data.
+	int32_t lPitch,						// Pitch of pclrData data.
 	int16_t	sMinX,						// Minimum value of x that is valid.
 	int16_t sMinY,						// Minimum value of y that is valid.
 	int16_t sMaxX,						// Maximum value of x that is valid.
@@ -530,7 +530,7 @@ int16_t EvalPixel(						// Returns TRUE if pixel is not clrDisjoin.
 			{
 			// Note that sY * lPitch is added in U8 sized elements and
 			// sX is added in COLOR sized elements.
-			if (*((COLOR*)((U8*)pclrData + (long)sY * lPitch) + sX) != clrDisjoin)
+			if (*((COLOR*)((U8*)pclrData + (int32_t)sY * lPitch) + sX) != clrDisjoin)
 				{
 				sNonDisjoin	= TRUE;
 				}
@@ -708,13 +708,13 @@ int16_t rspLassoNext(	// Returns 0 if a polygon found,
 			//////////////////////////////////////////////////////////////////////
 			// Scan for first/next shape.
 			//////////////////////////////////////////////////////////////////////
-			long		lPitch	= pimSrc->m_lPitch;
+			int32_t		lPitch	= pimSrc->m_lPitch;
 			// Note that this addition takes COLOR's bits per pixel into
 			// account.
 			COLOR*	pclrRowStart	= (COLOR*)pimSrc->m_pData + sSrcX;
 			// Note that the height offset is computed at U8* and THEN it
 			// is casted to a COLOR*.
-			pclrRowStart				= (COLOR*)((U8*)pclrRowStart + (long)sSrcY * lPitch);
+			pclrRowStart				= (COLOR*)((U8*)pclrRowStart + (int32_t)sSrcY * lPitch);
 			// Our scanner.
 			COLOR*	pclrSrc			= pclrRowStart;
 

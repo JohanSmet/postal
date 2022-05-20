@@ -95,7 +95,7 @@ class CNetServer
 				CNetMsgr				m_msgr;									// Messenger for communicating with client
 				bool					m_bLoggedIn;							// Whether client is logged in
 
-				long					m_lLatestPingTime;					// Latest ping time
+				int32_t					m_lLatestPingTime;					// Latest ping time
 				Net::SEQ				m_seqLastDoneFrame;					// Last frame client did
 				Net::SEQ				m_seqInput;
 				bool					m_bSentReadyRealm;					// Whether this client sent READY_REALM msg
@@ -168,7 +168,7 @@ class CNetServer
 		bool				m_bWaitingForRealmStatus;				// Whether we're waiting for realm status messages
 
 		char				m_acHostName[Net::MaxHostNameSize];	// Host's name
-		long				m_lHostMagic;								// Host's magic number
+		int32_t				m_lHostMagic;								// Host's magic number
 		bool				m_bSetupGameValid;						// Whether m_msgSetupGame is valid
 		NetMsg			m_msgSetupGame;							// The latest SetupGame msg (if valid)
 
@@ -368,7 +368,7 @@ class CNetServer
 		////////////////////////////////////////////////////////////////////////////////
 		// Get host's magic number
 		////////////////////////////////////////////////////////////////////////////////
-		long GetHostMagic(void)
+		int32_t GetHostMagic(void)
 			{
 			return m_lHostMagic;
 			}

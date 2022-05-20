@@ -409,8 +409,8 @@ static int16_t ms_asBulletDamageChart[16] =
 // scene scaling.
 ////////////////////////////////////////////////////////////////////////////////
 inline
-long GetRandSway(		// Returns sway value.
-	long		lRange,	// In:  Total range of output value.
+int32_t GetRandSway(		// Returns sway value.
+	int32_t		lRange,	// In:  Total range of output value.
 	double	dScale)	// In:  Scaling.
 	{
 	// There's two approaches possible here:
@@ -581,7 +581,7 @@ bool CCharacter::WhileBurning(void)	// Returns true until state is complete.
 
 	// Get time from last call in seconds.  Should this be passed in so we don't
 	// update m_lPrevTime???
-	long		lCurTime	= m_pRealm->m_time.GetGameTime();
+	int32_t		lCurTime	= m_pRealm->m_time.GetGameTime();
 	double	dSeconds	= double(lCurTime - m_lPrevTime) / 1000.0;
 	m_lPrevTime			= lCurTime;
 
@@ -599,7 +599,7 @@ bool CCharacter::WhileBurning(void)	// Returns true until state is complete.
 			{
 			// Brightness is the ratio of the amount of time expired to the
 			// total time multiplied by the destination brightness.
-			long	lTimeExpired	= MIN(lCurTime + BURN_DURATION - m_lCharacterTimer, (long)BURN_DURATION);
+			int32_t	lTimeExpired	= MIN(lCurTime + BURN_DURATION - m_lCharacterTimer, (int32_t)BURN_DURATION);
 			m_sBrightness			= lTimeExpired * BURNT_BRIGHTNESS / BURN_DURATION;
 
 			// If time has expired . . .

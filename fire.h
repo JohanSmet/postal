@@ -129,15 +129,15 @@ class CFire : public CThing
 
 
 	protected:
-		long m_lTimer;							// General purpose timer
-		long m_lCollisionTimer;				// Check for collisions when this expires
-		long m_lBurnUntil;					// Burn until this time.
-		long m_lCurrentAlphaTimeout;		// Use current Alpha until this time, then switch
-		long m_lBrightAlphaInterval;		// Show each alpha for this amount of time
-		long m_lDimAlphaInterval;			// Show dim alpha level for this amount of time
-		long m_lTimeToLive;					// Total time to show this animation
-		long m_lAlphaBreakPoint;			// Time to switch from Bright to Dim
-		long m_lStartTime;					// Starting time used to calc the Alpha %
+		int32_t m_lTimer;							// General purpose timer
+		int32_t m_lCollisionTimer;				// Check for collisions when this expires
+		int32_t m_lBurnUntil;					// Burn until this time.
+		int32_t m_lCurrentAlphaTimeout;		// Use current Alpha until this time, then switch
+		int32_t m_lBrightAlphaInterval;		// Show each alpha for this amount of time
+		int32_t m_lDimAlphaInterval;			// Show dim alpha level for this amount of time
+		int32_t m_lTimeToLive;					// Total time to show this animation
+		int32_t m_lAlphaBreakPoint;			// Time to switch from Bright to Dim
+		int32_t m_lStartTime;					// Starting time used to calc the Alpha %
 		int16_t m_sCurrentAlphaLevel;		// Use this Alpha level
 		int16_t m_sTotalAlphaChannels;
 		U32	m_u32CollideIncludeBits;	// bits to use for collision checking
@@ -147,7 +147,7 @@ class CFire : public CThing
 													// objects telling them to burn or not.
 		FireAnim m_eFireAnim;				// Which animation to use for the fire		
 
-		long m_lPrevTime;						// Previous update time
+		int32_t m_lPrevTime;						// Previous update time
 
 		CSprite2		m_sprite;				// Sprite (replace with CSprite3, soon)
 
@@ -161,8 +161,8 @@ class CFire : public CThing
 		static int16_t ms_sFileCount;
 		static int16_t ms_sLargeRadius;
 		static int16_t ms_sSmallRadius;
-		static long  ms_lCollisionTime;	// Check for collisions this often
-		static long  ms_lSmokeTime;		// Time to let smoke run
+		static int32_t  ms_lCollisionTime;	// Check for collisions this often
+		static int32_t  ms_lSmokeTime;		// Time to let smoke run
 		static int16_t ms_sWindDirection;	// Direction the wind is blowing, will
 													// get changed slightly by each new smoke.
 		static double ms_dWindVelocity;	// Smoke drift velocity
@@ -273,7 +273,7 @@ class CFire : public CThing
 			int16_t sX,												// In: New x coord
 			int16_t sY,												// In: New y coord
 			int16_t sZ,												// In: New z coord
-			long lTimeToLive = 1000,							// In: Milliseconds to burn
+			int32_t lTimeToLive = 1000,							// In: Milliseconds to burn
 			bool bThick = true,									// In: Use thick fire (more opaque)
 			FireAnim eFireAnim = LargeFire);					// In: Which anim to use
 
@@ -328,7 +328,7 @@ class CFire : public CThing
 		// Get the time left to live.
 		// Check IsBurning() to determine whether this applies to the fire or
 		// the smoke.
-		long GetTimeLeftToLive(void)
+		int32_t GetTimeLeftToLive(void)
 			{
 			return m_lBurnUntil - m_pRealm->m_time.GetGameTime();
 			}

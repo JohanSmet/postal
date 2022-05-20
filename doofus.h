@@ -304,12 +304,12 @@ class CDoofus : public CCharacter
 		int16_t m_sNextX;						// Position of next Bouy
 		int16_t m_sNextZ;						// Position of next Bouy
 		int16_t m_sRotateDir;					// Direction to rotate when avoiding obstacles
-		long	m_lAlignTimer;					// Recheck position to bouy every so often
-		long	m_lEvalTimer;					// Reevaluate state every so often
-		long	m_lShotTimeout;				// Only do Shot animation every so often
-		long	m_lStuckTimeout;				// time given to recovery from stuck state
-		long	m_lShootTimer;					// Limit number of shots from a gun.
-		long	m_lCommentTimer;				// Time between random comments
+		int32_t	m_lAlignTimer;					// Recheck position to bouy every so often
+		int32_t	m_lEvalTimer;					// Reevaluate state every so often
+		int32_t	m_lShotTimeout;				// Only do Shot animation every so often
+		int32_t	m_lStuckTimeout;				// time given to recovery from stuck state
+		int32_t	m_lShootTimer;					// Limit number of shots from a gun.
+		int32_t	m_lCommentTimer;				// Time between random comments
 		int16_t	m_usCommentCounter;			// Number of comments
 		CDoofus::Action m_eSuggestedAction;	// Suggested logic action
 		CDoofus::Action m_eCurrentAction;	// Currently running action
@@ -338,19 +338,19 @@ class CDoofus : public CCharacter
 													// in one direction while moving in another direction.
 		double			m_dShootAngle;
 
-		long				m_lIdleTimer;		// Timer for idle animations.
+		int32_t				m_lIdleTimer;		// Timer for idle animations.
 		bool				m_bAnimUp;			// Run animation up or down for idle animation. (crouch)
 
-		long				m_lSampleTimeIsPlaying; // Expected time for this sample
+		int32_t				m_lSampleTimeIsPlaying; // Expected time for this sample
 		bool				m_bRecentlyStuck;			// Flag for when you get stuck on a wall.		
 		bool				m_bCivilian;				// Flag for civilian/hostile
 		bool				m_bRegisteredBirth;		// true, once we've registered our birth with the realm.
 
-		long				m_lGuardTimeout;			// Tunable personatorium value with doofus default
-		long				m_lShootTimeout;			// Tunable time between shots - based on difficulty level
-		long				m_lRunShootInterval;		// Tunable personatorium value with doofus default.
-		long				m_lShotReactionTimeout;	// Tunable personatorium value with doofus default
-		long				m_lLastHelpCallTime;	// Last time someone called for help
+		int32_t				m_lGuardTimeout;			// Tunable personatorium value with doofus default
+		int32_t				m_lShootTimeout;			// Tunable time between shots - based on difficulty level
+		int32_t				m_lRunShootInterval;		// Tunable personatorium value with doofus default.
+		int32_t				m_lShotReactionTimeout;	// Tunable personatorium value with doofus default
+		int32_t				m_lLastHelpCallTime;	// Last time someone called for help
 
 		CSprite3			m_spriteWeapon;			// Sprite for weapon.
 		ClassIDType		m_eFallbackWeaponType;	// Fallback weapon type or TotalIDs for none.
@@ -380,22 +380,22 @@ class CDoofus : public CCharacter
 		static double ms_dMedFightDistanceSQ;
 		static double ms_dMaxFightDistanceSQ;
 		static double ms_dMarchVelocity;	// How fast to walk when marching.
-		static long ms_lDefaultAlignTime;// How often to recalibrate angle to bouy
-		static long ms_lGuardTimeoutMin;	// How often to check for CDudes proximity
-		static long ms_lGuardTimeoutInc;	// Amount of time between for each level of difficulty
-		static long ms_lShootTimeoutMin;	// How often to wait between shots, min
-		static long ms_lShootTimeoutInc;	// Variance between shot times based on difficulty level
-		static long ms_lDetectionRadius;	// Radius of detection sphere
-		static long ms_lRunShootInterval;// Time to run between shooting
-		static long ms_lReseekTime;		// Time to go before seeking the dude's position again
-		static long ms_lShotTimeout;		// Time to go before doing full shot anim when shot
+		static int32_t ms_lDefaultAlignTime;// How often to recalibrate angle to bouy
+		static int32_t ms_lGuardTimeoutMin;	// How often to check for CDudes proximity
+		static int32_t ms_lGuardTimeoutInc;	// Amount of time between for each level of difficulty
+		static int32_t ms_lShootTimeoutMin;	// How often to wait between shots, min
+		static int32_t ms_lShootTimeoutInc;	// Variance between shot times based on difficulty level
+		static int32_t ms_lDetectionRadius;	// Radius of detection sphere
+		static int32_t ms_lRunShootInterval;// Time to run between shooting
+		static int32_t ms_lReseekTime;		// Time to go before seeking the dude's position again
+		static int32_t ms_lShotTimeout;		// Time to go before doing full shot anim when shot
 													// this will give him time to escape.
-		static long ms_lAvoidRadius;		// Radius of fire avoidance smash
-		static long ms_lYellRadius;		// Radius of alerting smash
-		static long ms_lHelpTimeout;		// Time to react to a call for help.
-		static long ms_lDelayShootTimeout;//time before shooting
-		static long ms_lHelpingTimeout;	// time before shooting when helping
-		static long ms_lStuckRecoveryTime;//time to allow recovery from stuck position
+		static int32_t ms_lAvoidRadius;		// Radius of fire avoidance smash
+		static int32_t ms_lYellRadius;		// Radius of alerting smash
+		static int32_t ms_lHelpTimeout;		// Time to react to a call for help.
+		static int32_t ms_lDelayShootTimeout;//time before shooting
+		static int32_t ms_lHelpingTimeout;	// time before shooting when helping
+		static int32_t ms_lStuckRecoveryTime;//time to allow recovery from stuck position
 
 		static U32 ms_u32CollideBitsInclude;	// Default weapon collision bits
 		static U32 ms_u32CollideBitsDontcare;	// Default weapon collision bits
@@ -404,7 +404,7 @@ class CDoofus : public CCharacter
 		static int16_t ms_sStuckLimit;				// Number of retrys before changing states to get unstuck
 
 		static CAnim3D			ms_aanimWeapons[NumWeaponTypes];	// Weapon animations.
-		static long				ms_lWeaponResRefCount;				// Current ref count on ms_aanimWeapons[].
+		static int32_t				ms_lWeaponResRefCount;				// Current ref count on ms_aanimWeapons[].
 		static WeaponDetails	ms_awdWeapons[NumWeaponTypes];	// Weapon details (descriptions,
 																				// res names, etc.).
 		static WeaponType		ms_awtId2Type[TotalIDs];			// Maps a CThing ID to a WeaponType enum.
@@ -599,7 +599,7 @@ class CDoofus : public CCharacter
 
 		// Function to choose and play the writhing sound effect
 		virtual SampleMaster::SoundInstance PlaySoundWrithing(
-			long* plDuration)					// Out:  Duration of sample, if not NULL.
+			int32_t* plDuration)					// Out:  Duration of sample, if not NULL.
 			{
 			if (plDuration != NULL)
 				{

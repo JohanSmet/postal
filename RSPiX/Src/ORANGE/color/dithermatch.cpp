@@ -70,10 +70,10 @@ int16_t	rspDither(
 					UCHAR*	pRed,		// Palette to match to
 					UCHAR*	pGreen,
 					UCHAR*	pBlue,
-					long	lInc,
+					int32_t	lInc,
 					// User interaction
 					PDitherCallBack func,
-					long  lMilli // milliseconds per callback
+					int32_t  lMilli // milliseconds per callback
 					)
 	{
 	ASSERT(pimSrc);
@@ -94,8 +94,8 @@ int16_t	rspDither(
 #endif
 
 	int16_t sRet = 0;
-	// long	lPalOffset = lInc * sStartMap;
-	long	lLastTime = rspGetMilliseconds();
+	// int32_t	lPalOffset = lInc * sStartMap;
+	int32_t	lLastTime = rspGetMilliseconds();
 
 	//--------- Set up receiving vessel:
 	if (pimDst->CreateImage(pimSrc->m_sWidth,pimSrc->m_sHeight,
@@ -117,15 +117,15 @@ int16_t	rspDither(
 		}
 
 	//--------- Begin:
-	// long lErrorRed = 0,lErrorGreen = 0,lErrorBlue = 0;
+	// int32_t lErrorRed = 0,lErrorGreen = 0,lErrorBlue = 0;
 
 	int16_t i,j;
-	long lSrcP = pimSrc->m_lPitch;
-	long lDstP = pimDst->m_lPitch;
+	int32_t lSrcP = pimSrc->m_lPitch;
+	int32_t lDstP = pimDst->m_lPitch;
 	int16_t sW = pimSrc->m_sWidth;
 	int16_t sH = pimSrc->m_sHeight;
 
-	long lSrcXP = 3; // hard coded for 24-bit bmp's!!!
+	int32_t lSrcXP = 3; // hard coded for 24-bit bmp's!!!
 	
 	UCHAR* pSrc = pimSrc->m_pData;
 	UCHAR* pDst = pimDst->m_pData;
@@ -162,9 +162,9 @@ int16_t	rspDither(
 			int16_t sTotErrorR,sTotErrorG,sTotErrorB;
 
 			// This is the desired target color
-			long	lRed = long(pSrc[2] + sNextErrorR + psCurrentErrorR[sErrPos]);
-			long lGreen = long(pSrc[1] + sNextErrorG + psCurrentErrorG[sErrPos]);
-			long	lBlue = long(pSrc[0] + sNextErrorB + psCurrentErrorB[sErrPos]);
+			int32_t	lRed = int32_t(pSrc[2] + sNextErrorR + psCurrentErrorR[sErrPos]);
+			int32_t lGreen = int32_t(pSrc[1] + sNextErrorG + psCurrentErrorG[sErrPos]);
+			int32_t	lBlue = int32_t(pSrc[0] + sNextErrorB + psCurrentErrorB[sErrPos]);
 
 			UCHAR ucIndex = rspMatchColorRGB(lRed,lGreen,lBlue,
 				sStartMap,sNumMap,pRed,pGreen,pBlue,lInc);
@@ -172,7 +172,7 @@ int16_t	rspDither(
 
 			// This is the mismatch:
 			// Calculate new error for this point:
-			long lOffset = ucIndex * lInc;
+			int32_t lOffset = ucIndex * lInc;
 			sCurErrorR = lRed - pRed[lOffset];
 			sCurErrorG = lGreen - pGreen[lOffset];
 			sCurErrorB = lBlue - pBlue[lOffset];
@@ -269,7 +269,7 @@ int16_t	rspDither(
 
 		// Save the error line out to disk for debugging:
 		/*
-		long lOffset = sW * (sH - j);
+		int32_t lOffset = sW * (sH - j);
 
 		for(i=0;i < sW;i++)
 			{
@@ -337,10 +337,10 @@ int16_t	rspSimpleMap(
 					UCHAR*	pRed,		// Palette to match to
 					UCHAR*	pGreen,
 					UCHAR*	pBlue,
-					long	lInc,
+					int32_t	lInc,
 					// User interaction
 					PDitherCallBack func,
-					long  lMilli // milliseconds per callback
+					int32_t  lMilli // milliseconds per callback
 					)
 	{
 	ASSERT(pimSrc);
@@ -361,8 +361,8 @@ int16_t	rspSimpleMap(
 #endif
 
 	// int16_t sRet = 0;
-	// long	lPalOffset = lInc * sStartMap;
-	long	lLastTime = rspGetMilliseconds();
+	// int32_t	lPalOffset = lInc * sStartMap;
+	int32_t	lLastTime = rspGetMilliseconds();
 
 	//--------- Set up receiving vessel:
 	if (pimDst->CreateImage(pimSrc->m_sWidth,pimSrc->m_sHeight,
@@ -384,12 +384,12 @@ int16_t	rspSimpleMap(
 		}
 
 	//--------- Begin:
-	// long lErrorRed = 0,lErrorGreen = 0,lErrorBlue = 0;
+	// int32_t lErrorRed = 0,lErrorGreen = 0,lErrorBlue = 0;
 
 	int16_t i,j;
-	long lSrcP = pimSrc->m_lPitch;
-	long lDstP = pimDst->m_lPitch;
-	long lSrcXP = 3; // hard coded for 24-bit bmp's!!!
+	int32_t lSrcP = pimSrc->m_lPitch;
+	int32_t lDstP = pimDst->m_lPitch;
+	int32_t lSrcXP = 3; // hard coded for 24-bit bmp's!!!
 	
 	UCHAR* pSrc, *pSrcLine = pimSrc->m_pData;
 	UCHAR* pDst, *pDstLine = pimDst->m_pData;
@@ -402,9 +402,9 @@ int16_t	rspSimpleMap(
 		for (i=0; i < pimSrc->m_sWidth; i++,pSrc += lSrcXP,pDst++)
 			{
 			// This is the desired target color
-			long	lRed = long(pSrc[2]);
-			long lGreen = long(pSrc[1]);
-			long	lBlue = long(pSrc[0]);
+			int32_t	lRed = int32_t(pSrc[2]);
+			int32_t lGreen = int32_t(pSrc[1]);
+			int32_t	lBlue = int32_t(pSrc[0]);
 
 			UCHAR ucIndex = rspMatchColorRGB(lRed,lGreen,lBlue,
 				sStartMap,sNumMap,pRed,pGreen,pBlue,lInc);
@@ -442,9 +442,9 @@ int16_t	rspSimpleMap(
 //==============================================
 //	
 int16_t	rspDither(	
-					long lBackR,		// Don't dither to this color!
-					long lBackG,
-					long lBackB,
+					int32_t lBackR,		// Don't dither to this color!
+					int32_t lBackG,
+					int32_t lBackB,
 					UCHAR ucBack,		// index to make BKGD
 					RImage* pimSrc,	// MUST BE 24-bit!
 					RImage* pimDst,	// MUST be 8-bit
@@ -453,10 +453,10 @@ int16_t	rspDither(
 					UCHAR*	pRed,		// Palette to match to
 					UCHAR*	pGreen,
 					UCHAR*	pBlue,
-					long	lInc,
+					int32_t	lInc,
 					// User interaction
 					PDitherCallBack func,
-					long  lMilli // milliseconds per callback
+					int32_t  lMilli // milliseconds per callback
 					)
 	{
 	ASSERT(pimSrc);
@@ -477,8 +477,8 @@ int16_t	rspDither(
 #endif
 
 	int16_t sRet = 0;
-	// long	lPalOffset = lInc * sStartMap;
-	long	lLastTime = rspGetMilliseconds();
+	// int32_t	lPalOffset = lInc * sStartMap;
+	int32_t	lLastTime = rspGetMilliseconds();
 
 	//--------- Set up receiving vessel:
 	if (pimDst->CreateImage(pimSrc->m_sWidth,pimSrc->m_sHeight,
@@ -499,15 +499,15 @@ int16_t	rspDither(
 		(*func)(double(0.0));
 		}
 
-	// long lErrorRed = 0,lErrorGreen = 0,lErrorBlue = 0;
+	// int32_t lErrorRed = 0,lErrorGreen = 0,lErrorBlue = 0;
 
 	int16_t i,j;
-	long lSrcP = pimSrc->m_lPitch;
-	long lDstP = pimDst->m_lPitch;
+	int32_t lSrcP = pimSrc->m_lPitch;
+	int32_t lDstP = pimDst->m_lPitch;
 	int16_t sW = pimSrc->m_sWidth;
 	int16_t sH = pimSrc->m_sHeight;
 
-	long lSrcXP = 3; // hard coded for 24-bit bmp's!!!
+	int32_t lSrcXP = 3; // hard coded for 24-bit bmp's!!!
 	
 	UCHAR* pSrc = pimSrc->m_pData;
 	UCHAR* pDst = pimDst->m_pData;
@@ -545,16 +545,16 @@ int16_t	rspDither(
 			int16_t sTotErrorR,sTotErrorG,sTotErrorB;
 
 			// This is the desired target color
-			long	lRed = long(pSrc[2]);
-			long lGreen = long(pSrc[1]);
-			long	lBlue = long(pSrc[0]); 
+			int32_t	lRed = int32_t(pSrc[2]);
+			int32_t lGreen = int32_t(pSrc[1]);
+			int32_t	lBlue = int32_t(pSrc[0]); 
 
 			if ( (lRed == lBackR) && (lGreen == lBackG) && (lBlue == lBackB) )
 				sBackground = 1;
 
-			lRed += long(sNextErrorR + psCurrentErrorR[sErrPos]);
-			lGreen += long(sNextErrorG + psCurrentErrorG[sErrPos]);
-			lBlue += long(sNextErrorB + psCurrentErrorB[sErrPos]);
+			lRed += int32_t(sNextErrorR + psCurrentErrorR[sErrPos]);
+			lGreen += int32_t(sNextErrorG + psCurrentErrorG[sErrPos]);
+			lBlue += int32_t(sNextErrorB + psCurrentErrorB[sErrPos]);
 
 			UCHAR ucIndex = rspMatchColorRGB(lRed,lGreen,lBlue,
 				sStartMap,sNumMap,pRed,pGreen,pBlue,lInc);
@@ -564,7 +564,7 @@ int16_t	rspDither(
 
 			// This is the mismatch:
 			// Calculate new error for this point:
-			long lOffset = ucIndex * lInc;
+			int32_t lOffset = ucIndex * lInc;
 			sCurErrorR = lRed - pRed[lOffset];
 			sCurErrorG = lGreen - pGreen[lOffset];
 			sCurErrorB = lBlue - pBlue[lOffset];
@@ -661,7 +661,7 @@ int16_t	rspDither(
 
 		// Save the error line out to disk for debugging:
 		/*
-		long lOffset = sW * (sH - j);
+		int32_t lOffset = sW * (sH - j);
 
 		for(i=0;i < sW;i++)
 			{
@@ -750,10 +750,10 @@ int16_t	rspDither(
 					UCHAR*	pRed,		// Palette to match to
 					UCHAR*	pGreen,
 					UCHAR*	pBlue,
-					long	lInc,
+					int32_t	lInc,
 					// User interaction
 					PDitherCallBack func,
-					long  lMilli // milliseconds per callback
+					int32_t  lMilli // milliseconds per callback
 					)
 	{
 	ASSERT(pimSrc);
@@ -774,8 +774,8 @@ int16_t	rspDither(
 #endif
 
 	int16_t sRet = 0;
-	// long	lPalOffset = lInc * sStartMap;
-	long	lLastTime = rspGetMilliseconds();
+	// int32_t	lPalOffset = lInc * sStartMap;
+	int32_t	lLastTime = rspGetMilliseconds();
 
 	//--------- Set up receiving vessel:
 	if (pimDst->CreateImage(pimSrc->m_sWidth,pimSrc->m_sHeight,
@@ -797,15 +797,15 @@ int16_t	rspDither(
 		}
 
 	//--------- Begin:
-	// long lErrorRed = 0,lErrorGreen = 0,lErrorBlue = 0;
+	// int32_t lErrorRed = 0,lErrorGreen = 0,lErrorBlue = 0;
 
 	int16_t i,j;
-	long lSrcP = pimSrc->m_lPitch;
-	long lDstP = pimDst->m_lPitch;
+	int32_t lSrcP = pimSrc->m_lPitch;
+	int32_t lDstP = pimDst->m_lPitch;
 	int16_t sW = pimSrc->m_sWidth;
 	int16_t sH = pimSrc->m_sHeight;
 
-	long lSrcXP = 4; // hard coded for 32-bit bmp's!!!
+	int32_t lSrcXP = 4; // hard coded for 32-bit bmp's!!!
 	
 	UCHAR* pSrc = pimSrc->m_pData;
 	UCHAR* pDst = pimDst->m_pData;
@@ -842,10 +842,10 @@ int16_t	rspDither(
 			int16_t sTotErrorR,sTotErrorG,sTotErrorB;
 
 			// This is the desired target color
-			UCHAR	ucAlpha = long(pSrc[3]); 
-			long	lRed = long(pSrc[2] + sNextErrorR + psCurrentErrorR[sErrPos]);
-			long lGreen = long(pSrc[1] + sNextErrorG + psCurrentErrorG[sErrPos]);
-			long	lBlue = long(pSrc[0] + sNextErrorB + psCurrentErrorB[sErrPos]);
+			UCHAR	ucAlpha = int32_t(pSrc[3]); 
+			int32_t	lRed = int32_t(pSrc[2] + sNextErrorR + psCurrentErrorR[sErrPos]);
+			int32_t lGreen = int32_t(pSrc[1] + sNextErrorG + psCurrentErrorG[sErrPos]);
+			int32_t	lBlue = int32_t(pSrc[0] + sNextErrorB + psCurrentErrorB[sErrPos]);
 
 			UCHAR ucIndex = rspMatchColorRGB(lRed,lGreen,lBlue,
 				sStartMap,sNumMap,pRed,pGreen,pBlue,lInc);
@@ -855,7 +855,7 @@ int16_t	rspDither(
 
 			// This is the mismatch:
 			// Calculate new error for this point:
-			long lOffset = ucIndex * lInc;
+			int32_t lOffset = ucIndex * lInc;
 			sCurErrorR = lRed - pRed[lOffset];
 			sCurErrorG = lGreen - pGreen[lOffset];
 			sCurErrorB = lBlue - pBlue[lOffset];
@@ -952,7 +952,7 @@ int16_t	rspDither(
 
 		// Save the error line out to disk for debugging:
 		/*
-		long lOffset = sW * (sH - j);
+		int32_t lOffset = sW * (sH - j);
 
 		for(i=0;i < sW;i++)
 			{
@@ -1031,10 +1031,10 @@ int16_t	rspSimpleMap(
 					UCHAR*	pRed,		// Palette to match to
 					UCHAR*	pGreen,
 					UCHAR*	pBlue,
-					long	lInc,
+					int32_t	lInc,
 					// User interaction
 					PDitherCallBack func,
-					long  lMilli // milliseconds per callback
+					int32_t  lMilli // milliseconds per callback
 					)
 	{
 	ASSERT(pimSrc);
@@ -1055,8 +1055,8 @@ int16_t	rspSimpleMap(
 #endif
 
 	// int16_t sRet = 0;
-	// long	lPalOffset = lInc * sStartMap;
-	long	lLastTime = rspGetMilliseconds();
+	// int32_t	lPalOffset = lInc * sStartMap;
+	int32_t	lLastTime = rspGetMilliseconds();
 
 	//--------- Set up receiving vessel:
 	if (pimDst->CreateImage(pimSrc->m_sWidth,pimSrc->m_sHeight,
@@ -1078,12 +1078,12 @@ int16_t	rspSimpleMap(
 		}
 
 	//--------- Begin:
-	// long lErrorRed = 0,lErrorGreen = 0,lErrorBlue = 0;
+	// int32_t lErrorRed = 0,lErrorGreen = 0,lErrorBlue = 0;
 
 	int16_t i,j;
-	long lSrcP = pimSrc->m_lPitch;
-	long lDstP = pimDst->m_lPitch;
-	long lSrcXP = 4; // hard coded for 32-bit bmp's!!!
+	int32_t lSrcP = pimSrc->m_lPitch;
+	int32_t lDstP = pimDst->m_lPitch;
+	int32_t lSrcXP = 4; // hard coded for 32-bit bmp's!!!
 	
 	UCHAR* pSrc, *pSrcLine = pimSrc->m_pData;
 	UCHAR* pDst, *pDstLine = pimDst->m_pData;
@@ -1097,9 +1097,9 @@ int16_t	rspSimpleMap(
 			{
 			// This is the desired target color
 			UCHAR	ucAlpha = pSrc[3];
-			long	lRed = long(pSrc[2]);
-			long lGreen = long(pSrc[1]);
-			long	lBlue = long(pSrc[0]);
+			int32_t	lRed = int32_t(pSrc[2]);
+			int32_t lGreen = int32_t(pSrc[1]);
+			int32_t	lBlue = int32_t(pSrc[0]);
 
 			UCHAR ucIndex;
 

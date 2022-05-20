@@ -108,8 +108,8 @@ class RIff : public RFile
 			FCC	fccChunk;	// Chunk type.
 			FCC	fccForm;		// Form type for Form chunks, otherwise 0.
 			ULONG	ulSize;		// Size of this chunk.
-			long	lDataPos;	// Position, in file, of data for this chunk.
-			long	lSizePos;	// Position, in file, of size for this chunk.  Used
+			int32_t	lDataPos;	// Position, in file, of data for this chunk.
+			int32_t	lSizePos;	// Position, in file, of size for this chunk.  Used
 									// for writing chunks.
 			} CHUNK, *PCHUNK;
 
@@ -160,7 +160,7 @@ class RIff : public RFile
 			{ return m_chunk.ulSize; }
 
 		// Get the file position of the next to the specified chunk.
-		long	GetNextChunkPos(		// Returns the position of the next to the 
+		int32_t	GetNextChunkPos(		// Returns the position of the next to the 
 											// chunk specified below.
 			CHUNK* pchunk)				// Chunk to evaluate.
 			{
@@ -278,7 +278,7 @@ class RIff : public RFile
 		// and do a relative seek (SEEK_CUR).  This should be better for reading
 		// from CD.  Won't seek if the distance is 0.
 		// Returns 0 on success.
-		int16_t RelSeek(long lPos);		
+		int16_t RelSeek(int32_t lPos);		
 
 		// Initialize members.
 		void Init(void);

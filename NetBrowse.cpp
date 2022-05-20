@@ -127,7 +127,7 @@ void CNetBrowse::Update(
 	Hosts* phostsRemoved)								// I/O:  List of hosts that were removed
 	{
 	// Check if it's time to broadcast
-	long lTime = rspGetMilliseconds();
+	int32_t lTime = rspGetMilliseconds();
 	if ((lTime - m_lLastBroadcast) > Net::BroadcastInterval)
 		{
 		// Create message
@@ -142,7 +142,7 @@ void CNetBrowse::Update(
 		RSocket::CreateBroadcastAddress(m_usBasePort + Net::AntennaPortOffset, &address);
 
 		// Broadcast the message
-		long lBytesSent;
+		int32_t lBytesSent;
 		int16_t serr = m_socketBrowse.SendTo(buf1, sizeof(buf1), &lBytesSent, &address);
 		if (serr == 0)
 			{
@@ -170,7 +170,7 @@ void CNetBrowse::Update(
 	// using the same port as us.  If we do get a message, the address of the sender
 	// will be recorded -- this gives us the host's address!
 	CHost host;
-	long lReceived;
+	int32_t lReceived;
 	U8 buf[sizeof(host.m_acName) + 4 + 4];
 	int16_t serr = m_socketBrowse.ReceiveFrom(buf, sizeof(buf), &lReceived, &host.m_address);
 	if (serr == 0)
@@ -185,14 +185,14 @@ void CNetBrowse::Update(
 			{
 			// Copy the magic number.  The endian nature will always be correct because
 			// the only entitity that is meant to recognize this value is the one
-			// that sent it, so as long as the encoding and decoding of the bytes
+			// that sent it, so as int32_t as the encoding and decoding of the bytes
 			// is the same, that entity will get the same value that it sent.  All
 			// other entities will see this as a meaningless value, which is fine.
 			host.m_lMagic =
-				((long)buf[4] & 0x000000ff) +
-				(((long)buf[5] <<  8) & 0x0000ff00) +
-				(((long)buf[6] << 16) & 0x00ff0000) +
-				(((long)buf[7] << 24) & 0xff000000);
+				((int32_t)buf[4] & 0x000000ff) +
+				(((int32_t)buf[5] <<  8) & 0x0000ff00) +
+				(((int32_t)buf[6] << 16) & 0x00ff0000) +
+				(((int32_t)buf[7] << 24) & 0xff000000);
 
 			// Copy the name
 			strncpy(host.m_acName, (char*)&buf[8], sizeof(host.m_acName));

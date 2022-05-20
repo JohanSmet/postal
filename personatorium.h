@@ -286,9 +286,9 @@ typedef struct
 		Lifestyle		eLifestyle;					// 
 
 		// Stats.
-		long lGuardTimeout;							// Interval between checking for intruders
-		long lRunShootInterval;						// Delay between shots while running
-		long lShotTimeout;							// Time to wait before reacting to next shot.
+		int32_t lGuardTimeout;							// Interval between checking for intruders
+		int32_t lRunShootInterval;						// Delay between shots while running
+		int32_t lShotTimeout;							// Time to wait before reacting to next shot.
 		int16_t sInitialHitPoints;					// Initial hit points for person
 
 		/////// NYI ///////

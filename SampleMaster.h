@@ -1522,11 +1522,11 @@ void PlaySample(										// Returns nothing.
 void PlaySample(							// Returns nothing.
 												// Does not fail.
 	SampleMasterID	id,					// In:  Identifier of sample you want played.
-	long* plSampleDuration = NULL,	// Out: Sample duration in ms, if not NULL.
-	long lLoopStartTime = -1,			// In:  Where to loop back to in milliseconds.
+	int32_t* plSampleDuration = NULL,	// Out: Sample duration in ms, if not NULL.
+	int32_t lLoopStartTime = -1,			// In:  Where to loop back to in milliseconds.
 												//	-1 indicates no looping (unless m_sLoop is
 												// explicitly set).
-	long lLoopEndTime = 0,				// In:  Where to loop back from in milliseconds.
+	int32_t lLoopEndTime = 0,				// In:  Where to loop back from in milliseconds.
 												// In:  If less than 1, the end + lLoopEndTime is used.
 	bool bPurgeSample = false);		// In:  Call ReleaseAndPurge rather than Release after playing
 
@@ -1540,11 +1540,11 @@ void PlaySampleThenPurge(					// Returns nothing.
 	SampleMaster::SoundCategory	eType = SampleMaster::Unspecified,	// In:  Sound Volume Category for user adjustment
 	int16_t	sInitialVolume = 255,			// In:  Initial Sound Volume (0 - 255)
 
-	long* plSampleDuration = NULL,		// Out: Sample duration in ms, if not NULL.
-	long lLoopStartTime = -1,				// In:  Where to loop back to in milliseconds.
+	int32_t* plSampleDuration = NULL,		// Out: Sample duration in ms, if not NULL.
+	int32_t lLoopStartTime = -1,				// In:  Where to loop back to in milliseconds.
 													//	-1 indicates no looping (unless m_sLoop is
 													// explicitly set).
-	long lLoopEndTime = 0);					// In:  Where to loop back from in milliseconds.
+	int32_t lLoopEndTime = 0);					// In:  Where to loop back from in milliseconds.
 													// If les than 1, the end + lLoopEndTime is used.
 #endif
 

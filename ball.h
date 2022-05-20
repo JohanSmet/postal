@@ -71,7 +71,7 @@ class CBall : public CThing
 		int16_t m_sPrevHeight;
 		int16_t m_sSuspend;
 
-		long	m_lPrevTime;
+		int32_t	m_lPrevTime;
 		
 		CSprite3		m_sprite;	// Container (contains ref's to below).
 

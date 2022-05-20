@@ -130,8 +130,8 @@ class CWeapon : public CThing
 		CSprite2	m_spriteShadow;			// 2D sprite for shadow on the ground
 
 	protected:
-		long m_lTimer;							// Timer for explosion
-		long m_lPrevTime;						// Previous update time
+		int32_t m_lTimer;							// Timer for explosion
+		int32_t m_lPrevTime;						// Previous update time
 
 		int16_t m_sSuspend;						// Suspend flag
 		int16_t	m_sCurRadius;					// Radius of the dude's current frame.

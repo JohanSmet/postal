@@ -128,8 +128,8 @@ static RImage* m_pim;
 
 static int16_t m_sStep;
 static bool m_bFinishASAP;
-static long m_lTotalTime;
-static long m_lBaseTime;
+static int32_t m_lTotalTime;
+static int32_t m_lBaseTime;
 
 static double m_dReduce = 1.0;
 
@@ -146,7 +146,7 @@ static void Remap(
 // Call this to start the menu transition effect
 ////////////////////////////////////////////////////////////////////////////////
 extern void StartMenuTrans(
-	long lTotalTime)										// In:  Effect time (in ms) must be >= 0
+	int32_t lTotalTime)										// In:  Effect time (in ms) must be >= 0
 	{
 	// Default to step 0 (nothing) in case something goes wrong
 	m_sStep = 0;
@@ -597,7 +597,7 @@ static void Remap(
 	// debug mode.  We'll have to check into a better solution, but for now
 	// I'm just calling the "real" buffer lock.
 	U8* pu8VideoBuf;
-	long	lPitch;
+	int32_t	lPitch;
 // Note that we only need to do this in the case that the buffer is not already
 // locked.  Since we keep it locked while the game is running now, we don't need
 // it (note also regarding the lock comment above that currently rspLockBuffer() 
@@ -616,14 +616,14 @@ static void Remap(
 		int16_t sHeight = g_pimScreenBuf->m_sHeight;
 		int16_t sWidth = g_pimScreenBuf->m_sWidth;
 		int16_t sWidth2;
-		long lNextRow = lPitch - (long)sWidth;
+		int32_t lNextRow = lPitch - (int32_t)sWidth;
 		unsigned char* pBuf = pu8VideoBuf;
 		if ((sHeight > 0) && (sWidth > 0))
 			{
 			do {
 				sWidth2 = sWidth;
 				do	{
-					*pBuf = *(aucMap + (long)*pBuf);	// may be faster than aucMap[*pBuf]
+					*pBuf = *(aucMap + (int32_t)*pBuf);	// may be faster than aucMap[*pBuf]
 					pBuf++;
 					} while (--sWidth2);
 				pBuf += lNextRow;
