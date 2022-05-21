@@ -358,7 +358,7 @@
 
 #define NET_PROB_TEXT_SHADOW_COLOR_INDEX	4
 
-#define TERMINATING_GUI_ID			(long) 0x80000000
+#define TERMINATING_GUI_ID			(int32_t) 0x80000000
 
 // Note that the following color indices are from the 'Artie Zone' of colors
 // in the menu palette and, therefore, should not change.

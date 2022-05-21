@@ -3314,7 +3314,7 @@ else
 		}
 
 	// If jump specified . . .
-	if ((input & INPUT_REVIVE) && 0) // ***TEMPORARILY DISABLED***
+	if ((input & INPUT_REVIVE) && false) // ***TEMPORARILY DISABLED***
 		{
 		// If on the ground . . .
 		if (m_bAboveTerrain == false)

@@ -1055,7 +1055,7 @@ int16_t RLaymage::RLE_Decompress(char* pcBuffer, ULONG ulCompSize, RFile* pcfRLE
 			ulRead++;
 			if (cFlag < 0)
 			{
-				if (cFlag == 0x80)
+				if (cFlag == (char) 0x80)
 				{
 					pcfRLE->Read(&cData);
 					ulRead++;

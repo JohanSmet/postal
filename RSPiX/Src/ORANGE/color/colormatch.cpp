@@ -361,7 +361,7 @@ RAlpha::RAlpha()
 
 void RAlpha::Erase()
 	{
-	if (m_pAlphas)
+	//if (m_pAlphas)
 		{
 		for (int16_t i=0;i<256 /*m_sAlphaDepth*/;i++)
 			{

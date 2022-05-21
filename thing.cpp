@@ -568,7 +568,7 @@ int16_t CThing::SendThingMessage(pGameMessage pMessage, int16_t sPriority, CThin
 
 	// Make sure this has been initialized.
 	// If you were using 0xebeb as your priority, stop that.
-	ASSERT(sPriority != 0xebeb);
+	ASSERT((uint16_t) sPriority != 0xebeb);
 
 	if (pThing != NULL)
 		pThing->m_MessageQueue.EnQ(pMessage, &sPriority);

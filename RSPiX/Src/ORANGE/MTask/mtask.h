@@ -16,7 +16,7 @@
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
 //
 #ifndef MTASK_H
-#define MTAST_H
+#define MTASK_H
 //////////////////////////////////////////////////////////////////////
 //
 // MTask.h

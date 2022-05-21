@@ -92,7 +92,7 @@ BEGIN_LOOP:
 		if (!sInString)
 			{
 			// 2) Check for special characters:
-			if (m_pszSpecialCharacters)
+			// if (m_pszSpecialCharacters)
 				for (i=0;i < strlen(m_pszSpecialCharacters);i++)
 					{
 					if (c == m_pszSpecialCharacters[i]) // found it!

@@ -88,7 +88,7 @@ extern void Key_Event(SDL_Event *event)
 
     if (pushed)
     {
-        if ( (event->key.keysym.sym == SDLK_g) )
+        if (event->key.keysym.sym == SDLK_g)
         {
             if (event->key.keysym.mod & KMOD_CTRL) // ctrl-g
             {
@@ -100,7 +100,7 @@ extern void Key_Event(SDL_Event *event)
             }
         }
 
-        else if ( (event->key.keysym.sym == SDLK_RETURN) )
+        else if (event->key.keysym.sym == SDLK_RETURN)
         {
             if (event->key.keysym.mod & KMOD_ALT) // alt-enter
             {

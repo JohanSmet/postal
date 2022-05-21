@@ -565,7 +565,7 @@ ValidateTextures(
 					ptex->m_pIndices[sColor]	= 250;	// Part of static Postal palette.
 					}
 
-				delete pau8;
+				delete[] pau8;
 				pau8	= 0;
 
 				break;
