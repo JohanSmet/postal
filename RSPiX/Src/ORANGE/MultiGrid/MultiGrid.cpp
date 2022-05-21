@@ -222,7 +222,7 @@ int16_t	RMultiGrid::AllocGrid(int16_t sScaleW, int16_t sScaleH)
 	// Set the parameters:
 	//--------------------------------------------- Convert Input to log 2
 	int16_t sValue = 16384,sDigit = 14;
-	int16_t sLogW,sLogH;
+	int16_t sLogW = 0,sLogH = 0;
 	int16_t i,j;
 
 	while (sScaleW > 0)

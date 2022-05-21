@@ -246,7 +246,7 @@ int16_t ConvertNoSupport(RImage* /*pImage*/)
 
 int16_t	ConvertToBMP8(RImage* pImage)
 {
-	int16_t sReturn;
+	int16_t sReturn = RImage::NOT_SUPPORTED;
 
 	switch (pImage->m_type)
 	{
