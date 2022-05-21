@@ -211,8 +211,8 @@ public:
 	int16_t	m_sLocalX;
 	int16_t m_sLocalY;
 	typedef	enum	{Left, Right, Center} Justify;
-	Justify	m_eJust;
-	char	m_szText[128];
+	Justify	m_eJust = Left;
+	char	m_szText[128] = "";
 	CTextPhrase*	m_pNext;
 	CTextPhrase*	m_pPrev;
 	//------------------------------
