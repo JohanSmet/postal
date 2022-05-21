@@ -582,46 +582,46 @@ static bool			ms_bCoopMode = false;			// true, for cooperative mode (false for d
 
 static GuiLink			ms_aglServerLinkage[]	=
 	{
-		{ GUI_ID_DISCONNECT_PLAYER,	GuiLink::Gui,		&ms_pguiDisconnectPlayer,				},
+		{ GUI_ID_DISCONNECT_PLAYER,	GuiLink::Gui,		{&ms_pguiDisconnectPlayer},				},
 //		{ GUI_ID_RESPAWN_PLAYERS,		GuiLink::Short,	&g_GameSettings.m_sHostRejuvenate,	},
-		{ GUI_ID_ENABLE_TIME_LIMIT,	GuiLink::Bool,		&ms_bTimeLimit,							},
-		{ GUI_ID_EDIT_TIME_LIMIT,		GuiLink::Short,	&g_GameSettings.m_sHostTimeLimit,	},
-		{ GUI_ID_ENABLE_KILL_LIMIT,	GuiLink::Bool,		&ms_bKillLimit,							},
-		{ GUI_ID_EDIT_KILL_LIMIT,		GuiLink::Short,	&g_GameSettings.m_sHostKillLimit,	},
-		{ GUI_ID_LEVEL_LISTBOX,			GuiLink::Gui,		&ms_plbLevelBrowse,						},
-		{ GUI_ID_SHOW_COOP_LEVELS,		GuiLink::Gui,		&ms_pmbCoopLevels,						},
-		{ GUI_ID_ENABLE_COOP_MODE,		GuiLink::Gui,		&ms_pmbCoopMode,							},
-		{ GUI_ID_ENABLE_COOP_MODE,		GuiLink::Bool,		&ms_bCoopMode,								},
+		{ GUI_ID_ENABLE_TIME_LIMIT,	GuiLink::Bool,		{&ms_bTimeLimit},							},
+		{ GUI_ID_EDIT_TIME_LIMIT,		GuiLink::Short,	{&g_GameSettings.m_sHostTimeLimit},	},
+		{ GUI_ID_ENABLE_KILL_LIMIT,	GuiLink::Bool,		{&ms_bKillLimit},							},
+		{ GUI_ID_EDIT_KILL_LIMIT,		GuiLink::Short,	{&g_GameSettings.m_sHostKillLimit},	},
+		{ GUI_ID_LEVEL_LISTBOX,			GuiLink::Gui,	{&ms_plbLevelBrowse},						},
+		{ GUI_ID_SHOW_COOP_LEVELS,		GuiLink::Gui,	{&ms_pmbCoopLevels},						},
+		{ GUI_ID_ENABLE_COOP_MODE,		GuiLink::Gui,	{&ms_pmbCoopMode},							},
+		{ GUI_ID_ENABLE_COOP_MODE,		GuiLink::Bool,	{&ms_bCoopMode},							},
 
 		{ static_cast<int32_t>(TERMINATING_GUI_ID), },	// Terminator.
 	};
 
 static GuiLink			ms_aglClientLinkage[]	=
 	{
-		{ GUI_ID_OPTIONS_STATIC,		GuiLink::Gui,		&ms_pguiOptions,							},   
-		{ GUI_ID_RETRY,					GuiLink::Gui,		&ms_pguiRetry,								},
-													 
+		{ GUI_ID_OPTIONS_STATIC,		GuiLink::Gui,		{&ms_pguiOptions},							},   
+		{ GUI_ID_RETRY,					GuiLink::Gui,		{&ms_pguiRetry},							},
+
 		{ static_cast<int32_t>(TERMINATING_GUI_ID), },	// Terminator.
 	};
 
 static GuiLink			ms_aglClientServerLinkage[]	=
 	{
-		{ GUI_ID_PLAYERS_LISTBOX,		GuiLink::Gui,		&ms_plbPlayers,							},   
-		{ GUI_ID_CHAT_TEXT,				GuiLink::Gui,		&ms_pguiChatText,							},	 
-		{ GUI_ID_CHAT_SEND,				GuiLink::Gui,		&ms_pguiChatSend,							},	   
-		{ GUI_ID_NET_CONSOLE,			GuiLink::Gui,		&ms_plbNetConsole,						},	   
-		{ GUI_ID_OK,						GuiLink::Gui,		&ms_pguiOk,									},
-		{ GUI_ID_CANCEL,					GuiLink::Gui,		&ms_pguiCancel,							},
-													 
+		{ GUI_ID_PLAYERS_LISTBOX,		GuiLink::Gui,		{&ms_plbPlayers},							},   
+		{ GUI_ID_CHAT_TEXT,				GuiLink::Gui,		{&ms_pguiChatText},							},	 
+		{ GUI_ID_CHAT_SEND,				GuiLink::Gui,		{&ms_pguiChatSend},							},	   
+		{ GUI_ID_NET_CONSOLE,			GuiLink::Gui,		{&ms_plbNetConsole},						},	   
+		{ GUI_ID_OK,					GuiLink::Gui,		{&ms_pguiOk},								},
+		{ GUI_ID_CANCEL,				GuiLink::Gui,		{&ms_pguiCancel},							},
+
 		{ static_cast<int32_t>(TERMINATING_GUI_ID), },	// Terminator.
 	};
 
 static GuiLink			ms_aglBrowserLinkage[]	=
 	{
-		{ GUI_ID_HOST_LISTBOX,			GuiLink::Gui,		&ms_plbHostBrowse,						},   
-		{ GUI_ID_OK,						GuiLink::Gui,		&ms_pguiOk,									},
-		{ GUI_ID_CANCEL,					GuiLink::Gui,		&ms_pguiCancel,							},
-													 
+		{ GUI_ID_HOST_LISTBOX,			GuiLink::Gui,		{&ms_plbHostBrowse},						},   
+		{ GUI_ID_OK,					GuiLink::Gui,		{&ms_pguiOk},								},
+		{ GUI_ID_CANCEL,				GuiLink::Gui,		{&ms_pguiCancel},							},
+
 		{ static_cast<int32_t>(TERMINATING_GUI_ID), },	// Terminator.
 	};
 

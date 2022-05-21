@@ -214,7 +214,7 @@ void RPipeLine::TransformShadow(RSop* pPts,RTransform& tObj,
 	if (psOffX || psOffY) // calculate shadow offset
 		{
 		// (1) convert to 3d shadow point:
-		RP3d	pOffset = {0.0,static_cast<float>(sHeight),0.0,};
+		RP3d	pOffset = {{0.0,static_cast<float>(sHeight),0.0},};
 
 		// double dOffX = sHeight * m_tShadow.T[ROW0 + 1];
 		// double dOffY = 0.0;
@@ -224,8 +224,7 @@ void RPipeLine::TransformShadow(RSop* pPts,RTransform& tObj,
 		m_tShadow.Transform(pOffset);
 		m_tView.Transform(pOffset);
 		// Undo randy slide:
-		RP3d pTemp = {m_tView.T[3 + ROW0],m_tView.T[3 + ROW1],
-			m_tView.T[3 + ROW2]};
+		RP3d pTemp = {{m_tView.T[3 + ROW0], m_tView.T[3 + ROW1], m_tView.T[3 + ROW2]}};
 
 		rspSub(pOffset,pTemp);
 		// Just use screen for scale:

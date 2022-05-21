@@ -1129,7 +1129,7 @@ CWeapon* CCharacter::ShootWeapon(	// Returns the weapon ptr or NULL
 		&dWeaponRelY,
 		&dWeaponRelZ);
 
-	RP3d	pt3WeaponRel	= { static_cast<float>(dWeaponRelX), static_cast<float>(dWeaponRelY), static_cast<float>(dWeaponRelZ), 1 };
+	RP3d	pt3WeaponRel	= { {static_cast<float>(dWeaponRelX), static_cast<float>(dWeaponRelY), static_cast<float>(dWeaponRelZ), 1} };
 
 	switch (m_eWeaponType)
 	{

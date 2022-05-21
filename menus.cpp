@@ -835,7 +835,7 @@ Menu	menuMain =
 			{ g_pszMainMenu_Buy,			TRUE,			NULL,					NULL,			},
 	#endif
 			{ g_pszMainMenu_Exit,		TRUE,			&menuVerifyExit,	NULL,			},
-			NULL							// Terminates list.
+			{NULL}							// Terminates list.
 		},
 #endif
 	};
@@ -918,7 +918,7 @@ Menu	menuVerifyExit =
 		{	// pszText,				sEnabled,	pmenu,		pgui
 			{ g_pszVerifyExitMenu_Yes,	TRUE,			NULL,			NULL,		},
 			{ g_pszVerifyExitMenu_No,	TRUE,			&menuMain,	NULL,		},
-			NULL							// Terminates list.
+			{NULL}							// Terminates list.
 		},
 	};
 
@@ -1000,7 +1000,7 @@ Menu	g_menuVerifyQuitGame =
 		{	// pszText,						sEnabled,	pmenu,		pgui
 			{ g_pszVerifyQuitMenu_Yes,	TRUE,			NULL,			NULL,		},
 			{ g_pszVerifyQuitMenu_No,	TRUE,			NULL,			NULL,		},
-			NULL							// Terminates list.
+			{NULL}							// Terminates list.
 		},
 	};
 
@@ -1083,7 +1083,7 @@ Menu	menuClientGame =
 			{ g_pszGameMenu_Save,		TRUE,			NULL,							NULL, },
 			{ g_pszGameMenu_Options,	TRUE,			&menuOptions,				NULL, },
 			{ g_pszGameMenu_Quit,		TRUE,			NULL,							NULL, },
-			NULL							// Terminates list.
+			{NULL}							// Terminates list.
 		},
 	};
 
@@ -1165,7 +1165,7 @@ Menu	menuEditor =
 			{ g_pszEditorMenu_Continue,	TRUE,			NULL,						NULL, },
 			{ g_pszEditorMenu_Options,		TRUE,			&menuOptions,			NULL, },
 			{ g_pszEditorMenu_Quit,			TRUE,			NULL,						NULL, },
-			NULL							// Terminates list.
+			{NULL}							// Terminates list.
 		},
 	};
 
@@ -1256,7 +1256,7 @@ Menu	menuOptions =
 			{ g_pszOptionsMenu_Difficulty,	TRUE,			&menuPlayOptions,		NULL,	},
 			{ g_pszOptionsMenu_Crosshair,	TRUE,			NULL,		NULL,	},
 			{ "",										FALSE,		NULL,						NULL,	},
-			NULL							// Terminates list.
+			{NULL}							// Terminates list.
 		},
 	};
 
@@ -1338,7 +1338,7 @@ Menu	menuPlayOptions =
 		{	// pszText,										sEnabled,	pmenu,					pgui
 			{ g_pszDifficultyMenu_SetDifficulty,	TRUE,			NULL,						NULL,				},
 			{ "",												FALSE,		NULL,						NULL,				},
-			NULL							// Terminates list.
+			{NULL}							// Terminates list.
 		},
 	};
 
@@ -1423,7 +1423,7 @@ Menu menuOrgan =
 			{ g_pszOrganMenu_TabKeyFunction,				FALSE,		NULL,		NULL,				},
 			{ "",													FALSE,		NULL,		NULL,				},
 			{ g_pszOrganMenu_Exit,							TRUE,			NULL,		NULL,				},
-			NULL							// Terminates list.
+			{NULL}							// Terminates list.
 		},
 	};
 
@@ -1505,7 +1505,7 @@ Menu	menuAudioOptions =
 			{ g_pszAudioMenu_Mixer,				TRUE,			&menuVolumes,			NULL,				},
 			{ g_pszAudioMenu_SoundTest,		TRUE,			&menuOrgan,				NULL,				},
 			{ "",										FALSE,		NULL,						NULL,				},
-			NULL							// Terminates list.
+			{NULL}							// Terminates list.
 		},
 	};
 
@@ -1587,7 +1587,7 @@ Menu	menuVideoOptions =
 		{	// pszText,					sEnabled,	pmenu,					pgui
 			{ g_pszVideoMenu_Gamma,	TRUE,			NULL,						NULL,				},
 			{ "",							FALSE,		NULL,						NULL,				},
-			NULL							// Terminates list.
+			{NULL}							// Terminates list.
 		},
 	};
 
@@ -1679,7 +1679,7 @@ Menu	menuControls =
 			{ g_pszControlsMenu_HorizMouseSensitivity,	TRUE,			NULL,						NULL,				},
 			{ g_pszControlsMenu_VertMouseSensitivity,		TRUE,			NULL,						NULL,				},
 			{ "",														FALSE,		NULL,						NULL,				},
-			NULL							// Terminates list.
+			{NULL}							// Terminates list.
 		},
 	};
 
@@ -1807,7 +1807,7 @@ Menu	menuKeyboard =
 			{ NULL,					TRUE,			NULL,						NULL,				},
 			{ NULL,					TRUE,			NULL,						NULL,				},
 			{ NULL,					TRUE,			NULL,						NULL,				},
-			NULL							// Terminates list.
+			{NULL}							// Terminates list.
 		},
 	};
 
@@ -1935,7 +1935,7 @@ Menu	menuMouse =
 			{ NULL,					TRUE,			NULL,						NULL,				},
 			{ NULL,					TRUE,			NULL,						NULL,				},
 			{ NULL,					TRUE,			NULL,						NULL,				},
-			NULL							// Terminates list.
+			{NULL}							// Terminates list.
 		},
 	};
 
@@ -2063,7 +2063,7 @@ Menu	menuJoystick =
 			{ NULL,					TRUE,			NULL,						NULL,				},
 			{ NULL,					TRUE,			NULL,						NULL,				},
 			{ NULL,					TRUE,			NULL,						NULL,				},
-			NULL							// Terminates list.
+			{NULL}							// Terminates list.
 		},
 	};
 
@@ -2148,7 +2148,7 @@ Menu	menuFeatures =
 			{ g_pszPerformanceMenu_DynamicVolume,	TRUE,			NULL,						NULL,				},
 			{ g_pszPerformanceMenu_AmbientSounds,	TRUE,			NULL,						NULL,				},
 			{ "",												FALSE,		NULL,						NULL,				},
-			NULL							// Terminates list.
+			{NULL}							// Terminates list.
 		},
 	};
 
@@ -2234,7 +2234,7 @@ Menu	menuRotation =
 			{ g_pszRotationSetupMenu_TapDegrees,		TRUE,			NULL,						NULL,				},
 			{ g_pszRotationSetupMenu_RestoreDefaults,	TRUE,			NULL,						NULL,				},
 			{ "",													FALSE,		NULL,						NULL,				},
-			NULL							// Terminates list.
+			{NULL}							// Terminates list.
 		},
 	};
 
@@ -2344,7 +2344,7 @@ Menu	menuVolumes =
 			{ NULL,					TRUE,			NULL,						NULL,				},
 			{ NULL,					TRUE,			NULL,						NULL,				},
 			{ NULL,					TRUE,			NULL,						NULL,				},
-			NULL							// Terminates list.
+			{NULL}							// Terminates list.
 		},
 	};
 
@@ -2429,7 +2429,7 @@ Menu	menuStart =
             #endif
 			{ g_pszStartGameMenu_Demo,						TRUE,			&menuStartDemo,	NULL,	},
 			{ "",													FALSE,		NULL,					NULL, },
-			NULL							// Terminates list.
+			{NULL}							// Terminates list.
 		},
 	};
 
@@ -2518,7 +2518,7 @@ Menu	menuStartSingle =
 			{ g_pszStartSinglePlayerMenu_LoadGame,		TRUE,			NULL,					NULL, },
 			{ g_pszStartSinglePlayerMenu_Challenge,	TRUE,			/*&menuChallenge,*/NULL,	NULL,	},
 			{ "",													FALSE,		NULL,					NULL, },
-			NULL							// Terminates list.
+			{NULL}							// Terminates list.
 		},
 	};
 
@@ -2603,7 +2603,7 @@ Menu	menuChallenge =
 			{ g_pszStartChallengeMenu_Flag,			TRUE,			NULL,			NULL,	},
 			{ g_pszStartChallengeMenu_CheckPoint,	TRUE,			NULL,			NULL,	},
 			{ "",												FALSE,		NULL,			NULL, },
-			NULL							// Terminates list.
+			{NULL}							// Terminates list.
 		},
 	};
 
@@ -2686,7 +2686,7 @@ Menu	menuStartMulti =
 			{ g_pszStartMultiplayerMenu_Host,		TRUE,			&menuHostMulti,		NULL,	},
 			{ g_pszStartMultiplayerMenu_Options,	TRUE,			&menuMultiOptions,	NULL,	},
 			{ "",												FALSE,		NULL,						NULL, },
-			NULL							// Terminates list.
+			{NULL}							// Terminates list.
 		},
 	};
 
@@ -2768,7 +2768,7 @@ Menu	menuJoinMulti =
 			{ g_pszJoinGameMenu_Browse,		TRUE,			NULL,						NULL, },
 			{ g_pszJoinGameMenu_ConnectTo,	TRUE,			NULL,						NULL,	},
 			{ "",										FALSE,		NULL,						NULL, },
-			NULL							// Terminates list.
+			{NULL}							// Terminates list.
 		},
 	};
 
@@ -2849,7 +2849,7 @@ Menu	menuHostMulti =
 		{	// pszText,						sEnabled,	pmenu,					pgui
 			{ g_pszHostGameMenu_Start,	TRUE,			NULL,						NULL, },
 			{ "",								FALSE,		NULL,						NULL, },
-			NULL							// Terminates list.
+			{NULL}							// Terminates list.
 		},
 	};
 
@@ -2932,7 +2932,7 @@ Menu	menuStartDemo =
 			{ g_pszStartDemoMenu_Play,		TRUE,			NULL,			NULL,	},
 			{ g_pszStartDemoMenu_Record,	TRUE,			NULL,			NULL,	},
 			{ "",									FALSE,		NULL,			NULL, },
-			NULL							// Terminates list.
+			{NULL}							// Terminates list.
 		},
 	};
 
@@ -3016,7 +3016,7 @@ Menu	menuMultiOptions =
 			{ g_pszMultiplayerSetupMenu_Protocol,		TRUE,			NULL,				NULL,	},
 			{ g_pszMultiplayerSetupMenu_Connection,	TRUE,			NULL,				NULL,	},
 			{ "",													FALSE,		NULL,				NULL,	},
-			NULL							// Terminates list.
+			{NULL}							// Terminates list.
 		},
 	};
 
@@ -5018,7 +5018,7 @@ Menu	g_menuPickFile =
 	// Menu items.
         // Filled in by PickFile().
 		{	// pszText,						sEnabled,	pmenu,		pgui
-			NULL							// Terminates list.
+			{NULL}							// Terminates list.
 		},
 	};
 

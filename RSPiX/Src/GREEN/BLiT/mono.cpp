@@ -92,10 +92,10 @@ int16_t rspBlitToMono(
 	// Let's scale it, baby! (pre-clipping)
 	int16_t sDenX = pimSrc->m_sWidth; 
 	int16_t sDenY = pimSrc->m_sHeight; 
-	RFracU16 frX = {0};
-	RFracU16 frInitX = {0};
-	RFracU16 frOldX = {0};
-	RFracU16 frOldY = {0},frY = {0};
+	RFracU16 frX = {.set = 0};
+	RFracU16 frInitX = {.set = 0};
+	RFracU16 frOldX = {.set = 0};
+	RFracU16 frOldY = {.set = 0},frY = {.set = 0};
 
 	RFracU16 *afrSkipX=NULL,*afrSkipY=NULL;
 	afrSkipX = rspfrU16Strafe256(sDstW,sDenX);

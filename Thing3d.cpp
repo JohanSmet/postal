@@ -1609,7 +1609,7 @@ void CThing3d::GetLinkPoint(	// Returns nothing.
 	// Apply child and parent to transChildAbs.
 	transChildAbsolute.Mul(m_sprite.m_ptrans->T, ptrans->T);
 	// Set up pt at origin for weapon.
-	RP3d pt3Src = {0, 0, 0, 1};
+	RP3d pt3Src = {{0, 0, 0, 1}};
 	RP3d pt3Dst;
 	// Get last transition position by mapping origin.
 	m_pRealm->m_scene.TransformPtsToRealm(&transChildAbsolute, &pt3Src, &pt3Dst, 1);
