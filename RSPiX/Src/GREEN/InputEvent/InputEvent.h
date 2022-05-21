@@ -63,15 +63,15 @@
 //////////////////////////////////////////////////////////////////////////////
 
 // Input event structure for rsp*InputEvent[s]() functions.
-typedef struct
+struct RInputEvent
 	{
-	typedef enum
+	enum Type
 		{
 		None,		// No event.  Use this value to indicate no event.
 		Mouse,	// Mouse event.
 		Key,		// Keyboard event.
 		Joy		// Joystick event (NYI) ???
-		} Type;
+		};
 
 	Type	type;		// Type of event { Mouse, Key, Joy }.
 	int32_t	lTime;	// Time at which event occurred.
@@ -95,7 +95,7 @@ typedef struct
 			int32_t	lKey;			// Key value and modifiers (ala rspGetKey).
 			};
 		};
-	} RInputEvent;
+	};
 
 // Input event structure for XInput events. (Used only for menu navigation)
 const int XInputButtons = 18;
@@ -112,7 +112,7 @@ const int XInputAxes = 12;
 #define XINPUT_BUTTON_START g_InputSettings.m_sJoyStartButton
 #define XINPUT_BUTTON_BACK g_InputSettings.m_sJoyMenuBackButton
 #define XINPUT_BUTTON_BACK2 g_InputSettings.m_sJoyMenuBackButton2
-typedef struct
+struct XInputState
 {
 	typedef enum
 	{
@@ -123,7 +123,7 @@ typedef struct
 
 	EButtonState ButtonState[XInputButtons];	// States of all 16 buttons
 	EButtonState AxisState[XInputAxes];			// States of all 6 axes
-} XInputState;
+};
 
 //////////////////////////////////////////////////////////////////////////////
 // Protos.

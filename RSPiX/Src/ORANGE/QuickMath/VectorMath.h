@@ -82,7 +82,7 @@ RTransform
 // conversions each time!
 
 // This is an aggregate type used with RTransform
-typedef union
+union RP3d
 	{
 	// 06/30/97 MJR - For the metrowerks compiler, initializations don't
 	// seem to work right unless the array comes before the struct!
@@ -101,7 +101,7 @@ typedef union
 	int16_t Save(RFile* pfile)
 		{ return pfile->Write(v, 4) != 4; }
 
-	} RP3d; // This is a 3d point.
+	}; // This is a 3d point.
 
 inline int operator==(const RP3d& lhs, const RP3d& rhs)
 	{
@@ -294,7 +294,7 @@ public:
 	// Doex a premultiply!
 	void Transform(RP3d &p)
 		{
-		RP3d temp = {0.0F,0.0F,0.0F,1.0F}; // asume 3 row form!
+		RP3d temp = {{0.0F,0.0F,0.0F,1.0F}}; // asume 3 row form!
 		REAL *pT = T,*pV;
 		int16_t i,j;
 
