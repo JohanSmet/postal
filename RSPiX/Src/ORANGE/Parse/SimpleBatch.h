@@ -102,7 +102,9 @@ public:
 		m_cStringContext = cString;
 		m_cComment = cComment;
 
-		if (pszSpecialCharacters) strcpy(m_pszSpecialCharacters,pszSpecialCharacters);
+		if (pszSpecialCharacters) {
+			strcpy(m_pszSpecialCharacters,pszSpecialCharacters);
+		}
 		/*if (m_pszSeparators) */ strcpy(m_pszSeparators,pszSeparators);
 		}
 

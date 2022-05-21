@@ -5085,8 +5085,8 @@ int16_t PickFile(const char *title, void (*enumer)(Menu *), char *buf, size_t bu
 
     TRACE("PickFile: Going with %s.\n", buf);
 
-    for (int i = 0; (i < Max) && (g_menuPickFile.ami[i].pszText); i++)
-        free((char *) g_menuPickFile.ami[i].pszText);
+	for (int i = 0; (i < Max) && (g_menuPickFile.ami[i].pszText); i++)
+		free((char *) g_menuPickFile.ami[i].pszText);
 
     // put the old menu back.
 	StartMenu(currentMenu, &g_resmgrShell, g_pimScreenBuf);
