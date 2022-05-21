@@ -1039,7 +1039,7 @@ int16_t RLaymage::RLE_Decompress(char* pcBuffer, ULONG ulCompSize, RFile* pcfRLE
 	int16_t sReturn;
 	ULONG ulRead = 0;
 	ULONG ulBufferPos = 0;
-	ULONG ulBufferFill = 0;
+//	ULONG ulBufferFill = 0;
 	signed char cData;
 	signed char cFlag;
 	UCHAR ucRun;
@@ -1069,7 +1069,7 @@ int16_t RLaymage::RLE_Decompress(char* pcBuffer, ULONG ulCompSize, RFile* pcfRLE
 					ulRead++;
 					for (i = 0; i < ucRun; i++)
 						pcBuffer[ulBufferPos++] = cData;
-					ulBufferFill += ucRun;
+//					ulBufferFill += ucRun;
 				}
 			}
 			else
@@ -1079,7 +1079,7 @@ int16_t RLaymage::RLE_Decompress(char* pcBuffer, ULONG ulCompSize, RFile* pcfRLE
 				pcfRLE->Read(&(pcBuffer[ulBufferPos]), ucRun);
 				ulBufferPos += ucRun;
 				ulRead += ucRun;
-				ulBufferFill += ucRun;			
+//				ulBufferFill += ucRun;			
 			}	
 		}
 
