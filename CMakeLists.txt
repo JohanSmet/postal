@@ -200,7 +200,7 @@ if (MSVC)
 	target_compile_options(${TARGET_POSTAL} PRIVATE /W4)
 else()
 	target_compile_options(${TARGET_POSTAL} PRIVATE -fsigned-char)
-	target_compile_options(${TARGET_POSTAL} PRIVATE -Wall -Werror)
+	target_compile_options(${TARGET_POSTAL} PRIVATE -Wall -Werror -Wno-overloaded-virtual)
 endif()
 
 target_compile_definitions(${TARGET_POSTAL} PRIVATE ${PLATFORM_DETECTION})
