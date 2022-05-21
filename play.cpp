@@ -2305,8 +2305,8 @@ class CPlayStatus : public CPlay
 		RRect				m_rectInfo;
 		char				m_szFileDescriptor[256];
 		RPrint			m_print;
-		bool				m_bFirstUpdate;
-		bool				m_bUpdateDude;					// true, if dude status area was updated.
+//		bool				m_bFirstUpdate;
+//		bool				m_bUpdateDude;					// true, if dude status area was updated.
 		bool				m_bUpdateRealm;				// true, if realm status area was updated.
 
 	//------------------------------------------------------------------------------
