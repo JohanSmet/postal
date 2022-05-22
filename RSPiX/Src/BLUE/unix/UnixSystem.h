@@ -77,12 +77,8 @@ using namespace std;
 #ifndef BASETYPES
 #define BASETYPES
 typedef uint32_t ULONG;
-typedef ULONG *PULONG;
 typedef uint16_t USHORT;
-typedef USHORT *PUSHORT;
 typedef unsigned char UCHAR;
-typedef UCHAR *PUCHAR;
-typedef char *PSZ;
 #endif // !BASETYPES
 
 
