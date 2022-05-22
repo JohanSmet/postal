@@ -634,7 +634,7 @@ class CRealm
 		int16_t m_sNumSuspends;
 
 		// Pylon stuff
-		USHORT	m_asPylonUIDs[256]; // Complete Cheese!
+		uint16_t	m_asPylonUIDs[256]; // Complete Cheese!
 		int16_t		m_sNumPylons;
 		UCHAR		m_ucNextPylonID;
 

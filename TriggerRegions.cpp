@@ -167,7 +167,7 @@ int16_t CompressMap(RMultiGridIndirect* pMGI,int16_t sTileW,int16_t sTileH)
 //					alerts all relevant pylons to his presence
 ////////////////////////////////////////////////////////////////////////////////
 //
-void	SpewTriggers(CRealm* pRealm,	USHORT	usDudeUID,int16_t sX,int16_t sZ)
+void	SpewTriggers(CRealm* pRealm,	uint16_t	usDudeUID,int16_t sX,int16_t sZ)
 	{
 	UCHAR	aucHitList[MGI_MAX_PLANES];
 	if (pRealm->m_pTriggerMap == NULL) return; // No triggers

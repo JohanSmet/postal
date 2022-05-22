@@ -115,10 +115,10 @@ class CRtVidc
 
 		// Use handler for RtVidc buffers.
 		// Returns RET_FREE if done with data on return, RET_DONTFREE otherwise.
-		int16_t Use(	UCHAR* puc, long lSize, USHORT usType, UCHAR ucFlags, 
+		int16_t Use(	UCHAR* puc, long lSize, uint16_t usType, UCHAR ucFlags, 
 						long lTime);
 		// Static entry point for above.
-		static int16_t UseStatic(	UCHAR* puc, long lSize, USHORT usType, 
+		static int16_t UseStatic(	UCHAR* puc, long lSize, uint16_t usType, 
 										UCHAR ucFlags, long lTime, long l_pRtVidc);
 
 	protected:	// Internal typedefs.
@@ -128,7 +128,7 @@ class CRtVidc
 
 	protected:	// Members.
 		VIDC_RT_HDR	m_avidchdrs[MAX_VID_CHANNELS];// Info for each channel.
-		USHORT		m_usState;					// The current state of this CRtVidc.
+		uint16_t		m_usState;					// The current state of this CRtVidc.
 		CDispatch*	m_pdispatch;				// The dispatcher for this CRtVidc.
 
 	};

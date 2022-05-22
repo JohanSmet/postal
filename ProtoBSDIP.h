@@ -244,7 +244,7 @@ class RProtocolBSDIP : public RSocket::RProtocol
 		// Get address from the socket
 		static int16_t GetAddress(								// Returns 0 if successfull, non-zero otherwise
 			char* pszName,											// In:  Host's name or dotted address
-			USHORT usPort,											// In:  Host's port number
+			uint16_t usPort,											// In:  Host's port number
 			RSocket::Address* paddress);						// Out: Address
 
 		// Create broadcast address using specified port
@@ -258,7 +258,7 @@ class RProtocolBSDIP : public RSocket::RProtocol
 
 		// Set port for address
 		static void SetAddressPort(
-			USHORT usPort,											// In: New port number
+			uint16_t usPort,											// In: New port number
 			RSocket::Address* paddress);						// I/O:Address who's port is to be set
 
 	protected:

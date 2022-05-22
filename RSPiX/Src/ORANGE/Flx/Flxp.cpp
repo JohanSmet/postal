@@ -669,7 +669,7 @@ int16_t CFlx::ReadDataSS2(FLX_BUF* pbufRead)
 	
 	UCHAR	bVal;
 	S8		cVal;
-	USHORT wVal;
+	uint16_t wVal;
 	int16_t sCount;
 	int16_t y;
 	int16_t lines;
@@ -740,7 +740,7 @@ int16_t CFlx::ReadDataSS2(FLX_BUF* pbufRead)
 						if (bLastByte == TRUE)
 							return 1;
 							
-						byLastByte = (UCHAR)(wVal & (USHORT)0x00ff);
+						byLastByte = (UCHAR)(wVal & (uint16_t)0x00ff);
 						bLastByte = TRUE;
 						// Read the packet count.
 						m_file.Read(&wVal);
@@ -782,7 +782,7 @@ int16_t CFlx::ReadDataSS2(FLX_BUF* pbufRead)
 				sCount = (int16_t)cVal;
 				if (sCount > 0)
 					{
-					sCount *= sizeof(USHORT);
+					sCount *= sizeof(uint16_t);
 					m_file.Read(pbPix, sCount);
 					pbPix += (uint32_t)(sCount);
 					}
@@ -791,7 +791,7 @@ int16_t CFlx::ReadDataSS2(FLX_BUF* pbufRead)
 					sCount = (int16_t)-sCount;
 					m_file.Read(&wVal);
 //					memset(pbPix, (int)wVal, (size_t)sCount);
-					USHORT* pwPix = (USHORT*)pbPix;
+					uint16_t* pwPix = (uint16_t*)pbPix;
 					for (int16_t i = 0; i < sCount; i++)
 						*pwPix++ = wVal;
 					pbPix = (UCHAR*)pwPix;
@@ -865,7 +865,7 @@ int16_t CFlx::DoWriteFrame(FLX_BUF* pbufWrite, FLX_BUF* pbufPrev)
 	// is width times height plus an extra margin.
 	// WARNING: This will only support up to 64k!!!
 //	double dSize = (double)m_filehdr.sWidth * (double)m_filehdr.sHeight * (double)1.5;
-	UCHAR* pBuf = (UCHAR*)malloc((USHORT)m_filehdr.sWidth * (USHORT)m_filehdr.sHeight);
+	UCHAR* pBuf = (UCHAR*)malloc((uint16_t)m_filehdr.sWidth * (uint16_t)m_filehdr.sHeight);
 	if (pBuf != NULL)
 		{
 		
@@ -931,7 +931,7 @@ int16_t CFlx::WriteColorDelta(FLX_BUF* pbufNext, FLX_BUF* pbufPrev, UCHAR* pBuf,
 	*plChunkSize = 0;
 
 	// Set up data chunk type based on FLC -vs- FLI.
-	USHORT wType;
+	uint16_t wType;
 	if (m_filehdr.wMagic == FLX_MAGIC_FLC)
 		wType = FLX_DATA_COLOR256;
 	else
@@ -947,7 +947,7 @@ int16_t CFlx::WriteColorDelta(FLX_BUF* pbufNext, FLX_BUF* pbufPrev, UCHAR* pBuf,
 	UCHAR* pOut = pBuf;
 	
 	// First word of output is number of packets, which starts out at 0.
-	USHORT* pwPackets = (USHORT*)pOut;
+	uint16_t* pwPackets = (uint16_t*)pOut;
 	pOut = pOut + 2;
 	*pwPackets = 0;
 	
@@ -1201,8 +1201,8 @@ int16_t CFlx::WritePixelDelta(FLX_BUF* pbufNext, FLX_BUF* pbufPrev, UCHAR* pBuf,
 			}
 			
 			// Done with all the lines.  Write out the number of lines encoded.
-			*(USHORT*)pBuf = (USHORT)sFirstYPos;
-			*(USHORT*)(pBuf + 2) = (USHORT)sLineCount;
+			*(uint16_t*)pBuf = (uint16_t)sFirstYPos;
+			*(uint16_t*)(pBuf + 2) = (uint16_t)sLineCount;
 			
 			// Write out the chunk.
 			sError = WriteDataChunk(pBuf, lSizeLC, FLX_DATA_LC, plChunkSize);
@@ -1221,7 +1221,7 @@ int16_t CFlx::WritePixelDelta(FLX_BUF* pbufNext, FLX_BUF* pbufPrev, UCHAR* pBuf,
 			for (y = 0; y < m_filehdr.sHeight; y++)
 			{
 				// Process/encode the current line.
-				sError = CompressLineDelta(y, pbufNext, pbufPrev, pbDst, lSize, sizeof(USHORT), sLineSkipCount);
+				sError = CompressLineDelta(y, pbufNext, pbufPrev, pbDst, lSize, sizeof(uint16_t), sLineSkipCount);
 				
 				// Trap real errors.
 				if (sError == -1)
@@ -1261,7 +1261,7 @@ int16_t CFlx::WritePixelDelta(FLX_BUF* pbufNext, FLX_BUF* pbufPrev, UCHAR* pBuf,
 //
 // Name:		CompressLineDelta
 //               
-// Description:	This function will perform either UCHAR/USHORT oriented delta
+// Description:	This function will perform either UCHAR/uint16_t oriented delta
 //				compression, given the current line.  If compression is possible,
 //				the compressed data will be written to the buffer provided.
 //				Otherwise, an error will be returned to indicate no compression.
@@ -1348,11 +1348,11 @@ int16_t CFlx::CompressLineDelta(int16_t y,
 		{
 			// The last byte is different.  We need to save it!
 			// Put the value in the low-order byte.
-			USHORT wLastByte = (USHORT)pbSrcNext[dwOffset];
+			uint16_t wLastByte = (uint16_t)pbSrcNext[dwOffset];
 			wLastByte = wLastByte | 0x8000;
 				
 			// Save it to the chunk.
-			*(USHORT*)(pbDst + (uint32_t)lSize) = wLastByte;
+			*(uint16_t*)(pbDst + (uint32_t)lSize) = wLastByte;
 			lSize += 2;
 		}
 			
@@ -1551,7 +1551,7 @@ int16_t CFlx::CompressLineDelta(int16_t y,
 	if (sAlign == 1)
 		*pbPacketCount = (UCHAR)sPacket;
 	else
-		*(USHORT*)pbPacketCount = (USHORT)sPacket;
+		*(uint16_t*)pbPacketCount = (uint16_t)sPacket;
 	
 	// Compression successful.
 	return 0;
@@ -1696,7 +1696,7 @@ long CFlx::CompressBRUN(
 // Helper function that write a data chunk using the specified data/values.
 //
 ///////////////////////////////////////////////////////////////////////////////
-int16_t CFlx::WriteDataChunk(UCHAR* pbData, long lSize, USHORT wType, long* plChunkSize)
+int16_t CFlx::WriteDataChunk(UCHAR* pbData, long lSize, uint16_t wType, long* plChunkSize)
 	{
 	FLX_DATA_HDR datahdr;
 	

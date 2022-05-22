@@ -60,7 +60,7 @@ void	DrawTri_ZColorFog(UCHAR* pDstOffset,int32_t lDstP,
 	pt3.z.mod = int16_t(p3->z);
 	pt1.x.frac = 
 	pt2.x.frac = 
-	pt3.x.frac = USHORT(32768); // offset each by 1/2
+	pt3.x.frac = uint16_t(32768); // offset each by 1/2
 
 #if 0
 	// Catch the special case of a single pixel
@@ -504,7 +504,7 @@ void	DrawTri_ZColor(UCHAR* pDstOffset,int32_t lDstP,
 	pt3.z.mod = int16_t(p3->z);
 	pt1.x.frac = 
 	pt2.x.frac = 
-	pt3.x.frac = USHORT(32768); // offset each by 1/2
+	pt3.x.frac = uint16_t(32768); // offset each by 1/2
 	
 	// sort the triangles and choose which mirror case to render.
 
@@ -841,7 +841,7 @@ void	DrawTri(UCHAR* pDstOffset,int32_t lDstP,
 	pt3.y.mod = int16_t(p3->y);
 	pt1.x.frac = 
 	pt2.x.frac = 
-	pt3.x.frac = USHORT(32768); // offset each by 1/2
+	pt3.x.frac = uint16_t(32768); // offset each by 1/2
 	
 	// sort the triangles and choose which mirror case to render.
 

@@ -186,7 +186,7 @@ void CRtPlay::Reset(void)
 // Returns 0 on success.
 //
 //////////////////////////////////////////////////////////////////////////////
-int16_t CRtPlay::CreateCmd(USHORT usCmd, long lTime, long lParm1, long lParm2)
+int16_t CRtPlay::CreateCmd(uint16_t usCmd, long lTime, long lParm1, long lParm2)
 	{
 	int16_t	sRes	= 0;	// Assume success.
 	long	lSize	= sizeof(usCmd) + sizeof(lParm1) + sizeof(lParm2);
@@ -237,7 +237,7 @@ int16_t CRtPlay::CreateCmd(USHORT usCmd, long lTime, long lParm1, long lParm2)
 // Returns RET_FREE if puc should be freed and RET_DONTFREE, otherwise.
 //
 //////////////////////////////////////////////////////////////////////////////
-int16_t CRtPlay::RtInfoCall(	UCHAR* puc, long lSize, USHORT usType, UCHAR ucFlags,
+int16_t CRtPlay::RtInfoCall(	UCHAR* puc, long lSize, uint16_t usType, UCHAR ucFlags,
 									long lTime)
 	{
 	int16_t	sError	= 0;
@@ -268,7 +268,7 @@ int16_t CRtPlay::RtInfoCall(	UCHAR* puc, long lSize, USHORT usType, UCHAR ucFlag
 
 	if (file.Open(puc, lSize, ENDIAN_BIG) == 0)
 		{
-		USHORT	usCmd;
+		uint16_t	usCmd;
 		uint32_t		ulChannels;
 		long		lTimeVal;
 		long		lVal;
@@ -394,7 +394,7 @@ int16_t CRtPlay::RtInfoCall(	UCHAR* puc, long lSize, USHORT usType, UCHAR ucFlag
 // (static)
 //
 //////////////////////////////////////////////////////////////////////////////
-int16_t CRtPlay::RtInfoCallStatic(	UCHAR* puc, long lSize, USHORT usType, 
+int16_t CRtPlay::RtInfoCallStatic(	UCHAR* puc, long lSize, uint16_t usType, 
 											UCHAR ucFlags, long lTime, long l_pRtPlay)
 	{
 	return ((CRtPlay*)l_pRtPlay)->RtInfoCall(puc, lSize, usType, ucFlags, lTime);
@@ -407,7 +407,7 @@ int16_t CRtPlay::RtInfoCallStatic(	UCHAR* puc, long lSize, USHORT usType,
 // Returns 0 on success.
 //
 //////////////////////////////////////////////////////////////////////////////
-int16_t CRtPlay::SetState(USHORT usState)
+int16_t CRtPlay::SetState(uint16_t usState)
 	{
 	int16_t	sRes	= 0;	// Assume success.
 
@@ -420,7 +420,7 @@ int16_t CRtPlay::SetState(USHORT usState)
 		// this should be updated.  Of course, if you simply change the
 		// macros, you'll never see this until you figure out that there's
 		// a problem.
-		USHORT	usMsg	= usState;
+		uint16_t	usMsg	= usState;
 		int16_t		sNum	= m_dispatch.SendHandlerMessage(usMsg);
 
 		if (sNum == 0)

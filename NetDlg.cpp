@@ -513,7 +513,7 @@ struct GuiLink
 		int32_t*			pl;
 		uint32_t*		pul;
 		int16_t*		ps;
-		USHORT*		pus;
+		uint16_t*		pus;
 		char*			pc;
 		UCHAR*		puc;
 		char*			psz;

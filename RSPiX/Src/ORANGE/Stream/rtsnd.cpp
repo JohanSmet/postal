@@ -137,7 +137,7 @@ void CRtSnd::Reset(void)
 // Returns RET_FREE if done with data on return, RET_DONTFREE otherwise.
 //
 //////////////////////////////////////////////////////////////////////////////
-int16_t CRtSnd::Use(UCHAR* puc, long lSize, USHORT usType, UCHAR ucFlags,
+int16_t CRtSnd::Use(UCHAR* puc, long lSize, uint16_t usType, UCHAR ucFlags,
 						long lTime)
 	{
 	int16_t	sRes		= RET_FREE;	// Always free.
@@ -152,7 +152,7 @@ int16_t CRtSnd::Use(UCHAR* puc, long lSize, USHORT usType, UCHAR ucFlags,
 	// Read values common to all chunks.
 
 	// Read Snd ID.
-	USHORT	usSndId;
+	uint16_t	usSndId;
 	file.Read (&usSndId);
 	
 	// Make sure we're in range.
@@ -300,7 +300,7 @@ int16_t CRtSnd::Use(UCHAR* puc, long lSize, USHORT usType, UCHAR ucFlags,
 //	(static)
 //
 //////////////////////////////////////////////////////////////////////////////
-void* CRtSnd::MixCall(	USHORT usMsg, void* pData, uint32_t* pulBufSize, 
+void* CRtSnd::MixCall(	uint16_t usMsg, void* pData, uint32_t* pulBufSize, 
 										uint32_t ul_psndhdr)
 	{
 	PSND_RT_HDR	psndhdr	= (PSND_RT_HDR)ul_psndhdr;
@@ -464,7 +464,7 @@ void CRtSnd::CritiCall(uint32_t)
 // (static)
 //
 //////////////////////////////////////////////////////////////////////////////
-int16_t CRtSnd::UseStatic(	UCHAR* puc, long lSize, USHORT usType, 
+int16_t CRtSnd::UseStatic(	UCHAR* puc, long lSize, uint16_t usType, 
 									UCHAR ucFlags, long lTime, long l_pRtSnd)
 	{
 	return ((CRtSnd*)l_pRtSnd)->Use(puc, lSize, usType, ucFlags, lTime);

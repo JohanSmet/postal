@@ -67,7 +67,7 @@
 #define AMEM_TELL(pTell, pFile, pMem)	__asm mov pTell, pMem\
 													__asm sub pTell, pFile
 //
-// Call any of these to get a UCHAR, USHORT, or uint32_t from the memory area.  The
+// Call any of these to get a UCHAR, uint16_t, or uint32_t from the memory area.  The
 // pointer is automatically updated to follow the data that was just read.
 // These macros also hide the byte-ordering on the Mac vs the PC.
 // pDst		== [ptr] or reg to get data
@@ -1017,7 +1017,7 @@ int16_t CRamFlx::ReadDataSS2(CImage* pimageRead, CNFile* pfile,
 #ifndef WIN32		
 	UCHAR bVal;
 	S8		cVal;
-	USHORT wVal;
+	uint16_t wVal;
 	int16_t sCount;
 	int16_t y;
 	UCHAR* pbPix;
@@ -1055,7 +1055,7 @@ int16_t CRamFlx::ReadDataSS2(CImage* pimageRead, CNFile* pfile,
 					if (bLastByte == TRUE)
 						return 1;
 						
-					byLastByte = (UCHAR)(wVal & (USHORT)0x00ff);
+					byLastByte = (UCHAR)(wVal & (uint16_t)0x00ff);
 					bLastByte = TRUE;
 					// Read the packet count.
 //					wVal = MEM_WORD(m_pCurFlxBuf);	
@@ -1095,7 +1095,7 @@ int16_t CRamFlx::ReadDataSS2(CImage* pimageRead, CNFile* pfile,
 			sCount = (int16_t)cVal;
 			if (sCount > 0)
 				{
-				sCount *= sizeof(USHORT);
+				sCount *= sizeof(uint16_t);
 //				memcpy(pbPix, m_pCurFlxBuf, sCount);	
 //				m_pCurFlxBuf = MEM_SEEK(m_pCurFlxBuf,sCount);
 				pfile->Read(pbPix, sCount);
@@ -1107,7 +1107,7 @@ int16_t CRamFlx::ReadDataSS2(CImage* pimageRead, CNFile* pfile,
 //				wVal = MEM_WORD(m_pCurFlxBuf);	
 				pfile->Read(&wVal);
 //					memset(pbPix, (int)wVal, (size_t)sCount);
-				USHORT* pwPix = (USHORT*)pbPix;
+				uint16_t* pwPix = (uint16_t*)pbPix;
 				for (int16_t i = 0; i < sCount; i++)
 					*pwPix++ = wVal;
 				pbPix = (UCHAR*)pwPix;
@@ -1183,7 +1183,7 @@ int16_t CRamFlx::ReadDataSS2(CImage* pimageRead, CNFile* pfile,
 	// 1 0 "The low order byte is to be stored in the last byte of
 	// the current line.  The packet count always folows this word."
 	// This is another signal to stop processing "optional words".
-		mov	byLastByte, al				; byLastByte = (UCHAR)(wVal & (USHORT)0x00ff);
+		mov	byLastByte, al				; byLastByte = (UCHAR)(wVal & (uint16_t)0x00ff);
 		mov	bLastByte, TRUE			; bLastByte = TRUE;
 		// Read the packet count.
 		AMEM_WORD(ax, esi)				; wVal = MEM_WORD(m_pCurFlxBuf);	
@@ -1255,7 +1255,7 @@ int16_t CRamFlx::ReadDataSS2(CImage* pimageRead, CNFile* pfile,
 
 		shr	cx, 1							; by dwords.
 		
-		; USHORT* pwPix = (USHORT*)pbPix;
+		; uint16_t* pwPix = (uint16_t*)pbPix;
 		; for (int16_t i = 0; i < sCount; i++)
 		; 	*pwPix++ = wVal;
 		; pbPix = (UCHAR*)pwPix;

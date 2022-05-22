@@ -863,7 +863,7 @@ bool CThing3d::WhileBlownUp(void)	// Returns true until state is complete.
 
 	// Get attribute at new location.
 	// Get height at new position.
-	USHORT	usAttrib;
+	uint16_t	usAttrib;
 	int16_t		sHeight;
 	GetFloorAttributes(dNewX, dNewZ, &usAttrib, &sHeight);
 
@@ -1200,7 +1200,7 @@ bool CThing3d::MakeValidPosition(	// Returns true, if new position was valid.
 
 	// Get attribute at new location.
 	// Get height at new position.
-	USHORT	usAttrib;
+	uint16_t	usAttrib;
 	int16_t		sHeight;
 	GetFloorAttributes(*pdNewX, *pdNewZ, &usAttrib, &sHeight);
 

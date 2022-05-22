@@ -104,10 +104,10 @@ class RAttributeMap
 		int16_t Load(RFile* prf);
 
 		// Single point attribute
-		USHORT GetAttribute(int32_t lX, int32_t lY);
+		uint16_t GetAttribute(int32_t lX, int32_t lY);
 
 		// Rectangle attribute
-		USHORT GetAttribute(int32_t lTop, int32_t lBottom, int32_t lLeft, int32_t lRight);
+		uint16_t GetAttribute(int32_t lTop, int32_t lBottom, int32_t lLeft, int32_t lRight);
 
 		// Get just the low 8 bits (flags) from the last GetAttribute Call
 		UCHAR GetFlags()
@@ -123,13 +123,13 @@ class RAttributeMap
 
 	private:
 		// pointer to map buffer
-		USHORT* m_pusMap;
+		uint16_t* m_pusMap;
 
 		// pointer to detail map buffer
-		USHORT* m_pusDetailMap;
+		uint16_t* m_pusDetailMap;
 
 		// The attribute stored since the last GetAttribute Call
-		USHORT m_usLastAttribute;
+		uint16_t m_usLastAttribute;
 
 		// The Max height stored since the last GetAttribute Call
 		UCHAR m_ucMaxHeight;

@@ -274,7 +274,7 @@ void RPipeLine::Render(RImage* pimDst,int16_t sDstX,int16_t sDstY,
 	{
 	int32_t i;
 	int32_t v1,v2,v3;
-	USHORT *psVertex = pMesh->m_pArray;
+	uint16_t *psVertex = pMesh->m_pArray;
 	int32_t lNumHidden = 0;
 
 	for (i=0;i < pMesh->m_sNum; i++)
@@ -304,7 +304,7 @@ void RPipeLine::RenderShadow(RImage* pimDst,RMesh* pMesh,UCHAR ucColor)
 	{
 	int32_t i;
 	int32_t v1,v2,v3;
-	USHORT *psVertex = pMesh->m_pArray;
+	uint16_t *psVertex = pMesh->m_pArray;
 
 	for (i=0;i < pMesh->m_sNum; i++)
 		{
@@ -333,7 +333,7 @@ void RPipeLine::Render(RImage* pimDst,int16_t sDstX,int16_t sDstY,
 	{
 	int32_t i;
 	int32_t v1,v2,v3;
-	USHORT *psVertex = pMesh->m_pArray;
+	uint16_t *psVertex = pMesh->m_pArray;
 	UCHAR *pColor = pTexColors->m_pIndices;
 	int32_t lDstP = pimDst->m_lPitch;
 	UCHAR* pDst = pimDst->m_pData + (sDstX + sOffsetX) + lDstP * (sDstY + sOffsetY);
@@ -367,7 +367,7 @@ void RPipeLine::Render(RImage* pimDst,int16_t sDstX,int16_t sDstY,
 	{
 	int32_t i;
 	int32_t v1,v2,v3;
-	USHORT *psVertex = pMesh->m_pArray;
+	uint16_t *psVertex = pMesh->m_pArray;
 	UCHAR *pColor = pTexColors->m_pIndices;
 	int32_t lDstP = pimDst->m_lPitch;
 	UCHAR* pDst = pimDst->m_pData + (sDstX + sOffsetX) + lDstP * (sDstY + sOffsetY);

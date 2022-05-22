@@ -105,7 +105,7 @@ class EXE2DLL CRSPiXBlue : public CStatic
 		#undef STRACE
 		#define STRACE	::AfxTrace
 		// BDIALOG.H
-		int16_t Blu_MsgBox(USHORT usFlags, char *pszTitle, char *pszFrmt, ...)
+		int16_t Blu_MsgBox(uint16_t usFlags, char *pszTitle, char *pszFrmt, ...)
 			{
 			char	szOutput[16384];
 			va_list varp;
@@ -156,7 +156,7 @@ class EXE2DLL CRSPiXBlue : public CStatic
 			{ return ::Blu_UpdateDisplay(sx, sy, dx, dy, w, h); }
 		int16_t Blu_SetWindowControls(int16_t sControls)
 			{ return ::Blu_SetWindowControls(sControls); }
-		long Blu_GetDisplayInfo(USHORT usInfo)
+		long Blu_GetDisplayInfo(uint16_t usInfo)
 			{ return ::Blu_GetDisplayInfo(usInfo); }
 		int16_t Blu_SetWindowTitle(char *pszTitleNameText)
 			{ return ::Blu_SetWindowTitle(pszTitleNameText); }
@@ -169,11 +169,11 @@ class EXE2DLL CRSPiXBlue : public CStatic
 			{ ::Blu_GetJoyPos(sJoy, px, py, pz); }
 		void Blu_GetJoyPrevPos(int16_t sJoy, long *px, long *py, long *pz)
 			{ ::Blu_GetJoyPrevPos(sJoy, px, py, pz); }
-		USHORT Blu_GetJoyState(int16_t sJoy)
+		uint16_t Blu_GetJoyState(int16_t sJoy)
 			{ return ::Blu_GetJoyState(sJoy); }
 		void Blu_GetJoyState(int16_t sJoy, PJOYSTATE pjs)
 			{ ::Blu_GetJoyState(sJoy, pjs); }
-		USHORT Blu_GetJoyPrevState(int16_t sJoy)
+		uint16_t Blu_GetJoyPrevState(int16_t sJoy)
 			{ return ::Blu_GetJoyPrevState(sJoy); }
 		void Blu_GetJoyPrevState(int16_t sJoy, PJOYSTATE pjs)
 			{ ::Blu_GetJoyPrevState(sJoy, pjs); }
@@ -225,8 +225,8 @@ class EXE2DLL CRSPiXBlue : public CStatic
 		void Blu_SetSoundOutPaneSize(long lPaneSize)
 			{ ::Blu_SetSoundOutPaneSize(lPaneSize); }
 		int16_t Blu_OpenSoundOut(	uint32_t		ulSampleRate,
-										USHORT	usBitsPerSample,
-										USHORT	usNumChannels)
+										uint16_t	usBitsPerSample,
+										uint16_t	usNumChannels)
 			{
 			return ::Blu_OpenSoundOut(	ulSampleRate,
 												usBitsPerSample,

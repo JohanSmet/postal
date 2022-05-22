@@ -83,7 +83,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #define HEADERSIZE		(sizeof(UCHAR)		/* Channel		*/	\
 								+ sizeof(UCHAR)	/* Flags			*/	\
-								+ sizeof(USHORT)	/* Type			*/	\
+								+ sizeof(uint16_t)	/* Type			*/	\
 								+ sizeof(long)		/* ID				*/	\
 								+ sizeof(long)		/* Buffer size	*/	\
 								+ sizeof(long)		/* Chunk size	*/	\
@@ -203,7 +203,7 @@ void CFilter::WinCall(PPANE ppane)
 		if (file.Open(ppane->puc, ppane->lSize, ENDIAN_BIG) == 0)
 			{
 			UCHAR		ucChannel;
-			USHORT	usType;
+			uint16_t	usType;
 			UCHAR		ucFlags;
 			long		lId;
 			long		lBufSize;
@@ -374,7 +374,7 @@ PRTCHUNK CFilter::GetChunk(long lId)
 // Returns chunk on success, NULL otherwise.
 //
 //////////////////////////////////////////////////////////////////////////////
-PRTCHUNK CFilter::AddChunk(long lSize, USHORT usType, UCHAR ucFlags, long lId,
+PRTCHUNK CFilter::AddChunk(long lSize, uint16_t usType, UCHAR ucFlags, long lId,
 									long lTime)
 	{
 	int16_t		sError	= 0;
@@ -513,7 +513,7 @@ long CFilter::AddToChunk(	CNFile*	pfile,		// File pointer.
 // If this gets a malloc failure, that is considered an error.
 //
 //////////////////////////////////////////////////////////////////////////////
-int16_t CFilter::AllocChunk(	UCHAR** ppuc, long lSize, USHORT usType, 
+int16_t CFilter::AllocChunk(	UCHAR** ppuc, long lSize, uint16_t usType, 
 									UCHAR ucFlags)
 	{
 	int16_t	sRes	= 0;	// Assume success.
@@ -545,7 +545,7 @@ int16_t CFilter::AllocChunk(	UCHAR** ppuc, long lSize, USHORT usType,
 // m_fnAlloc AND m_fnFree are NOT defined.
 //
 //////////////////////////////////////////////////////////////////////////////
-void CFilter::FreeChunk(UCHAR* puc, USHORT usType, UCHAR ucFlags)
+void CFilter::FreeChunk(UCHAR* puc, uint16_t usType, UCHAR ucFlags)
 	{
 	if (puc != NULL)
 		{

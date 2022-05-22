@@ -287,7 +287,7 @@ int16_t RMultiGridIndirect::AddFSPR1(RImage* pimSrc,int16_t sLogX,int16_t sLogY,
 					int16_t sPlaneVal = ms_asColorToPlane[sIndex];
 
 					// 4) Draw the tile into the attribute map:
-					TileOR(UCHAR(1),USHORT(sPlaneVal),sCurX,sCurY,1);
+					TileOR(UCHAR(1),uint16_t(sPlaneVal),sCurX,sCurY,1);
 					}
 				}
 			//===================================================
@@ -299,7 +299,7 @@ int16_t RMultiGridIndirect::AddFSPR1(RImage* pimSrc,int16_t sLogX,int16_t sLogY,
 	}
 
 
-	void	RMultiGridIndirect::TileOR(UCHAR ucKey,USHORT usValueOR,int16_t sDstX,int16_t sDstY,
+	void	RMultiGridIndirect::TileOR(UCHAR ucKey,uint16_t usValueOR,int16_t sDstX,int16_t sDstY,
 		int16_t sClip) // you can turn off the half clipping:
 		{
 		ASSERT(m_pmg);
@@ -307,7 +307,7 @@ int16_t RMultiGridIndirect::AddFSPR1(RImage* pimSrc,int16_t sLogX,int16_t sLogY,
 		ASSERT(!m_pmg->m_sIsCompressed);
 		ASSERT(usValueOR < 32768);
 		//-------------- half clipping ------------
-		// USHORT* pusAttrib = (USHORT*) m_pmg->m_psGrid;
+		// uint16_t* pusAttrib = (uint16_t*) m_pmg->m_psGrid;
 		int16_t sW = m_sTileW,sH = m_sTileH;
 
 		if (sClip)
@@ -324,7 +324,7 @@ int16_t RMultiGridIndirect::AddFSPR1(RImage* pimSrc,int16_t sLogX,int16_t sLogY,
 		int32_t	lDstP = m_pmg->m_sWidth; // (in int16_ts)
 		int32_t	lSrcP = m_sTileW;
 		UCHAR*	pSrc,*pSrcLine = m_pimTempTile->m_pData;
-		USHORT*  pDst,*pDstLine = (USHORT*)m_pmg->m_psGrid;
+		uint16_t*  pDst,*pDstLine = (uint16_t*)m_pmg->m_psGrid;
 
 		// Adjust for actual coordinates!!!!
 		pDstLine += int32_t(m_pmg->m_sWidth) * sDstY + sDstX;

@@ -27,7 +27,7 @@ extern int sdlWindowWidth;
 extern int sdlWindowHeight;
 
 extern int16_t rspMsgBox(	// Returns RSP_MB_RET_*.  See switch statement below.
-	USHORT usFlags,		// MB_BUT/ICO_* flags specifying buttons and icons.
+	uint16_t usFlags,		// MB_BUT/ICO_* flags specifying buttons and icons.
 	const char *pszTitle,		// Title for box.
 	const char *pszFrmt,			// Format for string.
 	...)						// Various shit.

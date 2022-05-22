@@ -41,7 +41,7 @@ inline void	Add(u16Frac& pDst,u16Frac& pAdd,int16_t sDen)
 // Creates a proper fraction from an improper one:
 // The sizes MUST be appropriate!
 //
-inline void MakeProper(u16Frac& pDst,USHORT usNum,USHORT usDen)
+inline void MakeProper(u16Frac& pDst,uint16_t usNum,uint16_t usDen)
 	{
 	pDst.delta = usNum / usDen;
 	pDst.frac = usNum % usDen;
@@ -52,7 +52,7 @@ inline void MakeProper(u16Frac& pDst,USHORT usNum,USHORT usDen)
 // 1 is tha base fraction, and 255 is 255 * the base fraction.
 // Both must be unsigned!  (uses calloc)
 //
-inline u16Frac* u16fStrafe256(USHORT usNum,USHORT usDen)
+inline u16Frac* u16fStrafe256(uint16_t usNum,uint16_t usDen)
 	{
 	u16Frac* pu16fNew = (u16Frac*) calloc(256,sizeof(u16Frac));
 	u16Frac u16fInc;

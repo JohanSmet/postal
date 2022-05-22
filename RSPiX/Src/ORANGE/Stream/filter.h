@@ -37,7 +37,7 @@ typedef struct
 	{
 	UCHAR*	puc;			// Beginning of chunk.
 	long		lSize;		// Total size of chunk (puc).
-	USHORT	usType;		// Type of buffer.
+	uint16_t	usType;		// Type of buffer.
 	UCHAR		ucFlags;		// Flags for buffer.
 	long		lId;			// Id of buffer.
 	long		lTime;		// Time buffer is supposed to arrive.
@@ -46,16 +46,16 @@ typedef struct
 
 // This type is used to call the user to allow them to allocate space for the
 // data and pass it back to be filled.
-typedef UCHAR* (*ALLOC_FILTERFUNC)(	long lSize, USHORT usType, UCHAR ucFlags,
+typedef UCHAR* (*ALLOC_FILTERFUNC)(	long lSize, uint16_t usType, UCHAR ucFlags,
 												long lUser);
 
 // This type is used to call the user to allow them to DEallocate space al-
 // located by a previous call to their ALLOC_FILTERFUNC.
-typedef void (*FREE_FILTERFUNC)(	UCHAR* puc, USHORT usType, UCHAR ucFlags, 
+typedef void (*FREE_FILTERFUNC)(	UCHAR* puc, uint16_t usType, UCHAR ucFlags, 
 											long lUser);
 
 // This type is used to pass the copied chunk to the user ready to be used.
-typedef void (*USE_FILTERFUNC)(	UCHAR* puc, long lSize, USHORT usType,
+typedef void (*USE_FILTERFUNC)(	UCHAR* puc, long lSize, uint16_t usType,
 											UCHAR ucFlags, long lTime, long lUser);
 
 class CFilter
@@ -106,7 +106,7 @@ class CFilter
 
 		// Add a chunk header.
 		// Returns chunk on success, NULL otherwise.
-		PRTCHUNK AddChunk(long lSize, USHORT usType, UCHAR ucFlags, long Id, 
+		PRTCHUNK AddChunk(long lSize, uint16_t usType, UCHAR ucFlags, long Id, 
 								long lTime);
 
 		// Removes a chunk header.
@@ -120,10 +120,10 @@ class CFilter
 		// Allocates data via user callback if defined or malloc, otherwise.
 		// Returns 0 on success.  See comment of this function in filter.cpp
 		// for greater details.
-		int16_t AllocChunk(UCHAR** ppuc, long lSize, USHORT usType, UCHAR ucFlags);
+		int16_t AllocChunk(UCHAR** ppuc, long lSize, uint16_t usType, UCHAR ucFlags);
 		// Deallocates data via user callback if defined or free if both 
 		// m_fnAlloc AND m_fnFree are NOT defined.
-		void FreeChunk(UCHAR* puc, USHORT usType, UCHAR ucFlags);
+		void FreeChunk(UCHAR* puc, uint16_t usType, UCHAR ucFlags);
 
 
 	public:		// Members.

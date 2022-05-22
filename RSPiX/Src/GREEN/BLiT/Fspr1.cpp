@@ -338,7 +338,7 @@ int16_t ConvertToFSPR1(RImage* pImage)
 	pSpecial->m_OldType = pImage->m_type;
 	pSpecial->m_pCode = pNewCodeBuf;
 	pSpecial->m_lSize = lCompressedSize; // Set font specific stuff yourself!
-	pSpecial->m_u16Width = USHORT(sW); // so the default kerning makes sense!
+	pSpecial->m_u16Width = uint16_t(sW); // so the default kerning makes sense!
 	pimNew->m_pSpecial = pimNew->m_pSpecialMem = (UCHAR*)pSpecial;
 	pimNew->m_sWidth = sW;
 	pimNew->m_sHeight = sH;

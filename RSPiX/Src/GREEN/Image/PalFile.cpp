@@ -192,7 +192,7 @@ int16_t RPalFile::LoadVersion3(	// Returns SUCCESS on success or FAILURE on
 	pfile->Read(&ppal->m_sNumEntries);
 	pfile->Read(&ppal->m_sPalEntrySize);
 
-	USHORT	usFlag	= 2;
+	uint16_t	usFlag	= 2;
 	pfile->Read(&usFlag);
 	if (usFlag == 1)
 		{

@@ -555,13 +555,13 @@ int16_t RPal::Save(RFile* pcf)
 		pcf->Write(&m_sPalEntrySize);
 		if (m_pData)
 		{
-			USHORT usFlag = 1;
+			uint16_t usFlag = 1;
 			pcf->Write(&usFlag);
 			pcf->Write(m_pData, m_ulSize);
 		}
 		else
 		{
-			USHORT usFlag = 0;
+			uint16_t usFlag = 0;
 			pcf->Write(&usFlag);
 		}
 		if (pcf->Error())
@@ -639,7 +639,7 @@ int16_t RPal::Load(RFile* pcf)
 	int16_t sReturn = SUCCESS;
 	// uint32_t ulFileType = 0;
 	// uint32_t ulFileVersion = 0;
-	// USHORT usFlag = 2;
+	// uint16_t usFlag = 2;
 
 	if (pcf && pcf->IsOpen())
 	{

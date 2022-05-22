@@ -298,8 +298,8 @@ void rspWaitForClick(int16_t sWait)
 class RCompressedImageData
 	{
 public:
-	USHORT	usCompType;	// = FSPR8 image type
-	USHORT	usSourceType;	// uncompressed Image pre-compressed type
+	uint16_t	usCompType;	// = FSPR8 image type
+	uint16_t	usSourceType;	// uncompressed Image pre-compressed type
 	UCHAR*	pCBuf;		// Start of compressed picture data, 128-aligned, NULL for monochrome
 	UCHAR*	pCMem;
 	UCHAR* pControlBlock;// 32-aligned run length code for compressed BLiT
@@ -331,7 +331,7 @@ void	rspSetBMPColors(RImage* pim,int16_t sStartIndex,int16_t sNum)
 	// Actually, we ONLY need to worry about type FSPR8
 	if (pim->m_type == RImage::FSPR8)
 		{
-		if ( ((RCompressedImageData*)pim->m_pSpecial)->usSourceType != (USHORT)RImage::BMP8)
+		if ( ((RCompressedImageData*)pim->m_pSpecial)->usSourceType != (uint16_t)RImage::BMP8)
 			{
 			TRACE("rspSetBMPColors:  Palette not type BMP8\n");
 			return;

@@ -325,7 +325,7 @@ int16_t RImageFile::LoadVersion5(	// Returns SUCCESS on success or FAILURE on
 	// If file is still okay . . .
 	if (pfile->Error() == FALSE)
 		{
-		USHORT usFlag;
+		uint16_t usFlag;
 		// See if there is any pixel data to be read
 		pfile->Read(&usFlag);
 		if (usFlag == 1)
@@ -346,7 +346,7 @@ int16_t RImageFile::LoadVersion5(	// Returns SUCCESS on success or FAILURE on
 	// If file is still okay . . .
 	if (pfile->Error() == FALSE)
 		{
-		USHORT usFlag;
+		uint16_t usFlag;
 		// See if there is a palette to load
 		pfile->Read(&usFlag);
 		if (usFlag == 1)

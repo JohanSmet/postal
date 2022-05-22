@@ -128,7 +128,7 @@ public:
 		ASSERT(m_pucPalette);
 		ASSERT(m_pmg->m_sIsCompressed);
 		// 1) Get the set of index planes:
-		USHORT usList = USHORT(m_pmg->GetVal(sX,sY,-1));
+		uint16_t usList = uint16_t(m_pmg->GetVal(sX,sY,-1));
 		// Check each plane individually
 		for (int16_t i=0;i < m_sMaxPlanes;i++)
 			{
@@ -300,7 +300,7 @@ public:
 	// destination key:
 	// It will only do RIGHT AND BOTTOM CLIPPING!
 	//
-	void	TileOR(UCHAR ucKey,USHORT usValueOR,int16_t sDstX,int16_t sDstY,
+	void	TileOR(UCHAR ucKey,uint16_t usValueOR,int16_t sDstX,int16_t sDstY,
 		int16_t sClip = 0); // you can turn off the half clipping:
 
 	// Drop an FSPR1 into the Attribute map:

@@ -313,7 +313,7 @@ int16_t CRocket::Save(										// Returns 0 if successfull, non-zero otherwise
 ////////////////////////////////////////////////////////////////////////////////
 void CRocket::Update(void)
 {
-	// USHORT usAttrib;
+	// uint16_t usAttrib;
 	int16_t sHeight;
 	double dNewX;
 	double dNewZ;

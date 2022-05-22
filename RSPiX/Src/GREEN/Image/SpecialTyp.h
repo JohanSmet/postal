@@ -153,10 +153,10 @@ extern	void SetConvertFromFSPR1
 class	RSpecialFSPR8
 	{
 public:
-	USHORT	m_usCompType;	// = FSPR8 image type
+	uint16_t	m_usCompType;	// = FSPR8 image type
 	uint32_t		m_lBufSize;		// Size of the opaque pixel data
 	uint32_t		m_lCodeSize;	// Size of the control block (compression codes)
-	USHORT	m_usSourceType;// uncompressed Image pre-compressed type
+	uint16_t	m_usSourceType;// uncompressed Image pre-compressed type
 
 	UCHAR*	m_pCompBuf;		// Compressed picture data, 128bit-aligned
 	UCHAR*	m_pCompMem;		// For alignment

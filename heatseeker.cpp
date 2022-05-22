@@ -293,7 +293,7 @@ int16_t CHeatseeker::Save(										// Returns 0 if successfull, non-zero otherw
 ////////////////////////////////////////////////////////////////////////////////
 void CHeatseeker::Update(void)
 {
-	// USHORT usAttrib;
+	// uint16_t usAttrib;
 	int16_t sHeight;
 	double dNewX;
 	double dNewZ;

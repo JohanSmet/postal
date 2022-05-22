@@ -355,7 +355,7 @@ class CDoofus : public CCharacter
 		CSprite3			m_spriteWeapon;			// Sprite for weapon.
 		ClassIDType		m_eFallbackWeaponType;	// Fallback weapon type or TotalIDs for none.
 		int16_t				m_sStuckCounter;			// Number of times he tried to move in the current state
-		USHORT			m_usBloodCounter;			// Counter to limit the blood pools.
+		uint16_t			m_usBloodCounter;			// Counter to limit the blood pools.
 		SampleMaster::SoundInstance m_siPlaying;	// Sound instance that is playing - in case it needs to be stopped
 
 

@@ -5819,21 +5819,21 @@ static void NetLog(CNavigationNet* pNavNet)
 			for (ibouy = pNavNet->m_NodeMap.begin(); 
 				  ibouy != pNavNet->m_NodeMap.end(); ibouy++)
 			{
-				txtout << (USHORT) ((*ibouy).second->m_ucID) << " : "; 
+				txtout << (uint16_t) ((*ibouy).second->m_ucID) << " : "; 
 				for (ilink = (*ibouy).second->m_apsDirectLinks.begin(); 
 					  ilink != (*ibouy).second->m_apsDirectLinks.end(); ilink++)
 				{
-					txtout << (USHORT) (*ilink)->m_ucID << ", ";
+					txtout << (uint16_t) (*ilink)->m_ucID << ", ";
 				}
 				txtout << endl;
 				// Show routing table for reachable links
-				routeout << "bouy " << (USHORT) ((*ibouy).second->m_ucID) << endl;
+				routeout << "bouy " << (uint16_t) ((*ibouy).second->m_ucID) << endl;
 				for (i = 1; i < pNavNet->GetNumNodes(); i++)
 				{
 					ucHops = (*ibouy).second->NextRouteNode(i);
 					if (ucHops < 255)
 					{
-						routeout << " vialink[" << (USHORT) i << "] = " << (USHORT) ucHops << endl;
+						routeout << " vialink[" << (uint16_t) i << "] = " << (uint16_t) ucHops << endl;
 					}
 				}
 

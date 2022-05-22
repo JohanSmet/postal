@@ -273,7 +273,7 @@ int16_t CFirebomb::Save(										// Returns 0 if successfull, non-zero otherwis
 ////////////////////////////////////////////////////////////////////////////////
 void CFirebomb::Update(void)
 {
-	//USHORT usAttrib;
+	//uint16_t usAttrib;
 	int16_t sHeight = m_sPrevHeight;
 	double dNewX;
 	double dNewY;

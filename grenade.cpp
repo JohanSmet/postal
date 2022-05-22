@@ -316,7 +316,7 @@ int16_t CGrenade::Save(										// Returns 0 if successfull, non-zero otherwise
 ////////////////////////////////////////////////////////////////////////////////
 void CGrenade::Update(void)
 	{
-	USHORT usAttrib;
+	uint16_t usAttrib;
 	int16_t sHeight = m_sPrevHeight;
 	double dPrevVertVel;
 	double dNewX;

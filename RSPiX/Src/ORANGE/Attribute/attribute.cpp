@@ -238,10 +238,10 @@ int16_t RAttributeMap::AllocateMap(uint32_t ulSize, uint32_t ulDetailMapSize)
 	// int16_t sReturn = SUCCESS;
 
 	if (m_pusMap == NULL)
-		m_pusMap = new USHORT[ulSize];
+		m_pusMap = new uint16_t[ulSize];
 
 	if (m_pusDetailMap == NULL)
-		m_pusDetailMap = new USHORT[ulDetailMapSize];
+		m_pusDetailMap = new uint16_t[ulDetailMapSize];
 
 	if (m_pusMap == NULL || m_pusDetailMap == NULL)
 		return FAILURE;
@@ -262,11 +262,11 @@ int16_t RAttributeMap::AllocateMap(uint32_t ulSize, uint32_t ulDetailMapSize)
 //		uint32_t ulY = y position of point
 //
 // Returns:
-//		USHORT = attribute at the specified point
+//		uint16_t = attribute at the specified point
 //
 //////////////////////////////////////////////////////////////////////
 /*
-USHORT RAttributeMap::GetAttribute(int32_t lX, int32_t lY)
+uint16_t RAttributeMap::GetAttribute(int32_t lX, int32_t lY)
 {
 	if ((lX/m_sScaleX) > m_lWidth || (lY/m_sScaleY) > m_lHeight || lX < 0 || lY < 0)
 		return ATTRIBUTE_NOT_WALKABLE;
@@ -279,9 +279,9 @@ USHORT RAttributeMap::GetAttribute(int32_t lX, int32_t lY)
 }
 */
 
-USHORT RAttributeMap::GetAttribute(int32_t lX, int32_t lY)
+uint16_t RAttributeMap::GetAttribute(int32_t lX, int32_t lY)
 {
-	USHORT usBlockData;
+	uint16_t usBlockData;
 
 	if ((lX/m_sScaleX) >= m_lWidth || (lY/m_sScaleY) >= m_lHeight || lX < 0 || lY < 0)
 		return ATTRIBUTE_NOT_WALKABLE;
@@ -335,12 +335,12 @@ USHORT RAttributeMap::GetAttribute(int32_t lX, int32_t lY)
 //		ulRightCoord = right side of box to check
 //
 // Returns
-//		USHORT = ORed combination of attribute bits within this rectangle
+//		uint16_t = ORed combination of attribute bits within this rectangle
 //
 //////////////////////////////////////////////////////////////////////
 
 /*
-USHORT RAttributeMap::GetAttribute(int32_t lTopCoord, int32_t lBottomCoord,
+uint16_t RAttributeMap::GetAttribute(int32_t lTopCoord, int32_t lBottomCoord,
 											 int32_t lLeftCoord, int32_t lRightCoord)
 {
 	int32_t lTop = lTopCoord / m_sScaleY;
@@ -368,11 +368,11 @@ USHORT RAttributeMap::GetAttribute(int32_t lTopCoord, int32_t lBottomCoord,
 
 	int32_t lRow;
 	int32_t lCol;
-	USHORT usResult = 0;
-	USHORT usAttrib = 0;
-	USHORT usMin = m_pusMap[lTop*m_lWidth + lLeft];
-	USHORT usMax = m_pusMap[lTop*m_lWidth + lLeft];
-	USHORT usFlags = 0;
+	uint16_t usResult = 0;
+	uint16_t usAttrib = 0;
+	uint16_t usMin = m_pusMap[lTop*m_lWidth + lLeft];
+	uint16_t usMax = m_pusMap[lTop*m_lWidth + lLeft];
+	uint16_t usFlags = 0;
 
 	for (lRow = lTop; lRow <= lBottom; lRow++)
 		for (lCol = lLeft; lCol <= lRight; lCol++)
@@ -393,7 +393,7 @@ USHORT RAttributeMap::GetAttribute(int32_t lTopCoord, int32_t lBottomCoord,
 }
 */
 
-USHORT RAttributeMap::GetAttribute(int32_t lTopCoord, int32_t lBottomCoord,
+uint16_t RAttributeMap::GetAttribute(int32_t lTopCoord, int32_t lBottomCoord,
 											 int32_t lLeftCoord, int32_t lRightCoord)
 {
 	int32_t lTop = lTopCoord;// / m_sScaleY;
@@ -421,9 +421,9 @@ USHORT RAttributeMap::GetAttribute(int32_t lTopCoord, int32_t lBottomCoord,
 
 	int32_t lRow;
 	int32_t lCol;
-	USHORT usResult = 0;
-	USHORT usAttrib = 0;
-	USHORT usFlags = 0;
+	uint16_t usResult = 0;
+	uint16_t usAttrib = 0;
+	uint16_t usFlags = 0;
 	char cMax = (char) 0x80;
 
 	for (lRow = lTop; lRow <= lBottom; lRow++)

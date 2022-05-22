@@ -54,10 +54,10 @@ IMAGELINKLATE(FSPR8,ConvertToFSPR8,ConvertFromFSPR8,LoadFSPR8,SaveFSPR8,NULL,Del
 class RCompressedImageData
 	{
 public:
-	USHORT	usCompType;	// = FSPR8 image type
+	uint16_t	usCompType;	// = FSPR8 image type
 	uint32_t		m_lBufSize;		// Size of the pixel data
 	uint32_t		m_lCodeSize;	// Size of the control block
-	USHORT	usSourceType;	// uncompressed Image pre-compressed type
+	uint16_t	usSourceType;	// uncompressed Image pre-compressed type
 	UCHAR*	pCBuf;		// Start of compressed picture data, 128-aligned, NULL for monochrome
 	UCHAR*	pCMem;
 	UCHAR* pControlBlock;// 32-aligned run length code for compressed BLiT
@@ -268,7 +268,7 @@ int16_t   ConvertToFSPR8(RImage*  pImage)
 	//*********************  DO THE CONVERSION  ************************
 	RCompressedImageData* pHeader = new RCompressedImageData;
 	pHeader->usCompType = RImage::FSPR8;
-	pHeader->usSourceType = (USHORT) pImage->m_type;
+	pHeader->usSourceType = (uint16_t) pImage->m_type;
 
 	//************ RUN LENGTH COMPRESSION -> 8-bit Aligned **********
 

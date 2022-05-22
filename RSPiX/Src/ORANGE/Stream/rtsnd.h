@@ -58,15 +58,15 @@ class CRtSnd
 
 		// Use handler for RtSnd buffers.
 		// Returns RET_FREE if done with data on return, RET_DONTFREE otherwise.
-		int16_t Use(	UCHAR* puc, long lSize, USHORT usType, UCHAR ucFlags, 
+		int16_t Use(	UCHAR* puc, long lSize, uint16_t usType, UCHAR ucFlags, 
 						long lTime);
 		// Static entry point for above.
-		static int16_t UseStatic(	UCHAR* puc, long lSize, USHORT usType, 
+		static int16_t UseStatic(	UCHAR* puc, long lSize, uint16_t usType, 
 										UCHAR ucFlags, long lTime, long l_pRtSnd);
 
 		// Callback for mixer.
 		// Returns new buffer to play or NULL if none.
-		static void* MixCall(USHORT usMsg, void* pData, uint32_t* pulBufSize, 
+		static void* MixCall(uint16_t usMsg, void* pData, uint32_t* pulBufSize, 
 									uint32_t ul_psndhdr);
 
 		// Keeps the mixer channel open and starts the mixing in the beginning
@@ -96,7 +96,7 @@ class CRtSnd
 			// Header info for our use.
 			CMix				mix;						// Mixer channel.
 			CQueue<SNDBUF, MAXBUFS>	qsndbufs;	// Queue of SNDBUFs for this channel.
-			USHORT			usStatus;				// Status of current channel.
+			uint16_t			usStatus;				// Status of current channel.
 			CDispatch*		pdispatch;
 			} SND_RT_HDR, *PSND_RT_HDR;
 
@@ -105,7 +105,7 @@ class CRtSnd
 
 	protected:	// Members.
 		SND_RT_HDR	m_asndhdrs[MAX_SND_CHANNELS];// Info for each channel.
-		USHORT		m_usState;					// The current state of this CRtSnd.
+		uint16_t		m_usState;					// The current state of this CRtSnd.
 		CDispatch*	m_pdispatch;				// The dispatcher for this CRtSnd.
 		
 		static CList<SND_RT_HDR>	ms_listSndhdrs;	// List of active channels.

@@ -135,7 +135,7 @@ void CRtFlic::Reset(void)
 // Returns RET_FREE if done with data on return, RET_DONTFREE otherwise.
 //
 //////////////////////////////////////////////////////////////////////////////
-int16_t CRtFlic::Use(	UCHAR* puc, long lSize, USHORT usType, UCHAR ucFlags, 
+int16_t CRtFlic::Use(	UCHAR* puc, long lSize, uint16_t usType, UCHAR ucFlags, 
 							long lTime)
 	{
 	int16_t	sRes		= RET_FREE;	// Always free.
@@ -150,7 +150,7 @@ int16_t CRtFlic::Use(	UCHAR* puc, long lSize, USHORT usType, UCHAR ucFlags,
 	// Read values common to all chunks.
 
 	// Read flx ID.
-	USHORT	usFlxId;
+	uint16_t	usFlxId;
 	file.Read (&usFlxId);
 	
 	// Make sure we're in range.
@@ -263,7 +263,7 @@ int16_t CRtFlic::Use(	UCHAR* puc, long lSize, USHORT usType, UCHAR ucFlags,
 // (static)
 //
 //////////////////////////////////////////////////////////////////////////////
-int16_t CRtFlic::UseStatic(	UCHAR* puc, long lSize, USHORT usType, 
+int16_t CRtFlic::UseStatic(	UCHAR* puc, long lSize, uint16_t usType, 
 									UCHAR ucFlags, long lTime, long l_pRtFlic)
 	{
 	return ((CRtFlic*)l_pRtFlic)->Use(puc, lSize, usType, ucFlags, lTime);

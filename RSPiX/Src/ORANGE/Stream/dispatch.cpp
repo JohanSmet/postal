@@ -164,7 +164,7 @@ void CDispatch::Reset(void)
 // Handles data callbacks from filter.
 //
 //////////////////////////////////////////////////////////////////////////////
-void CDispatch::UseCall(UCHAR* pucBuffer, long lSize, USHORT usType, 
+void CDispatch::UseCall(UCHAR* pucBuffer, long lSize, uint16_t usType, 
 								UCHAR ucFlags, long lTime)
 	{
 	// If data handled . . .
@@ -193,7 +193,7 @@ void CDispatch::UseCall(UCHAR* pucBuffer, long lSize, USHORT usType,
 // (static)
 //
 //////////////////////////////////////////////////////////////////////////////
-void CDispatch::UseCallStatic(UCHAR* pucBuffer, long lSize, USHORT usType, 
+void CDispatch::UseCallStatic(UCHAR* pucBuffer, long lSize, uint16_t usType, 
 										UCHAR ucFlags, long lTime, long l_pDispatch)
 	{
 	((CDispatch*)l_pDispatch)->UseCall(pucBuffer, lSize, usType, ucFlags, lTime);
@@ -204,7 +204,7 @@ void CDispatch::UseCallStatic(UCHAR* pucBuffer, long lSize, USHORT usType,
 // Handles alloc callbacks from filter.
 //
 //////////////////////////////////////////////////////////////////////////////
-UCHAR* CDispatch::AllocCall(long lSize, USHORT usType, UCHAR ucFlags)
+UCHAR* CDispatch::AllocCall(long lSize, uint16_t usType, UCHAR ucFlags)
 	{
 	UCHAR*	puc	= NULL;
 
@@ -246,7 +246,7 @@ UCHAR* CDispatch::AllocCall(long lSize, USHORT usType, UCHAR ucFlags)
 //
 //////////////////////////////////////////////////////////////////////////////
 UCHAR* CDispatch::AllocCallStatic(	long lSize, 
-												USHORT usType, UCHAR ucFlags,  
+												uint16_t usType, UCHAR ucFlags,  
 												long l_pDispatch)
 	{
 	return ((CDispatch*)l_pDispatch)->AllocCall(lSize, usType, ucFlags);
@@ -257,7 +257,7 @@ UCHAR* CDispatch::AllocCallStatic(	long lSize,
 // Handles free callbacks from filter.
 //
 //////////////////////////////////////////////////////////////////////////////
-void CDispatch::FreeCall(UCHAR* puc, USHORT usType, UCHAR ucFlags)
+void CDispatch::FreeCall(UCHAR* puc, uint16_t usType, UCHAR ucFlags)
 	{
 	if (puc != NULL)
 		{
@@ -284,7 +284,7 @@ void CDispatch::FreeCall(UCHAR* puc, USHORT usType, UCHAR ucFlags)
 // (static)
 //
 //////////////////////////////////////////////////////////////////////////////
-void CDispatch::FreeCallStatic(	UCHAR* pucBuffer, USHORT usType, 
+void CDispatch::FreeCallStatic(	UCHAR* pucBuffer, uint16_t usType, 
 											UCHAR ucFlags, long l_pDispatch)
 	{
 	((CDispatch*)l_pDispatch)->FreeCall(pucBuffer, usType, ucFlags);
@@ -296,7 +296,7 @@ void CDispatch::FreeCallStatic(	UCHAR* pucBuffer, USHORT usType,
 // Returns 0 on success.
 //
 //////////////////////////////////////////////////////////////////////////////
-int16_t CDispatch::AddItem(	UCHAR* puc, long lSize, USHORT usType, 
+int16_t CDispatch::AddItem(	UCHAR* puc, long lSize, uint16_t usType, 
 									UCHAR ucFlags, long lTime)
 	{
 	int16_t	sRes	= 0;	// Assume success.
@@ -397,7 +397,7 @@ void CDispatch::BlowStatic(long l_pDispatch)
 // Sets the type handler for usType to fnUse.
 //
 //////////////////////////////////////////////////////////////////////////////
-void CDispatch::SetDataHandler(USHORT usType, USE_DISPATCHFUNC fnUse)
+void CDispatch::SetDataHandler(uint16_t usType, USE_DISPATCHFUNC fnUse)
 	{
 	ASSERT(usType < NUM_TYPES);
 
@@ -409,7 +409,7 @@ void CDispatch::SetDataHandler(USHORT usType, USE_DISPATCHFUNC fnUse)
 // Sets the data handler for usType to fnAlloc.
 //
 //////////////////////////////////////////////////////////////////////////////
-void CDispatch::SetAllocHandler(USHORT usType, ALLOC_DISPATCHFUNC fnAlloc)
+void CDispatch::SetAllocHandler(uint16_t usType, ALLOC_DISPATCHFUNC fnAlloc)
 	{
 	ASSERT(usType < NUM_TYPES);
 
@@ -421,7 +421,7 @@ void CDispatch::SetAllocHandler(USHORT usType, ALLOC_DISPATCHFUNC fnAlloc)
 // Sets the type handler for usType to fnFree.
 //
 //////////////////////////////////////////////////////////////////////////////
-void CDispatch::SetFreeHandler(USHORT usType, FREE_DISPATCHFUNC fnFree)
+void CDispatch::SetFreeHandler(uint16_t usType, FREE_DISPATCHFUNC fnFree)
 	{
 	ASSERT(usType < NUM_TYPES);
 
@@ -433,7 +433,7 @@ void CDispatch::SetFreeHandler(USHORT usType, FREE_DISPATCHFUNC fnFree)
 // Sets the user value for usType to lUser.
 //
 //////////////////////////////////////////////////////////////////////////////
-void CDispatch::SetUserVal(USHORT usType, long lUser)
+void CDispatch::SetUserVal(uint16_t usType, long lUser)
 	{
 	ASSERT(usType < NUM_TYPES);
 
@@ -528,7 +528,7 @@ int16_t CDispatch::Suspend(void)
 // Returns the number of handlers that returned an error.
 //
 //////////////////////////////////////////////////////////////////////////////
-int16_t CDispatch::SendHandlerMessage(USHORT usMsg)
+int16_t CDispatch::SendHandlerMessage(uint16_t usMsg)
 	{
 	int16_t sNum	= 0;
 

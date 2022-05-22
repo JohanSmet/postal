@@ -227,7 +227,7 @@
 //						This was done so that the data will be properly
 //						byte swapped when transfering it between the Mac and PC.
 //						For example, 16 bit image formats are now written 
-//						to the CNFile as a number of USHORTs rather than
+//						to the CNFile as a number of uint16_ts rather than
 //						twice as many UCHARs.  This same functionality
 //						needs to be added to load and save for DIBs which
 //						will be in the next version.
@@ -2089,25 +2089,25 @@ int16_t RImage::Save(RFile* pcf) const
 		
 		if (m_pData)
 		{
-			USHORT usFlag = 1;
+			uint16_t usFlag = 1;
 			pcf->Write(&usFlag);
 			WritePixelData(pcf);
 		}
 		else
 		{
-			USHORT usFlag = 0;
+			uint16_t usFlag = 0;
 			pcf->Write(&usFlag);
 		}
 
 		if (m_pPalette)
 		{
-			USHORT usOne = 1;
+			uint16_t usOne = 1;
 			pcf->Write(&usOne);
 			m_pPalette->Save(pcf);
 		}
 		else
 		{
-			USHORT usZero = 0;
+			uint16_t usZero = 0;
 			pcf->Write(&usZero);
 		}
 

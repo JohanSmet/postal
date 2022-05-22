@@ -927,7 +927,7 @@ rspSetProfileOutput("profile.out");
 							
 							// Default to generic error.
 							const char*	pszMsg;
-							USHORT usFlags; 
+							uint16_t usFlags; 
 							// Try to find a better one, though, based on the return value.
 							switch (sResult)
 								{

@@ -115,7 +115,7 @@ inline int16_t	_ConvertToFSPR1(CImage* pImage,PIX choose)
 
 	// Step II... Crate the compressed buffer...
 	CCompressedMono* pHead = new CCompressedMono;
-	pHead->usSourceType = (USHORT) pImage->ulType;	// store previous type...
+	pHead->usSourceType = (uint16_t) pImage->ulType;	// store previous type...
 
 	// Since compresion rate is unpredictable, pick a maximum likely size:
 	long	lTrialSize = sH * 20; // Assum 20 bytes per line on average.
@@ -222,7 +222,7 @@ inline int16_t	_ConvertToFSPR1(CImage* pImage,PIX choose)
 	TRACE("Compressed size = %d\n",lActualSize);
 
 	pHead->pCode = (UCHAR*) realloc(pHead->pCode,lActualSize);
-	pHead->usASCII = (USHORT)gucAscii;
+	pHead->usASCII = (uint16_t)gucAscii;
 
 	// Finally, install the new buffer:
 	pImage->pSpecial = pImage->pSpecialMem = (UCHAR*) pHead;
@@ -369,7 +369,7 @@ int16_t	ConvertToFSPR1(CImage* pImage)
 		break;
 
 		case 16:
-			//_ConvertToFSPR1(pImage,(USHORT)0);  NOT YET!
+			//_ConvertToFSPR1(pImage,(uint16_t)0);  NOT YET!
 		break;
 
 		case 32:
@@ -407,7 +407,7 @@ int16_t ConvertFromFSPR1(CImage* pImage)
 		break;
 
 		case 16:
-			//_ConvertToFSPR1(pImage,(USHORT)0);  NOT YET!
+			//_ConvertToFSPR1(pImage,(uint16_t)0);  NOT YET!
 		break;
 
 		case 32:
@@ -1120,8 +1120,8 @@ int16_t	rspBlit(uint32_t ulForeColor,uint32_t ulBackColor,CImage* pimSrc,CImage*
 	UCHAR clrBKD = (UCHAR) ulBackColor;
 	UCHAR clrLTR = (UCHAR) ulForeColor;
 
-	u16Frac* frSkipX = u16fStrafe256((USHORT)sDstW,(USHORT)pimSrc->lWidth);	// < 1
-	u16Frac* frSkipY = u16fStrafe256((USHORT)sDstH,(USHORT)pimSrc->lHeight);	// < 1
+	u16Frac* frSkipX = u16fStrafe256((uint16_t)sDstW,(uint16_t)pimSrc->lWidth);	// < 1
+	u16Frac* frSkipY = u16fStrafe256((uint16_t)sDstH,(uint16_t)pimSrc->lHeight);	// < 1
 
 	int16_t i,j,k,l,sCount;
 	long	lDstP = pimDst->lPitch;
@@ -1822,13 +1822,13 @@ BLIT_PRELOCKED_TXTSCL:
 
 	if (frSkipX == NULL)
 		{
-		frSkipX = u16fStrafe256((USHORT)sW,(USHORT)pimSrc->lWidth);	// < 1
+		frSkipX = u16fStrafe256((uint16_t)sW,(uint16_t)pimSrc->lWidth);	// < 1
 		sFreeSkip = 1;
 		}
 
 	if (frSkipY == NULL)
 		{
-		frSkipY = u16fStrafe256((USHORT)sH,(USHORT)pimSrc->lHeight);	// < 1
+		frSkipY = u16fStrafe256((uint16_t)sH,(uint16_t)pimSrc->lHeight);	// < 1
 		sFreeSkip += 2;
 		}
 
@@ -2051,7 +2051,7 @@ void	instantiateBLIT()
 	{
 	CImage* pim = NULL;
 	_rspBlit( (UCHAR)0,(UCHAR)0,pim,pim,(int16_t)0,(int16_t)0,(int16_t)0,(int16_t)0);
-	_rspBlit( (USHORT)0,(USHORT)0,pim,pim,(int16_t)0,(int16_t)0,(int16_t)0,(int16_t)0);
+	_rspBlit( (uint16_t)0,(uint16_t)0,pim,pim,(int16_t)0,(int16_t)0,(int16_t)0,(int16_t)0);
 	_rspBlit( (uint32_t)0,(uint32_t)0,pim,pim,(int16_t)0,(int16_t)0,(int16_t)0,(int16_t)0);
 	}
 

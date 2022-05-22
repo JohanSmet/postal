@@ -92,7 +92,7 @@ class CTrigger : public CThing
 	public:
 		
 		RMultiGridIndirect* m_pmgi;							// Attribute map of regions
-		USHORT	m_ausPylonUIDs[256];							// Look up for Pylon ID's
+		uint16_t	m_ausPylonUIDs[256];							// Look up for Pylon ID's
 
 	//---------------------------------------------------------------------------
 	// Constructor(s) / destructor

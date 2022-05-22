@@ -226,10 +226,10 @@
 // Windows Independent DIB BITMAPFILEHEADER representation.
 typedef struct
 {
-	USHORT	usType;
+	uint16_t	usType;
 	uint32_t		ulSize;
-	USHORT	usReserved1;
-	USHORT	usReserved2;
+	uint16_t	usReserved1;
+	uint16_t	usReserved2;
 	uint32_t		ulOffBits;
 } DIBFILEHEADER;
 
@@ -239,8 +239,8 @@ typedef struct
 	uint32_t			ulSize;
 	int32_t			lWidth;
 	int32_t			lHeight;
-	USHORT		usPlanes;
-	USHORT		usBitCount;
+	uint16_t		usPlanes;
+	uint16_t		usBitCount;
 	uint32_t			ulCompression;
 	uint32_t			ulSizeImage;
 	int32_t			lXPelsPerMeter;

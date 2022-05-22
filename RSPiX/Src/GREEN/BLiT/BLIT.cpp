@@ -155,7 +155,7 @@
 
 // force instantiation
 template void rspClipPlot<UCHAR>(UCHAR color, RImage* pimDst,int16_t sX,int16_t sY,const RRect* prClip);
-template void rspClipPlot<USHORT>(USHORT color, RImage* pimDst,int16_t sX,int16_t sY,const RRect* prClip);
+template void rspClipPlot<uint16_t>(uint16_t color, RImage* pimDst,int16_t sX,int16_t sY,const RRect* prClip);
 template void rspClipPlot<uint32_t>(uint32_t color, RImage* pimDst,int16_t sX,int16_t sY,const RRect* prClip);
 
 
@@ -165,7 +165,7 @@ void instantiatePlot()
 	RImage* pim = NULL;
 
 	rspPlot((UCHAR)0,pim,(int16_t)0,(int16_t)0);
-	rspPlot((USHORT)0,pim,(int16_t)0,(int16_t)0);
+	rspPlot((uint16_t)0,pim,(int16_t)0,(int16_t)0);
 	rspPlot((uint32_t)0,pim,(int16_t)0,(int16_t)0);
 
 	}
@@ -311,7 +311,7 @@ DoneB:
 // force instantiation
 template int16_t rspLasso<UCHAR>(UCHAR ignoreColor,RImage* pimSrc,int16_t &x,int16_t &y,int16_t &w,int16_t &h,
 						int lFlag,int rFlag,int tFlag,int bFlag);
-template int16_t rspLasso<USHORT>(USHORT ignoreColor,RImage* pimSrc,int16_t &x,int16_t &y,int16_t &w,int16_t &h,
+template int16_t rspLasso<uint16_t>(uint16_t ignoreColor,RImage* pimSrc,int16_t &x,int16_t &y,int16_t &w,int16_t &h,
 						int lFlag,int rFlag,int tFlag,int bFlag);
 template int16_t rspLasso<uint32_t>(uint32_t ignoreColor,RImage* pimSrc,int16_t &x,int16_t &y,int16_t &w,int16_t &h,
 						int lFlag,int rFlag,int tFlag,int bFlag);
@@ -325,7 +325,7 @@ void instantiateLasso()
 	int16_t i = 0;
 
 	rspLasso( (UCHAR)i, pim, i,i,i,i, 1,1,1,1);
-	rspLasso( (USHORT)i, pim, i,i,i,i, 1,1,1,1);
+	rspLasso( (uint16_t)i, pim, i,i,i,i, 1,1,1,1);
 	rspLasso( (uint32_t)i, pim, i,i,i,i, 1,1,1,1);
 
 	}
@@ -1150,7 +1150,7 @@ int16_t rspRect(U32 color,RImage* pimDst,int16_t sX,int16_t sY,int16_t sW,int16_
 	else if ( (sAlign & 1) == 0)
 		{
 		// 16-bit copy
-		USHORT usColor = (USHORT)(color + (color << 8)); // 16-bit;
+		uint16_t usColor = (uint16_t)(color + (color << 8)); // 16-bit;
 		_ClearRect(usColor,(U16*)pDst,pimDst->m_lPitch,sH,sByteW); 
 		}
 	else

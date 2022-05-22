@@ -77,24 +77,24 @@ class CRes
 		PRESITEM	GetResItem(char* pszName);
 
 		// Handles data callbacks from dispatch.
-		int16_t UseCall(	UCHAR* puc, long lSize, USHORT usType, UCHAR ucFlags,
+		int16_t UseCall(	UCHAR* puc, long lSize, uint16_t usType, UCHAR ucFlags,
 							long lTime);
 		// Callback dispatcher (calls the implied this version).
-		static int16_t UseCallStatic(UCHAR* puc, long lSize, USHORT usType, 
+		static int16_t UseCallStatic(UCHAR* puc, long lSize, uint16_t usType, 
 											UCHAR ucFlags,
 											long lTime, long l_pRes);
 
 		// Handles alloc callbacks from dispatch.
-		UCHAR* AllocCall(long lSize, USHORT usType, UCHAR ucFlags);
+		UCHAR* AllocCall(long lSize, uint16_t usType, UCHAR ucFlags);
 		// Callback dispatcher (calls the implied this version).
 		static UCHAR* AllocCallStatic(long lSize, 
-												USHORT usType, UCHAR ucFlags, 
+												uint16_t usType, UCHAR ucFlags, 
 												long l_pRes);
 
 		// Handles free callbacks from filter.
-		void FreeCall(UCHAR* puc, USHORT usType, UCHAR ucFlags);
+		void FreeCall(UCHAR* puc, uint16_t usType, UCHAR ucFlags);
 		// Callback dispatcher (calls the implied this version).
-		static void FreeCallStatic(UCHAR* puc, USHORT usType, UCHAR ucFlags,
+		static void FreeCallStatic(UCHAR* puc, uint16_t usType, UCHAR ucFlags,
 											long l_pRes);
 
 		// Hooks calls to CNFile's file Open (NOT memory opens).

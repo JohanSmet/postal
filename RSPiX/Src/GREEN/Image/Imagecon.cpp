@@ -280,12 +280,12 @@ int16_t	ConvertToBMP8(RImage* pImage)
 			pImage->m_pPalette->m_type = RPal::PDIB;
 			pImage->m_pPalette->m_sPalEntrySize = RPal::GetPalEntrySize(RPal::PDIB);
 
-			USHORT* usp555 = (USHORT*) p555Pal->m_pData;
+			uint16_t* usp555 = (uint16_t*) p555Pal->m_pData;
 			uint32_t* ulpDib = (uint32_t*) pImage->m_pPalette->m_pData;
 
 			int16_t i;
 		
-			// The 555 viewed as USHORT as xR5|G5|B5
+			// The 555 viewed as uint16_t as xR5|G5|B5
 			//         viewed as 2 BYTES   G3|B5|x|R5|G2
 			// The DIB viewed as uint32_t is Reserved|R|G|B
 			//         viewed as 4 BYTES  B|G|R|Reserved
@@ -316,12 +316,12 @@ int16_t	ConvertToBMP8(RImage* pImage)
 			pImage->m_pPalette->m_type = RPal::PDIB;
 			pImage->m_pPalette->m_sPalEntrySize = RPal::GetPalEntrySize(RPal::PDIB);
 
-			USHORT* usp565 = (USHORT*) p565Pal->m_pData;
+			uint16_t* usp565 = (uint16_t*) p565Pal->m_pData;
 			uint32_t* ulpDib = (uint32_t*) pImage->m_pPalette->m_pData;
 
 			int16_t i;
 		
-			// The 565 when viewed as USHORT  R5|G6|B5
+			// The 565 when viewed as uint16_t  R5|G6|B5
 			//              viewed as 2 BYTES G3|B5|R5|G3
 			// The DIB when viewed as uint32_t   Reserved|R|G|B
 			//              viewed as 4 BYTES B|G|R|Reserved
@@ -499,7 +499,7 @@ int16_t	ConvertToBMP24(RImage* pImage)
 			sPitch = pImage->m_lPitch;
 
 	  		// Set up a pointer to the 16-bit buffer before detaching
-			USHORT* usp16 = (USHORT*) pImage->m_pData;
+			uint16_t* usp16 = (uint16_t*) pImage->m_pData;
 
 			// Detach old 16-bit buffer from the Image
 			void* pDetachedMem = pImage->DetachData();
@@ -514,7 +514,7 @@ int16_t	ConvertToBMP24(RImage* pImage)
 			for (r = 0; r < height; r++)
 				for (c = 0; c < width; c++)
 				{
-				 	USHORT usPixel = usp16[r*sPitchWidth + c];
+				 	uint16_t usPixel = usp16[r*sPitchWidth + c];
 					ucp24[r*pImage->m_lPitch + 3*c+2] = (UCHAR) ((usPixel & 0x7c00) >> 7); // Red
 					ucp24[r*pImage->m_lPitch + 3*c+1] = (UCHAR) ((usPixel & 0x03e0) >> 2); // Green
 					ucp24[r*pImage->m_lPitch + 3*c+0] = (UCHAR) ((usPixel & 0x001f) << 3); // Blue
@@ -538,7 +538,7 @@ int16_t	ConvertToBMP24(RImage* pImage)
 			sPitch = pImage->m_lPitch;
 
 			// Set a pointer to the 16-bit buffer before detaching
-			USHORT* usp16 = (USHORT*) pImage->m_pData;
+			uint16_t* usp16 = (uint16_t*) pImage->m_pData;
 
 			// Detach the 16-bit buffer from the Image
 			void* pDetachedMem = pImage->DetachData();
@@ -553,7 +553,7 @@ int16_t	ConvertToBMP24(RImage* pImage)
 			for (r = 0; r < height; r++)
 				for (c = 0; c < width; c++)
 				{
-				 	USHORT usPixel = usp16[r*sPitchWidth + c];
+				 	uint16_t usPixel = usp16[r*sPitchWidth + c];
 					ucp24[r*pImage->m_lPitch + 3*c+2] = (UCHAR) ((usPixel & 0xf800) >> 8); // Red
 					ucp24[r*pImage->m_lPitch + 3*c+1] = (UCHAR) ((usPixel & 0x07e0) >> 3); // Green
 					ucp24[r*pImage->m_lPitch + 3*c+0] = (UCHAR) ((usPixel & 0x001f) << 3); // Blue
@@ -670,17 +670,17 @@ int16_t	ConvertToSCREEN8_555(RImage* pImage)
 			pImage->m_pPalette->m_sPalEntrySize = RPal::GetPalEntrySize(RPal::P555);
 
 			uint32_t* ulpDib = (uint32_t*) pDibPal->m_pData;
-			USHORT* usp555 = (USHORT*) pImage->m_pPalette->m_pData;
+			uint16_t* usp555 = (uint16_t*) pImage->m_pPalette->m_pData;
 
 			int16_t i;
 		
 			// The DIB format when viewed as a uint32_t is Reserved|R|G|B 
 			//                when viewed as 4 BYTES is B|G|R|Reserved
-			// Converting to 555 viewed as USHORT as xR5|G5|B5
+			// Converting to 555 viewed as uint16_t as xR5|G5|B5
 			//                   viewed as 2 BYTES   G3|B5|x|R5|G2
 
 			for (i = pDibPal->m_sStartIndex; i < pDibPal->m_sStartIndex + pDibPal->m_sNumEntries; i++)
-				usp555[i] = (USHORT) (((ulpDib[i] & 0x00f80000) >> 9) +	// Red
+				usp555[i] = (uint16_t) (((ulpDib[i] & 0x00f80000) >> 9) +	// Red
 							   			 ((ulpDib[i] & 0x0000f800) >> 6) +	// Green
 											 ((ulpDib[i] & 0x000000f8) >> 3));	// Blue
 
@@ -750,17 +750,17 @@ int16_t ConvertToSCREEN8_565(RImage* pImage)
 			pImage->m_pPalette->m_sPalEntrySize = RPal::GetPalEntrySize(RPal::P565);
 
 			uint32_t* ulpDib = (uint32_t*) pDibPal->m_pData;
-			USHORT* usp565 = (USHORT*) pImage->m_pPalette->m_pData;
+			uint16_t* usp565 = (uint16_t*) pImage->m_pPalette->m_pData;
 
 			int16_t i;
 		
 			// The DIB format when viewed as a uint32_t is Reserved|R|G|B 
 			//                when viewed as 4 BYTES is B|G|R|Reserved
-			// Converting to 565 viewed as USHORT as R5|G6|B5
+			// Converting to 565 viewed as uint16_t as R5|G6|B5
 			//                   viewed as 2 BYTES   G3|B5|R5|G3
 
 			for (i = pDibPal->m_sStartIndex; i < pDibPal->m_sStartIndex + pDibPal->m_sNumEntries; i++)
-				usp565[i] = (USHORT) (((ulpDib[i] & 0x00f80000) >> 8) +	// Red
+				usp565[i] = (uint16_t) (((ulpDib[i] & 0x00f80000) >> 8) +	// Red
 							   			 ((ulpDib[i] & 0x0000fc00) >> 5) +	// Green
 											 ((ulpDib[i] & 0x000000f8) >> 3));	// Blue
 
@@ -924,7 +924,7 @@ int16_t ConvertToSCREEN16_555(RImage* pImage)
 			pImage->m_sDepth = 16;
 			pImage->m_lPitch = RImage::GetPitch(pImage->m_sWidth, pImage->m_sDepth);
 			pImage->CreateData(pImage->m_lPitch * (int16_t)pImage->m_sHeight);
-			USHORT* usp16 = (USHORT*) pImage->m_pData;
+			uint16_t* usp16 = (uint16_t*) pImage->m_pData;
 			UCHAR  ucIndex;
 			int32_t dPitch = pImage->m_lPitch / (pImage->m_sDepth / 8);
 
@@ -932,7 +932,7 @@ int16_t ConvertToSCREEN16_555(RImage* pImage)
 				for (c = 0; c < width; c++)
 				{
 					ucIndex = ucp8[r*pitch + c];
-					usp16[r*dPitch + c] = (USHORT) (((ulpPal[ucIndex] & 0x00f80000) >> 9) + // Red
+					usp16[r*dPitch + c] = (uint16_t) (((ulpPal[ucIndex] & 0x00f80000) >> 9) + // Red
 					                                ((ulpPal[ucIndex] & 0x0000f800) >> 6) + // Green
 															  ((ulpPal[ucIndex] & 0x000000f8) >> 3)); // Blue
 				}
@@ -965,15 +965,15 @@ int16_t ConvertToSCREEN16_555(RImage* pImage)
 			pImage->m_sDepth = 16;
 			pImage->m_lPitch = RImage::GetPitch(pImage->m_sWidth, pImage->m_sDepth);
 			pImage->CreateData(pImage->m_lPitch * (int32_t)pImage->m_sHeight);
-			USHORT* usp16 = (USHORT*) pImage->m_pData;
+			uint16_t* usp16 = (uint16_t*) pImage->m_pData;
 			int32_t dPitch = pImage->m_lPitch / (pImage->m_sDepth / 8);
 
 			for (r = 0 ; r < height; r++)
 				for (c = 0; c < width; c++)
-				 	usp16[r*dPitch + c] = (USHORT) (
-				 								 ((((USHORT) ucp24[r*sPitch + 3*c+2]) & 0x00f8) << 7) + // Red
-												 ((((USHORT) ucp24[r*sPitch + 3*c+1]) & 0x00f8) << 2) + // Green
-												 ((((USHORT) ucp24[r*sPitch + 3*c+0]) & 0x00f8) >> 3)); // Blue
+				 	usp16[r*dPitch + c] = (uint16_t) (
+				 								 ((((uint16_t) ucp24[r*sPitch + 3*c+2]) & 0x00f8) << 7) + // Red
+												 ((((uint16_t) ucp24[r*sPitch + 3*c+1]) & 0x00f8) << 2) + // Green
+												 ((((uint16_t) ucp24[r*sPitch + 3*c+0]) & 0x00f8) >> 3)); // Blue
 			 	
 			RImage::DestroyDetachedData(&pDetachedMem);
 
@@ -1065,7 +1065,7 @@ int16_t ConvertToSCREEN16_565(RImage* pImage)
 			pImage->m_sDepth = 16;
 			pImage->m_lPitch = RImage::GetPitch(pImage->m_sWidth, pImage->m_sDepth);
 			pImage->CreateData(pImage->m_lPitch * (int32_t)pImage->m_sHeight);
-			USHORT* usp16 = (USHORT*) pImage->m_pData;
+			uint16_t* usp16 = (uint16_t*) pImage->m_pData;
 			UCHAR  ucIndex;
 			int32_t dPitch = pImage->m_lPitch / (pImage->m_sDepth/8);
 
@@ -1073,7 +1073,7 @@ int16_t ConvertToSCREEN16_565(RImage* pImage)
 				for (c = 0; c < width; c++)
 				{
 					ucIndex = ucp8[r*pitch + c];
-					usp16[r*dPitch + c] = (USHORT) (((ulpPal[ucIndex] & 0x00f80000) >> 8) + // Red
+					usp16[r*dPitch + c] = (uint16_t) (((ulpPal[ucIndex] & 0x00f80000) >> 8) + // Red
 					                                ((ulpPal[ucIndex] & 0x0000fc00) >> 5) + // Green
 											   			  ((ulpPal[ucIndex] & 0x000000f8) >> 3)); // Blue
 				}
@@ -1106,15 +1106,15 @@ int16_t ConvertToSCREEN16_565(RImage* pImage)
 			pImage->m_sDepth = 16;
 			pImage->m_lPitch = RImage::GetPitch(pImage->m_sWidth, pImage->m_sDepth);
 			pImage->CreateData(pImage->m_lPitch * (int32_t)pImage->m_sHeight);
-			USHORT* usp16 = (USHORT*) pImage->m_pData;
+			uint16_t* usp16 = (uint16_t*) pImage->m_pData;
 			int32_t dPitch = pImage->m_lPitch / (pImage->m_sDepth / 8);
 
 			for (r = 0 ; r < height; r++)
 				for (c = 0; c < width; c++)  
-					usp16[r*dPitch + c] = (USHORT) (
-													((((USHORT) ucp24[r*sPitch + 3*c+2]) & 0x00f8) << 8) + // Red
-													((((USHORT) ucp24[r*sPitch + 3*c+1]) & 0x00fc) << 3) + // Green
-													((((USHORT) ucp24[r*sPitch + 3*c+0]) & 0x00f8) >> 3)); // Blue
+					usp16[r*dPitch + c] = (uint16_t) (
+													((((uint16_t) ucp24[r*sPitch + 3*c+2]) & 0x00f8) << 8) + // Red
+													((((uint16_t) ucp24[r*sPitch + 3*c+1]) & 0x00fc) << 3) + // Green
+													((((uint16_t) ucp24[r*sPitch + 3*c+0]) & 0x00f8) >> 3)); // Blue
   	
 			RImage::DestroyDetachedData(&pDetachedMem);
 

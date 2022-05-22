@@ -79,8 +79,8 @@ inline int16_t ImageIsUncompressed(uint32_t ulType) // an image type
 class CCompressedMono // only a 96-bit header!
 	{
 public:
-	USHORT	usASCII;	// = ascii value
-	USHORT	usSourceType;	// uncompressed Image pre-compressed type
+	uint16_t	usASCII;	// = ascii value
+	uint16_t	usSourceType;	// uncompressed Image pre-compressed type
 	UCHAR*	pCode;		// It's all in one buffer for this one
 	uint32_t		ulSize;		// Size of compressed buffer
 

@@ -317,7 +317,7 @@ int16_t   ConvertToFSPR8(RImage*  pImage)
 	//*********************  DO THE CONVERSION  ************************
 	RSpecialFSPR8* pHeader = new RSpecialFSPR8;
 	pHeader->m_usCompType = RImage::FSPR8;
-	pHeader->m_usSourceType = (USHORT) pImage->m_type;
+	pHeader->m_usSourceType = (uint16_t) pImage->m_type;
 
 	//************ RUN LENGTH COMPRESSION -> 8-bit Aligned **********
 

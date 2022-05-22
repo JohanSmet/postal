@@ -308,7 +308,7 @@ int16_t	rspBlitT(uint32_t ucTransparent,RImage* pimSrc,RImage* pimDst,int16_t sS
 			_BLiTT((UCHAR)ucTransparent,(U8*)pSrc,(U8*)pDst,pimSrc->m_lPitch,pimDst->m_lPitch,sH,sW); 
 		break;
 		case 16:
-			_BLiTT((USHORT)ucTransparent,(U16*)pSrc,(U16*)pDst,(pimSrc->m_lPitch),(pimDst->m_lPitch),sH,int16_t(sW>>1)); 
+			_BLiTT((uint16_t)ucTransparent,(U16*)pSrc,(U16*)pDst,(pimSrc->m_lPitch),(pimDst->m_lPitch),sH,int16_t(sW>>1)); 
 		break;
 		case 32:
 			_BLiTT((uint32_t)ucTransparent,(U32*)pSrc,(U32*)pDst,(pimSrc->m_lPitch),(pimDst->m_lPitch),sH,int16_t(sW>>2)); 

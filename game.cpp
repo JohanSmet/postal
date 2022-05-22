@@ -1322,7 +1322,7 @@ void TheGame(void)
 static int16_t GameCore(void)		// Returns 0 on success.
 	{
 	int16_t sResult = 0;
-	USHORT usDemoCount = 0;
+	uint16_t usDemoCount = 0;
 //	bool	bMPath = false,
 //			bMPathServer = false;
 

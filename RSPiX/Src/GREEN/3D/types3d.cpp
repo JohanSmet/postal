@@ -259,7 +259,7 @@ void RMesh::Alloc(int16_t sNum)
 	{
 	Free();
 	m_sNum = sNum;
-	m_pArray = (USHORT*)calloc((int32_t)m_sNum * 3, sizeof(USHORT));
+	m_pArray = (uint16_t*)calloc((int32_t)m_sNum * 3, sizeof(uint16_t));
 	ASSERT(m_pArray != 0);
 	}
 

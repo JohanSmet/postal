@@ -49,7 +49,7 @@ typedef union
 		unsigned unused5	: 1;	// even reference these.  Thanks.
 		unsigned unused6	: 1;
 		} ;
-	USHORT us;
+	uint16_t us;
 	} JOYSTATE, *PJOYSTATE;
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -98,13 +98,13 @@ extern void Blu_GetJoyPos(int16_t sJoy, int32_t *px, int32_t *py, int32_t *pz);
 extern void Blu_GetJoyPrevPos(int16_t sJoy, int32_t *px, int32_t *py, int32_t *pz);
 
 // Returns the current joystick sJoy's state.
-extern USHORT Blu_GetJoyState(int16_t sJoy);
+extern uint16_t Blu_GetJoyState(int16_t sJoy);
 
 // Places the current joystick sJoy's state.
 extern void Blu_GetJoyState(int16_t sJoy, PJOYSTATE pjs);
 
 // Returns the previous joystick sJoy's state.
-extern USHORT Blu_GetJoyPrevState(int16_t sJoy);
+extern uint16_t Blu_GetJoyPrevState(int16_t sJoy);
 
 // Places the previous joystick sJoy's state.
 extern void Blu_GetJoyPrevState(int16_t sJoy, PJOYSTATE pjs);
