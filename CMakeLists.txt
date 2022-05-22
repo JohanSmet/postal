@@ -200,7 +200,8 @@ target_sources(${TARGET_POSTAL} PRIVATE
 )
 
 if (MSVC)
-	target_compile_options(${TARGET_POSTAL} PRIVATE /W4)
+	target_compile_options(${TARGET_POSTAL} PRIVATE /W3 /wd"4100" /wd"4200" /wd"4201" /wd"4204")
+	target_compile_definitions(${TARGET_POSTAL} PRIVATE _CRT_SECURE_NO_WARNINGS)
 else()
 	target_compile_options(${TARGET_POSTAL} PRIVATE -fsigned-char)
 	target_compile_options(${TARGET_POSTAL} PRIVATE -Wall -Werror -Wno-overloaded-virtual)
