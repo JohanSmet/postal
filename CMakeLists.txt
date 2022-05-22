@@ -16,6 +16,9 @@ elseif (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 	set (PLATFORM_DETECTION PLATFORM_WINDOWS)
 endif()
 
+# force C++ version
+set (CMAKE_CXX_STANDARD 11)
+
 # external dependencies
 find_package(SDL2 REQUIRED)
 if (TARGET SDL2::SDL2)
