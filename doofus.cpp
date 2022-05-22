@@ -1203,9 +1203,9 @@ int16_t CDoofus::SelectDudeBouy(void)
 // SelectRandomBouy - make sure it exists before setting it
 ////////////////////////////////////////////////////////////////////////////////
 
-UCHAR CDoofus::SelectRandomBouy(void)
+uint8_t CDoofus::SelectRandomBouy(void)
 {
-	UCHAR ucSelect = 0;
+	uint8_t ucSelect = 0;
 	CBouy* pBouy = NULL;
 
 	if (m_pNavNet->GetNumNodes() <= 1)
@@ -2090,7 +2090,7 @@ void CDoofus::Logic_MoveNext(void)
 		double dsq = (dX * dX) + (dZ * dZ);
 		if (dsq < 5*5) // Was 10*10 for a long time, trying smaller to see if it keeps guys from getting stuck
 		{
-			UCHAR ucNext = m_pNextBouy->NextRouteNode(m_ucDestBouyID);
+			uint8_t ucNext = m_pNextBouy->NextRouteNode(m_ucDestBouyID);
 			if (ucNext == 0 || ucNext == 255) // you are here or you are lost
 			{
 				m_state = m_eDestinationState;

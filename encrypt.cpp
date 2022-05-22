@@ -83,7 +83,7 @@ static const char *ms_aszSeed[NUM_KEYS]=				{	"S3D5Lf6klfdsjiureLJKHLKmnblkjshgw
 
 
 
-static uint16_t ms_usCRCtable[UCHAR_MAX + 1];
+static uint16_t ms_usCRCtable[U8_MAX + 1];
 static uint16_t ms_usCRC;
 
 //////////////////////////////////////////////////////////////////////////////////////
@@ -360,7 +360,7 @@ void MakeCRCTable()
 	{
 	uint16_t i, j, r;
 
-	for (i = 0; i <= UCHAR_MAX; i++) 
+	for (i = 0; i <= U8_MAX; i++) 
 		{
 		r = i;
 		for (j = 0; j < CHAR_BIT; j++)

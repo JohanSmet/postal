@@ -133,12 +133,12 @@ class CRtPlay
 
 		// Handles data callbacks from dispatch.
 		// Returns RET_FREE if puc should be freed and RET_DONTFREE, otherwise.
-		int16_t RtInfoCall(	UCHAR* puc, long lSize, uint16_t usType, UCHAR ucFlags,
+		int16_t RtInfoCall(	uint8_t* puc, long lSize, uint16_t usType, uint8_t ucFlags,
 								long lTime);
 		// Callback dispatcher (calls the implied this version).
 		// Returns RET_FREE if puc should be freed and RET_DONTFREE, otherwise.
-		static int16_t RtInfoCallStatic(UCHAR* puc, long lSize, uint16_t usType, 
-												UCHAR ucFlags, long lTime, long l_pRtPlay);
+		static int16_t RtInfoCallStatic(uint8_t* puc, long lSize, uint16_t usType, 
+												uint8_t ucFlags, long lTime, long l_pRtPlay);
 
 		// Handles current state.  Called by Blue's critical handler list.
 		void Critical(void);

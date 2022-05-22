@@ -251,8 +251,8 @@ int16_t CFlx::ReadDataColor(FLX_BUF* pbufRead, int16_t sDataType)
 	int16_t sColorIndex = 0;
 	int16_t sCnt;
 	int16_t sColorDo;
-	UCHAR bColorSkip;
-	UCHAR bVal;
+	uint8_t bColorSkip;
+	uint8_t bVal;
 	
 	for (int16_t sPack = 0; (sPack < sNumPackets) && (sError == 0); sPack++)
 		{
@@ -326,7 +326,7 @@ int16_t CFlx::ReadDataBlack(FLX_BUF* pbufRead)
 
 	// Clear the image to 0 one row at a time.  Note that we use the pitch
 	// to move from the start of on row to the start of the next row.
-	UCHAR* pbMem = pbufRead->pbPixels;
+	uint8_t* pbMem = pbufRead->pbPixels;
 	for (int16_t y = 0; y < m_filehdr.sHeight; y++)
 		{
 		memset(pbMem, 0, m_filehdr.sWidth);
@@ -365,7 +365,7 @@ int16_t CFlx::ReadDataCopy(FLX_BUF* pbufRead)
 	
 	// Read in the image one row at a time.  Note that we use the pitch
 	// to move from the start of on row to the start of the next row.
-	UCHAR* pbMem = pbufRead->pbPixels;
+	uint8_t* pbMem = pbufRead->pbPixels;
 	for (int16_t y = 0; y < m_filehdr.sHeight; y++)
 		{
 		m_file.Read(pbMem, m_filehdr.sWidth);
@@ -420,13 +420,13 @@ int16_t CFlx::ReadDataBRun(FLX_BUF* pbufRead)
 	// added 10/20/94 to trap errors and exit! instead of asserting
 	int16_t sError = 0;
 
-	UCHAR bVal;
+	uint8_t bVal;
 	S8		cVal;
 	int16_t sCount;
 	int16_t x;
 	int16_t y;
-	UCHAR* pbRow;
-	UCHAR* pbPix;
+	uint8_t* pbRow;
+	uint8_t* pbPix;
 	
 	// Decompress image one row at a time.  Note that we use the pitch
 	// to move from the start of one row to the start of the next row.
@@ -538,14 +538,14 @@ int16_t CFlx::ReadDataLC(FLX_BUF* pbufRead)
 	if ((pbufRead->pbPixels == NULL) || (pbufRead->sPitch <= 0))
 		return 1;
 
-	UCHAR	bVal;
+	uint8_t	bVal;
 	S8		cVal;
 	int16_t sCount;
 	int16_t y;
 	int16_t lines;
 	int16_t packets;
-	UCHAR* pbRow;
-	UCHAR* pbPix;
+	uint8_t* pbRow;
+	uint8_t* pbPix;
 
 	// The first word specifies the starting y (another way of looking at it
 	// is the number of lines that are unchanged from the previous image).
@@ -583,7 +583,7 @@ int16_t CFlx::ReadDataLC(FLX_BUF* pbufRead)
 // For debugging, prefetch a bunch of values to view them in the debugger
 #if 0
 	long lPos = m_file.Tell();
-	static UCHAR bData[100];
+	static uint8_t bData[100];
 
 	m_file.Read(bData, sizeof(bData));
 	m_file.Seek(lPos, SEEK_SET);
@@ -667,15 +667,15 @@ int16_t CFlx::ReadDataSS2(FLX_BUF* pbufRead)
 	if ((pbufRead->pbPixels == NULL) || (pbufRead->sPitch <= 0))
 		return 1;
 	
-	UCHAR	bVal;
+	uint8_t	bVal;
 	S8		cVal;
 	uint16_t wVal;
 	int16_t sCount;
 	int16_t y;
 	int16_t lines;
 	int16_t packets;
-	UCHAR* pbPix;
-	UCHAR	byLastByte;
+	uint8_t* pbPix;
+	uint8_t	byLastByte;
 	int16_t	bLastByte = FALSE;
 
 	// The first word specifies the starting y (another way of looking at it
@@ -709,7 +709,7 @@ int16_t CFlx::ReadDataSS2(FLX_BUF* pbufRead)
 // For debugging, prefetch a bunch of values to view them in the debugger
 #if 0
 	long lPos = m_file.Tell();
-	static UCHAR bData[100];
+	static uint8_t bData[100];
 	m_file.Read(bData, sizeof(bData));
 	m_file.Seek(lPos, SEEK_SET);
 #endif
@@ -740,7 +740,7 @@ int16_t CFlx::ReadDataSS2(FLX_BUF* pbufRead)
 						if (bLastByte == TRUE)
 							return 1;
 							
-						byLastByte = (UCHAR)(wVal & (uint16_t)0x00ff);
+						byLastByte = (uint8_t)(wVal & (uint16_t)0x00ff);
 						bLastByte = TRUE;
 						// Read the packet count.
 						m_file.Read(&wVal);
@@ -794,7 +794,7 @@ int16_t CFlx::ReadDataSS2(FLX_BUF* pbufRead)
 					uint16_t* pwPix = (uint16_t*)pbPix;
 					for (int16_t i = 0; i < sCount; i++)
 						*pwPix++ = wVal;
-					pbPix = (UCHAR*)pwPix;
+					pbPix = (uint8_t*)pwPix;
 					}
 					
 				// Adjust remaining packets
@@ -865,7 +865,7 @@ int16_t CFlx::DoWriteFrame(FLX_BUF* pbufWrite, FLX_BUF* pbufPrev)
 	// is width times height plus an extra margin.
 	// WARNING: This will only support up to 64k!!!
 //	double dSize = (double)m_filehdr.sWidth * (double)m_filehdr.sHeight * (double)1.5;
-	UCHAR* pBuf = (UCHAR*)malloc((uint16_t)m_filehdr.sWidth * (uint16_t)m_filehdr.sHeight);
+	uint8_t* pBuf = (uint8_t*)malloc((uint16_t)m_filehdr.sWidth * (uint16_t)m_filehdr.sHeight);
 	if (pBuf != NULL)
 		{
 		
@@ -923,7 +923,7 @@ int16_t CFlx::DoWriteFrame(FLX_BUF* pbufWrite, FLX_BUF* pbufPrev)
 // If pBufPrev is NULL, then we assume all the colors changed.
 //
 ///////////////////////////////////////////////////////////////////////////////
-int16_t CFlx::WriteColorDelta(FLX_BUF* pbufNext, FLX_BUF* pbufPrev, UCHAR* pBuf, long* plChunkSize)
+int16_t CFlx::WriteColorDelta(FLX_BUF* pbufNext, FLX_BUF* pbufPrev, uint8_t* pBuf, long* plChunkSize)
 	{
 	int16_t sError = 0;
 
@@ -944,7 +944,7 @@ int16_t CFlx::WriteColorDelta(FLX_BUF* pbufNext, FLX_BUF* pbufPrev, UCHAR* pBuf,
 		pPrev = pbufPrev->prgbColors;
 
 	// Set up copy of pointer to buffer than can be moved around
-	UCHAR* pOut = pBuf;
+	uint8_t* pOut = pBuf;
 	
 	// First word of output is number of packets, which starts out at 0.
 	uint16_t* pwPackets = (uint16_t*)pOut;
@@ -1003,8 +1003,8 @@ int16_t CFlx::WriteColorDelta(FLX_BUF* pbufNext, FLX_BUF* pbufPrev, UCHAR* pBuf,
 			
 			// Write number of colors to skip and number to be changed.
 			// Note that 256 is written as a 0 since it must fit in a byte!
-			*pOut++ = (UCHAR)sSame;
-			*pOut++ = (UCHAR)sChanged;
+			*pOut++ = (uint8_t)sSame;
+			*pOut++ = (uint8_t)sChanged;
 			lSize += 2;
 			
 			// Write out the r,g,b values for the colors that changed
@@ -1020,9 +1020,9 @@ int16_t CFlx::WriteColorDelta(FLX_BUF* pbufNext, FLX_BUF* pbufPrev, UCHAR* pBuf,
 				// For FLX_DATA_COLOR, colors use only a 0-63 range
 				else
 					{
-					*pOut++ = (UCHAR)(pNext[sStart + sIndex].bR >> 2) & (UCHAR)0x3f;
-					*pOut++ = (UCHAR)(pNext[sStart + sIndex].bG >> 2) & (UCHAR)0x3f;
-					*pOut++ = (UCHAR)(pNext[sStart + sIndex].bB >> 2) & (UCHAR)0x3f;
+					*pOut++ = (uint8_t)(pNext[sStart + sIndex].bR >> 2) & (uint8_t)0x3f;
+					*pOut++ = (uint8_t)(pNext[sStart + sIndex].bG >> 2) & (uint8_t)0x3f;
+					*pOut++ = (uint8_t)(pNext[sStart + sIndex].bB >> 2) & (uint8_t)0x3f;
 					}
 				lSize += 3;
 				}
@@ -1065,7 +1065,7 @@ int16_t CFlx::WriteColorDelta(FLX_BUF* pbufNext, FLX_BUF* pbufPrev, UCHAR* pBuf,
 //						frame.
 //
 ///////////////////////////////////////////////////////////////////////////////
-int16_t CFlx::WritePixelDelta(FLX_BUF* pbufNext, FLX_BUF* pbufPrev, UCHAR* pBuf, long* plChunkSize)
+int16_t CFlx::WritePixelDelta(FLX_BUF* pbufNext, FLX_BUF* pbufPrev, uint8_t* pBuf, long* plChunkSize)
 {
 	int16_t sError = 0;
 
@@ -1074,8 +1074,8 @@ int16_t CFlx::WritePixelDelta(FLX_BUF* pbufNext, FLX_BUF* pbufPrev, UCHAR* pBuf,
 
 #if 0
 	// Copy image one row at a time into buffer.
-	UCHAR* pbSrc = pbufNext->pbPixels;
-	UCHAR* pbDst = pBuf;
+	uint8_t* pbSrc = pbufNext->pbPixels;
+	uint8_t* pbDst = pBuf;
 	for (int16_t y = 0; y < m_filehdr.sHeight; y++)
 		{
 		memcpy(pbDst, pbSrc, m_filehdr.sWidth);	// Copy source to buffer
@@ -1123,8 +1123,8 @@ int16_t CFlx::WritePixelDelta(FLX_BUF* pbufNext, FLX_BUF* pbufPrev, UCHAR* pBuf,
 			// let's use the FLX_DATA_COPY format instead!
 			
 			// Copy image one row at a time into buffer.
-			UCHAR* pbSrc = pbufNext->pbPixels;
-			UCHAR* pbDst = pBuf;
+			uint8_t* pbSrc = pbufNext->pbPixels;
+			uint8_t* pbDst = pBuf;
 			for (int16_t y = 0; y < m_filehdr.sHeight; y++)
 			{
 				memcpy(pbDst, pbSrc, m_filehdr.sWidth);	// Copy source to buffer
@@ -1146,7 +1146,7 @@ int16_t CFlx::WritePixelDelta(FLX_BUF* pbufNext, FLX_BUF* pbufPrev, UCHAR* pBuf,
 			long lSize;								// size of the current compressed line
 			int16_t sFirstYPos = m_filehdr.sHeight-1;	// the first line which is different
 			int16_t sLineCount = 0; 					// number of lines in the chunk
-			UCHAR* pbDst = pBuf + 4;					// point to the chunk data storage, the first 4 bytes are used to store
+			uint8_t* pbDst = pBuf + 4;					// point to the chunk data storage, the first 4 bytes are used to store
 													// number of initial unchanged lines and # of lines in the chunk
 			long lSizeLC = 4;						// size of the chunk in pBuf
 			int16_t sEmptyLineCount = 0;				// number of empty delta lines encountered back to back
@@ -1155,7 +1155,7 @@ int16_t CFlx::WritePixelDelta(FLX_BUF* pbufNext, FLX_BUF* pbufPrev, UCHAR* pBuf,
 			for (y = 0; y < m_filehdr.sHeight; y++)
 			{
 				// Process/encode the current line.
-				sError = CompressLineDelta(y, pbufNext, pbufPrev, pbDst, lSize, sizeof(UCHAR), sEmptyLineCount);
+				sError = CompressLineDelta(y, pbufNext, pbufPrev, pbDst, lSize, sizeof(uint8_t), sEmptyLineCount);
 				
 				// Trap real errors.
 				if (sError == -1)
@@ -1212,7 +1212,7 @@ int16_t CFlx::WritePixelDelta(FLX_BUF* pbufNext, FLX_BUF* pbufPrev, UCHAR* pBuf,
 			// Since the current format is FLC, let's encode with FLX_DATA_SS2
 			int16_t y; 								// used to index through the pixel buffers
 			long lSize;								// size of the current compressed line
-			UCHAR* pbDst = pBuf + 2;					// point to the chunk storage data, past the line count word
+			uint8_t* pbDst = pBuf + 2;					// point to the chunk storage data, past the line count word
 			long lSizeSS2 = 2;						// size of the chunk in pBuf
 			int16_t sLines = 0;						// number of line in this chunk
 			int16_t sLineSkipCount = 0;				// number of lines to skip
@@ -1261,7 +1261,7 @@ int16_t CFlx::WritePixelDelta(FLX_BUF* pbufNext, FLX_BUF* pbufPrev, UCHAR* pBuf,
 //
 // Name:		CompressLineDelta
 //               
-// Description:	This function will perform either UCHAR/uint16_t oriented delta
+// Description:	This function will perform either uint8_t/uint16_t oriented delta
 //				compression, given the current line.  If compression is possible,
 //				the compressed data will be written to the buffer provided.
 //				Otherwise, an error will be returned to indicate no compression.
@@ -1286,21 +1286,21 @@ int16_t CFlx::WritePixelDelta(FLX_BUF* pbufNext, FLX_BUF* pbufPrev, UCHAR* pBuf,
 int16_t CFlx::CompressLineDelta(int16_t y, 
 							  FLX_BUF* pbufNext, 
 							  FLX_BUF* pbufPrev,
-							  UCHAR* pbDst,
+							  uint8_t* pbDst,
 							  long& lSize,
 							  int16_t sAlign,
 							  int16_t sLineSkipCount)
 {
 	// Local variables.
 	uint32_t dwOffset;							// Offset into the pixel data.
-	UCHAR* pbSrcNext = pbufNext->pbPixels;	// Pointer to the pixel data of the current frame.
-	UCHAR* pbSrcPrev = pbufPrev->pbPixels;	// Pointer to the pixel data of the previous frame.
+	uint8_t* pbSrcNext = pbufNext->pbPixels;	// Pointer to the pixel data of the current frame.
+	uint8_t* pbSrcPrev = pbufPrev->pbPixels;	// Pointer to the pixel data of the previous frame.
 	int16_t sPacket = 0;						// Count the number of packets.
-	UCHAR* pbPacketCount;					// Pointer to the packet count.
+	uint8_t* pbPacketCount;					// Pointer to the packet count.
 	int16_t x = 0;							// Current position within the current line.
 	int16_t sAdjustedPitch;					// Pitch of the current line, adjusted if word aligned
 	int16_t sSkipCount;						// Count the bytes/words skipped over.
-	UCHAR* pbByteCount;						// Used to hold the position for the byte count temporarily.
+	uint8_t* pbByteCount;						// Used to hold the position for the byte count temporarily.
 	int16_t sIndex;							// Used as an index variable.  
 	
 	// Initialize the size.
@@ -1409,11 +1409,11 @@ int16_t CFlx::CompressLineDelta(int16_t y,
 				}
 				
 				// Write out the skip count for the current packet and reset the skip count.
-				*(pbDst + (uint32_t)lSize++) = (UCHAR)sSkipCount;
+				*(pbDst + (uint32_t)lSize++) = (uint8_t)sSkipCount;
 				sSkipCount = 0;
 				
 				// Set the byte counter before we start compressing.
-				UCHAR nBytes = 1;
+				uint8_t nBytes = 1;
 				
 				// Determine the packet type.
 				dwOffset = (uint32_t)y * (uint32_t)pbufNext->sPitch;
@@ -1484,11 +1484,11 @@ int16_t CFlx::CompressLineDelta(int16_t y,
 				}
 				
 				// Write out the skip count for the current packet and reset the skip count.
-				*(pbDst + (uint32_t)lSize++) = (UCHAR)sSkipCount;
+				*(pbDst + (uint32_t)lSize++) = (uint8_t)sSkipCount;
 				sSkipCount = 0;
 				
 				// Set the byte counter before we start compressing.
-				UCHAR nBytes = 1;
+				uint8_t nBytes = 1;
 				
 				// Determine the packet type.
 				dwOffset = (uint32_t)y * (uint32_t)pbufNext->sPitch;
@@ -1549,7 +1549,7 @@ int16_t CFlx::CompressLineDelta(int16_t y,
 				
 	// Remember to write out the number of packets. 
 	if (sAlign == 1)
-		*pbPacketCount = (UCHAR)sPacket;
+		*pbPacketCount = (uint8_t)sPacket;
 	else
 		*(uint16_t*)pbPacketCount = (uint16_t)sPacket;
 	
@@ -1564,22 +1564,22 @@ int16_t CFlx::CompressLineDelta(int16_t y,
 //
 /////////////////////////////////////////////////////////////////////////////
 long CFlx::CompressBRUN(
-	UCHAR* pbIn,				// Pointer to input (pixels to be compressed)
+	uint8_t* pbIn,				// Pointer to input (pixels to be compressed)
 	int16_t sPitch,			// Pitch (distance from one pixel to the pixel below it)
 	int16_t sSrcX,			// Starting x of rectangular area to compress
 	int16_t sSrcY,			// Starting y of rectangular area to compress
 	int16_t sWidth,			// Width of rectangular area to compress
 	int16_t sHeight,			// Height of rectangular area to compress
-	UCHAR* pbOut)			// Pointer to output (compressed data)
+	uint8_t* pbOut)			// Pointer to output (compressed data)
 	{
 	long	lUniqueX;
 	long lUniqueCnt;
 	long lRepeatCnt;
-	UCHAR	bRepeatPix;
+	uint8_t	bRepeatPix;
 	long	x;
 	long	y;
 	long	lOutCnt = 0;
-	UCHAR* pbPackets;
+	uint8_t* pbPackets;
 	
 	// Adjust input pointer based on starting x and y
 	pbIn = pbIn + ((uint32_t)sSrcY * (uint32_t)sPitch) + (uint32_t)sSrcX;
@@ -1625,7 +1625,7 @@ long CFlx::CompressBRUN(
 				if (lUniqueCnt > 0)
 					{
 					(*pbPackets)++;
-					*pbOut++ = (UCHAR)(-lUniqueCnt);	// Unique counts are negative
+					*pbOut++ = (uint8_t)(-lUniqueCnt);	// Unique counts are negative
 					lOutCnt++;
 					do	{
 						*pbOut++ = pbIn[lUniqueX++];
@@ -1635,7 +1635,7 @@ long CFlx::CompressBRUN(
 
 				// Now write out the repeat packet.
 				(*pbPackets)++;
-				*pbOut++ = (UCHAR)lRepeatCnt;
+				*pbOut++ = (uint8_t)lRepeatCnt;
 				lOutCnt++;
 				*pbOut++ = bRepeatPix;
 				lOutCnt++;
@@ -1659,7 +1659,7 @@ long CFlx::CompressBRUN(
 				if (lUniqueCnt == 127)
 					{
 					(*pbPackets)++;
-					*pbOut++ = (UCHAR)(-lUniqueCnt);	// Unique counts are negative
+					*pbOut++ = (uint8_t)(-lUniqueCnt);	// Unique counts are negative
 					lOutCnt++;
 					do	{
 						*pbOut++ = pbIn[lUniqueX++];
@@ -1673,7 +1673,7 @@ long CFlx::CompressBRUN(
 		if (lUniqueCnt > 0)
 			{
 			(*pbPackets)++;
-			*pbOut++ = (UCHAR)(-lUniqueCnt);	// Unique counts are negative
+			*pbOut++ = (uint8_t)(-lUniqueCnt);	// Unique counts are negative
 			lOutCnt++;
 			do	{
 				*pbOut++ = pbIn[lUniqueX++];
@@ -1696,7 +1696,7 @@ long CFlx::CompressBRUN(
 // Helper function that write a data chunk using the specified data/values.
 //
 ///////////////////////////////////////////////////////////////////////////////
-int16_t CFlx::WriteDataChunk(UCHAR* pbData, long lSize, uint16_t wType, long* plChunkSize)
+int16_t CFlx::WriteDataChunk(uint8_t* pbData, long lSize, uint16_t wType, long* plChunkSize)
 	{
 	FLX_DATA_HDR datahdr;
 	
@@ -1890,7 +1890,7 @@ int16_t CFlx::WriteHeader(void)
 		m_file.Write(&sJiffies);
 
 		// Write 0's to rest of header, which is officially reserved
-		UCHAR bZero = 0;
+		uint8_t bZero = 0;
 		for (int16_t i = 0; i < 110; i++)
 			m_file.Write(&bZero);
 
@@ -1956,7 +1956,7 @@ void CFlx::InitBuf(FLX_BUF* pbuf)
 int16_t CFlx::AllocBuf(FLX_BUF* pbuf, int16_t sWidth, int16_t sHeight, int16_t sColors)
 	{
 	// Allocate buffer for pixels & set pitch to width
-	pbuf->pbPixels = (UCHAR*)malloc((size_t)sWidth * (size_t)sHeight);
+	pbuf->pbPixels = (uint8_t*)malloc((size_t)sWidth * (size_t)sHeight);
 	pbuf->sPitch = sWidth;
 	
 	// Allocate buffer for colors
@@ -1992,8 +1992,8 @@ void CFlx::FreeBuf(FLX_BUF* pbuf)
 void CFlx::CopyBuf(FLX_BUF* pbufDst, FLX_BUF* pbufSrc)
 	{
 	// Copy pixels one row at a time
-	UCHAR* pbSrc = pbufSrc->pbPixels;
-	UCHAR* pbDst = pbufDst->pbPixels;
+	uint8_t* pbSrc = pbufSrc->pbPixels;
+	uint8_t* pbDst = pbufDst->pbPixels;
 	for (int16_t y = 0; y < m_filehdr.sHeight; y++)
 		{
 		memcpy(pbDst, pbSrc, m_filehdr.sWidth);

@@ -164,8 +164,8 @@ void CDispatch::Reset(void)
 // Handles data callbacks from filter.
 //
 //////////////////////////////////////////////////////////////////////////////
-void CDispatch::UseCall(UCHAR* pucBuffer, long lSize, uint16_t usType, 
-								UCHAR ucFlags, long lTime)
+void CDispatch::UseCall(uint8_t* pucBuffer, long lSize, uint16_t usType, 
+								uint8_t ucFlags, long lTime)
 	{
 	// If data handled . . .
 	if (m_afnUse[usType] != NULL)
@@ -193,8 +193,8 @@ void CDispatch::UseCall(UCHAR* pucBuffer, long lSize, uint16_t usType,
 // (static)
 //
 //////////////////////////////////////////////////////////////////////////////
-void CDispatch::UseCallStatic(UCHAR* pucBuffer, long lSize, uint16_t usType, 
-										UCHAR ucFlags, long lTime, long l_pDispatch)
+void CDispatch::UseCallStatic(uint8_t* pucBuffer, long lSize, uint16_t usType, 
+										uint8_t ucFlags, long lTime, long l_pDispatch)
 	{
 	((CDispatch*)l_pDispatch)->UseCall(pucBuffer, lSize, usType, ucFlags, lTime);
 	}
@@ -204,9 +204,9 @@ void CDispatch::UseCallStatic(UCHAR* pucBuffer, long lSize, uint16_t usType,
 // Handles alloc callbacks from filter.
 //
 //////////////////////////////////////////////////////////////////////////////
-UCHAR* CDispatch::AllocCall(long lSize, uint16_t usType, UCHAR ucFlags)
+uint8_t* CDispatch::AllocCall(long lSize, uint16_t usType, uint8_t ucFlags)
 	{
-	UCHAR*	puc	= NULL;
+	uint8_t*	puc	= NULL;
 
 	if (m_afnAlloc[usType] != NULL)
 		{
@@ -217,7 +217,7 @@ UCHAR* CDispatch::AllocCall(long lSize, uint16_t usType, UCHAR ucFlags)
 		// Only allocate if there is a use handler (otherwise, data is useless).
 		if (m_afnUse[usType] != NULL)
 			{
-			puc = (UCHAR*)malloc(lSize);
+			puc = (uint8_t*)malloc(lSize);
 			}
 		else
 			{
@@ -245,8 +245,8 @@ UCHAR* CDispatch::AllocCall(long lSize, uint16_t usType, UCHAR ucFlags)
 // (static)
 //
 //////////////////////////////////////////////////////////////////////////////
-UCHAR* CDispatch::AllocCallStatic(	long lSize, 
-												uint16_t usType, UCHAR ucFlags,  
+uint8_t* CDispatch::AllocCallStatic(	long lSize, 
+												uint16_t usType, uint8_t ucFlags,  
 												long l_pDispatch)
 	{
 	return ((CDispatch*)l_pDispatch)->AllocCall(lSize, usType, ucFlags);
@@ -257,7 +257,7 @@ UCHAR* CDispatch::AllocCallStatic(	long lSize,
 // Handles free callbacks from filter.
 //
 //////////////////////////////////////////////////////////////////////////////
-void CDispatch::FreeCall(UCHAR* puc, uint16_t usType, UCHAR ucFlags)
+void CDispatch::FreeCall(uint8_t* puc, uint16_t usType, uint8_t ucFlags)
 	{
 	if (puc != NULL)
 		{
@@ -284,8 +284,8 @@ void CDispatch::FreeCall(UCHAR* puc, uint16_t usType, UCHAR ucFlags)
 // (static)
 //
 //////////////////////////////////////////////////////////////////////////////
-void CDispatch::FreeCallStatic(	UCHAR* pucBuffer, uint16_t usType, 
-											UCHAR ucFlags, long l_pDispatch)
+void CDispatch::FreeCallStatic(	uint8_t* pucBuffer, uint16_t usType, 
+											uint8_t ucFlags, long l_pDispatch)
 	{
 	((CDispatch*)l_pDispatch)->FreeCall(pucBuffer, usType, ucFlags);
 	}
@@ -296,8 +296,8 @@ void CDispatch::FreeCallStatic(	UCHAR* pucBuffer, uint16_t usType,
 // Returns 0 on success.
 //
 //////////////////////////////////////////////////////////////////////////////
-int16_t CDispatch::AddItem(	UCHAR* puc, long lSize, uint16_t usType, 
-									UCHAR ucFlags, long lTime)
+int16_t CDispatch::AddItem(	uint8_t* puc, long lSize, uint16_t usType, 
+									uint8_t ucFlags, long lTime)
 	{
 	int16_t	sRes	= 0;	// Assume success.
 

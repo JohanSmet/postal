@@ -296,10 +296,10 @@ class CDoofus : public CCharacter
 		// Navigation Net control
 		CNavigationNet* m_pNavNet;			// The network I should use
 		U16 m_u16NavNetID;					// My network's ID				
-		UCHAR m_ucDestBouyID;				// Destination bouy
-		UCHAR m_ucNextBouyID;				// Next bouy to go to
-		UCHAR m_ucSpecialBouy0ID;			// Starting bouy for special cases like marching
-		UCHAR m_ucSpecialBouy1ID;			// Ending bouy for special cases like marching
+		uint8_t m_ucDestBouyID;				// Destination bouy
+		uint8_t m_ucNextBouyID;				// Next bouy to go to
+		uint8_t m_ucSpecialBouy0ID;			// Starting bouy for special cases like marching
+		uint8_t m_ucSpecialBouy1ID;			// Ending bouy for special cases like marching
 		CBouy* m_pNextBouy;					// pointer to next bouy to go to.
 		int16_t m_sNextX;						// Position of next Bouy
 		int16_t m_sNextZ;						// Position of next Bouy
@@ -658,7 +658,7 @@ class CDoofus : public CCharacter
 		int16_t SelectDudeBouy(void);					// Returns 0 if successful, non-zero otherwise
 
 		// Return a valid random bouy or 0 if no bouys exist.
-		UCHAR SelectRandomBouy(void);
+		uint8_t SelectRandomBouy(void);
 
 		// Set a pointer to the CDude you are tracking for other CDude related
 		// functions like FindDirection and SQDistanceToDude

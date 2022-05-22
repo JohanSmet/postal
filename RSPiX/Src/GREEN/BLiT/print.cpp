@@ -173,7 +173,7 @@ void	RFontOld::AddLetter(RImage* pimLetter)
 //
 /*
 int16_t RFontOld::Create(char *pszFontName,char *pszFullInputName,
-						 UCHAR ucInitialTrim,UCHAR ucBackCol,int16_t sTrimTop,
+						 uint8_t ucInitialTrim,uint8_t ucBackCol,int16_t sTrimTop,
 						int16_t sMaxH)
 	{
 	// Create a temp FNT, and a base CImage:
@@ -209,7 +209,7 @@ int16_t RFontOld::Create(char *pszFontName,char *pszFullInputName,
 			int16_t(pimLetter->lHeight) );
 
 		// Add it in:
-		//rspSetConvertToFSPR1((uint32_t)ucInitialTrim,(uint32_t)ucBackCol,sTrimTop,sMaxH,(UCHAR)i);
+		//rspSetConvertToFSPR1((uint32_t)ucInitialTrim,(uint32_t)ucBackCol,sTrimTop,sMaxH,(uint8_t)i);
 		//int16_t sX = 0,sY = 0,sW = pimLetter
 		// Need to use rsplasso with this...
 		// Will be writing a utility to do this...
@@ -302,9 +302,9 @@ int16_t	RFontOld::Save(RFile* /*pFile*/)
 
 				// Save the current letter!
 			
-				UCHAR	ucCheckSum;
-				UCHAR*	pCode = pInfo->m_pCode;
-				ucCheckSum = (UCHAR)0; 
+				uint8_t	ucCheckSum;
+				uint8_t*	pCode = pInfo->m_pCode;
+				ucCheckSum = (uint8_t)0; 
 				for (int32_t i=0;i < (int32_t)pInfo->m_lSize;i++,pCode++)
 					ucCheckSum ^= *pCode;
 
@@ -376,9 +376,9 @@ int16_t	RFontOld::Load(char*	pszName)
 	fscanf(fp,"%hd\n",&s1); //m_sMaxCellHeight should be logical
 	RImage*	pimLetter = NULL;
 	int32_t	lCodeLen;
-	UCHAR	ucCheckSum;
+	uint8_t	ucCheckSum;
 	int32_t	ucCheck;
-	UCHAR*	pCode;
+	uint8_t*	pCode;
 	RSpecialFSPR1* pInfo = NULL;
 
 	// Note: 'K' will denote a kerning table which should
@@ -399,7 +399,7 @@ int16_t	RFontOld::Load(char*	pszName)
 				pimLetter = new RImage;
 				pimLetter->CreateImage(0,0,RImage::FSPR1);
 				pInfo = new RSpecialFSPR1;
-				pimLetter->m_pSpecialMem = pimLetter->m_pSpecial = (UCHAR*) pInfo;
+				pimLetter->m_pSpecialMem = pimLetter->m_pSpecial = (uint8_t*) pInfo;
 
 				fscanf(fp,"%hd\n",&pInfo->m_u16ASCII);
 				//TRACE("Adding letter:{%c}\n",(char)pInfo->usASCII);
@@ -422,23 +422,23 @@ int16_t	RFontOld::Load(char*	pszName)
 				fscanf(fp,"%hd\n",&sDummy);
 				fscanf(fp,"%hd\n",&sDummy);
 
-				ucCheck = (UCHAR)0;
+				ucCheck = (uint8_t)0;
 				fscanf(fp,"%02x\n",&l1);
-				ucCheckSum = (UCHAR) l1;
+				ucCheckSum = (uint8_t) l1;
 				fscanf(fp,"%ld\n",&lCodeLen);
 
 				pInfo->m_lSize = lCodeLen;
-				pCode = pInfo->m_pCode = (UCHAR*)calloc(1,lCodeLen+2);// for debugging
+				pCode = pInfo->m_pCode = (uint8_t*)calloc(1,lCodeLen+2);// for debugging
 
 				for (i=0;i<lCodeLen;i++,pCode++)
 					{
 					//fscanf(fp,"%c",pCode);
-					*pCode = (UCHAR)fgetc(fp);
+					*pCode = (uint8_t)fgetc(fp);
 					ucCheck ^= (*pCode);
 					}
 				// AN extension to FSPR1 uses FFFF as end of line:
-				*pCode++ = UCHAR(0xff);
-				*pCode++ = UCHAR(0xff);
+				*pCode++ = uint8_t(0xff);
+				*pCode++ = uint8_t(0xff);
 
 				if (ucCheck != ucCheckSum)
 					{
@@ -469,8 +469,8 @@ int16_t	RFontOld::Load(char*	pszName)
 RPrint::RPrint()
 	{
 	m_pBuf = m_buffer;
-	m_clrBKD = (UCHAR)0;
-	m_clrFGD = (UCHAR)255;
+	m_clrBKD = (uint8_t)0;
+	m_clrFGD = (uint8_t)255;
 	m_fnCurrent = NULL;
 	m_pFontSize = NULL;
 	m_pCurFracX = m_pCurFracY = NULL;
@@ -657,8 +657,8 @@ void	RPrint::printC(int16_t sX,int16_t sY,int16_t sW,RImage* pimTarget)
 
 void RPrint::SetColor(int16_t sLetter,int16_t sBkd)
 	{
-	m_clrBKD = (UCHAR) sBkd;
-	m_clrFGD = (UCHAR) sLetter;
+	m_clrBKD = (uint8_t) sBkd;
+	m_clrFGD = (uint8_t) sLetter;
 	}
 
 void	RPrint::SetTab(int16_t sPixNum)
@@ -891,10 +891,10 @@ RPrint& RPrint::print()
 	while (*m_pCurBuf)
 		{
 		// print each char;
-		sChar = (int16_t)((UCHAR) *(m_pCurBuf++)); // Must force it positive!
+		sChar = (int16_t)((uint8_t) *(m_pCurBuf++)); // Must force it positive!
 
 		// look for special characters:
-		switch ( (UCHAR) sChar)
+		switch ( (uint8_t) sChar)
 			{
 			case '\n': // do newline + cr
 				if (LineFeed()) return *this;
@@ -1027,7 +1027,7 @@ int16_t	RPrint::GetWidth()
 
 	while (*pcPos)
 		{
-		GetCell(m_pFontSize->pLetters[(UCHAR)(*(pcPos++))],NULL,&sW);
+		GetCell(m_pFontSize->pLetters[(uint8_t)(*(pcPos++))],NULL,&sW);
 		sTotW += sW;
 		}
 

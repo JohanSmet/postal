@@ -77,24 +77,24 @@ class CRes
 		PRESITEM	GetResItem(char* pszName);
 
 		// Handles data callbacks from dispatch.
-		int16_t UseCall(	UCHAR* puc, long lSize, uint16_t usType, UCHAR ucFlags,
+		int16_t UseCall(	uint8_t* puc, long lSize, uint16_t usType, uint8_t ucFlags,
 							long lTime);
 		// Callback dispatcher (calls the implied this version).
-		static int16_t UseCallStatic(UCHAR* puc, long lSize, uint16_t usType, 
-											UCHAR ucFlags,
+		static int16_t UseCallStatic(uint8_t* puc, long lSize, uint16_t usType, 
+											uint8_t ucFlags,
 											long lTime, long l_pRes);
 
 		// Handles alloc callbacks from dispatch.
-		UCHAR* AllocCall(long lSize, uint16_t usType, UCHAR ucFlags);
+		uint8_t* AllocCall(long lSize, uint16_t usType, uint8_t ucFlags);
 		// Callback dispatcher (calls the implied this version).
-		static UCHAR* AllocCallStatic(long lSize, 
-												uint16_t usType, UCHAR ucFlags, 
+		static uint8_t* AllocCallStatic(long lSize, 
+												uint16_t usType, uint8_t ucFlags, 
 												long l_pRes);
 
 		// Handles free callbacks from filter.
-		void FreeCall(UCHAR* puc, uint16_t usType, UCHAR ucFlags);
+		void FreeCall(uint8_t* puc, uint16_t usType, uint8_t ucFlags);
 		// Callback dispatcher (calls the implied this version).
-		static void FreeCallStatic(UCHAR* puc, uint16_t usType, UCHAR ucFlags,
+		static void FreeCallStatic(uint8_t* puc, uint16_t usType, uint8_t ucFlags,
 											long l_pRes);
 
 		// Hooks calls to CNFile's file Open (NOT memory opens).

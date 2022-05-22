@@ -154,7 +154,7 @@
 	}
 
 // force instantiation
-template void rspClipPlot<UCHAR>(UCHAR color, RImage* pimDst,int16_t sX,int16_t sY,const RRect* prClip);
+template void rspClipPlot<uint8_t>(uint8_t color, RImage* pimDst,int16_t sX,int16_t sY,const RRect* prClip);
 template void rspClipPlot<uint16_t>(uint16_t color, RImage* pimDst,int16_t sX,int16_t sY,const RRect* prClip);
 template void rspClipPlot<uint32_t>(uint32_t color, RImage* pimDst,int16_t sX,int16_t sY,const RRect* prClip);
 
@@ -164,7 +164,7 @@ void instantiatePlot()
 	{
 	RImage* pim = NULL;
 
-	rspPlot((UCHAR)0,pim,(int16_t)0,(int16_t)0);
+	rspPlot((uint8_t)0,pim,(int16_t)0,(int16_t)0);
 	rspPlot((uint16_t)0,pim,(int16_t)0,(int16_t)0);
 	rspPlot((uint32_t)0,pim,(int16_t)0,(int16_t)0);
 
@@ -309,7 +309,7 @@ DoneB:
 
 
 // force instantiation
-template int16_t rspLasso<UCHAR>(UCHAR ignoreColor,RImage* pimSrc,int16_t &x,int16_t &y,int16_t &w,int16_t &h,
+template int16_t rspLasso<uint8_t>(uint8_t ignoreColor,RImage* pimSrc,int16_t &x,int16_t &y,int16_t &w,int16_t &h,
 						int lFlag,int rFlag,int tFlag,int bFlag);
 template int16_t rspLasso<uint16_t>(uint16_t ignoreColor,RImage* pimSrc,int16_t &x,int16_t &y,int16_t &w,int16_t &h,
 						int lFlag,int rFlag,int tFlag,int bFlag);
@@ -324,7 +324,7 @@ void instantiateLasso()
 	RImage* pim = NULL;
 	int16_t i = 0;
 
-	rspLasso( (UCHAR)i, pim, i,i,i,i, 1,1,1,1);
+	rspLasso( (uint8_t)i, pim, i,i,i,i, 1,1,1,1);
 	rspLasso( (uint16_t)i, pim, i,i,i,i, 1,1,1,1);
 	rspLasso( (uint32_t)i, pim, i,i,i,i, 1,1,1,1);
 
@@ -340,7 +340,7 @@ inline void _BLiT(PIXSIZE* pSrc,PIXSIZE* pDst,int32_t lSrcPitch, int32_t lDstPit
 	{
 	union	{
 		PIXSIZE *w;
-		UCHAR	*b;
+		uint8_t	*b;
 		} pSrcLine,pDstLine;
 
 	int i;
@@ -369,7 +369,7 @@ inline void _BLiT(PIXSIZE* pSrc,PIXSIZE* pDst,int32_t lSrcPitch, int32_t lDstPit
 // This uses misaligned 32-bit copies to be "faster" than byte copying:
 //
 // But this is a garatied SegBus on ARM with NEON vectorisation, as misaligned are not possible
-inline void _BLiT_MA(UCHAR* pSrc,UCHAR* pDst,int32_t lSrcPitch, int32_t lDstPitch,
+inline void _BLiT_MA(uint8_t* pSrc,uint8_t* pDst,int32_t lSrcPitch, int32_t lDstPitch,
 						int16_t sHeight,int16_t	sWidth)
 	{
 #ifdef __ARM_NEON__
@@ -382,7 +382,7 @@ inline void _BLiT_MA(UCHAR* pSrc,UCHAR* pDst,int32_t lSrcPitch, int32_t lDstPitc
 #else
 	union	{
 		U32 *w;
-		UCHAR	*b;
+		uint8_t	*b;
 		} pSrcLine,pDstLine,pS,pD;
 
 	int16_t i;
@@ -940,7 +940,7 @@ inline void _ClearRect(WORDSIZE color,WORDSIZE* pDst,int32_t lDstPitch,
 	{
 	union	{
 		WORDSIZE *w;
-		UCHAR	*b;
+		uint8_t	*b;
 		} pDstLine;
 
 	int16_t i,sWordWidth = sByteWidth;
@@ -1309,7 +1309,7 @@ int16_t	rspCrop(RImage* pimSrc,int16_t sX,int16_t sY,int16_t sW,int16_t sH,
 	rspBlit(pimSrc,&imDst,sX,sY,0,0,sW,sH);
 
 	// tricky part: Swap buffers...
-	UCHAR	*pSrcMem,*pSrcBuf;
+	uint8_t	*pSrcMem,*pSrcBuf;
 	pimSrc->DetachData((void**)&pSrcMem,(void**)&pSrcBuf);
 	// Move the new buffer back to the original
 	imDst.DetachData((void**)&(pimSrc->m_pMem),(void**)&(pimSrc->m_pData));
@@ -1417,7 +1417,7 @@ int16_t	rspPad(RImage* pimSrc,int16_t sX,int16_t sY, // where to move the old im
 		}
 
 	// tricky part: Swap buffers...
-	UCHAR	*pSrcMem,*pSrcBuf;
+	uint8_t	*pSrcMem,*pSrcBuf;
 	pimSrc->DetachData((void**)&pSrcMem,(void**)&pSrcBuf);
 	// Move the new buffer back to the original
 	imDst.DetachData((void**)&(pimSrc->m_pMem),(void**)&(pimSrc->m_pData));

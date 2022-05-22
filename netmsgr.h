@@ -1290,7 +1290,7 @@ class CNetMsgr
 		typedef void (*FUNC_WRITE)(NetMsg* pmsg, CBufQ* pBuf);	// Pointer to write function
 		typedef struct
 			{
-			UCHAR				ucType;								// Type (used only for debug ASSERTs)
+			uint8_t				ucType;								// Type (used only for debug ASSERTs)
 			size_t			size;									// Size of data to read/write (bytes)
 			FUNC_READ		funcRead;							// Pointer to read function
 			FUNC_WRITE		funcWrite;							// Pointer to write function

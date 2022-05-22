@@ -191,7 +191,7 @@ int16_t CRtPlay::CreateCmd(uint16_t usCmd, long lTime, long lParm1, long lParm2)
 	int16_t	sRes	= 0;	// Assume success.
 	long	lSize	= sizeof(usCmd) + sizeof(lParm1) + sizeof(lParm2);
 
-	UCHAR*	puc	= (UCHAR*)malloc(lSize);
+	uint8_t*	puc	= (uint8_t*)malloc(lSize);
 
 	// If successful . . .
 	if (puc != NULL)
@@ -237,7 +237,7 @@ int16_t CRtPlay::CreateCmd(uint16_t usCmd, long lTime, long lParm1, long lParm2)
 // Returns RET_FREE if puc should be freed and RET_DONTFREE, otherwise.
 //
 //////////////////////////////////////////////////////////////////////////////
-int16_t CRtPlay::RtInfoCall(	UCHAR* puc, long lSize, uint16_t usType, UCHAR ucFlags,
+int16_t CRtPlay::RtInfoCall(	uint8_t* puc, long lSize, uint16_t usType, uint8_t ucFlags,
 									long lTime)
 	{
 	int16_t	sError	= 0;
@@ -394,8 +394,8 @@ int16_t CRtPlay::RtInfoCall(	UCHAR* puc, long lSize, uint16_t usType, UCHAR ucFl
 // (static)
 //
 //////////////////////////////////////////////////////////////////////////////
-int16_t CRtPlay::RtInfoCallStatic(	UCHAR* puc, long lSize, uint16_t usType, 
-											UCHAR ucFlags, long lTime, long l_pRtPlay)
+int16_t CRtPlay::RtInfoCallStatic(	uint8_t* puc, long lSize, uint16_t usType, 
+											uint8_t ucFlags, long lTime, long l_pRtPlay)
 	{
 	return ((CRtPlay*)l_pRtPlay)->RtInfoCall(puc, lSize, usType, ucFlags, lTime);
 	}

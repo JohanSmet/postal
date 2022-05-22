@@ -81,7 +81,7 @@ class CCompressedMono // only a 96-bit header!
 public:
 	uint16_t	usASCII;	// = ascii value
 	uint16_t	usSourceType;	// uncompressed Image pre-compressed type
-	UCHAR*	pCode;		// It's all in one buffer for this one
+	uint8_t*	pCode;		// It's all in one buffer for this one
 	uint32_t		ulSize;		// Size of compressed buffer
 
 	CCompressedMono()
@@ -99,7 +99,7 @@ public:
 	}; 
 	*/
 
-extern	void _rspBLiT(UCHAR ucColor,RImage* pimSrc,RImage* pimDst,
+extern	void _rspBLiT(uint8_t ucColor,RImage* pimSrc,RImage* pimDst,
 				  int16_t sDstX,int16_t sDstY);
 
 //=========================

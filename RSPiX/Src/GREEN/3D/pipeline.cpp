@@ -270,7 +270,7 @@ int16_t RPipeLine::NotCulled(RP3d *p1,RP3d *p2,RP3d *p3)
 // Uses the static transformed point buffer.
 //
 void RPipeLine::Render(RImage* pimDst,int16_t sDstX,int16_t sDstY,
-		RMesh* pMesh,UCHAR ucColor) // wire!
+		RMesh* pMesh,uint8_t ucColor) // wire!
 	{
 	int32_t i;
 	int32_t v1,v2,v3;
@@ -300,7 +300,7 @@ void RPipeLine::Render(RImage* pimDst,int16_t sDstX,int16_t sDstY,
 // Currently (sDstX,sDstY) allgns with the upper left half of the z-buffer
 // Uses the static transformed point buffer.
 //
-void RPipeLine::RenderShadow(RImage* pimDst,RMesh* pMesh,UCHAR ucColor)
+void RPipeLine::RenderShadow(RImage* pimDst,RMesh* pMesh,uint8_t ucColor)
 	{
 	int32_t i;
 	int32_t v1,v2,v3;
@@ -334,9 +334,9 @@ void RPipeLine::Render(RImage* pimDst,int16_t sDstX,int16_t sDstY,
 	int32_t i;
 	int32_t v1,v2,v3;
 	uint16_t *psVertex = pMesh->m_pArray;
-	UCHAR *pColor = pTexColors->m_pIndices;
+	uint8_t *pColor = pTexColors->m_pIndices;
 	int32_t lDstP = pimDst->m_lPitch;
-	UCHAR* pDst = pimDst->m_pData + (sDstX + sOffsetX) + lDstP * (sDstY + sOffsetY);
+	uint8_t* pDst = pimDst->m_pData + (sDstX + sOffsetX) + lDstP * (sDstY + sOffsetY);
 
 	for (i=0;i < pMesh->m_sNum; i++,pColor++)
 		{
@@ -368,9 +368,9 @@ void RPipeLine::Render(RImage* pimDst,int16_t sDstX,int16_t sDstY,
 	int32_t i;
 	int32_t v1,v2,v3;
 	uint16_t *psVertex = pMesh->m_pArray;
-	UCHAR *pColor = pTexColors->m_pIndices;
+	uint8_t *pColor = pTexColors->m_pIndices;
 	int32_t lDstP = pimDst->m_lPitch;
-	UCHAR* pDst = pimDst->m_pData + (sDstX + sOffsetX) + lDstP * (sDstY + sOffsetY);
+	uint8_t* pDst = pimDst->m_pData + (sDstX + sOffsetX) + lDstP * (sDstY + sOffsetY);
 
 	for (i=0;i < pMesh->m_sNum; i++,pColor++)
 		{

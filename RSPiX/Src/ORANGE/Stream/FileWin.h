@@ -40,7 +40,7 @@
 // Access into window.
 typedef struct
 	{
-	UCHAR		*puc;		// Pane data.
+	uint8_t		*puc;		// Pane data.
 	long		lSize;	// Size of pane.
 	long		lPos;		// Pane's position in Window.
 	} PANE, *PPANE;
@@ -146,7 +146,7 @@ class CFileWin
 	
 	protected:	// Members.
 		CNFile	m_file;				// File object use to read data.
-		UCHAR*	m_pucWindow;		// Window into file.
+		uint8_t*	m_pucWindow;		// Window into file.
 		long		m_lWinSize;			// Size of window.
 		long		m_lInputInterval;	// Time between pane input accesses.
 		long		m_lNextTime;		// Time of next pane input.

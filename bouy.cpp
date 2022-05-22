@@ -712,16 +712,16 @@ void CBouy::Unlink(void)
 int16_t CBouy::BuildRoutingTable(void)
 {
 	int16_t sResult = SUCCESS;
-	UCHAR* aVisited = NULL;
-	UCHAR* aDistance = NULL;
-	UCHAR* aParent = NULL;
-	UCHAR* pucCurrentNode = NULL;
-	UCHAR* pucAdjNode = NULL;
+	uint8_t* aVisited = NULL;
+	uint8_t* aDistance = NULL;
+	uint8_t* aParent = NULL;
+	uint8_t* pucCurrentNode = NULL;
+	uint8_t* pucAdjNode = NULL;
 	CBouy* pTraverseBouy = NULL;
 
 	ASSERT(m_pParentNavNet != NULL);
 	int16_t sCurrentNumNodes = m_pParentNavNet->GetNumNodes();
-	RQueue <UCHAR, 256> bfsQueue;
+	RQueue <uint8_t, 256> bfsQueue;
 
 	// Make sure there is enough space in the routing table, or
 	// reallocate it if there isn't enough.
@@ -729,14 +729,14 @@ int16_t CBouy::BuildRoutingTable(void)
 	{
 		if (m_paucRouteTable != NULL)
 			free(m_paucRouteTable);
-		m_paucRouteTable = (UCHAR*) malloc(sCurrentNumNodes);
+		m_paucRouteTable = (uint8_t*) malloc(sCurrentNumNodes);
 		m_sRouteTableSize = sCurrentNumNodes;
 	}
 
 	// Allocate memory for use in building the BSF tree
-	aVisited = (UCHAR*) malloc(sCurrentNumNodes);
-	aDistance = (UCHAR*) malloc(sCurrentNumNodes);
-	aParent = (UCHAR*) malloc(sCurrentNumNodes);
+	aVisited = (uint8_t*) malloc(sCurrentNumNodes);
+	aDistance = (uint8_t*) malloc(sCurrentNumNodes);
+	aParent = (uint8_t*) malloc(sCurrentNumNodes);
 
 	if (m_paucRouteTable != NULL &&
 	    aVisited != NULL &&
@@ -781,8 +781,8 @@ int16_t CBouy::BuildRoutingTable(void)
 		// and aParent provides a way to build the routing table by traversing
 		// backwards.
 
-		UCHAR ucCurrentDistance;
-		UCHAR curr;
+		uint8_t ucCurrentDistance;
+		uint8_t curr;
 		int16_t j;
 
 		for (j = 1; j < sCurrentNumNodes; j++)
@@ -845,7 +845,7 @@ int16_t CBouy::BuildRoutingTable(void)
 // NextRouteNode - Tells you which node to go to next to get to your destination
 ////////////////////////////////////////////////////////////////////////////////
 
-UCHAR CBouy::NextRouteNode(UCHAR dst)
+uint8_t CBouy::NextRouteNode(uint8_t dst)
 {
 	if (dst >= m_pParentNavNet->GetNumNodes())
 		return 255;

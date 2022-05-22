@@ -237,7 +237,7 @@ extern	int16_t	rspGeneralUnlock(RImage* pimDst);
 
 /* archaic
 extern	void	rspSetConvertToFSPR1(uint32_t ulLassoBackCol = 0,uint32_t ulComprBackCol = 0,
-								int16_t sTrimT = 0,int16_t sMaxH = 0,UCHAR ucASCII = 0);
+								int16_t sTrimT = 0,int16_t sMaxH = 0,uint8_t ucASCII = 0);
 
 extern	void	rspSetConvertFromFSPR1(uint32_t ulFrontCol,uint32_t ulBackCol = 1);
 */
@@ -442,8 +442,8 @@ private:
 	float m_fSpace; // Extra space between pixels based on chosen height.
 	int16_t m_sSpace; // Extra kerning space in pixels
 
-	UCHAR	m_clrBKD;	// current color
-	UCHAR	m_clrFGD;
+	uint8_t	m_clrBKD;	// current color
+	uint8_t	m_clrFGD;
 
 	RFontOld*	m_fnCurrent;	// Current font
 	FontNode* m_pFontSize;	// Base font template
@@ -572,7 +572,7 @@ extern	int16_t rspBlitRot(int16_t sDeg,RImage* pimSrc,RImage* pimDst,
 					 int16_t sDstX,int16_t sDstY,double dScaleX,double dScaleY,
 					 const RRect* prDstClip = NULL);
 
-extern	void rspLine(UCHAR ucColor,RImage* pimDst,int16_t sX1,int16_t sY1,int16_t sX2,int16_t sY2,
+extern	void rspLine(uint8_t ucColor,RImage* pimDst,int16_t sX1,int16_t sY1,int16_t sX2,int16_t sY2,
 							 const RRect* prClip = NULL);
 
 extern	int16_t rspRand(int16_t sMax);
@@ -597,7 +597,7 @@ extern	int16_t rspMonoRectLightenTo(int16_t sThickness,int16_t rspBrightness,RIm
 extern	int16_t	rspMonoRectDarkenTo(int16_t sThickness,int16_t rspBrightness,RImage* pimDst,int16_t sX,int16_t sY,int16_t sW,int16_t sH,
 						const RRect* prClip = NULL);
 
-extern	int16_t rspGetBrightness(int16_t sIndex,UCHAR* pR,UCHAR* pG,UCHAR* pB,int32_t lInc = 4);
+extern	int16_t rspGetBrightness(int16_t sIndex,uint8_t* pR,uint8_t* pG,uint8_t* pB,int32_t lInc = 4);
 
 //**********************************  FAST CONVERTS:  *******************************
 //----- BYTE dpeth to shift amount:

@@ -110,7 +110,7 @@ public:
 	char* ScanLine(char* pszInput);
 	void  FormatText();
 	void	DrawText();
-	int16_t GetBlitW(UCHAR c);
+	int16_t GetBlitW(uint8_t c);
 	int16_t FrameIt(); // 1= fresh line, -1 = off bottom
 	void	printLine();
 	void ClearTabs(); // both types
@@ -158,7 +158,7 @@ public:
 	int16_t m_sNumChar;
 	int16_t m_sExtX;
 	//----------------------------- Static variables
-	static	UCHAR	ms_szLineText[1024]; // Stores a line at a time
+	static	uint8_t	ms_szLineText[1024]; // Stores a line at a time
 	static	int16_t	ms_sCharPosX[1024]; // positions of each character in the line...
 	static	char	ms_szInput[4096]; //
 	};

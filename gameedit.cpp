@@ -2131,7 +2131,7 @@ static bool DoInput(		// Returns true when done.
 			// Get cursor position and event
 			GetCursor(&ie, &sCursorX, &sCursorY, &sCursorZ, &sCursorEvent);
 			
-			UCHAR	ucId	= ms_pylonEdit->m_ucID;
+			uint8_t	ucId	= ms_pylonEdit->m_ucID;
 
 			static U8*	pau8KeyStatus	= rspGetKeyStatusArray();
 
@@ -3154,7 +3154,7 @@ static void DoOutput(	// Returns nothing.
 		// If editting a pylon . . .
 		if (ms_pylonEdit != NULL)
 			{
-			UCHAR	ucId	= ms_pylonEdit->m_ucID;
+			uint8_t	ucId	= ms_pylonEdit->m_ucID;
 			ASSERT(ms_argns[ucId].pimRgn != NULL);
 
 			// Draw trigger region.
@@ -3530,10 +3530,10 @@ static void DrawCursor(
 		int16_t sMin = MIN(sCursorZ, (int16_t)(sCursorZ - sCursorY));
 		int16_t sMax = MAX(sCursorZ, (int16_t)(sCursorZ - sCursorY));
 		for (int16_t y = sMin; y <= sMax; y++)
-			rspPlot((UCHAR)255, pimDst, sCursorX, y);
+			rspPlot((uint8_t)255, pimDst, sCursorX, y);
 #else
 		rspLine(
-			(UCHAR)255,
+			(uint8_t)255,
 			pimDst,
 			sBaseX2,
 			sBaseY2,
@@ -5489,7 +5489,7 @@ static void ThingHotCall(	// Returns nothing.
 				{
 				SetSel(pthing, phot);
 				// If EDIT_KEY_SENDTOBACK held down . . .
-				UCHAR	aucKeys[128];
+				uint8_t	aucKeys[128];
 				rspScanKeys(aucKeys);
 				if (aucKeys[EDIT_KEY_SENDTOBACK] != 0)
 					{
@@ -5797,8 +5797,8 @@ static void NetLog(CNavigationNet* pNavNet)
 	ofstream routeout;
 	CNavigationNet::nodeMap::iterator ibouy;
 	CBouy::linkset::iterator ilink;
-	UCHAR i;
-	UCHAR ucHops;
+	uint8_t i;
+	uint8_t ucHops;
 
 
 	txtout.open("c:\\temp\\navnet.txt");

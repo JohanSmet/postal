@@ -67,11 +67,11 @@
 											// update file -- $464c4942 is a good one ("FLIB")
 		int16_t sAspectX;				// X-axis aspect ratio at which file was created
 		int16_t sAspectY;				// Y-axis aspect ratio at which file was created
-		UCHAR bReservedB[38];		// Reserved -- set to zeroes
+		uint8_t bReservedB[38];		// Reserved -- set to zeroes
 		int32_t lOffsetFrame1;			// Offset from beginning of file to first frame chunk
 		int32_t lOffsetFrame2;			// Offset from beginning of file to second frame chunk,
 											// used when looping from ring back to second frame
-		UCHAR bReservedC[40];		// Reserved -- set to zeroes
+		uint8_t bReservedC[40];		// Reserved -- set to zeroes
 		} FLX_FILE_HDR;
 
 
@@ -83,7 +83,7 @@
 		uint16_t wType;					// Frame header chunk id: always 0xF1FA
 		int16_t sNumSubChunks;			// Number of subordinate chunks.  0 indicates that
 											// this frame is identical to previous frame.
-		UCHAR bReserved[8];			// Reserved
+		uint8_t bReserved[8];			// Reserved
 		} FLX_FRAME_HDR;
 
 
@@ -100,9 +100,9 @@
 	// Define struct that describes RGB color data as used by a FLC/FLI
 	typedef struct tag_FLX_RGB
 		{
-		UCHAR bR;
-		UCHAR bG;
-		UCHAR bB;
+		uint8_t bR;
+		uint8_t bG;
+		uint8_t bB;
 		} FLX_RGB;
 #endif	// FLX_H
 
@@ -218,7 +218,7 @@ class CRamFlx
 
 		int16_t				m_sNoDelta;			// Flag to signal no delta compression						
 		
-		UCHAR*			m_pucFlxBuf;		// RAM buffer for flic frames from .FLC file
+		uint8_t*			m_pucFlxBuf;		// RAM buffer for flic frames from .FLC file
 
 		int32_t*				m_plFrames;			// Indexices of frames in flics
 													// with no delta compression

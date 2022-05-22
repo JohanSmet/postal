@@ -128,9 +128,9 @@ RInitBLiT::RInitBLiT()
 	pimScreenVisible->CreateImage(0,0,RImage::IMAGE_STUB,0,0);	
 	pimScreenBackPlane->CreateImage(0,0,RImage::IMAGE_STUB,0,0);	
 
-	pimScreenBuffer->m_pSpecial = (UCHAR*) BUF_MEMORY;
-	pimScreenVisible->m_pSpecial = (UCHAR*) BUF_VRAM;
-	pimScreenBackPlane->m_pSpecial = (UCHAR*) BUF_VRAM2;
+	pimScreenBuffer->m_pSpecial = (uint8_t*) BUF_MEMORY;
+	pimScreenVisible->m_pSpecial = (uint8_t*) BUF_VRAM;
+	pimScreenBackPlane->m_pSpecial = (uint8_t*) BUF_VRAM2;
 
 #ifdef WIN32
 	TRACE("BLiT has initialized\n");
@@ -300,11 +300,11 @@ class RCompressedImageData
 public:
 	uint16_t	usCompType;	// = FSPR8 image type
 	uint16_t	usSourceType;	// uncompressed Image pre-compressed type
-	UCHAR*	pCBuf;		// Start of compressed picture data, 128-aligned, NULL for monochrome
-	UCHAR*	pCMem;
-	UCHAR* pControlBlock;// 32-aligned run length code for compressed BLiT
-	UCHAR** pLineArry;	// 32-aligned, arry of ptrs to pCBuf scanlines, 32-bit align assumed
-	UCHAR** pCtlArry;		// 32-aligned, arry of offset ptrs into CtlBlock
+	uint8_t*	pCBuf;		// Start of compressed picture data, 128-aligned, NULL for monochrome
+	uint8_t*	pCMem;
+	uint8_t* pControlBlock;// 32-aligned run length code for compressed BLiT
+	uint8_t** pLineArry;	// 32-aligned, arry of ptrs to pCBuf scanlines, 32-bit align assumed
+	uint8_t** pCtlArry;		// 32-aligned, arry of offset ptrs into CtlBlock
 
 	RCompressedImageData()
 		{
@@ -348,10 +348,10 @@ void	rspSetBMPColors(RImage* pim,int16_t sStartIndex,int16_t sNum)
 
 	typedef	struct
 		{
-		UCHAR	b;
-		UCHAR g;
-		UCHAR r;
-		UCHAR a;
+		uint8_t	b;
+		uint8_t g;
+		uint8_t r;
+		uint8_t a;
 		}	RGB;
 
 	RGB*	pPal = (RGB*)pim->m_pPalette->m_pData;

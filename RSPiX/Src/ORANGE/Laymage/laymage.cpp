@@ -619,7 +619,7 @@ int16_t RLaymage::SetChannelPointer(int16_t sNumLayers, RFile* pcfChannel)
 	uint32_t ulData;
 	uint16_t usNumChannels = 0;
 	uint16_t i;
-	UCHAR ucData;
+	uint8_t ucData;
 	int16_t sReturn = FAILURE;
 	int16_t sLayer;
 
@@ -695,7 +695,7 @@ int16_t RLaymage::ReadLayerInfo(int16_t sLayerNum, RFile* pcfLayer,
 {
 	uint32_t ulData;
 	uint16_t usData;
-	UCHAR ucData;
+	uint8_t ucData;
 	int16_t asChannelID[LAYMAGE_MAXCHANNELS];
 	// uint16_t usNextChannel = 0;
 	uint16_t usNumChannels = 0;
@@ -938,7 +938,7 @@ int16_t RLaymage::ReadLayerName(int16_t sLayerNum, RFile* pcfLayer)
 {
 	uint32_t ulData;
 	uint16_t usData;
-	UCHAR ucData;
+	uint8_t ucData;
 	uint32_t* pulChannelLength = NULL;
 	int16_t* psChannelID = NULL;
 	uint16_t usNextChannel = 0;
@@ -1042,7 +1042,7 @@ int16_t RLaymage::RLE_Decompress(char* pcBuffer, uint32_t ulCompSize, RFile* pcf
 //	uint32_t ulBufferFill = 0;
 	signed char cData;
 	signed char cFlag;
-	UCHAR ucRun;
+	uint8_t ucRun;
 	uint16_t i;
 
 	if (pcfRLE && pcfRLE->IsOpen())
@@ -1149,10 +1149,10 @@ int16_t RLaymage::ConvertToImage(int16_t sLayerNum, uint32_t ulTop, uint32_t ulB
 		for (row = ulTop; row < ulBottom; row++)
 			for (col = ulLeft; col < ulRight; col++)
 			{
-				ulPixel = ((UCHAR) m_pcChannels[LAYMAGE_ALPHA][i]) * 0x01000000 |
-							 ((UCHAR) m_pcChannels[LAYMAGE_RED][i])   * 0x00010000 |
-							 ((UCHAR) m_pcChannels[LAYMAGE_GREEN][i]) * 0x00000100 |
-							 ((UCHAR) m_pcChannels[LAYMAGE_BLUE][i]);
+				ulPixel = ((uint8_t) m_pcChannels[LAYMAGE_ALPHA][i]) * 0x01000000 |
+							 ((uint8_t) m_pcChannels[LAYMAGE_RED][i])   * 0x00010000 |
+							 ((uint8_t) m_pcChannels[LAYMAGE_GREEN][i]) * 0x00000100 |
+							 ((uint8_t) m_pcChannels[LAYMAGE_BLUE][i]);
 				i++;
 
 				ulp32[row*lDestPitch + col] = ulPixel;

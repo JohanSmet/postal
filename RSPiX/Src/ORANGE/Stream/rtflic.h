@@ -100,11 +100,11 @@ class CRtFlic
 
 		// Use handler for RtFlic buffers.
 		// Returns RET_FREE if done with data on return, RET_DONTFREE otherwise.
-		int16_t Use(	UCHAR* puc, long lSize, uint16_t usType, UCHAR ucFlags, 
+		int16_t Use(	uint8_t* puc, long lSize, uint16_t usType, uint8_t ucFlags, 
 						long lTime);
 		// Static entry point for above.
-		static int16_t UseStatic(	UCHAR* puc, long lSize, uint16_t usType, 
-										UCHAR ucFlags, long lTime, long l_pRtFlic);
+		static int16_t UseStatic(	uint8_t* puc, long lSize, uint16_t usType, 
+										uint8_t ucFlags, long lTime, long l_pRtFlic);
 
 	protected:	// Internal typedefs.
 

@@ -272,8 +272,8 @@ uint16_t RAttributeMap::GetAttribute(int32_t lX, int32_t lY)
 		return ATTRIBUTE_NOT_WALKABLE;
 
 	m_usLastAttribute = m_pusMap[(lY/m_sScaleY)*m_lWidth + (lX/m_sScaleX)];
-	m_ucFlags = (UCHAR) (m_usLastAttribute & 0x00ff);
-	m_ucMinHeight = m_ucMaxHeight = (UCHAR) ((m_usLastAttribute & 0xff00) >> 8);
+	m_ucFlags = (uint8_t) (m_usLastAttribute & 0x00ff);
+	m_ucMinHeight = m_ucMaxHeight = (uint8_t) ((m_usLastAttribute & 0xff00) >> 8);
 
 	return m_usLastAttribute;
 }
@@ -293,14 +293,14 @@ uint16_t RAttributeMap::GetAttribute(int32_t lX, int32_t lY)
 	// Lookup the value for this pixel
 	{
 		m_usLastAttribute = m_pusDetailMap[((usBlockData & 0x7fff) * m_sBlockDataSize) + (((lY % m_sScaleY)*m_sScaleY) + (lX % m_sScaleX))];
-		m_ucFlags = (UCHAR) ((m_usLastAttribute & 0xff00) >> 8);
-		m_ucMinHeight = m_ucMaxHeight = (UCHAR) (m_usLastAttribute & 0x00ff); 
+		m_ucFlags = (uint8_t) ((m_usLastAttribute & 0xff00) >> 8);
+		m_ucMinHeight = m_ucMaxHeight = (uint8_t) (m_usLastAttribute & 0x00ff); 
 	}
 	else
 	{
 		m_usLastAttribute = usBlockData;
-		m_ucFlags = (UCHAR) ((usBlockData & 0xff00) >> 8);
-		m_ucMinHeight = m_ucMaxHeight = (UCHAR) (usBlockData & 0x00ff);
+		m_ucFlags = (uint8_t) ((usBlockData & 0xff00) >> 8);
+		m_ucMinHeight = m_ucMaxHeight = (uint8_t) (usBlockData & 0x00ff);
 	}
 	return m_usLastAttribute;		
 }	
@@ -383,9 +383,9 @@ uint16_t RAttributeMap::GetAttribute(int32_t lTopCoord, int32_t lBottomCoord,
 			usMax = MAX(usMax, usAttrib);
 		}
 
-	m_ucFlags = (UCHAR) (usFlags & 0x00ff);
-	m_ucMinHeight = (UCHAR) (usMin >> 8);
-	m_ucMaxHeight = (UCHAR) (usMax >> 8);
+	m_ucFlags = (uint8_t) (usFlags & 0x00ff);
+	m_ucMinHeight = (uint8_t) (usMin >> 8);
+	m_ucMaxHeight = (uint8_t) (usMax >> 8);
 
 	usResult = (usMax & 0xff00) | (usFlags & 0x00ff);
 

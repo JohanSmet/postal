@@ -578,7 +578,7 @@ extern S64 rspGetAppMicroseconds(void);	// Returns microseconds since app starte
 ////////////////////////////////////////////////////////////////////////////////
 
 // Callback returns 0 if successfull, non-zero if no data was returned
-typedef int16_t (*RSP_SND_CALLBACK)(UCHAR*	pucBuffer,	// Data buffer to be filled
+typedef int16_t (*RSP_SND_CALLBACK)(uint8_t*	pucBuffer,	// Data buffer to be filled
 											int32_t		lSize,		// Size of buffer (must fill
 																		// entire bufffer - pad with
 																		// silence if necessary)

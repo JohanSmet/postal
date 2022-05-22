@@ -31,9 +31,9 @@ typedef struct
 // rendered.
 // sX and sY are additional offsets into pimDst
 //
-void	DrawTri_ZColorFog(UCHAR* pDstOffset,int32_t lDstP,
+void	DrawTri_ZColorFog(uint8_t* pDstOffset,int32_t lDstP,
 			RP3d* p1,RP3d* p2,RP3d* p3,
-			RZBuffer* pZB,UCHAR* pFog,
+			RZBuffer* pZB,uint8_t* pFog,
 			int16_t sOffsetX/* = 0*/,		// In: 2D offset for pZB.
 			int16_t sOffsetY/* = 0*/) 	// In: 2D offset for pZB.
 	{
@@ -85,7 +85,7 @@ void	DrawTri_ZColorFog(UCHAR* pDstOffset,int32_t lDstP,
 
 			if (pt1.z.mod > *pBufZ)
 				{
-				UCHAR* pDst = pDstOffset + lDstP * pt1.y.mod + pt1.x.mod; 
+				uint8_t* pDst = pDstOffset + lDstP * pt1.y.mod + pt1.x.mod; 
 				*pDst = pFog[pt1.z.upper]; // can't forget to set the z-buffer!
 				*pBufZ = pt1.z.mod;			
 				}
@@ -200,7 +200,7 @@ void	DrawTri_ZColorFog(UCHAR* pDstOffset,int32_t lDstP,
 
 	int32_t lP = lDstP;
 	// add in extra piece uv rounding!
-	UCHAR* pDst = pDstOffset + lP * pv1->y.mod + pv1->x.mod + x2.mod; 
+	uint8_t* pDst = pDstOffset + lP * pv1->y.mod + pv1->x.mod + x2.mod; 
 	int16_t* pBufZ = pZB -> GetZPtr(pv1->x.mod + x2.mod + sOffsetX, pv1->y.mod + sOffsetY);
 	int32_t lZP = pZB->m_lP; // in words!!!
 
@@ -457,7 +457,7 @@ void	DrawTri_ZColorFog(UCHAR* pDstOffset,int32_t lDstP,
 //================================================== 
 // For debugging:
 void	DrawTri_wire(RImage* pimDst,int16_t sX,int16_t sY,
-			RP3d* p1,RP3d* p2,RP3d* p3,UCHAR ucColor)
+			RP3d* p1,RP3d* p2,RP3d* p3,uint8_t ucColor)
 	{
 	rspLine(ucColor,pimDst,
 		sX+int16_t(p1->x),sY+int16_t(p1->y),
@@ -475,9 +475,9 @@ void	DrawTri_wire(RImage* pimDst,int16_t sX,int16_t sY,
 // FLAT SHADED!
 // sX and sY are additional offsets into pimDst
 //
-void	DrawTri_ZColor(UCHAR* pDstOffset,int32_t lDstP,
+void	DrawTri_ZColor(uint8_t* pDstOffset,int32_t lDstP,
 			RP3d* p1,RP3d* p2,RP3d* p3,
-			RZBuffer* pZB,UCHAR ucFlatColor,
+			RZBuffer* pZB,uint8_t ucFlatColor,
 			int16_t sOffsetX/* = 0*/,		// In: 2D offset for pZB.
 			int16_t sOffsetY/* = 0*/) 	// In: 2D offset for pZB.
 	{
@@ -558,7 +558,7 @@ void	DrawTri_ZColor(UCHAR* pDstOffset,int32_t lDstP,
 
 	int32_t lP = lDstP;
 	// add in extra piece uv rounding!
-	UCHAR* pDst = pDstOffset + lP * pv1->y.mod + pv1->x.mod + x2.mod; 
+	uint8_t* pDst = pDstOffset + lP * pv1->y.mod + pv1->x.mod + x2.mod; 
 	int16_t* pBufZ = pZB -> GetZPtr(pv1->x.mod + x2.mod + sOffsetX, pv1->y.mod + sOffsetY);
 	int32_t lZP = pZB->m_lP; // in words!!!
 
@@ -817,9 +817,9 @@ void	DrawTri_ZColor(UCHAR* pDstOffset,int32_t lDstP,
 // sX and sY are additional offsets into pimDst
 // There is NO Z_BUFFER here!  It is JUST a polygon drawer
 //
-void	DrawTri(UCHAR* pDstOffset,int32_t lDstP,
+void	DrawTri(uint8_t* pDstOffset,int32_t lDstP,
 			RP3d* p1,RP3d* p2,RP3d* p3,
-			UCHAR ucFlatColor)
+			uint8_t ucFlatColor)
 	{
 //////////////////////////////////////////////////////////////////
 //****************************************************************
@@ -884,7 +884,7 @@ void	DrawTri(UCHAR* pDstOffset,int32_t lDstP,
 
 	int32_t lP = lDstP;
 	// add in extra piece uv rounding!
-	UCHAR* pDst = pDstOffset + lP * pv1->y.mod + pv1->x.mod + x2.mod; 
+	uint8_t* pDst = pDstOffset + lP * pv1->y.mod + pv1->x.mod + x2.mod; 
 
 	// Draw the upper triangle! (Assuming fx2inc < fx3inc.....)
 	int16_t x,y;

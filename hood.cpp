@@ -1231,8 +1231,8 @@ int16_t CHood::GetResources(void)						// Returns 0 if successfull, non-zero oth
 		{
 			for (int x=0;x<stretched->m_sWidth;x++)
 			{
-				UCHAR* dest = stretched->m_pData + n * stretched->m_lPitch + x;
-				UCHAR* src = m_pimTopBar->m_pData + n * m_pimTopBar->m_lPitch + (int)((float)x * widthScale);
+				uint8_t* dest = stretched->m_pData + n * stretched->m_lPitch + x;
+				uint8_t* src = m_pimTopBar->m_pData + n * m_pimTopBar->m_lPitch + (int)((float)x * widthScale);
 				*dest = *src;
 			}
 			//memcpy(ms_pimCompositeBufferScaled->m_pData + n * ms_pimCompositeBufferScaled->m_lPitch,

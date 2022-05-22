@@ -52,14 +52,14 @@ REMOVE THIS FILE FROM YOUR PROJECT!  It is archaic!
 uint32_t	gulLassoBackgroundColor = 0;	// to ignore on Lasso
 uint32_t	gulCompressionBackgroundColor = 0;	// During compression
 uint32_t	gulConvertFromColor = 255; // reverting back...
-UCHAR	gucAscii = (UCHAR) 0;
+uint8_t	gucAscii = (uint8_t) 0;
 int16_t gsTrimT = 0,gsMaxH = 0; // to further crop..
 uint32_t gulDrawBack = 0, gulDrawFront = 1;
 
 // Specify special conversion parameters...
 //
 void	rspSetConvertToFSPR1(uint32_t ulLassoBackCol,uint32_t ulComprBackCol,
-								int16_t sTrimT,int16_t sMaxH,UCHAR ucAscii)
+								int16_t sTrimT,int16_t sMaxH,uint8_t ucAscii)
 	{
 	gulLassoBackgroundColor = ulLassoBackCol;
 	gulCompressionBackgroundColor = ulComprBackCol;
@@ -109,7 +109,7 @@ inline int16_t	_ConvertToFSPR1(CImage* pImage,PIX choose)
 	sH -= gsTrimT;
 	if (gsMaxH) sH = MIN(sH,gsMaxH); // Fix a font to a min height...
 
-	UCHAR*	pBuf = pImage->pData + sX + (long)sY * pImage->lPitch;
+	uint8_t*	pBuf = pImage->pData + sX + (long)sY * pImage->lPitch;
 
 	TRACE("Kerning Box found was (%hd,%hd,%hd,%hd)\n",sX,sY,sW,sH); // for testing
 
@@ -122,18 +122,18 @@ inline int16_t	_ConvertToFSPR1(CImage* pImage,PIX choose)
 	long	lActualSize = 0;
 
 	// Start the code...
-	pHead->pCode = (UCHAR*)calloc(1,lTrialSize);
+	pHead->pCode = (uint8_t*)calloc(1,lTrialSize);
 
 	// Set the new dimensions:
 	pImage->lWidth = (long)sW;
 	pImage->lHeight = (long)sH;
 
 	// Might need to store total memory size up front.
-	UCHAR*	pCode = pHead->pCode;
-	UCHAR*	pBufLine = pBuf;
+	uint8_t*	pCode = pHead->pCode;
+	uint8_t*	pBufLine = pBuf;
 	int16_t	i,j,sCount;
 
-	UCHAR*	pOldCode = pCode;
+	uint8_t*	pOldCode = pCode;
 	// if there is a null line (a 255 line),
 	// the next line is the number of lines to skip (up to 254)
 	int16_t	sLineSkipCount = 0;
@@ -194,7 +194,7 @@ inline int16_t	_ConvertToFSPR1(CImage* pImage,PIX choose)
 			sCount -=254;
 			}
 		
-		*(pCode++) = (UCHAR)sCount;
+		*(pCode++) = (uint8_t)sCount;
 		
 		// FOREGROUND RUN:
 		sCount = 0;
@@ -206,26 +206,26 @@ inline int16_t	_ConvertToFSPR1(CImage* pImage,PIX choose)
 			sCount -=255;
 			}
 		
-		*(pCode++) = (UCHAR)sCount;
+		*(pCode++) = (uint8_t)sCount;
 		goto NextRun;
 
 		}
 
 	// Shrink the buffer to the TRUE size:
 	// Add EOS code FFFF:
-	*(pCode++) = (UCHAR)0xff;
-	*(pCode++) = (UCHAR)0xff;
+	*(pCode++) = (uint8_t)0xff;
+	*(pCode++) = (uint8_t)0xff;
 
 	pHead->ulSize = lActualSize = pCode - pHead->pCode; // if m_pCode is OPEN...
 	if (pHead->ulSize == 0) return -1; // error!
 
 	TRACE("Compressed size = %d\n",lActualSize);
 
-	pHead->pCode = (UCHAR*) realloc(pHead->pCode,lActualSize);
+	pHead->pCode = (uint8_t*) realloc(pHead->pCode,lActualSize);
 	pHead->usASCII = (uint16_t)gucAscii;
 
 	// Finally, install the new buffer:
-	pImage->pSpecial = pImage->pSpecialMem = (UCHAR*) pHead;
+	pImage->pSpecial = pImage->pSpecialMem = (uint8_t*) pHead;
 	pImage->DestroyData();
 	pImage->ulSize = 0;	// BLiT needs to deal with copying, etc....
 	pImage->ulType = FSPR1;
@@ -250,12 +250,12 @@ inline int16_t _ConvertFromFSPR1(CImage* pImage,PIX choose)
 		// Right now, pDst refers to the CLIPPED start of the scanline:
 	union
 		{
-		UCHAR*	b;
+		uint8_t*	b;
 		PIX* p;
 		} pBuf,pLineBuf;
 
 	CSpecialFSPR1*	pHead = (CSpecialFSPR1*)(pImage->pSpecial);
-	UCHAR*	pCode = pHead->m_pCode;
+	uint8_t*	pCode = pHead->m_pCode;
 
 	int16_t	i,j;
 	int16_t	sCount;
@@ -365,7 +365,7 @@ int16_t	ConvertToFSPR1(CImage* pImage)
 	switch(pImage->sDepth)
 		{
 		case	8:
-			if (_ConvertToFSPR1(pImage,(UCHAR)0)) return NOT_SUPPORTED;
+			if (_ConvertToFSPR1(pImage,(uint8_t)0)) return NOT_SUPPORTED;
 		break;
 
 		case 16:
@@ -403,7 +403,7 @@ int16_t ConvertFromFSPR1(CImage* pImage)
 	switch(pImage->sDepth)
 		{
 		case	8:
-			if (_ConvertFromFSPR1(pImage,(UCHAR)0)) return NOT_SUPPORTED;
+			if (_ConvertFromFSPR1(pImage,(uint8_t)0)) return NOT_SUPPORTED;
 		break;
 
 		case 16:
@@ -442,7 +442,7 @@ void	InstantiateBLiT()
 	{
 	CImage* pim = NULL;
 
-	rspBlit( (UCHAR)0,(UCHAR)0,pim,pim,(int16_t)0,(int16_t)0);
+	rspBlit( (uint8_t)0,(uint8_t)0,pim,pim,(int16_t)0,(int16_t)0);
 	}
 
 //*****************************  THE FSPRITE1 BLiT  ******************************
@@ -600,12 +600,12 @@ BLIT_PRELOCKED:
 	// Right now, pDst refers to the CLIPPED start of the scanline:
 	union
 		{
-		UCHAR*	b;
-		UCHAR* p; // until get a consistant calling convention for BLiT!
+		uint8_t*	b;
+		uint8_t* p; // until get a consistant calling convention for BLiT!
 		} pBuf,pLineBuf;
 
 	CSpecialFSPR1*	pHead = (CSpecialFSPR1*)(pimSrc->pSpecial);
-	UCHAR*	pCode = pHead->m_pCode;
+	uint8_t*	pCode = pHead->m_pCode;
 
 	int16_t	i,j,k,l;
 	int16_t	sCount;
@@ -1113,12 +1113,12 @@ int16_t	rspBlit(uint32_t ulForeColor,uint32_t ulBackColor,CImage* pimSrc,CImage*
 
 	union
 		{
-		UCHAR* b;
-		UCHAR* p; // until get a consistant calling convention for BLiT!
+		uint8_t* b;
+		uint8_t* p; // until get a consistant calling convention for BLiT!
 		} pBuf,pLineBuf;
 	// (SOB!) Hardcoded to 8-bit for now!
-	UCHAR clrBKD = (UCHAR) ulBackColor;
-	UCHAR clrLTR = (UCHAR) ulForeColor;
+	uint8_t clrBKD = (uint8_t) ulBackColor;
+	uint8_t clrLTR = (uint8_t) ulForeColor;
 
 	u16Frac* frSkipX = u16fStrafe256((uint16_t)sDstW,(uint16_t)pimSrc->lWidth);	// < 1
 	u16Frac* frSkipY = u16fStrafe256((uint16_t)sDstH,(uint16_t)pimSrc->lHeight);	// < 1
@@ -1128,7 +1128,7 @@ int16_t	rspBlit(uint32_t ulForeColor,uint32_t ulBackColor,CImage* pimSrc,CImage*
 	u16Frac	frPosX = {0},frNewX = {0};
 	u16Frac	frPosY = {0},frNewY = {0};
 	int16_t sPixSize = pimSrc->sDepth>>3;
-	UCHAR* pCode = ((CSpecialFSPR1 *)pimSrc->pSpecial)->m_pCode;
+	uint8_t* pCode = ((CSpecialFSPR1 *)pimSrc->pSpecial)->m_pCode;
 	int16_t sSrcW = (int16_t)pimSrc->lWidth; // for clipping
 	int16_t sSrcH = (int16_t)pimSrc->lHeight;
 	int16_t sDraw = 1; // This is a scanline skipper
@@ -1743,12 +1743,12 @@ int16_t	_rspBlit(uint32_t ulClrLTR,uint32_t ulClrBKD,CImage* pimSrc,CImage* pimD
 
 	union
 		{
-		UCHAR*	b;
-		UCHAR* p; // until get a consistant calling convention for BLiT!
+		uint8_t*	b;
+		uint8_t* p; // until get a consistant calling convention for BLiT!
 		} pBuf,pLineBuf;
 	// (SOB!) Hardcoded to 8-bit for now!
-	UCHAR clrBKD = (UCHAR) ulClrBKD;
-	UCHAR clrLTR = (UCHAR) ulClrLTR;
+	uint8_t clrBKD = (uint8_t) ulClrBKD;
+	uint8_t clrLTR = (uint8_t) ulClrLTR;
 
 	// Do Locking!
 	// do OS based copying!
@@ -1838,7 +1838,7 @@ BLIT_PRELOCKED_TXTSCL:
 	u16Frac	frPosY = {0},frNewY = {0};
 	int16_t sPixSize = pimSrc->sDepth>>3;
 	pLineBuf.b = pBuf.b = pimDst->pData + lP * sDstY + sDstX * sPixSize;
-	UCHAR* pCode = ((CSpecialFSPR1 *)pimSrc->pSpecial)->m_pCode;
+	uint8_t* pCode = ((CSpecialFSPR1 *)pimSrc->pSpecial)->m_pCode;
 	int16_t sSrcW = (int16_t)pimSrc->lWidth;
 	int16_t sSrcH = (int16_t)pimSrc->lHeight;
 	int16_t sDraw = 1; // This is a scanline skipper
@@ -2050,7 +2050,7 @@ BLIT_DONTUNLOCK_TXTSCL:
 void	instantiateBLIT()
 	{
 	CImage* pim = NULL;
-	_rspBlit( (UCHAR)0,(UCHAR)0,pim,pim,(int16_t)0,(int16_t)0,(int16_t)0,(int16_t)0);
+	_rspBlit( (uint8_t)0,(uint8_t)0,pim,pim,(int16_t)0,(int16_t)0,(int16_t)0,(int16_t)0);
 	_rspBlit( (uint16_t)0,(uint16_t)0,pim,pim,(int16_t)0,(int16_t)0,(int16_t)0,(int16_t)0);
 	_rspBlit( (uint32_t)0,(uint32_t)0,pim,pim,(int16_t)0,(int16_t)0,(int16_t)0,(int16_t)0);
 	}

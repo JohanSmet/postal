@@ -350,7 +350,7 @@ int16_t CPerson::Load(				// Returns 0 if successfull, non-zero otherwise
 			}
 		}
 
-		UCHAR uc;
+		uint8_t uc;
 
 		// Load data specific to CPerson (if any)
 		switch (ulFileVersion)
@@ -457,7 +457,7 @@ int16_t CPerson::Save(				// Returns 0 if successfull, non-zero otherwise
 		}
 
 	// Save imbecile specific data if any
-	pFile->Write((UCHAR*) &m_ePersonType);
+	pFile->Write((uint8_t*) &m_ePersonType);
 	pFile->Write(&m_sShowState);
 	m_rstrLogicFile.Save(pFile);
 

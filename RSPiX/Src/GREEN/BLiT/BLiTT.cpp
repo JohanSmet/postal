@@ -40,7 +40,7 @@ inline void _BLiTT(PIXSIZE ucTransparent,PIXSIZE* pSrc,PIXSIZE* pDst,int32_t lSr
 	{
 	union	{
 		PIXSIZE *w;
-		UCHAR	*b;
+		uint8_t	*b;
 		} pSrcLine,pDstLine;
 
 	int i;
@@ -305,7 +305,7 @@ int16_t	rspBlitT(uint32_t ucTransparent,RImage* pimSrc,RImage* pimDst,int16_t sS
 	switch (pimDst->m_sDepth)
 		{
 		case 8:
-			_BLiTT((UCHAR)ucTransparent,(U8*)pSrc,(U8*)pDst,pimSrc->m_lPitch,pimDst->m_lPitch,sH,sW); 
+			_BLiTT((uint8_t)ucTransparent,(U8*)pSrc,(U8*)pDst,pimSrc->m_lPitch,pimDst->m_lPitch,sH,sW); 
 		break;
 		case 16:
 			_BLiTT((uint16_t)ucTransparent,(U16*)pSrc,(U16*)pDst,(pimSrc->m_lPitch),(pimDst->m_lPitch),sH,int16_t(sW>>1)); 

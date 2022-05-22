@@ -236,7 +236,7 @@ int16_t CRtVidc::DecompressFrame(	PVIDC_RT_HDR pvidchdr, CNFile* pfile,
 // Returns RET_FREE if done with data on return, RET_DONTFREE otherwise.
 //
 //////////////////////////////////////////////////////////////////////////////
-int16_t CRtVidc::Use(	UCHAR* puc, long lSize, uint16_t usType, UCHAR ucFlags, 
+int16_t CRtVidc::Use(	uint8_t* puc, long lSize, uint16_t usType, uint8_t ucFlags, 
 							long lTime)
 	{
 	int16_t	sRes		= RET_FREE;	// Always free.
@@ -390,7 +390,7 @@ int16_t CRtVidc::Use(	UCHAR* puc, long lSize, uint16_t usType, UCHAR ucFlags,
 						pal.ulType					= PDIB;
 						pal.ulSize					= bmiOut.bmiHeader.biSize - sizeof(bmiOut.bmiHeader);
 						pal.sPalEntrySize			= sizeof(bmiOut.bmiColors[0]);
-						pal.pData					= (UCHAR*)bmiOut.bmiColors;
+						pal.pData					= (uint8_t*)bmiOut.bmiColors;
 						// Attach the palette to an empty image.
 						CImage	imageEmpty;
 						imageEmpty.ulSize			= 0L;
@@ -482,8 +482,8 @@ int16_t CRtVidc::Use(	UCHAR* puc, long lSize, uint16_t usType, UCHAR ucFlags,
 // (static)
 //
 //////////////////////////////////////////////////////////////////////////////
-int16_t CRtVidc::UseStatic(	UCHAR* puc, long lSize, uint16_t usType, 
-									UCHAR ucFlags, long lTime, long l_pRtVidc)
+int16_t CRtVidc::UseStatic(	uint8_t* puc, long lSize, uint16_t usType, 
+									uint8_t ucFlags, long lTime, long l_pRtVidc)
 	{
 	return ((CRtVidc*)l_pRtVidc)->Use(puc, lSize, usType, ucFlags, lTime);
 	}

@@ -182,7 +182,7 @@
 //						NOT_SUPPORTED.  Also, SaveDib() was improperly setting the 
 //						size field of the DIB file header to the lPitch * lHeight 
 //						when it should have been the lDibPitch * lHeight.  Also, 
-//						WIDTHUCHAR and WIDTH128 macros were not 'order-of-operations'
+//						WIDTHuint8_t and WIDTH128 macros were not 'order-of-operations'
 //						safe macros.  Added parenthesis surrounding arguments for 
 //						that extra sense of comfort we've come to know and love.  We
 //						deserve that kind of protection.
@@ -228,7 +228,7 @@
 //						byte swapped when transfering it between the Mac and PC.
 //						For example, 16 bit image formats are now written 
 //						to the CNFile as a number of uint16_ts rather than
-//						twice as many UCHARs.  This same functionality
+//						twice as many uint8_ts.  This same functionality
 //						needs to be added to load and save for DIBs which
 //						will be in the next version.
 //
@@ -1016,7 +1016,7 @@ int16_t RImage::SetData(void* pUserData)
 	}
 	else
 	{
-		m_pData = (UCHAR*) pUserData;
+		m_pData = (uint8_t*) pUserData;
 		return SUCCESS;
 	}
 }
@@ -1418,7 +1418,7 @@ int16_t RImage::LoadDib(RFile* pcf)
 																			// Pre calc width in bits.
 																			int32_t lBitsWidth	= dh.lWidth * (int32_t)dh.usBitCount;
 																			m_lPitch		= WIDTH128(((lBitsWidth + 7) & ~7) / 8);
-																			lDibPitch	= WIDTHUCHAR(((lBitsWidth + 7) & ~7) / 8);
+																			lDibPitch	= WIDTHuint8_t(((lBitsWidth + 7) & ~7) / 8);
 
 																			// Calculate size.
 																			// If not compressed . . .
@@ -1752,7 +1752,7 @@ int16_t RImage::SaveDib(RFile* pcf)
 
 	if (pcf && pcf->IsOpen())
 	{
-		int32_t lDibPitch = WIDTHUCHAR((((int32_t)m_sWidth * (int32_t)m_sDepth + 7L) & ~7L) / 8L);
+		int32_t lDibPitch = WIDTHuint8_t((((int32_t)m_sWidth * (int32_t)m_sDepth + 7L) & ~7L) / 8L);
 
 		int32_t	ulColorData	= 0;
 		if (m_pPalette != NULL)
@@ -1767,7 +1767,7 @@ int16_t RImage::SaveDib(RFile* pcf)
 		dfh.usReserved1	= 0;
 		dfh.usReserved2	= 0;
 
-		UCHAR	auc[2]	= { 'B', 'M' };
+		uint8_t	auc[2]	= { 'B', 'M' };
 
 		//  Write BITMAPFILEHEADER
 		if (pcf->Write(auc) == 1L && pcf->Write(auc + 1) == 1L)
@@ -2153,7 +2153,7 @@ int16_t RImage::Save(RFile* pcf) const
 int16_t RImage::WritePixelData(RFile* pcf) const
 {
 	int16_t sReturn = SUCCESS;
-	UCHAR* pLineData = NULL;
+	uint8_t* pLineData = NULL;
 
 	if (m_sWidth <= m_sWinWidth && m_sHeight <= m_sWinHeight)
 	{
@@ -2367,7 +2367,7 @@ int16_t RImage::Load(RFile* pcf)
 int16_t RImage::ReadPixelData(RFile* pcf)
 {
 	int16_t sReturn = SUCCESS;
-	UCHAR* pLineData = NULL;
+	uint8_t* pLineData = NULL;
 
 	if (m_sWidth <= m_sWinWidth && m_sHeight <= m_sWinHeight)
 	{

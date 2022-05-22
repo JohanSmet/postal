@@ -326,7 +326,7 @@ int16_t RMix::BlueCall(	// Returns FALSE when done.
 			if (m_ulAmount == 0L)
 				{
 				// Call user callback to get more data and the current volume!.
-				m_pucData = (UCHAR*) (*m_mcUser)(Data, m_pucData, &m_ulAmount, 
+				m_pucData = (uint8_t*) (*m_mcUser)(Data, m_pucData, &m_ulAmount, 
 					m_ulUser, &m_ucVolume, &m_ucSecondaryVolume);
 				}
 			
@@ -415,7 +415,7 @@ int16_t RMix::BlueCall(	// Returns FALSE when done.
 //////////////////////////////////////////////////////////////////////////////
 int16_t RMix::BlueCallStatic(	// Returns TRUE to continue mixing in this
 										// buffer or FALSE to not mix this buffer.
-	UCHAR*	pucData,				// Buffer to mix into.
+	uint8_t*	pucData,				// Buffer to mix into.
 	int32_t		lBufSize,			// Size of memory that pucData points to.
 	int32_t		lDataPos,			// Position this buffer will take in the overall
 										// stream.
@@ -797,7 +797,7 @@ int16_t RMix::CloseChannel(void)
 //
 //////////////////////////////////////////////////////////////////////////////
 int16_t RMix::Start(RMixCall mcUser, intptr_t ulUser,
-					UCHAR	ucVolume /* = 255 */, UCHAR ucVol2 /* = 255 */)
+					uint8_t	ucVolume /* = 255 */, uint8_t ucVol2 /* = 255 */)
 	{						 
 	int16_t	sRes	= 0;	// Assume success.
 

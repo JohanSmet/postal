@@ -208,7 +208,7 @@
 // Macros.
 ///////////////////////////////////////////////////////////////////////////////
 
-#define WIDTHUCHAR(i)   (((i)+3) & ~3)      // uint32_t aligned
+#define WIDTHuint8_t(i)   (((i)+3) & ~3)      // uint32_t aligned
 #define WIDTH128(i)		 (((i)+15) & ~15)	 // 128-bit aligned
 
 #define IMAGE_COOKIE	0x20204d49 // Looks like "IM  " in the file
@@ -316,12 +316,12 @@ class RImage
 
 		int32_t			m_lPitch;			// Pitch of image
 		int16_t			m_sDepth;			// Color depth of image
-		UCHAR*		m_pData;				// Pointer to data
+		uint8_t*		m_pData;				// Pointer to data
 		RPal*			m_pPalette;			// Pointer to palette class
-		UCHAR*		m_pSpecial;			// Generic pointer for expandability
+		uint8_t*		m_pSpecial;			// Generic pointer for expandability
 												// (other image formats)
-		UCHAR*		m_pSpecialMem;		// Pointer to allocated special memory
-		UCHAR*		m_pMem;				// Pointer to the memory buffer
+		uint8_t*		m_pSpecialMem;		// Pointer to allocated special memory
+		uint8_t*		m_pMem;				// Pointer to the memory buffer
 												// (for alloc/dealloc of aligned data)
 												// User access in lieu of an AttachData function
 
@@ -453,8 +453,8 @@ class RImage
 		Type GetType(void)		{return m_type;};
 
 		// Memory access functions
-		UCHAR* GetBuffer(void)	{return m_pData;};
-		UCHAR* GetMemory(void)	{return m_pMem;};
+		uint8_t* GetBuffer(void)	{return m_pData;};
+		uint8_t* GetMemory(void)	{return m_pMem;};
 
 	private:
 		// Loads a DIB into a standard RImage format.

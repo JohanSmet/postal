@@ -700,9 +700,9 @@ void CPylon::MessageRequest(CThing* pRequestingThing)
 //						  not used before it is given out.
 ////////////////////////////////////////////////////////////////////////////////
 
-UCHAR CPylon::GetFreePylonID(void)
+uint8_t CPylon::GetFreePylonID(void)
 {
-	UCHAR id = m_pRealm->m_ucNextPylonID;
+	uint8_t id = m_pRealm->m_ucNextPylonID;
 
 	if (m_pRealm->m_sNumPylons >= PYLON_MAX_PYLONS)
 		return 0;
@@ -746,7 +746,7 @@ UCHAR CPylon::GetFreePylonID(void)
 // GetPylon
 ////////////////////////////////////////////////////////////////////////////////
 
-CPylon* CPylon::GetPylon(UCHAR ucPylonID)
+CPylon* CPylon::GetPylon(uint8_t ucPylonID)
 {
 	CPylon* pPylon = NULL;;
 
@@ -760,7 +760,7 @@ CPylon* CPylon::GetPylon(UCHAR ucPylonID)
 // GetPylonUniqueID - loop through list of pylons to get Unique ID
 ////////////////////////////////////////////////////////////////////////////////
 
-U16 CPylon::GetPylonUniqueID(UCHAR ucPylonID)
+U16 CPylon::GetPylonUniqueID(uint8_t ucPylonID)
 {
 	U16 u16UniqueID = CIdBank::IdNil;
 	CListNode<CThing>* pNext = m_pRealm->m_aclassHeads[CThing::CPylonID].m_pnNext;

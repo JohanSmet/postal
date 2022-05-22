@@ -214,7 +214,7 @@ void RSnd::Reset(void)
 //
 ///////////////////////////////////////////////////////////////////////////////
 int16_t RSnd::Stream(	char* pszSampleName, int32_t lPlayBufSize, int32_t lReadBufSize,
-						 UCHAR	ucMainVolume /* = 255 */, UCHAR ucVolume2 /* = 255 */)
+						 uint8_t	ucMainVolume /* = 255 */, uint8_t ucVolume2 /* = 255 */)
 	{
 	int16_t sRes = 0;
 	
@@ -311,8 +311,8 @@ int16_t RSnd::Stream(	char* pszSampleName, int32_t lPlayBufSize, int32_t lReadBu
 int16_t RSnd::Play(						// Returns 0 on success.
 	RSample* psample,					// In:  Sample to play.
 	int32_t lPlayBufSize,				// In:  Size of play buffer in bytes.
-	UCHAR	ucMainVolume/* = 255 */,// In:  Primary Volume (0 - 255)
-	UCHAR ucVolume2 /* = 255 */,	// In:  Secondary Volume (0 - 255)
+	uint8_t	ucMainVolume/* = 255 */,// In:  Primary Volume (0 - 255)
+	uint8_t ucVolume2 /* = 255 */,	// In:  Secondary Volume (0 - 255)
 	int32_t lLoopStartTime/* = -1*/,	// In:  Where to loop back to in milliseconds.
 											//	-1 indicates no looping (unless m_sLoop is
 											// explicitly set).
@@ -522,8 +522,8 @@ void* RSnd::StreamCall(RMix::Msg	msg,
 								void*		pData, 
 								uint32_t*	pulBufSize,
 								intptr_t		ulUser,
-								UCHAR*		pucVolume,
-								UCHAR*		pucVol2)
+								uint8_t*		pucVolume,
+								uint8_t*		pucVol2)
 	{
 	switch (msg)
 		{
@@ -642,8 +642,8 @@ void* RSnd::StreamCall(RMix::Msg	msg,
 void* RSnd::PlayCall(RMix::Msg	msg,
 							void*			pData, 
 							uint32_t*		pulBufSize,
-							UCHAR*		pucVolume,
-							UCHAR*		pucVol2)
+							uint8_t*		pucVolume,
+							uint8_t*		pucVol2)
 	{
 	switch (msg)
 		{
@@ -663,7 +663,7 @@ void* RSnd::PlayCall(RMix::Msg	msg,
 					}
 
 				// Move to next buffer.
-				pData = (UCHAR*)(m_psample->m_pData) + (m_ulSampleSize - m_ulRemaining);
+				pData = (uint8_t*)(m_psample->m_pData) + (m_ulSampleSize - m_ulRemaining);
 
 				// Get next buffer size.
 				(*pulBufSize) = MIN((uint32_t)m_lBufSize, m_ulRemaining);
@@ -792,8 +792,8 @@ void* RSnd::StreamCallStatic(	RMix::Msg	msg,
 										void*			pData, 
 										uint32_t*		pulBufSize, 
 										intptr_t	ulUser,
-										UCHAR*		pucVolume,
-										UCHAR*		pucVol2)
+										uint8_t*		pucVolume,
+										uint8_t*		pucVol2)
 	{
 	return ((PSND)ulUser)->StreamCall(msg, pData, pulBufSize,ulUser,pucVolume,pucVol2);
 	}
@@ -810,8 +810,8 @@ void* RSnd::PlayCallStatic(RMix::Msg	msg,
 									void*			pData, 
 									uint32_t*		pulBufSize, 
 									intptr_t	ulUser,
-									UCHAR*		pucVolume,
-									UCHAR*		pucVol2)
+									uint8_t*		pucVolume,
+									uint8_t*		pucVol2)
 	{
 	return ((PSND)ulUser)->PlayCall(msg, pData, pulBufSize, pucVolume, pucVol2);
 	}

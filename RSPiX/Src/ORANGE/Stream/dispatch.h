@@ -38,20 +38,20 @@
 // This type is used to call the user to allow them to allocate space for the
 // data and return it to be filled.  Return NULL if unable to allocate the
 // space or other errror.
-typedef UCHAR* (*ALLOC_DISPATCHFUNC)(	long lSize, uint16_t usType, UCHAR ucFlags,
+typedef uint8_t* (*ALLOC_DISPATCHFUNC)(	long lSize, uint16_t usType, uint8_t ucFlags,
 													long lUser);
 
 // This type is used to call the user to allow them to DEallocate space al-
 // located by a previous call to their ALLOC_DISPATCHFUNC.
-typedef void (*FREE_DISPATCHFUNC)(	UCHAR* puc, uint16_t usType, UCHAR ucFlags,
+typedef void (*FREE_DISPATCHFUNC)(	uint8_t* puc, uint16_t usType, uint8_t ucFlags,
 												long lUser);
 
 // This type is used to pass the copied chunk to the user ready to be used.
 // Returning RET_FREE will cause puc to get freed if it meets the criteria
 // for freeing described in the dispatch.cpp header comment.  Return
 // RET_DONTFREE to avoid this.
-typedef int16_t (*USE_DISPATCHFUNC)(	UCHAR* puc, long lSize, uint16_t usType, 
-												UCHAR ucFlags, 
+typedef int16_t (*USE_DISPATCHFUNC)(	uint8_t* puc, long lSize, uint16_t usType, 
+												uint8_t ucFlags, 
 												long lTime, long lUser);
 
 // This type is used to pass messages to the handler.
@@ -66,10 +66,10 @@ class CDispatch
 		// Items waiting to be dispatched.
 		typedef struct
 			{
-			UCHAR*	puc;		// Data.
+			uint8_t*	puc;		// Data.
 			long		lSize;	// Size of data in bytes.
 			uint16_t	usType;	// Type of data.
-			UCHAR		ucFlags;	// Flags for data.
+			uint8_t		ucFlags;	// Flags for data.
 			long		lTime;	// Time data is to be dispatched.
 			} RTITEM, *PRTITEM;
 		
@@ -113,7 +113,7 @@ class CDispatch
 
 		// Adds an item to the list of items to be dispatched.
 		// Returns 0 on success.
-		int16_t AddItem(	UCHAR* puc, long lSize, uint16_t usType, UCHAR ucFlags, 
+		int16_t AddItem(	uint8_t* puc, long lSize, uint16_t usType, uint8_t ucFlags, 
 							long lTime);
 
 	public:		// Querries.
@@ -138,24 +138,24 @@ class CDispatch
 		void Reset(void);
 
 		// Handles data callbacks from filter.
-		void UseCall(	UCHAR* puc, long lSize, uint16_t usType, UCHAR ucFlags, 
+		void UseCall(	uint8_t* puc, long lSize, uint16_t usType, uint8_t ucFlags, 
 							long lTime);
 		// Callback dispatcher (calls the implied this version).
-		static void UseCallStatic(	UCHAR* puc, long lSize, uint16_t usType, 
-											UCHAR ucFlags, long lTime,
+		static void UseCallStatic(	uint8_t* puc, long lSize, uint16_t usType, 
+											uint8_t ucFlags, long lTime,
 											long l_pDispatch);
 
 		// Handles alloc callbacks from filter.
-		UCHAR* AllocCall(long lSize, uint16_t usType, UCHAR ucFlags);
+		uint8_t* AllocCall(long lSize, uint16_t usType, uint8_t ucFlags);
 		// Callback dispatcher (calls the implied this version).
-		static UCHAR* AllocCallStatic(	long lSize, 
-													uint16_t usType, UCHAR ucFlags, 
+		static uint8_t* AllocCallStatic(	long lSize, 
+													uint16_t usType, uint8_t ucFlags, 
 													long l_pDispatch);
 
 		// Handles free callbacks from filter.
-		void FreeCall(UCHAR* puc, uint16_t usType, UCHAR ucFlags);
+		void FreeCall(uint8_t* puc, uint16_t usType, uint8_t ucFlags);
 		// Callback dispatcher (calls the implied this version).
-		static void FreeCallStatic(	UCHAR* puc, uint16_t usType, UCHAR ucFlags, 
+		static void FreeCallStatic(	uint8_t* puc, uint16_t usType, uint8_t ucFlags, 
 												long l_pDispatch);
 
 

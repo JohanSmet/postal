@@ -55,8 +55,8 @@
 static JOYSTATE	ms_ajsCurr[NUM_JOYSTICKS];		// Current joystick state.
 static JOYSTATE	ms_ajsPrev[NUM_JOYSTICKS];		// Previous joystick state.
 
-static UCHAR		ms_aucButKeys[NUM_JOYSTICKS][NUM_BUTTONS]	= { 0, };
-static UCHAR		ms_aucDirKeys[NUM_JOYSTICKS][NUM_DIRS]		= { 0, };
+static uint8_t		ms_aucButKeys[NUM_JOYSTICKS][NUM_BUTTONS]	= { 0, };
+static uint8_t		ms_aucDirKeys[NUM_JOYSTICKS][NUM_DIRS]		= { 0, };
 
 //////////////////////////////////////////////////////////////////////////////
 // Externally callable functions.
@@ -68,7 +68,7 @@ static UCHAR		ms_aucDirKeys[NUM_JOYSTICKS][NUM_DIRS]		= { 0, };
 // Returns 0 on success.
 //
 //////////////////////////////////////////////////////////////////////////////
-extern int16_t Joy_SetKey(int16_t sJoy, UCHAR ucKey, uint16_t usState)
+extern int16_t Joy_SetKey(int16_t sJoy, uint8_t ucKey, uint16_t usState)
 	{
 	int16_t	sRes	= 0;	// Assume success.
 
@@ -132,7 +132,7 @@ extern int16_t Joy_Update(int16_t sJoy)
 		if (Blu_GetKeyboard(&kb) == 0)
 			{
 			// Update for keys.
-			UCHAR	uc;
+			uint8_t	uc;
 			// Buttons:
 			for (int16_t i = 0; i < sizeof(ms_aucButKeys[sJoy]); i++)
 				{

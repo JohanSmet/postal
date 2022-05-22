@@ -58,11 +58,11 @@ class CRtSnd
 
 		// Use handler for RtSnd buffers.
 		// Returns RET_FREE if done with data on return, RET_DONTFREE otherwise.
-		int16_t Use(	UCHAR* puc, long lSize, uint16_t usType, UCHAR ucFlags, 
+		int16_t Use(	uint8_t* puc, long lSize, uint16_t usType, uint8_t ucFlags, 
 						long lTime);
 		// Static entry point for above.
-		static int16_t UseStatic(	UCHAR* puc, long lSize, uint16_t usType, 
-										UCHAR ucFlags, long lTime, long l_pRtSnd);
+		static int16_t UseStatic(	uint8_t* puc, long lSize, uint16_t usType, 
+										uint8_t ucFlags, long lTime, long l_pRtSnd);
 
 		// Callback for mixer.
 		// Returns new buffer to play or NULL if none.
@@ -78,7 +78,7 @@ class CRtSnd
 
 		typedef struct
 			{
-			UCHAR*	puc;		// Data.
+			uint8_t*	puc;		// Data.
 			long		lSize;	// Amount of data in bytes.
 			long		lTime;	// Time for chunk to be played.
 			int16_t		sLast;	// TRUE if the last buffer, FALSE otherwise.

@@ -67,7 +67,7 @@ class CPylon : public CThing
 	// Variables
 	//---------------------------------------------------------------------------
 	public:
-		UCHAR	m_ucID;								// Pylon ID
+		uint8_t	m_ucID;								// Pylon ID
 		GameMessage m_msg;						// Place for storing hint messages
 		U16	m_u16TargetDudeID;				// ID of dude you are supposed to attack;
 
@@ -239,11 +239,11 @@ class CPylon : public CThing
 		double GetZ(void)	{ return m_dZ; }
 
 		// Search the list of pylons and return a pointer to the one with the given ID
-		CPylon* GetPylon(UCHAR ucPylonID);
+		CPylon* GetPylon(uint8_t ucPylonID);
 
 		// Search the list of pylons and return the instance ID of the one with
 		// the given pylon id.
-		U16 GetPylonUniqueID(UCHAR ucPylonID);
+		U16 GetPylonUniqueID(uint8_t ucPylonID);
 
 		// Return true if the pylon was triggered in the last interation
 		inline bool Triggered(void)
@@ -275,7 +275,7 @@ class CPylon : public CThing
 		int16_t FreeResources(void);						// Returns 0 if successfull, non-zero otherwise
 
 		// GetFreePylonID - get the next ID that is not in use
-		UCHAR GetFreePylonID(void);
+		uint8_t GetFreePylonID(void);
 		
 		// Process Messages - look for DudeTrigger message
 		void ProcessMessages(void);

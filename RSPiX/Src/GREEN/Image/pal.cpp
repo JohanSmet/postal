@@ -396,7 +396,7 @@ int16_t RPal::SetData(void* pUserData)
 {
 	if (pUserData != NULL && m_pData == NULL)
 	{
-		m_pData = (UCHAR*) pUserData;
+		m_pData = (uint8_t*) pUserData;
 		m_sCanDestroyData = FALSE;
 		return SUCCESS;
 	}
@@ -431,9 +431,9 @@ int16_t RPal::SetData(void* pUserData)
 //
 //////////////////////////////////////////////////////////////////////
 
-UCHAR* RPal::DetachData(void)
+uint8_t* RPal::DetachData(void)
 {
- 	UCHAR* pDetachment = m_pData;
+ 	uint8_t* pDetachment = m_pData;
 	m_pData = NULL;
 	m_sCanDestroyData = FALSE;
 	return pDetachment;

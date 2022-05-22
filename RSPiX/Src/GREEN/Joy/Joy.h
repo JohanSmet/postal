@@ -41,7 +41,7 @@
 
 // Sets the ucKey as the key representing usState on sJoy joystick.
 // Returns 0 on success.
-extern int16_t Joy_SetKey(int16_t sJoy, UCHAR ucKey, uint16_t usState);
+extern int16_t Joy_SetKey(int16_t sJoy, uint8_t ucKey, uint16_t usState);
 
 // Updates joystick sJoy's current state and makes the current state the 
 // previous.

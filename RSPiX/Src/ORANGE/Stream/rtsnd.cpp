@@ -137,7 +137,7 @@ void CRtSnd::Reset(void)
 // Returns RET_FREE if done with data on return, RET_DONTFREE otherwise.
 //
 //////////////////////////////////////////////////////////////////////////////
-int16_t CRtSnd::Use(UCHAR* puc, long lSize, uint16_t usType, UCHAR ucFlags,
+int16_t CRtSnd::Use(uint8_t* puc, long lSize, uint16_t usType, uint8_t ucFlags,
 						long lTime)
 	{
 	int16_t	sRes		= RET_FREE;	// Always free.
@@ -320,7 +320,7 @@ void* CRtSnd::MixCall(	uint16_t usMsg, void* pData, uint32_t* pulBufSize,
 				// Must get.
 				ASSERT(psb != NULL)
 				// Should match supplied.
-				if /*ASSERT*/(psb->puc + DATACHUNKHEADERSIZE == (UCHAR*)pData)
+				if /*ASSERT*/(psb->puc + DATACHUNKHEADERSIZE == (uint8_t*)pData)
 					TRACE("MixCall(): Not the expected pointer.\n");
 
 				// Set last flag.
@@ -464,8 +464,8 @@ void CRtSnd::CritiCall(uint32_t)
 // (static)
 //
 //////////////////////////////////////////////////////////////////////////////
-int16_t CRtSnd::UseStatic(	UCHAR* puc, long lSize, uint16_t usType, 
-									UCHAR ucFlags, long lTime, long l_pRtSnd)
+int16_t CRtSnd::UseStatic(	uint8_t* puc, long lSize, uint16_t usType, 
+									uint8_t ucFlags, long lTime, long l_pRtSnd)
 	{
 	return ((CRtSnd*)l_pRtSnd)->Use(puc, lSize, usType, ucFlags, lTime);
 	}

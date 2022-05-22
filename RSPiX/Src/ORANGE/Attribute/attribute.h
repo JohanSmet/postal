@@ -110,15 +110,15 @@ class RAttributeMap
 		uint16_t GetAttribute(int32_t lTop, int32_t lBottom, int32_t lLeft, int32_t lRight);
 
 		// Get just the low 8 bits (flags) from the last GetAttribute Call
-		UCHAR GetFlags()
+		uint8_t GetFlags()
 			{return m_ucFlags;};
 		
 		// Get the maximum height from the last GetAttribute Call
-		UCHAR GetMaxHeight()
+		uint8_t GetMaxHeight()
 			{return m_ucMaxHeight;};
 
 		// Get the minimum height from the last GetAttribute Call
-		UCHAR GetMinHeight()
+		uint8_t GetMinHeight()
 			{return m_ucMinHeight;};
 
 	private:
@@ -132,13 +132,13 @@ class RAttributeMap
 		uint16_t m_usLastAttribute;
 
 		// The Max height stored since the last GetAttribute Call
-		UCHAR m_ucMaxHeight;
+		uint8_t m_ucMaxHeight;
 
 		// The Min height stored since the last GetAttribute Call
-		UCHAR m_ucMinHeight;
+		uint8_t m_ucMinHeight;
 
 		// The flags stored since the last GetAttribute Call
-		UCHAR m_ucFlags;
+		uint8_t m_ucFlags;
 
 		// Allocate buffer for map
 		int16_t AllocateMap(uint32_t ulSize, uint32_t ulDetailMapSize);
