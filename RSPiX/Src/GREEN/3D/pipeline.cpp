@@ -437,7 +437,7 @@ void RPipeLine::ClearClipBuffer()
 	{
 	if (m_pimClipBuf == NULL) return;
 
-	rspRect(ULONG(0),m_pimClipBuf,0,0,
+	rspRect(uint32_t(0),m_pimClipBuf,0,0,
 		m_pimClipBuf->m_sWidth,m_pimClipBuf->m_sHeight);
 	}
 
@@ -445,6 +445,6 @@ void RPipeLine::ClearShadowBuffer()
 	{
 	if (m_pimShadowBuf == NULL) return;
 
-	rspRect(ULONG(0),m_pimShadowBuf,0,0,
+	rspRect(uint32_t(0),m_pimShadowBuf,0,0,
 		m_pimShadowBuf->m_sWidth,m_pimShadowBuf->m_sHeight);
 	}

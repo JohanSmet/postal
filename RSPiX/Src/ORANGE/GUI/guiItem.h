@@ -45,7 +45,7 @@
 //							just the client by default.  
 //
 //		01/26/97	JMI	Altered static HotCall to accept an RHot* instead of a
-//							ULONG 'as per' new RHot callbacks.
+//							uint32_t 'as per' new RHot callbacks.
 //
 //		02/05/97	JMI	Added enum for new PushBtn (RPushBtn).
 //

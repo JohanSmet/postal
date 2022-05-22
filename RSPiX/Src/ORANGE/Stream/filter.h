@@ -67,7 +67,7 @@ class CFilter
 		~CFilter();
 
 	public:		// Methods.
-		void SetFilter(ULONG ulFilterMask)
+		void SetFilter(uint32_t ulFilterMask)
 			{ m_ulFilter = ulFilterMask; }
 
 		void SetFileWin(CFileWin* pfw)
@@ -87,7 +87,7 @@ class CFilter
 
 	public:		// Querries.
 		// Returns the current filter mask.
-		ULONG GetFilter(void)
+		uint32_t GetFilter(void)
 			{ return m_ulFilter; }
 
 	protected:	// Internal methods.
@@ -134,7 +134,7 @@ class CFilter
 
 
 	protected:	// Members.
-		ULONG			m_ulFilter;				// Channels allowed to pass.
+		uint32_t			m_ulFilter;				// Channels allowed to pass.
 		long			m_lPadSize;				// Size of current padding.
 		long			m_lBufRemaining;		// Amount of current buffer remaining.
 		PRTCHUNK		m_pChunk;				// Current chunk.

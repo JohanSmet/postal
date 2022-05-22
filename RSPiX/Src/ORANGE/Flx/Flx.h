@@ -57,11 +57,11 @@
 											// FLI: jiffies (1/70th) between frames (2 UCHARs)
 		// The rest is for FLC files only -- for FLI files, it's all reserved.
 		USHORT sReserveA;				// Reserved -- set to zero
-		ULONG dCreatedTime;			// MS-DOS-formatted date and time of file's creation
-		ULONG dCreator;				// Serial number of Animator Pro program used to
+		uint32_t dCreatedTime;			// MS-DOS-formatted date and time of file's creation
+		uint32_t dCreator;				// Serial number of Animator Pro program used to
 											// create file -- $464c4942 is a good one ("FLIB")
-		ULONG dUpdatedTime;			// MS-DOS-formatted date and time of file's update
-		ULONG dUpdater;				// Serial number of Animator Pro program used to
+		uint32_t dUpdatedTime;			// MS-DOS-formatted date and time of file's update
+		uint32_t dUpdater;				// Serial number of Animator Pro program used to
 											// update file -- $464c4942 is a good one ("FLIB")
 		int16_t sAspectX;				// X-axis aspect ratio at which file was created
 		int16_t sAspectY;				// Y-axis aspect ratio at which file was created

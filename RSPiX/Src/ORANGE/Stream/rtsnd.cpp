@@ -192,7 +192,7 @@ int16_t CRtSnd::Use(UCHAR* puc, long lSize, USHORT usType, UCHAR ucFlags,
 				if (sWasEmpty == TRUE)
 					{
 					// Start critical handler that starts the mixing . . .
-					if (Blu_AddCritical(CritiCall, (ULONG)this) == 0)
+					if (Blu_AddCritical(CritiCall, (uint32_t)this) == 0)
 						{
 						// Success.
 						}
@@ -300,8 +300,8 @@ int16_t CRtSnd::Use(UCHAR* puc, long lSize, USHORT usType, UCHAR ucFlags,
 //	(static)
 //
 //////////////////////////////////////////////////////////////////////////////
-void* CRtSnd::MixCall(	USHORT usMsg, void* pData, ULONG* pulBufSize, 
-										ULONG ul_psndhdr)
+void* CRtSnd::MixCall(	USHORT usMsg, void* pData, uint32_t* pulBufSize, 
+										uint32_t ul_psndhdr)
 	{
 	PSND_RT_HDR	psndhdr	= (PSND_RT_HDR)ul_psndhdr;
 	PSNDBUF		psb;
@@ -410,7 +410,7 @@ void* CRtSnd::MixCall(	USHORT usMsg, void* pData, ULONG* pulBufSize,
 // (static)
 //
 //////////////////////////////////////////////////////////////////////////////
-void CRtSnd::CritiCall(ULONG)
+void CRtSnd::CritiCall(uint32_t)
 	{
 	PSND_RT_HDR	psndhdr	= ms_listSndhdrs.GetHead();
 
@@ -434,7 +434,7 @@ void CRtSnd::CritiCall(ULONG)
 					if (psb->lTime <= lTime)
 						{
 						// Attempt to start mixing in our channel . . .
-						if (psndhdr->mix.Start(MixCall, (ULONG)psndhdr, 0) == 0)
+						if (psndhdr->mix.Start(MixCall, (uint32_t)psndhdr, 0) == 0)
 							{
 							psndhdr->usStatus |= STATUS_STARTED;
 							}

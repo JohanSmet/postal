@@ -173,7 +173,7 @@ long ReadBitmapInfo(	BITMAPINFO*	pbmi, CNFile* pfile)
 //
 //////////////////////////////////////////////////////////////////////////////
 int16_t CRtVidc::DecompressFrame(	PVIDC_RT_HDR pvidchdr, CNFile* pfile, 
-											ULONG ulFlags, PBMI pbmiIn, PBMI pbmiOut)
+											uint32_t ulFlags, PBMI pbmiIn, PBMI pbmiOut)
 
 	{
 	int16_t	sRes	= 0;	// Assume success.
@@ -311,7 +311,7 @@ int16_t CRtVidc::Use(	UCHAR* puc, long lSize, USHORT usType, UCHAR ucFlags,
 			ASSERT(pvidchdr->pImage->pPalette			!= NULL);
 			ASSERT(pvidchdr->pImage->pPalette->pData	!= NULL);
 
-			ULONG	ulFlags	= 0;
+			uint32_t	ulFlags	= 0;
 			if (ucFlags & RT_FLAG_TAG)
 				{
 				// Key frame.

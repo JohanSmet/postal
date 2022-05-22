@@ -226,7 +226,7 @@ void RLaymage::ClearChannelBuffers(void)
 //
 //////////////////////////////////////////////////////////////////////
 
-int16_t RLaymage::AllocateChannelBuffers(ULONG ulSize)
+int16_t RLaymage::AllocateChannelBuffers(uint32_t ulSize)
 {
 	int16_t sReturn = SUCCESS;
 
@@ -402,7 +402,7 @@ int16_t RLaymage::ReadPSDHeader(char* pszFilename)
 	RFile cf;
 	RFile cfChannel;
 	// int16_t sReturn = SUCCESS;
-	ULONG ulData;
+	uint32_t ulData;
 	USHORT usData;
 
 	if (cf.Open(pszFilename, "rb", RFile::BigEndian) != SUCCESS)
@@ -616,7 +616,7 @@ error:
 
 int16_t RLaymage::SetChannelPointer(int16_t sNumLayers, RFile* pcfChannel)
 {
-	ULONG ulData;
+	uint32_t ulData;
 	USHORT usNumChannels = 0;
 	USHORT i;
 	UCHAR ucData;
@@ -693,16 +693,16 @@ int16_t RLaymage::SetChannelPointer(int16_t sNumLayers, RFile* pcfChannel)
 int16_t RLaymage::ReadLayerInfo(int16_t sLayerNum, RFile* pcfLayer, 
                               RFile* pcfChannel)
 {
-	ULONG ulData;
+	uint32_t ulData;
 	USHORT usData;
 	UCHAR ucData;
 	int16_t asChannelID[LAYMAGE_MAXCHANNELS];
 	// USHORT usNextChannel = 0;
 	USHORT usNumChannels = 0;
-	ULONG ulTop;
-	ULONG ulBottom;
-	ULONG ulLeft;
-	ULONG ulRight;
+	uint32_t ulTop;
+	uint32_t ulBottom;
+	uint32_t ulLeft;
+	uint32_t ulRight;
 	USHORT k;
 	USHORT i;
 	int16_t sReturn = SUCCESS;
@@ -800,7 +800,7 @@ int16_t RLaymage::ReadLayerInfo(int16_t sLayerNum, RFile* pcfLayer,
 						{
 						// Read RLE compressed data
 						USHORT m;
-						ULONG ulCompSize = 0;
+						uint32_t ulCompSize = 0;
 						for (m = 0; m < ulBottom-ulTop; m++)
 							{
 							pcfChannel->Read(&usData);
@@ -830,7 +830,7 @@ int16_t RLaymage::ReadLayerInfo(int16_t sLayerNum, RFile* pcfLayer,
 						// this position in the file.  Get the total size of 
 						// compressed data and then skip over it.
 						USHORT j;
-						ULONG ulSkip = 0;
+						uint32_t ulSkip = 0;
 						for (j = 0; j < ulBottom - ulTop; j++)
 							{
 							pcfChannel->Read(&usData);
@@ -884,7 +884,7 @@ int16_t RLaymage::ReadLayerInfo(int16_t sLayerNum, RFile* pcfLayer,
 				// channel (in other words, there are row * channel number of byte counts) followed
 				// by the compressed data for all the rows.  Our compression is oriented towards
 				// doing each channel separately, so we have to jump around in the file alot.
-				ULONG ulCompSize[4] = { 0, 0, 0, 0 };
+				uint32_t ulCompSize[4] = { 0, 0, 0, 0 };
 				for (k = 0; k < 4; k++)
 					{
 					for (USHORT m = 0; m < m_lHeight; m++)
@@ -936,17 +936,17 @@ int16_t RLaymage::ReadLayerInfo(int16_t sLayerNum, RFile* pcfLayer,
 
 int16_t RLaymage::ReadLayerName(int16_t sLayerNum, RFile* pcfLayer)
 {
-	ULONG ulData;
+	uint32_t ulData;
 	USHORT usData;
 	UCHAR ucData;
-	ULONG* pulChannelLength = NULL;
+	uint32_t* pulChannelLength = NULL;
 	int16_t* psChannelID = NULL;
 	USHORT usNextChannel = 0;
 	USHORT usNumChannels = 0;
-	ULONG ulTop;
-	ULONG ulBottom;
-	ULONG ulLeft;
-	ULONG ulRight;
+	uint32_t ulTop;
+	uint32_t ulBottom;
+	uint32_t ulLeft;
+	uint32_t ulRight;
 	USHORT i;
 	int16_t sReturn = SUCCESS;
 
@@ -959,7 +959,7 @@ int16_t RLaymage::ReadLayerName(int16_t sLayerNum, RFile* pcfLayer)
 	pcfLayer->Read(&ulRight);
 	pcfLayer->Read(&usNumChannels);
 
-	pulChannelLength = (ULONG*) calloc(usNumChannels, sizeof(ULONG));
+	pulChannelLength = (uint32_t*) calloc(usNumChannels, sizeof(uint32_t));
 	psChannelID = (int16_t*) calloc(usNumChannels, sizeof(int16_t));
 	if (pulChannelLength == NULL || psChannelID == NULL)
 	{
@@ -1034,12 +1034,12 @@ int16_t RLaymage::ReadLayerName(int16_t sLayerNum, RFile* pcfLayer)
 //
 //////////////////////////////////////////////////////////////////////
 
-int16_t RLaymage::RLE_Decompress(char* pcBuffer, ULONG ulCompSize, RFile* pcfRLE)
+int16_t RLaymage::RLE_Decompress(char* pcBuffer, uint32_t ulCompSize, RFile* pcfRLE)
 {
 	int16_t sReturn;
-	ULONG ulRead = 0;
-	ULONG ulBufferPos = 0;
-//	ULONG ulBufferFill = 0;
+	uint32_t ulRead = 0;
+	uint32_t ulBufferPos = 0;
+//	uint32_t ulBufferFill = 0;
 	signed char cData;
 	signed char cFlag;
 	UCHAR ucRun;
@@ -1116,15 +1116,15 @@ int16_t RLaymage::RLE_Decompress(char* pcBuffer, ULONG ulCompSize, RFile* pcfRLE
 //
 //////////////////////////////////////////////////////////////////////
 
-int16_t RLaymage::ConvertToImage(int16_t sLayerNum, ULONG ulTop, ULONG ulBottom, 
-                               ULONG ulLeft, ULONG ulRight)
+int16_t RLaymage::ConvertToImage(int16_t sLayerNum, uint32_t ulTop, uint32_t ulBottom, 
+                               uint32_t ulLeft, uint32_t ulRight)
 {
 	int16_t sReturn = SUCCESS;
 	RImage* pImage;
-	ULONG row;
-	ULONG col;
-	ULONG i;
-	ULONG ulPixel;
+	uint32_t row;
+	uint32_t col;
+	uint32_t i;
+	uint32_t ulPixel;
 
 	pImage = m_apImages[sLayerNum] = new RImage(m_lWidth*m_lHeight*4);
 	if (pImage)
@@ -1142,7 +1142,7 @@ int16_t RLaymage::ConvertToImage(int16_t sLayerNum, ULONG ulTop, ULONG ulBottom,
 		pImage->m_sDepth = 32;
 		pImage->m_lPitch = (int32_t)pImage->m_sWidth * (pImage->m_sDepth/8);
 
-		ULONG* ulp32 = (ULONG*) pImage->m_pData;
+		uint32_t* ulp32 = (uint32_t*) pImage->m_pData;
 		int32_t lDestPitch = pImage->m_lPitch / 4;
 
 		i = 0;
@@ -1201,8 +1201,8 @@ int16_t RLaymage::Load(char* pszFilename)
 int16_t RLaymage::Load(RFile* pcf)
 {
 	int16_t sReturn = SUCCESS;
-	ULONG ulFileType = 0;
-	ULONG ulVersion = 0;
+	uint32_t ulFileType = 0;
+	uint32_t ulVersion = 0;
 
 	if (pcf && pcf->IsOpen())
 	{

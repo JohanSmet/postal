@@ -108,7 +108,7 @@ class RMix
 		// Callback.
 		typedef void* (*RMixCall)(	Msg		msg, 
 											void*		pData, 
-											ULONG*	pulBufSize, 
+											uint32_t*	pulBufSize, 
 											intptr_t		ulUser,
 											UCHAR*	pucVol1,
 											UCHAR*	pucVol2);
@@ -319,7 +319,7 @@ class RMix
 			UCHAR*	pucData, 
 			int32_t		lBufSize, 
 			int32_t		lDataPos,
-			ULONG*	pul_ppmixbuf);
+			uint32_t*	pul_ppmixbuf);
 
 	public:	// members
 
@@ -342,7 +342,7 @@ class RMix
 		RMixCall		m_mcUser;				// User callback.
 		intptr_t			m_ulUser;				// User value.
 		UCHAR*		m_pucData;				// User data.
-		ULONG			m_ulAmount;				// Amount of user data remaining.
+		uint32_t			m_ulAmount;				// Amount of user data remaining.
 
 		int32_t			m_lStartTime;			// Audio time when first buffer entered
 													// queue.
@@ -361,7 +361,7 @@ class RMix
 		static State			ms_sState;			// Current state for all RMixes.
 		static int32_t				ms_lCurPos;			// Current play position
 															// based on absolute start.
-		static ULONG			ms_ulBufSize;		// The size to use when allocating
+		static uint32_t			ms_ulBufSize;		// The size to use when allocating
 															// RMixBufs.
 		static int16_t			ms_sReset;			// Resets Blue and returns all
 															// current user buffers.

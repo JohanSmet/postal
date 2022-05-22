@@ -463,7 +463,7 @@ int16_t CFileWin::Start(void)
 		{
 		if (m_sActive == FALSE)
 			{
-			if (Blu_AddCritical((CRITICALL)CriticalStatic, (ULONG)this) == 0)
+			if (Blu_AddCritical((CRITICALL)CriticalStatic, (uint32_t)this) == 0)
 				{
 				// Pick up where we left off.
 				m_lNextTime	= GetTime() + m_lNextTime;

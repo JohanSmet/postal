@@ -141,7 +141,7 @@ class RAttributeMap
 		UCHAR m_ucFlags;
 
 		// Allocate buffer for map
-		int16_t AllocateMap(ULONG ulSize, ULONG ulDetailMapSize);
+		int16_t AllocateMap(uint32_t ulSize, uint32_t ulDetailMapSize);
 			
 	public:
 		// Deallocate buffer for map

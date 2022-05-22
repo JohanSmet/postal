@@ -811,7 +811,7 @@ int16_t CDoofus::Load(										// Returns 0 if successfull, non-zero otherwise
 	RFile* pFile,											// In:  File to load from
 	bool bEditMode,										// In:  True for edit mode, false otherwise
 	int16_t sFileCount,										// In:  File count (unique per file, never 0)
-	ULONG	ulFileVersion)									// In:  Version of file format to load.
+	uint32_t	ulFileVersion)									// In:  Version of file format to load.
 	{
 	int16_t sResult = CCharacter::Load(pFile, bEditMode, sFileCount, ulFileVersion);
 
@@ -1230,10 +1230,10 @@ int16_t CDoofus::SelectDude(void)
 //	Things* pDudes;
 
 	m_idDude = CIdBank::IdNil;
-	ULONG	ulSqrDistance;
-	ULONG	ulCurSqrDistance	= 0xFFFFFFFF;
-	ULONG	ulDistX;
-	ULONG	ulDistZ;
+	uint32_t	ulSqrDistance;
+	uint32_t	ulCurSqrDistance	= 0xFFFFFFFF;
+	uint32_t	ulDistX;
+	uint32_t	ulDistZ;
 //	pDudes = m_pRealm->m_apthings[CThing::CDudeID];
 	CDude*	pdude;
 

@@ -1816,7 +1816,7 @@ extern void GameEdit(
 					if (pguiItem != NULL)
 						{
 						pguiItem->m_lId			= LIST_ITEM_GUI_ID_BASE + idCur;
-						pguiItem->m_ulUserData	= (ULONG)idCur;
+						pguiItem->m_ulUserData	= (uint32_t)idCur;
 
 						// Set the callback on pressed.
 						pguiItem->m_bcUser		= ListItemPressedCall;
@@ -1854,7 +1854,7 @@ extern void GameEdit(
 				if (pguiItem != NULL)
 					{
 					// Remember which layer it's associated with.
-					pguiItem->m_ulUserData	= (ULONG)sLayer;
+					pguiItem->m_ulUserData	= (uint32_t)sLayer;
 					// We'll need to know when these are pressed.
 					pguiItem->m_bcUser	= ListItemPressedCall;
 					pguiItem->m_lId		= GUI_ID_TOGGLE_LAYER;
@@ -7547,7 +7547,7 @@ static int16_t TmpFileName(								// Returns 0 if successfull, non-zero otherwi
 	#if defined(WIN32)
 
 		char	szPath[RSP_MAX_PATH];
-		ULONG	ulLen	= GetTempPath(sizeof(szPath), szPath);
+		uint32_t	ulLen	= GetTempPath(sizeof(szPath), szPath);
 		if (ulLen >= sizeof(szPath) )
 			{
 			TRACE("TmpFileName(): GetTempPath() could not fit the path and filename into our string.\n");

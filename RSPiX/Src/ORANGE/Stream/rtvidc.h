@@ -58,7 +58,7 @@ class VIDC_RT_HDR
 		int16_t			sTransparent;		// Blt with transparency if TRUE.
 		int16_t			sX;					// Intended position in x direction.
 		int16_t			sY;					// Intended position in y direction.
-		ULONG			ulFCCHandler;		// FCC of Windows' VIDC handler.
+		uint32_t			ulFCCHandler;		// FCC of Windows' VIDC handler.
 	
 		// Header info for our use.
 		CImage*		pImage;				// Where to blt.
@@ -111,7 +111,7 @@ class CRtVidc
 		// Decompresses a VIDC frame using the opened decompressor.
 		// Returns 0 on success.
 		int16_t DecompressFrame(	PVIDC_RT_HDR pvidchdr, CNFile* pfile, 
-										ULONG ulFlags, PBMI pbmiIn, PBMI pbmiOut);
+										uint32_t ulFlags, PBMI pbmiIn, PBMI pbmiOut);
 
 		// Use handler for RtVidc buffers.
 		// Returns RET_FREE if done with data on return, RET_DONTFREE otherwise.

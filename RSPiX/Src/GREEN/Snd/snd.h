@@ -189,7 +189,7 @@ class RSnd
 		// Returns pointer to next buffer to play or NULL to end.
 		void* StreamCall(	RMix::Msg msg, 
 								void* pData, 
-								ULONG* pulNewBufSize,
+								uint32_t* pulNewBufSize,
 								intptr_t	 ulUser,
 								UCHAR* pucVolume = NULL,
 								UCHAR* pucVol2 = NULL);
@@ -199,7 +199,7 @@ class RSnd
 		// Returns pointer to next buffer to play or NULL to end.
 		static void* StreamCallStatic(RMix::Msg msg, 
 												 void* pData,
-												 ULONG* pulNewBufSize,
+												 uint32_t* pulNewBufSize,
 												 intptr_t ulUser,
 												 UCHAR* pucVolume = NULL,
 												 UCHAR* pucVol2 = NULL);
@@ -208,7 +208,7 @@ class RSnd
 		// Returns pointer to next buffer to play or NULL to end.
 		void* PlayCall(RMix::Msg msg, 
 							void* pData,
-							ULONG* pulNewBufSize,
+							uint32_t* pulNewBufSize,
 							UCHAR*		pucVolume = NULL,
 							UCHAR*		pucVol2 = NULL);
 
@@ -217,7 +217,7 @@ class RSnd
 		// Returns pointer to next buffer to play or NULL to end
 		static void* PlayCallStatic(RMix::Msg msg, 
 											 void* pData,
-											 ULONG* pulNewBufSize,
+											 uint32_t* pulNewBufSize,
 											 intptr_t ulUser,
 											 UCHAR* pucVolume = NULL,
 											 UCHAR* pucVol2 = NULL);
@@ -233,7 +233,7 @@ class RSnd
 		DoneCall		m_dcUser;		// User callback when done playing/streaming
 											// a sample.
 
-		ULONG			m_ulUser;		// User value -- set as you please.
+		uint32_t			m_ulUser;		// User value -- set as you please.
 
 		int16_t			m_sChannelVolume;// 0-255 = Primary (local) Volume
 		int16_t			m_sTypeVolume;	// 0-255	= Secondary (category) Volume
@@ -246,8 +246,8 @@ class RSnd
 		PSAMPLE		m_psample;		// Sample to be streamed.
 		int16_t			m_sOwnSample;	// TRUE if RSnd allocated m_psample, FALSE
 											// otherwise.
-		ULONG			m_ulRemaining;	// Amount left of sample data to be played.
-		ULONG			m_ulSampleSize;// Overall sample size.
+		uint32_t			m_ulRemaining;	// Amount left of sample data to be played.
+		uint32_t			m_ulSampleSize;// Overall sample size.
 
 		/////////////////////// Static members /////////////////////////////////
 	

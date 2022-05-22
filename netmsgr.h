@@ -328,10 +328,10 @@ class NetMsg
 
 		typedef struct Err
 			{
-			enum { Size = 1 + sizeof(Error) + sizeof(ULONG) };
+			enum { Size = 1 + sizeof(Error) + sizeof(uint32_t) };
 			unsigned char	ucType;								// Message type
 			Error				error;								// error value
-			ULONG				ulParam;								// Miscellaneous param for errors.
+			uint32_t				ulParam;								// Miscellaneous param for errors.
 																		// For *VersionMismatchError, used
 																		// for other system's version for
 																		// error reportage.

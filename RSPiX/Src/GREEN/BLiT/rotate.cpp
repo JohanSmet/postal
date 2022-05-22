@@ -41,7 +41,7 @@ I AM ARCHAIC !  REMOVE ME AT ONCE AND ADD ROTATE96.CPP!
 class RSaveOld
 	{
 public:
-	ULONG m_type;
+	uint32_t m_type;
 	int16_t sX;
 	int16_t sY;
 	int16_t sW;
@@ -632,7 +632,7 @@ int16_t rspStrafeRotate(void *pReturnArray,	// Output
 	
 	rspSetConvertToROTBUF(sCenterX,sCenterY);
 
-	ULONG ulOldType  = pimSrc->m_type;
+	uint32_t ulOldType  = pimSrc->m_type;
 	if (pimSrc->Convert(RImage::ROTBUF)!= RImage::ROTBUF)
 		{
 		TRACE("rspStrafeRotate: Internal Conversion error\n");

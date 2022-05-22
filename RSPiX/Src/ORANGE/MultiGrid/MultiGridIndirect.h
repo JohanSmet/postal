@@ -316,7 +316,7 @@ public:
 	RMultiGrid*	m_pmg;		// The MultiGrid inherent under the system
 	UCHAR*	m_pucPalette;	// Data holding the palette entries
 	UCHAR**	m_ppucAccessY;	// Array of (GridH) pointers into the Palette
-	ULONG*	m_plAccessX;	// Array of offsets into the Palette
+	uint32_t*	m_plAccessX;	// Array of offsets into the Palette
 	int16_t	m_sMaxPlanes;		// Can be custom tailored to save memory
 	RImage*	m_pimTempTile;	// For construction & easy writing.
 	RImage*	m_pimBuffer;	// Large conversion buffer

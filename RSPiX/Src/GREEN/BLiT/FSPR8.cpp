@@ -391,7 +391,7 @@ int16_t   ConvertToFSPR8(RImage*  pImage)
 	ASSERT( ((pucCPos - pHeader->m_pCompBuf)) < 2*1024*1024); // just in case something flakey happens!
 	ASSERT( ((pucCPos - pHeader->m_pCompBuf)) >= 0); // just in case something flakey happens!
 	// NOTE THE SIZE:
-	pHeader->m_lBufSize = ULONG(pucCPos - pHeader->m_pCompBuf);
+	pHeader->m_lBufSize = uint32_t(pucCPos - pHeader->m_pCompBuf);
 		
 	// Shrink the Compressed buffer:
 	if (pucCPos == pHeader->m_pCompBuf)
@@ -485,7 +485,7 @@ int16_t   ConvertToFSPR8(RImage*  pImage)
 	// Store the size of the Control Block Buffer:
 	pHeader->m_pCodeArry[sH] = (UCHAR*)(size_t)(pucConBlk - pHeader->m_pCodeBuf);
 	// NOTE THE SIZE:
-	pHeader->m_lCodeSize = ULONG(pucConBlk - pHeader->m_pCodeBuf);
+	pHeader->m_lCodeSize = uint32_t(pucConBlk - pHeader->m_pCodeBuf);
 
 	// Shrink the Control Block buffer:
 	pHeader->m_pCodeBuf = (UCHAR*)realloc((void*)pHeader->m_pCodeBuf,

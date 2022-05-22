@@ -1124,7 +1124,7 @@ int32_t RFile::Read(S8*	ps8Data, int32_t lNum /*= 1L*/)
 	if ((m_flags & Ascii) != 0)
 		{
 		// Read ASCII data.
-		lRes = ReadASCII(ps8Data, lNum, m_fs, (double)CHAR_MAX);
+		lRes = ReadASCII(ps8Data, lNum, m_fs, (double)S8_MAX);
 		}
 	else
 		{
@@ -1148,7 +1148,7 @@ int32_t RFile::Read(U16* pu16Data, int32_t lNum /*= 1L*/)
 	if ((m_flags & Ascii) != 0)
 		{
 		// Read ASCII data.
-		lRes = ReadASCII(pu16Data, lNum, m_fs, (double)USHRT_MAX);
+		lRes = ReadASCII(pu16Data, lNum, m_fs, (double)U16_MAX);
 		}
 	else
 		{
@@ -1172,7 +1172,7 @@ int32_t RFile::Read(S16* ps16Data, int32_t lNum /*= 1L*/)
 	if ((m_flags & Ascii) != 0)
 		{
 		// Read ASCII data.
-		lRes = ReadASCII(ps16Data, lNum, m_fs, (double)SHRT_MAX);
+		lRes = ReadASCII(ps16Data, lNum, m_fs, (double)S16_MAX);
 		}
 	else
 		{
@@ -1221,7 +1221,7 @@ int32_t RFile::Read(U32* pu32Data, int32_t lNum /*= 1L*/)
 	if ((m_flags & Ascii) != 0)
 		{
 		// Read ASCII data.
-		lRes = ReadASCII(pu32Data, lNum, m_fs, (double)ULONG_MAX);
+		lRes = ReadASCII(pu32Data, lNum, m_fs, (double)U32_MAX);
 		}
 	else
 		{
@@ -1245,7 +1245,7 @@ int32_t RFile::Read(S32* ps32Data, int32_t lNum /*= 1L*/)
 	if ((m_flags & Ascii) != 0)
 		{
 		// Read ASCII data.
-		lRes = ReadASCII(ps32Data, lNum, m_fs, (double)LONG_MAX);
+		lRes = ReadASCII(ps32Data, lNum, m_fs, (double)S32_MAX);
 		}
 	else
 		{

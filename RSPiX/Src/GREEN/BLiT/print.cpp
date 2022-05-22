@@ -209,7 +209,7 @@ int16_t RFontOld::Create(char *pszFontName,char *pszFullInputName,
 			int16_t(pimLetter->lHeight) );
 
 		// Add it in:
-		//rspSetConvertToFSPR1((ULONG)ucInitialTrim,(ULONG)ucBackCol,sTrimTop,sMaxH,(UCHAR)i);
+		//rspSetConvertToFSPR1((uint32_t)ucInitialTrim,(uint32_t)ucBackCol,sTrimTop,sMaxH,(UCHAR)i);
 		//int16_t sX = 0,sY = 0,sW = pimLetter
 		// Need to use rsplasso with this...
 		// Will be writing a utility to do this...
@@ -827,15 +827,15 @@ void	RPrint::PrintLine(int16_t sNumChar,int16_t /*sJustDelta*/,
 		sW = pimCur->Draw(-1,m_sCellH,m_pimTarget,m_sCurX,m_sCurY,
 			m_clrBKD,m_clrFGD,-1,m_pCurFracX,m_pCurFracY);
 		*/
-	//	_rspBlit((ULONG)m_clrFGD,(ULONG)m_clrBKD,pimCur,m_pimTarget,
+	//	_rspBlit((uint32_t)m_clrFGD,(uint32_t)m_clrBKD,pimCur,m_pimTarget,
 	//		m_sCurX,m_sCurY,sW,sH,0,m_pCurFracY);//,m_pCurFracY,m_pCurFracX);
 		
 		/* old...
-		rspBlit((ULONG)m_clrFGD,(ULONG)m_clrBKD,pimCur,m_pimTarget,
+		rspBlit((uint32_t)m_clrFGD,(uint32_t)m_clrBKD,pimCur,m_pimTarget,
 			m_sCurX,m_sCurY,sStretchW,sH,&rCol,0,m_psItalic);
 		*/
 		// New...can't clip...
-		rspBlit((ULONG)m_clrFGD,pimCur,m_pimTarget,
+		rspBlit((uint32_t)m_clrFGD,pimCur,m_pimTarget,
 			m_sCurX,m_sCurY,sStretchW,sH,m_psItalic);
 
 		sX += sCellW;
@@ -935,16 +935,16 @@ RPrint& RPrint::print()
 		sCellW = pimCur->Draw(-1,m_sCellH,m_pimTarget,m_sCurX,m_sCurY,
 			m_clrBKD,m_clrFGD,-1,m_pCurFracX,m_pCurFracY);
 			*/
-		//_rspBlit((ULONG)m_clrFGD,(ULONG)m_clrBKD,pimCur,m_pimTarget,
+		//_rspBlit((uint32_t)m_clrFGD,(uint32_t)m_clrBKD,pimCur,m_pimTarget,
 		//	m_sCurX,m_sCurY,sW,sH,0,m_pCurFracY);//,m_pCurFracY,m_pCurFracX);
 		// Pull out interspacing:
 
 		/* Old style...
-		rspBlit((ULONG)m_clrFGD,(ULONG)m_clrBKD,pimCur,m_pimTarget,
+		rspBlit((uint32_t)m_clrFGD,(uint32_t)m_clrBKD,pimCur,m_pimTarget,
 			m_sCurX,m_sCurY,sStretchW,sH,&rCol,m_sSpace,m_psItalic);//,m_pCurFracY,m_pCurFracX);
 		*/
 		// New style (can't clip...
-		rspBlit((ULONG)m_clrFGD,pimCur,m_pimTarget,
+		rspBlit((uint32_t)m_clrFGD,pimCur,m_pimTarget,
 			m_sCurX,m_sCurY,sStretchW,sH,m_psItalic);
 
 		m_sCurX += sCellW - ABS(m_sItalic);

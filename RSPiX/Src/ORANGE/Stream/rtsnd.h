@@ -66,13 +66,13 @@ class CRtSnd
 
 		// Callback for mixer.
 		// Returns new buffer to play or NULL if none.
-		static void* MixCall(USHORT usMsg, void* pData, ULONG* pulBufSize, 
-									ULONG ul_psndhdr);
+		static void* MixCall(USHORT usMsg, void* pData, uint32_t* pulBufSize, 
+									uint32_t ul_psndhdr);
 
 		// Keeps the mixer channel open and starts the mixing in the beginning
 		// and whenever a break up occurs due to streaming for all active 
 		// channels.
-		static void CritiCall(ULONG);
+		static void CritiCall(uint32_t);
 
 	public:	// Internal typedefs.
 

@@ -143,7 +143,7 @@ class CRtPlay
 		// Handles current state.  Called by Blue's critical handler list.
 		void Critical(void);
 		// Static version of above.
-		static void CriticalStatic(ULONG ul_pRtPlay)
+		static void CriticalStatic(uint32_t ul_pRtPlay)
 			{ ((CRtPlay*)ul_pRtPlay)->Critical(); }
 
 
@@ -160,7 +160,7 @@ class CRtPlay
 		
 		USHORT		m_usState;				// Current state of class.
 
-		ULONG			m_ulChannelsDone;		// Masks of channels that have 
+		uint32_t			m_ulChannelsDone;		// Masks of channels that have 
 													// completed.
 
 		long			m_lWindowSize;			// Size for file window.

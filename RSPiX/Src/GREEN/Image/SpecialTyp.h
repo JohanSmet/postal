@@ -154,8 +154,8 @@ class	RSpecialFSPR8
 	{
 public:
 	USHORT	m_usCompType;	// = FSPR8 image type
-	ULONG		m_lBufSize;		// Size of the opaque pixel data
-	ULONG		m_lCodeSize;	// Size of the control block (compression codes)
+	uint32_t		m_lBufSize;		// Size of the opaque pixel data
+	uint32_t		m_lCodeSize;	// Size of the control block (compression codes)
 	USHORT	m_usSourceType;// uncompressed Image pre-compressed type
 
 	UCHAR*	m_pCompBuf;		// Compressed picture data, 128bit-aligned

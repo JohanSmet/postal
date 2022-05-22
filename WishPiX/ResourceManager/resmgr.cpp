@@ -798,8 +798,8 @@ int16_t RResMgr::CreateSak(RString strScriptFile, RString strSakFile)
 int16_t RResMgr::WriteSakHeader(RFile* prf)
 {
 	int16_t sReturn = SUCCESS;
-	ULONG ulFileType = SAK_COOKIE;
-	ULONG ulCurrentVersion = SAK_CURRENT_VERSION;
+	uint32_t ulFileType = SAK_COOKIE;
+	uint32_t ulCurrentVersion = SAK_CURRENT_VERSION;
 	USHORT usNumPairs = m_DirectoryMap.size();
 	dirMap::iterator m;
 
@@ -850,8 +850,8 @@ int16_t RResMgr::WriteSakHeader(RFile* prf)
 int16_t RResMgr::OpenSak(RString strSakFile)
 {
 	int16_t sReturn = SUCCESS;
-	ULONG ulFileType;
-	ULONG ulFileVersion;
+	uint32_t ulFileType;
+	uint32_t ulFileVersion;
 	USHORT usNumPairs;
 	USHORT i;
 	char char_buffer[256];

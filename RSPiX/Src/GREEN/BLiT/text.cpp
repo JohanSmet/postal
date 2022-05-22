@@ -49,16 +49,16 @@ REMOVE THIS FILE FROM YOUR PROJECT!  It is archaic!
 //
 
 // UNFORTUNATELY, WE NEED MORE INFORMATION TO do an accurate conversion:
-ULONG	gulLassoBackgroundColor = 0;	// to ignore on Lasso
-ULONG	gulCompressionBackgroundColor = 0;	// During compression
-ULONG	gulConvertFromColor = 255; // reverting back...
+uint32_t	gulLassoBackgroundColor = 0;	// to ignore on Lasso
+uint32_t	gulCompressionBackgroundColor = 0;	// During compression
+uint32_t	gulConvertFromColor = 255; // reverting back...
 UCHAR	gucAscii = (UCHAR) 0;
 int16_t gsTrimT = 0,gsMaxH = 0; // to further crop..
-ULONG gulDrawBack = 0, gulDrawFront = 1;
+uint32_t gulDrawBack = 0, gulDrawFront = 1;
 
 // Specify special conversion parameters...
 //
-void	rspSetConvertToFSPR1(ULONG ulLassoBackCol,ULONG ulComprBackCol,
+void	rspSetConvertToFSPR1(uint32_t ulLassoBackCol,uint32_t ulComprBackCol,
 								int16_t sTrimT,int16_t sMaxH,UCHAR ucAscii)
 	{
 	gulLassoBackgroundColor = ulLassoBackCol;
@@ -70,7 +70,7 @@ void	rspSetConvertToFSPR1(ULONG ulLassoBackCol,ULONG ulComprBackCol,
 
 // Specify special conversion parameters...
 //
-void	rspSetConvertFromFSPR1(ULONG ulFrontCol,ULONG ulBackCol)
+void	rspSetConvertFromFSPR1(uint32_t ulFrontCol,uint32_t ulBackCol)
 	{
 	gulDrawBack = ulBackCol;
 	gulDrawFront = ulFrontCol;
@@ -263,7 +263,7 @@ inline int16_t _ConvertFromFSPR1(CImage* pImage,PIX choose)
 	int16_t sH = (int16_t)pImage->lHeight;
 	int16_t sW = (int16_t)pImage->lWidth;
 
-	ULONG ulForeColor = (PIX)gulDrawFront;
+	uint32_t ulForeColor = (PIX)gulDrawFront;
 
 	pLineBuf.b = pBuf.b = pImage->pData;
 
@@ -338,7 +338,7 @@ inline int16_t _ConvertFromFSPR1(CImage* pImage,PIX choose)
 		}
 
 	// Reset it all
-	pImage->ulType = (ULONG)pHead->m_u32OldType; // Set back the type;
+	pImage->ulType = (uint32_t)pHead->m_u32OldType; // Set back the type;
 
 	// Remove pSpecial:
 	delete (CSpecialFSPR1*) pImage->pSpecial;
@@ -373,7 +373,7 @@ int16_t	ConvertToFSPR1(CImage* pImage)
 		break;
 
 		case 32:
-			//_ConvertToFSPR1(pImage,(ULONG)0); NOT YET!
+			//_ConvertToFSPR1(pImage,(uint32_t)0); NOT YET!
 		break;
 
 
@@ -411,7 +411,7 @@ int16_t ConvertFromFSPR1(CImage* pImage)
 		break;
 
 		case 32:
-			//_ConvertToFSPR1(pImage,(ULONG)0); NOT YET!
+			//_ConvertToFSPR1(pImage,(uint32_t)0); NOT YET!
 		break;
 
 
@@ -449,7 +449,7 @@ void	InstantiateBLiT()
 // currently 8-bit, but soon to be full color......
 // Must deal with screen locking.
 //
-int16_t	rspBlit(ULONG ulForeColor,ULONG ulBackColor,CImage* pimSrc,CImage* pimDst,int16_t sDstX,int16_t sDstY,const Rect* prDst,
+int16_t	rspBlit(uint32_t ulForeColor,uint32_t ulBackColor,CImage* pimSrc,CImage* pimDst,int16_t sDstX,int16_t sDstY,const Rect* prDst,
 					  int16_t sAddW)
 	{
 	
@@ -1065,7 +1065,7 @@ BLIT_DONTUNLOCK:
 // CURRENT STATUS -> fine clipping not perfected, Italics NOT integrated with clipping,
 // Background not perfected with tabs or interchar spacing.
 //
-int16_t	rspBlit(ULONG ulForeColor,ULONG ulBackColor,CImage* pimSrc,CImage* pimDst,
+int16_t	rspBlit(uint32_t ulForeColor,uint32_t ulBackColor,CImage* pimSrc,CImage* pimDst,
 	int16_t sDstX,int16_t sDstY,int16_t sDstW,int16_t sDstH,Rect* prDst,int16_t sAddW,int16_t* psItalics)
 	{
 	// a special patch:
@@ -1697,10 +1697,10 @@ BLIT_DONTUNLOCK_RSPTXTSCL:
 // This needs to be called with precalculated skipX and skipY tables
 // of 256 values.  Useful for fonts!
 //
-int16_t	_rspBlit(ULONG ulClrLTR,ULONG ulClrBKD,CImage* pimSrc,CImage* pimDst,
+int16_t	_rspBlit(uint32_t ulClrLTR,uint32_t ulClrBKD,CImage* pimSrc,CImage* pimDst,
 				  int16_t sDstX,int16_t sDstY,int16_t sW,int16_t sH,
 				  int16_t sAddW,u16Frac* frSkipY,u16Frac* frSkipX);
-int16_t	_rspBlit(ULONG ulClrLTR,ULONG ulClrBKD,CImage* pimSrc,CImage* pimDst,
+int16_t	_rspBlit(uint32_t ulClrLTR,uint32_t ulClrBKD,CImage* pimSrc,CImage* pimDst,
 				  int16_t sDstX,int16_t sDstY,int16_t sW,int16_t sH,
 				  int16_t sAddW,u16Frac* frSkipY,u16Frac* frSkipX)
 	{
@@ -2052,7 +2052,7 @@ void	instantiateBLIT()
 	CImage* pim = NULL;
 	_rspBlit( (UCHAR)0,(UCHAR)0,pim,pim,(int16_t)0,(int16_t)0,(int16_t)0,(int16_t)0);
 	_rspBlit( (USHORT)0,(USHORT)0,pim,pim,(int16_t)0,(int16_t)0,(int16_t)0,(int16_t)0);
-	_rspBlit( (ULONG)0,(ULONG)0,pim,pim,(int16_t)0,(int16_t)0,(int16_t)0,(int16_t)0);
+	_rspBlit( (uint32_t)0,(uint32_t)0,pim,pim,(int16_t)0,(int16_t)0,(int16_t)0,(int16_t)0);
 	}
 
 	*/

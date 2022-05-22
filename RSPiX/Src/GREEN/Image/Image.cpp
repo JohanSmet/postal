@@ -246,11 +246,11 @@
 //						CNFile			RFile
 //						CImage			RImage
 //						CPal				RPal
-//						ULONG ulType	RImage::Type ulType
+//						uint32_t ulType	RImage::Type ulType
 //
 //						The thing that annoys me the most about using actual enums
-//						instead of ULONGs is that you have to copy it into a dummy
-//						ULONG to use RFile on it.  This isn't very bad, but it's
+//						instead of uint32_ts is that you have to copy it into a dummy
+//						uint32_t to use RFile on it.  This isn't very bad, but it's
 //						annoying.
 //
 //	10/31/96	JMI	Changed all members to be preceded by m_ (e.g., sDepth
@@ -371,8 +371,8 @@
 
 
 // Local function prototypes
-//static int16_t sCreateMem(void **hMem,ULONG ulSize);
-//static int16_t sCreateAlignedMem(void **hMem, void **hData, ULONG ulSize);
+//static int16_t sCreateMem(void **hMem,uint32_t ulSize);
+//static int16_t sCreateAlignedMem(void **hMem, void **hData, uint32_t ulSize);
 //static int16_t sDestroyMem(void **hMem);
 
 
@@ -440,7 +440,7 @@ IMAGELINKLATE(NOT_SUPPORTED, ConvertNoSupport, NULL, NULL, NULL, NULL, NULL);
 //
 //////////////////////////////////////////////////////////////////////
 
-int16_t RImage::sCreateMem(void **hMem,ULONG ulSize)
+int16_t RImage::sCreateMem(void **hMem,uint32_t ulSize)
 {
 	//	Make sure the data
 	//	hasn't already been allocated
@@ -497,7 +497,7 @@ int16_t RImage::sCreateMem(void **hMem,ULONG ulSize)
 //
 //////////////////////////////////////////////////////////////////////
 
-int16_t RImage::sCreateAlignedMem(void **hMem, void **hData, ULONG ulSize)
+int16_t RImage::sCreateAlignedMem(void **hMem, void **hData, uint32_t ulSize)
 {
  	// Make sure the data hasn't already been allocated
 	if (*hMem != NULL)
@@ -663,7 +663,7 @@ RImage::RImage()
 //
 //////////////////////////////////////////////////////////////////////
 
-RImage::RImage(ULONG ulNewSize)
+RImage::RImage(uint32_t ulNewSize)
 {
 	// Initialize member variables to zero
 	InitMembers();
@@ -777,7 +777,7 @@ void RImage::InitMembers(void)
 //
 //////////////////////////////////////////////////////////////////////
 
-int16_t	RImage::CreateData(ULONG ulNewSize)
+int16_t	RImage::CreateData(uint32_t ulNewSize)
 {
 	if (m_pMem)
 	{
@@ -804,13 +804,13 @@ int16_t	RImage::CreateData(ULONG ulNewSize)
 //
 // Description:
 //		Create IMAGE's data utilizing passed in fields.
-//		Calls CreateData(ULONG) to do the allocation.
+//		Calls CreateData(uint32_t) to do the allocation.
 //
 // Parameters:
 //		As described below.
 //
 // Returns:
-//		Return value from CreateData(ULONG).
+//		Return value from CreateData(uint32_t).
 //		SUCCESS if the memory was alocated successfully 
 //		FAILURE if memory could not be allocted
 //
@@ -1096,7 +1096,7 @@ int16_t RImage::CreatePalette(void)
 //
 //////////////////////////////////////////////////////////////////////
 
-int16_t RImage::CreatePalette(ULONG ulSize)
+int16_t RImage::CreatePalette(uint32_t ulSize)
 {
 	if (CreatePalette() == SUCCESS)
 		return m_pPalette->CreateData(ulSize);
@@ -2064,8 +2064,8 @@ int16_t RImage::Save(const char* pszFilename) const
 int16_t RImage::Save(RFile* pcf) const
 {
 	int16_t sReturn = SUCCESS;
-	ULONG ulFileType = IMAGE_COOKIE;
-	ULONG	ulCurrentVersion = IMAGE_CURRENT_VERSION;
+	uint32_t ulFileType = IMAGE_COOKIE;
+	uint32_t	ulCurrentVersion = IMAGE_CURRENT_VERSION;
 
 	if (pcf && pcf->IsOpen())
 	{
@@ -2073,9 +2073,9 @@ int16_t RImage::Save(RFile* pcf) const
 		pcf->Write(&ulFileType);
 		pcf->Write(&ulCurrentVersion);
 		// No RFile support for RImage::Type, so we use a U32.
-		U32	u32Temp	= (ULONG)m_type;
+		U32	u32Temp	= (uint32_t)m_type;
 		pcf->Write(&u32Temp);
-		u32Temp			= (ULONG)m_typeDestination;
+		u32Temp			= (uint32_t)m_typeDestination;
 		pcf->Write(&u32Temp);
 		pcf->Write(&m_ulSize);
 		pcf->Write(&m_sWinWidth);

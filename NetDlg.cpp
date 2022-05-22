@@ -511,7 +511,7 @@ struct GuiLink
 		{
 		void*			pvLink;
 		int32_t*			pl;
-		ULONG*		pul;
+		uint32_t*		pul;
 		int16_t*		ps;
 		USHORT*		pus;
 		char*			pc;
@@ -707,7 +707,7 @@ void UploadLinkInteger(			// Returns nothing.
 			else
 				{
 				// Unsigned.
-				pgui->SetText("%lu", (ULONG)i);
+				pgui->SetText("%lu", (uint32_t)i);
 				}
 #else
 			// Hardwire to signed b/c bool was displaying a warning regarding the

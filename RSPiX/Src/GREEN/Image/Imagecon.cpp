@@ -124,7 +124,7 @@
 //						=========		=========
 //						RImage			RImage
 //						RPal				RPal
-//						ULONG ulType	RImage::Type ulType
+//						uint32_t ulType	RImage::Type ulType
 //						
 //						Removed #include of "imagetyp.h" b/c it has been obsoleted.
 //						Removed #include of "imagecon.h" b/c all it does is include
@@ -281,17 +281,17 @@ int16_t	ConvertToBMP8(RImage* pImage)
 			pImage->m_pPalette->m_sPalEntrySize = RPal::GetPalEntrySize(RPal::PDIB);
 
 			USHORT* usp555 = (USHORT*) p555Pal->m_pData;
-			ULONG* ulpDib = (ULONG*) pImage->m_pPalette->m_pData;
+			uint32_t* ulpDib = (uint32_t*) pImage->m_pPalette->m_pData;
 
 			int16_t i;
 		
 			// The 555 viewed as USHORT as xR5|G5|B5
 			//         viewed as 2 BYTES   G3|B5|x|R5|G2
-			// The DIB viewed as ULONG is Reserved|R|G|B
+			// The DIB viewed as uint32_t is Reserved|R|G|B
 			//         viewed as 4 BYTES  B|G|R|Reserved
 
 			for (i = p555Pal->m_sStartIndex; i < p555Pal->m_sStartIndex + p555Pal->m_sNumEntries; i++)
-				ulpDib[i] = (ULONG) (((usp555[i] & 0x7c00) << 9) + // Red
+				ulpDib[i] = (uint32_t) (((usp555[i] & 0x7c00) << 9) + // Red
 				                     ((usp555[i] & 0x03e0) << 6) + // Green
 											((usp555[i] & 0x001f) << 3)); // Blue
 
@@ -317,17 +317,17 @@ int16_t	ConvertToBMP8(RImage* pImage)
 			pImage->m_pPalette->m_sPalEntrySize = RPal::GetPalEntrySize(RPal::PDIB);
 
 			USHORT* usp565 = (USHORT*) p565Pal->m_pData;
-			ULONG* ulpDib = (ULONG*) pImage->m_pPalette->m_pData;
+			uint32_t* ulpDib = (uint32_t*) pImage->m_pPalette->m_pData;
 
 			int16_t i;
 		
 			// The 565 when viewed as USHORT  R5|G6|B5
 			//              viewed as 2 BYTES G3|B5|R5|G3
-			// The DIB when viewed as ULONG   Reserved|R|G|B
+			// The DIB when viewed as uint32_t   Reserved|R|G|B
 			//              viewed as 4 BYTES B|G|R|Reserved
 
 			for (i = p565Pal->m_sStartIndex; i < p565Pal->m_sStartIndex + p565Pal->m_sNumEntries; i++)
-				ulpDib[i] = (ULONG) (((usp565[i] & 0xf800) << 8) + // Red
+				ulpDib[i] = (uint32_t) (((usp565[i] & 0xf800) << 8) + // Red
 				                     ((usp565[i] & 0x07e0) << 5) + // Green
 											((usp565[i] & 0x001f) << 3)); // Blue
 
@@ -449,7 +449,7 @@ int16_t	ConvertToBMP24(RImage* pImage)
 			sPitch = pImage->m_lPitch;
 
 			// Set a pointer to the 32-bit buffer before detaching
-			ULONG* ulp32 = (ULONG*) pImage->m_pData;
+			uint32_t* ulp32 = (uint32_t*) pImage->m_pData;
 
 			// Detach the 32-bit buffer from the Image
 			void* pDetachedMem = pImage->DetachData();
@@ -465,7 +465,7 @@ int16_t	ConvertToBMP24(RImage* pImage)
 				for (r = 0; r < height; r++)
 					for (c = 0; c < width; c++)
 					{
-						ULONG ulPixel = ulp32[r*sPitchWidth + c];
+						uint32_t ulPixel = ulp32[r*sPitchWidth + c];
 						ucp24[r*pImage->m_lPitch + 3*c+0]	= (UCHAR)  (ulPixel & 0x000000ff);       // Red
 						ucp24[r*pImage->m_lPitch + 3*c+1]	= (UCHAR) ((ulPixel & 0x0000ff00) >> 8); // Green
 				 		ucp24[r*pImage->m_lPitch + 3*c+2]	= (UCHAR) ((ulPixel & 0x00ff0000) >> 16);// Blue
@@ -669,12 +669,12 @@ int16_t	ConvertToSCREEN8_555(RImage* pImage)
 			pImage->m_pPalette->m_type = RPal::P555;
 			pImage->m_pPalette->m_sPalEntrySize = RPal::GetPalEntrySize(RPal::P555);
 
-			ULONG* ulpDib = (ULONG*) pDibPal->m_pData;
+			uint32_t* ulpDib = (uint32_t*) pDibPal->m_pData;
 			USHORT* usp555 = (USHORT*) pImage->m_pPalette->m_pData;
 
 			int16_t i;
 		
-			// The DIB format when viewed as a ULONG is Reserved|R|G|B 
+			// The DIB format when viewed as a uint32_t is Reserved|R|G|B 
 			//                when viewed as 4 BYTES is B|G|R|Reserved
 			// Converting to 555 viewed as USHORT as xR5|G5|B5
 			//                   viewed as 2 BYTES   G3|B5|x|R5|G2
@@ -749,12 +749,12 @@ int16_t ConvertToSCREEN8_565(RImage* pImage)
 			pImage->m_pPalette->m_type = RPal::P565;
 			pImage->m_pPalette->m_sPalEntrySize = RPal::GetPalEntrySize(RPal::P565);
 
-			ULONG* ulpDib = (ULONG*) pDibPal->m_pData;
+			uint32_t* ulpDib = (uint32_t*) pDibPal->m_pData;
 			USHORT* usp565 = (USHORT*) pImage->m_pPalette->m_pData;
 
 			int16_t i;
 		
-			// The DIB format when viewed as a ULONG is Reserved|R|G|B 
+			// The DIB format when viewed as a uint32_t is Reserved|R|G|B 
 			//                when viewed as 4 BYTES is B|G|R|Reserved
 			// Converting to 565 viewed as USHORT as R5|G6|B5
 			//                   viewed as 2 BYTES   G3|B5|R5|G3
@@ -803,7 +803,7 @@ int16_t ConvertToSCREEN8_565(RImage* pImage)
 // the palette entries from IM_RGBQUAD to the 888 "Screen Format" palette
 //
 // The normal RImage::BMP8 DIB palette
-//		when viewed as ULONG is Reserved|R|G|B
+//		when viewed as uint32_t is Reserved|R|G|B
 //
 // And the screen format is the same, so just change the image type
 //
@@ -915,7 +915,7 @@ int16_t ConvertToSCREEN16_555(RImage* pImage)
 
 			// Set up pointers to the 8-bit buffer before detaching
 			UCHAR* ucp8 = pImage->m_pData;
-			ULONG* ulpPal = (ULONG*) pImage->m_pPalette->m_pData;
+			uint32_t* ulpPal = (uint32_t*) pImage->m_pPalette->m_pData;
 
 			// Detach the 8-bit buffer from the Image
 			void* pDetachedMemory = pImage->DetachData();
@@ -1056,7 +1056,7 @@ int16_t ConvertToSCREEN16_565(RImage* pImage)
 
 			// Set up a pointer to the old 8-bit buffer before detaching
 			UCHAR* ucp8 = pImage->m_pData;
-			ULONG* ulpPal = (ULONG*) pImage->m_pPalette->m_pData;
+			uint32_t* ulpPal = (uint32_t*) pImage->m_pPalette->m_pData;
 
 			// Detach the 8-bit buffer from the Image
 			void* pDetachedMem = pImage->DetachData();
@@ -1198,7 +1198,7 @@ int16_t ConvertToSCREEN24_RGB(RImage* pImage)
 
 			// Set up a pointer to the 8-bit buffer before detaching
 			UCHAR* ucp8 = pImage->m_pData;
-			ULONG* ulPal = (ULONG*) pImage->m_pPalette->m_pData;
+			uint32_t* ulPal = (uint32_t*) pImage->m_pPalette->m_pData;
 
 			// Detach the 8-bit buffer from the Image
 			void* pDetachedMem = pImage->DetachData();
@@ -1209,7 +1209,7 @@ int16_t ConvertToSCREEN24_RGB(RImage* pImage)
 			pImage->CreateData(pImage->m_lPitch * (int32_t)pImage->m_sHeight);
 			UCHAR* ucp24 = (UCHAR*) pImage->m_pData;
 
-			ULONG ulColor;
+			uint32_t ulColor;
 
 			for (r = 0; r < height; r++)
 				for (c = 0; c < width; c++)
@@ -1310,7 +1310,7 @@ int16_t ConvertToSCREEN32_ARGB(RImage* pImage)
 
 			// Set up a pointer to the 8-bit buffer before detaching
 			UCHAR* ucp8 = pImage->m_pData;
-			ULONG* ulPal = (ULONG*) pImage->m_pPalette->m_pData;
+			uint32_t* ulPal = (uint32_t*) pImage->m_pPalette->m_pData;
 
 			// Detach the 8-bit buffer from the Image
 			void* pDetachedMem = pImage->DetachData();
@@ -1319,7 +1319,7 @@ int16_t ConvertToSCREEN32_ARGB(RImage* pImage)
 			pImage->m_sDepth = 32;
 			pImage->m_lPitch = RImage::GetPitch(pImage->m_sWidth, pImage->m_sDepth);
 			pImage->CreateData(pImage->m_lPitch * (int32_t)pImage->m_sHeight);
-			ULONG* ulp32 = (ULONG*) pImage->m_pData;
+			uint32_t* ulp32 = (uint32_t*) pImage->m_pData;
 			int32_t dLongPitch = pImage->m_lPitch/4;
 
 			for (r = 0; r < height; r++)
@@ -1354,15 +1354,15 @@ int16_t ConvertToSCREEN32_ARGB(RImage* pImage)
 			pImage->m_sDepth = 32;
 			pImage->m_lPitch = RImage::GetPitch(pImage->m_sWidth, pImage->m_sDepth);
 			pImage->CreateData(pImage->m_lPitch * (int32_t)pImage->m_sHeight);
-			ULONG* ulp32 = (ULONG*) pImage->m_pData;
+			uint32_t* ulp32 = (uint32_t*) pImage->m_pData;
 			int32_t dLongPitch = pImage->m_lPitch/4;
 
 			for (r = 0 ; r < height; r++)
 				for (c = 0; c < width; c++)  
-					ulp32[r*dLongPitch + c] = (ULONG) (
-														((ULONG) ucp24[r*sPitch + 3*c+2] * 0x10000) +
-														((ULONG) ucp24[r*sPitch + 3*c+1] * 0x100) +
-														((ULONG) ucp24[r*sPitch + 3*c+0])) ;
+					ulp32[r*dLongPitch + c] = (uint32_t) (
+														((uint32_t) ucp24[r*sPitch + 3*c+2] * 0x10000) +
+														((uint32_t) ucp24[r*sPitch + 3*c+1] * 0x100) +
+														((uint32_t) ucp24[r*sPitch + 3*c+0])) ;
   	
 			RImage::DestroyDetachedData(&pDetachedMem);
 
@@ -1686,7 +1686,7 @@ int16_t ConvertToBMP8RLE(RImage* pImage)
 
 
 				// Get size of compressed buffer.
-				ULONG	ulSize	= (pu8Comp - pImage->m_pData);
+				uint32_t	ulSize	= (pu8Comp - pImage->m_pData);
 
 				// Deallocate old buffer.
 				RImage::DestroyDetachedData(&pvDetachedMem);

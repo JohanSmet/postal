@@ -102,7 +102,7 @@
 //						CNFile			RFile
 //						CImage			RImage
 //						CPal				RPal
-//						ULONG ulType	RImage::Type ulType
+//						uint32_t ulType	RImage::Type ulType
 //						
 //						Added a using directive to IMAGELINKLATE.
 //
@@ -208,7 +208,7 @@
 // Macros.
 ///////////////////////////////////////////////////////////////////////////////
 
-#define WIDTHUCHAR(i)   (((i)+3) & ~3)      // ULONG aligned
+#define WIDTHUCHAR(i)   (((i)+3) & ~3)      // uint32_t aligned
 #define WIDTH128(i)		 (((i)+15) & ~15)	 // 128-bit aligned
 
 #define IMAGE_COOKIE	0x20204d49 // Looks like "IM  " in the file
@@ -227,26 +227,26 @@
 typedef struct
 {
 	USHORT	usType;
-	ULONG		ulSize;
+	uint32_t		ulSize;
 	USHORT	usReserved1;
 	USHORT	usReserved2;
-	ULONG		ulOffBits;
+	uint32_t		ulOffBits;
 } DIBFILEHEADER;
 
 // Windows Independent DIB BITMAPINFOHEADER representation.
 typedef struct
 {
-	ULONG			ulSize;
+	uint32_t			ulSize;
 	int32_t			lWidth;
 	int32_t			lHeight;
 	USHORT		usPlanes;
 	USHORT		usBitCount;
-	ULONG			ulCompression;
-	ULONG			ulSizeImage;
+	uint32_t			ulCompression;
+	uint32_t			ulSizeImage;
 	int32_t			lXPelsPerMeter;
 	int32_t			lYPelsPerMeter;
-	ULONG			ulClrUsed;
-	ULONG			ulClrImportant;
+	uint32_t			ulClrUsed;
+	uint32_t			ulClrImportant;
 } DIBHEADER, *PDIBHEADER;
 
 //////////////////////////////////////////////////////////////////////
@@ -306,7 +306,7 @@ class RImage
 		Type	m_type;						// Image type
 		Type	m_typeDestination;		// Type to convert to upon load
 												// (New version 2)
-		ULONG			m_ulSize;			// Image data's size
+		uint32_t			m_ulSize;			// Image data's size
 		int16_t			m_sWinWidth;		// Width of image
 		int16_t			m_sWinHeight;		// Height of image
 		int16_t			m_sWidth;			// Width of buffer   (new version 2)
@@ -350,7 +350,7 @@ class RImage
 
 		// Constructor that allocates data for the buffer
 		// Same as calling CreateData(ulSize)
-		RImage(ULONG ulSize);
+		RImage(uint32_t ulSize);
 
 		// Constructor that allocates a buffer and loads a bitmap
 		// Same as calling LoadDib(pszFilename, ulType)
@@ -365,10 +365,10 @@ class RImage
 
 		// Create IMAGE's data using the specified values.
 		int16_t CreateData(	// Returns 0 if successful
-			ULONG ulSize);	// Size of data
+			uint32_t ulSize);	// Size of data
 
 		// Create IMAGE's data utilizing passed in fields.
-		// Calls CreateData(ULONG) to do the allocation.
+		// Calls CreateData(uint32_t) to do the allocation.
 		int16_t CreateImage(			// Returns 0 if successful.
 			int16_t	sWidth,				// Width of new buffer.
 			int16_t	sHeight,				// Height of new buffer.
@@ -397,7 +397,7 @@ class RImage
 		int16_t SetPalette(RPal* pPal);
 
 		// Create palette and assign its pointer to pPalette
-		int16_t CreatePalette(ULONG ulSize);
+		int16_t CreatePalette(uint32_t ulSize);
 
 		// Create a palette but do not create a data buffer for the palette
 		int16_t CreatePalette(void);
@@ -480,12 +480,12 @@ class RImage
 		void InitMembers(void);
 
 		//	To allocate memory for the data buffers of CPal
-		static int16_t sCreateMem(void **hMem,ULONG ulSize);
+		static int16_t sCreateMem(void **hMem,uint32_t ulSize);
 
 		//	To allocate memory and return a pointer aligned to 128-bits
 		//	for optimum blit speed.  This is the function used by
 		//	CImage when it creates memory for the image buffers.
-		static int16_t sCreateAlignedMem(void **hMem, void **hData, ULONG ulSize);
+		static int16_t sCreateAlignedMem(void **hMem, void **hData, uint32_t ulSize);
 
 		//	To free the data buffers of CPal and CImage that were created 
 		//	using either sCreateMem() or sCreateAlignedMem()
@@ -523,9 +523,9 @@ typedef int16_t (*CONVFROMFUNC)(RImage* pImage);
 // Conversion to extended from standard function typedef
 typedef int16_t (*CONVTOFUNC)(RImage* pImage);
 // Load extension for special types - loads m_pSpecial data
-typedef int16_t (*LOADFUNC)(RImage* pImage, RFile* pcf/*, ULONG ulVersion*/);
+typedef int16_t (*LOADFUNC)(RImage* pImage, RFile* pcf/*, uint32_t ulVersion*/);
 // Save extension for special types - saves m_pSpecial data
-typedef int16_t (*SAVEFUNC)(RImage* pImage, RFile* pcf/*, ULONG ulVersion*/);
+typedef int16_t (*SAVEFUNC)(RImage* pImage, RFile* pcf/*, uint32_t ulVersion*/);
 // Special data allocation function
 typedef int16_t (*ALLOCFUNC)(RImage* pImage);
 // Special data deallocation function

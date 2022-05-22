@@ -22,7 +22,7 @@
 //	??/??/??	???	Created.
 //
 // 03/06/96	JMI	Converted references from PORTABLE.H (e.g., DWORD) to
-//						references from SYSTEM.H (e.g., ULONG).
+//						references from SYSTEM.H (e.g., uint32_t).
 //
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -330,7 +330,7 @@ int16_t CFlx::ReadDataBlack(FLX_BUF* pbufRead)
 	for (int16_t y = 0; y < m_filehdr.sHeight; y++)
 		{
 		memset(pbMem, 0, m_filehdr.sWidth);
-		pbMem += (ULONG)pbufRead->sPitch;
+		pbMem += (uint32_t)pbufRead->sPitch;
 		}
 	
 	// Set modified flag
@@ -369,7 +369,7 @@ int16_t CFlx::ReadDataCopy(FLX_BUF* pbufRead)
 	for (int16_t y = 0; y < m_filehdr.sHeight; y++)
 		{
 		m_file.Read(pbMem, m_filehdr.sWidth);
-		pbMem += (ULONG)pbufRead->sPitch;
+		pbMem += (uint32_t)pbufRead->sPitch;
 		}
 
 	// Set modified flag
@@ -455,14 +455,14 @@ int16_t CFlx::ReadDataBRun(FLX_BUF* pbufRead)
 					sCount = -sCount;
 					x += sCount;
 					m_file.Read(pbPix, sCount);
-					pbPix += (ULONG)sCount;
+					pbPix += (uint32_t)sCount;
 					}
 				else
 					{
 					x += sCount;
 					m_file.Read(&bVal);
 					memset(pbPix, (int)bVal, (size_t)sCount);
-					pbPix += (ULONG)sCount;
+					pbPix += (uint32_t)sCount;
 					}
 				}
 			else
@@ -471,7 +471,7 @@ int16_t CFlx::ReadDataBRun(FLX_BUF* pbufRead)
 				}
 			}
 			
-		pbRow += (ULONG)pbufRead->sPitch;
+		pbRow += (uint32_t)pbufRead->sPitch;
 		}
 		
 	// just return if error has been set
@@ -552,7 +552,7 @@ int16_t CFlx::ReadDataLC(FLX_BUF* pbufRead)
 	m_file.Read(&y);
 
 	// Init row pointer to point at start of specified row
-	pbRow = pbufRead->pbPixels + ((ULONG)y * (ULONG)pbufRead->sPitch);
+	pbRow = pbufRead->pbPixels + ((uint32_t)y * (uint32_t)pbufRead->sPitch);
 
 	// The second word specifies the number of lines in this chunk.
 	m_file.Read(&lines);
@@ -599,7 +599,7 @@ int16_t CFlx::ReadDataLC(FLX_BUF* pbufRead)
 				// The first byte of each packet is a column skip.
 				// Adjust pixel pointer to skip that number of pixels.
 				m_file.Read(&bVal);
-				pbPix = pbPix + (ULONG)bVal;
+				pbPix = pbPix + (uint32_t)bVal;
 	  			
 				// Second byte of each packet is type/size.  If bit 7 is 0, bits 6-0
 				// are number of pixels to be copied.  If bit 7 is 1, bits 6-0 are
@@ -613,14 +613,14 @@ int16_t CFlx::ReadDataLC(FLX_BUF* pbufRead)
 				if (sCount > 0)
 					{
 					m_file.Read(pbPix, sCount);
-					pbPix += (ULONG)sCount;
+					pbPix += (uint32_t)sCount;
 					}
 				else
 					{
 					sCount = -sCount;
 					m_file.Read(&bVal);
 					memset(pbPix, (int)bVal, (size_t)sCount);
-					pbPix += (ULONG)sCount;
+					pbPix += (uint32_t)sCount;
 					}
 					
 				// Adjust remaining packets
@@ -628,7 +628,7 @@ int16_t CFlx::ReadDataLC(FLX_BUF* pbufRead)
 				}
 
 			// Move row pointer to start of next row
-			pbRow += (ULONG)pbufRead->sPitch;
+			pbRow += (uint32_t)pbufRead->sPitch;
 			
 			// Adjust remaining lines
 			lines--;
@@ -760,14 +760,14 @@ int16_t CFlx::ReadDataSS2(FLX_BUF* pbufRead)
 			packets = (int16_t)wVal;
 						
 			// Init pointer to point at start of specified row
-			pbPix = pbufRead->pbPixels + ((ULONG)y * (ULONG)pbufRead->sPitch);
+			pbPix = pbufRead->pbPixels + ((uint32_t)y * (uint32_t)pbufRead->sPitch);
 			
 			while (packets > 0)
 				{
 				// The first byte of each packet is a column skip.
 				// Adjust pixel pointer to skip that number of pixels.
 				m_file.Read(&bVal);
-				pbPix = pbPix + (ULONG)bVal;
+				pbPix = pbPix + (uint32_t)bVal;
 				
 				// Second byte of each packet is type/size.  If bit 7 is 0, bits 6-0
 				// are number of pixel pairs to be copied.  If bit 7 is 1, bits 6-0 are
@@ -784,7 +784,7 @@ int16_t CFlx::ReadDataSS2(FLX_BUF* pbufRead)
 					{
 					sCount *= sizeof(USHORT);
 					m_file.Read(pbPix, sCount);
-					pbPix += (ULONG)(sCount);
+					pbPix += (uint32_t)(sCount);
 					}
 				else
 					{
@@ -805,7 +805,7 @@ int16_t CFlx::ReadDataSS2(FLX_BUF* pbufRead)
 			if (bLastByte == TRUE)
 				{
 				// Get pointer to end of this row.
-				pbPix = pbufRead->pbPixels + (((ULONG)y + 1L) * (ULONG)pbufRead->sPitch) - 1L;
+				pbPix = pbufRead->pbPixels + (((uint32_t)y + 1L) * (uint32_t)pbufRead->sPitch) - 1L;
 				// Set pixel at end of row.
 				*pbPix = byLastByte;
 				bLastByte = FALSE;
@@ -1079,8 +1079,8 @@ int16_t CFlx::WritePixelDelta(FLX_BUF* pbufNext, FLX_BUF* pbufPrev, UCHAR* pBuf,
 	for (int16_t y = 0; y < m_filehdr.sHeight; y++)
 		{
 		memcpy(pbDst, pbSrc, m_filehdr.sWidth);	// Copy source to buffer
-		pbSrc += (ULONG)pbufNext->sPitch;		// Use pitch on source
-		pbDst += (ULONG)m_filehdr.sWidth;		// Use width on buffer
+		pbSrc += (uint32_t)pbufNext->sPitch;		// Use pitch on source
+		pbDst += (uint32_t)m_filehdr.sWidth;		// Use width on buffer
 		}
 	long lSize = (long)m_filehdr.sWidth * (long)m_filehdr.sHeight;
 
@@ -1128,8 +1128,8 @@ int16_t CFlx::WritePixelDelta(FLX_BUF* pbufNext, FLX_BUF* pbufPrev, UCHAR* pBuf,
 			for (int16_t y = 0; y < m_filehdr.sHeight; y++)
 			{
 				memcpy(pbDst, pbSrc, m_filehdr.sWidth);	// Copy source to buffer
-				pbSrc += (ULONG)pbufNext->sPitch;		// Use pitch on source
-				pbDst += (ULONG)m_filehdr.sWidth;		// Use width on buffer
+				pbSrc += (uint32_t)pbufNext->sPitch;		// Use pitch on source
+				pbDst += (uint32_t)m_filehdr.sWidth;		// Use width on buffer
 			}
 			
 			// Write out the chunk
@@ -1292,7 +1292,7 @@ int16_t CFlx::CompressLineDelta(int16_t y,
 							  int16_t sLineSkipCount)
 {
 	// Local variables.
-	ULONG dwOffset;							// Offset into the pixel data.
+	uint32_t dwOffset;							// Offset into the pixel data.
 	UCHAR* pbSrcNext = pbufNext->pbPixels;	// Pointer to the pixel data of the current frame.
 	UCHAR* pbSrcPrev = pbufPrev->pbPixels;	// Pointer to the pixel data of the previous frame.
 	int16_t sPacket = 0;						// Count the number of packets.
@@ -1312,7 +1312,7 @@ int16_t CFlx::CompressLineDelta(int16_t y,
 		return -1;
 	
 	// First let's see if the current line really need to be compressed.
-	dwOffset = (ULONG)y * (ULONG)pbufNext->sPitch;
+	dwOffset = (uint32_t)y * (uint32_t)pbufNext->sPitch;
 	if (memcmp(pbSrcNext + dwOffset, pbSrcPrev + dwOffset, (size_t)pbufNext->sPitch) == 0)
 	{
 		// The current line does not need to be compressed!
@@ -1327,7 +1327,7 @@ int16_t CFlx::CompressLineDelta(int16_t y,
 		// Let's put in sLineSkipCount number of 0 packets.
 		for (sIndex = 0; sIndex < sLineSkipCount; sIndex++)
 		{
-			*(pbDst + (ULONG)lSize++) = 0;
+			*(pbDst + (uint32_t)lSize++) = 0;
 		}
 	}
 	else if (sAlign == 2)
@@ -1336,14 +1336,14 @@ int16_t CFlx::CompressLineDelta(int16_t y,
 		if (sLineSkipCount > 0)
 		{
 			// Since we have skipped some lines prior to current line, let's write it to the chunk.
-			*(int16_t*)(pbDst + (ULONG)lSize) = -sLineSkipCount;
+			*(int16_t*)(pbDst + (uint32_t)lSize) = -sLineSkipCount;
 			lSize += 2;
 		}
 		
 		// If the pitch is odd, we need to store the last byte if different.
 //		if ((pbufNext->sPitch % 2) == 1)
 //		{
-		dwOffset = ((ULONG)y * (ULONG)pbufNext->sPitch) + (ULONG)(pbufNext->sPitch - 1);
+		dwOffset = ((uint32_t)y * (uint32_t)pbufNext->sPitch) + (uint32_t)(pbufNext->sPitch - 1);
 		if (pbSrcNext[dwOffset] != pbSrcPrev[dwOffset])
 		{
 			// The last byte is different.  We need to save it!
@@ -1352,7 +1352,7 @@ int16_t CFlx::CompressLineDelta(int16_t y,
 			wLastByte = wLastByte | 0x8000;
 				
 			// Save it to the chunk.
-			*(USHORT*)(pbDst + (ULONG)lSize) = wLastByte;
+			*(USHORT*)(pbDst + (uint32_t)lSize) = wLastByte;
 			lSize += 2;
 		}
 			
@@ -1362,7 +1362,7 @@ int16_t CFlx::CompressLineDelta(int16_t y,
 	}
 	
 	// Save the position in the chunk for storing the packet count.
-	pbPacketCount = pbDst + (ULONG)lSize;
+	pbPacketCount = pbDst + (uint32_t)lSize;
 	if (sAlign == 1)
 		lSize++;
 	else
@@ -1374,7 +1374,7 @@ int16_t CFlx::CompressLineDelta(int16_t y,
 	while (((sAlign == 1) && (x < sAdjustedPitch)) || ((sAlign == 2) && (x < sAdjustedPitch - 1)))
 	{
 		// Do the skip count first.
-		dwOffset = (ULONG)y * (ULONG)pbufNext->sPitch;
+		dwOffset = (uint32_t)y * (uint32_t)pbufNext->sPitch;
 		while ((x < sAdjustedPitch) && (pbSrcNext[dwOffset + x] == pbSrcPrev[dwOffset + x]))
 		{
 			// Since the pixel data are still the same, let's increment the skip count and x.
@@ -1390,18 +1390,18 @@ int16_t CFlx::CompressLineDelta(int16_t y,
 			if (sAlign == 1)
 			{
 				// Update the pointer offset.
-				dwOffset = (ULONG)y * (ULONG)pbufNext->sPitch + x - sSkipCount;
+				dwOffset = (uint32_t)y * (uint32_t)pbufNext->sPitch + x - sSkipCount;
 			
 				// Do delta compression for byte aligned.
 				while (sSkipCount > 255)
 				{
 					// Put in a packet of one byte and 255 for skip count.
-					*(pbDst + (ULONG)lSize++) = 255;
-					*(pbDst + (ULONG)lSize++) = 1;
+					*(pbDst + (uint32_t)lSize++) = 255;
+					*(pbDst + (uint32_t)lSize++) = 1;
 					
 					// Increment the pixel data offset by 255       
 					dwOffset += 255;
-					*(pbDst + (ULONG)lSize++) = pbSrcNext[dwOffset];
+					*(pbDst + (uint32_t)lSize++) = pbSrcNext[dwOffset];
 					
 					// Increment the packet count and decrement the skip count.
 					sPacket++;
@@ -1409,14 +1409,14 @@ int16_t CFlx::CompressLineDelta(int16_t y,
 				}
 				
 				// Write out the skip count for the current packet and reset the skip count.
-				*(pbDst + (ULONG)lSize++) = (UCHAR)sSkipCount;
+				*(pbDst + (uint32_t)lSize++) = (UCHAR)sSkipCount;
 				sSkipCount = 0;
 				
 				// Set the byte counter before we start compressing.
 				UCHAR nBytes = 1;
 				
 				// Determine the packet type.
-				dwOffset = (ULONG)y * (ULONG)pbufNext->sPitch;
+				dwOffset = (uint32_t)y * (uint32_t)pbufNext->sPitch;
 				if ((x < (sAdjustedPitch - 1)) && (pbSrcNext[dwOffset + x] == pbSrcNext[dwOffset + x + 1]))
 				{
 					// Let's process as count encoding for bytes of similar values.
@@ -1433,15 +1433,15 @@ int16_t CFlx::CompressLineDelta(int16_t y,
 					// Write the rest of the packet out.
 					// We need the byte count to be in 2's complement (negative).
 					nBytes = 255 - nBytes + 1;
-					*(pbDst + (ULONG)lSize++) = nBytes;
-					*(pbDst + (ULONG)lSize++) = pbSrcNext[dwOffset + (x - 1)];
+					*(pbDst + (uint32_t)lSize++) = nBytes;
+					*(pbDst + (uint32_t)lSize++) = pbSrcNext[dwOffset + (x - 1)];
 					sPacket++;
 				}
 				else
 				{
 					// Let's process as count of different bytes.
-					pbByteCount = pbDst + (ULONG)lSize++;
-					*(pbDst + (ULONG)lSize++) = pbSrcNext[dwOffset + x];
+					pbByteCount = pbDst + (uint32_t)lSize++;
+					*(pbDst + (uint32_t)lSize++) = pbSrcNext[dwOffset + x];
 					x++;
 					
 					while ((nBytes < 127) &&
@@ -1449,7 +1449,7 @@ int16_t CFlx::CompressLineDelta(int16_t y,
 						   (pbSrcNext[dwOffset + x] != pbSrcPrev[dwOffset + x]) &&
 						   !((x < (sAdjustedPitch - 1)) && (pbSrcNext[dwOffset + x] == pbSrcNext[dwOffset + x + 1])))
 					{ 
-						*(pbDst + (ULONG)lSize++) = pbSrcNext[dwOffset + x];
+						*(pbDst + (uint32_t)lSize++) = pbSrcNext[dwOffset + x];
 						x++;
 						nBytes++;
 					}
@@ -1464,19 +1464,19 @@ int16_t CFlx::CompressLineDelta(int16_t y,
 				// Do delta compression for word aligned.
 				
 				// Update the pointer offset.
-				dwOffset = (ULONG)y * (ULONG)pbufNext->sPitch + x - sSkipCount;
+				dwOffset = (uint32_t)y * (uint32_t)pbufNext->sPitch + x - sSkipCount;
 			
 				// Do delta compression for byte aligned.
 				while (sSkipCount > 255)
 				{
 					// Put in a packet of one byte and 255 for skip count.
-					*(pbDst + (ULONG)lSize++) = 254;
-					*(pbDst + (ULONG)lSize++) = 1;
+					*(pbDst + (uint32_t)lSize++) = 254;
+					*(pbDst + (uint32_t)lSize++) = 1;
 					
 					// Increment the pixel data offset by 255.  Remember to copy a word value!       
 					dwOffset += 254;
-					*(pbDst + (ULONG)lSize++) = pbSrcNext[dwOffset++];
-					*(pbDst + (ULONG)lSize++) = pbSrcNext[dwOffset++];
+					*(pbDst + (uint32_t)lSize++) = pbSrcNext[dwOffset++];
+					*(pbDst + (uint32_t)lSize++) = pbSrcNext[dwOffset++];
 					
 					// Increment the packet count and decrement the skip count.
 					sPacket++;
@@ -1484,14 +1484,14 @@ int16_t CFlx::CompressLineDelta(int16_t y,
 				}
 				
 				// Write out the skip count for the current packet and reset the skip count.
-				*(pbDst + (ULONG)lSize++) = (UCHAR)sSkipCount;
+				*(pbDst + (uint32_t)lSize++) = (UCHAR)sSkipCount;
 				sSkipCount = 0;
 				
 				// Set the byte counter before we start compressing.
 				UCHAR nBytes = 1;
 				
 				// Determine the packet type.
-				dwOffset = (ULONG)y * (ULONG)pbufNext->sPitch;
+				dwOffset = (uint32_t)y * (uint32_t)pbufNext->sPitch;
 				if ((x < (sAdjustedPitch - 3)) && 
 					(pbSrcNext[dwOffset + x] == pbSrcNext[dwOffset + x + 2]) && 
 					(pbSrcNext[dwOffset + x + 1] == pbSrcNext[dwOffset + x + 3]))
@@ -1512,17 +1512,17 @@ int16_t CFlx::CompressLineDelta(int16_t y,
 					// Write the rest of the packet out.
 					// We need the byte count to be in 2's complement (negative).
 					nBytes = 255 - nBytes + 1;
-					*(pbDst + (ULONG)lSize++) = nBytes;
-					*(pbDst + (ULONG)lSize++) = pbSrcNext[dwOffset + x - 2];
-					*(pbDst + (ULONG)lSize++) = pbSrcNext[dwOffset + x - 1];
+					*(pbDst + (uint32_t)lSize++) = nBytes;
+					*(pbDst + (uint32_t)lSize++) = pbSrcNext[dwOffset + x - 2];
+					*(pbDst + (uint32_t)lSize++) = pbSrcNext[dwOffset + x - 1];
 					sPacket++;
 				}
 				else
 				{
 					// Let's process as count of different bytes.
-					pbByteCount = pbDst + (ULONG)lSize++;
-					*(pbDst + (ULONG)lSize++) = pbSrcNext[dwOffset + x];
-					*(pbDst + (ULONG)lSize++) = pbSrcNext[dwOffset + x + 1];
+					pbByteCount = pbDst + (uint32_t)lSize++;
+					*(pbDst + (uint32_t)lSize++) = pbSrcNext[dwOffset + x];
+					*(pbDst + (uint32_t)lSize++) = pbSrcNext[dwOffset + x + 1];
 					x += 2;
 					
 					while ((nBytes < 127) &&
@@ -1533,8 +1533,8 @@ int16_t CFlx::CompressLineDelta(int16_t y,
 							 (pbSrcNext[dwOffset + x] == pbSrcNext[dwOffset + x + 2]) && 
 							 (pbSrcNext[dwOffset + x + 1] == pbSrcNext[dwOffset + x + 3])))
 					{ 
-						*(pbDst + (ULONG)lSize++) = pbSrcNext[dwOffset + x];
-						*(pbDst + (ULONG)lSize++) = pbSrcNext[dwOffset + x + 1];
+						*(pbDst + (uint32_t)lSize++) = pbSrcNext[dwOffset + x];
+						*(pbDst + (uint32_t)lSize++) = pbSrcNext[dwOffset + x + 1];
 						x += 2;
 						nBytes++;
 					}
@@ -1582,7 +1582,7 @@ long CFlx::CompressBRUN(
 	UCHAR* pbPackets;
 	
 	// Adjust input pointer based on starting x and y
-	pbIn = pbIn + ((ULONG)sSrcY * (ULONG)sPitch) + (ULONG)sSrcX;
+	pbIn = pbIn + ((uint32_t)sSrcY * (uint32_t)sPitch) + (uint32_t)sSrcX;
 	
 	// Loop through the scanlines
 	for (y = 0; y < sHeight; y++)
@@ -1684,7 +1684,7 @@ long CFlx::CompressBRUN(
 		// Update pointer to point at next scan line.  Note that we use a
 		// different width here since the scan line could be wider than the
 		// number of pixels being compressed.
-		pbIn += (ULONG)sPitch;
+		pbIn += (uint32_t)sPitch;
 		}
 
 	return lOutCnt;
@@ -1724,7 +1724,7 @@ int16_t CFlx::WriteDataChunk(UCHAR* pbData, long lSize, USHORT wType, long* plCh
 		while(lSize >= 16384L)
 			{
 			m_file.Write(pbData, (int)16384);
-			pbData += (ULONG)16384;
+			pbData += (uint32_t)16384;
 			lSize -= 16384;
 			}
 		if (lSize > 0)
@@ -1997,8 +1997,8 @@ void CFlx::CopyBuf(FLX_BUF* pbufDst, FLX_BUF* pbufSrc)
 	for (int16_t y = 0; y < m_filehdr.sHeight; y++)
 		{
 		memcpy(pbDst, pbSrc, m_filehdr.sWidth);
-		pbSrc += (ULONG)pbufSrc->sPitch;
-		pbDst += (ULONG)pbufDst->sPitch;
+		pbSrc += (uint32_t)pbufSrc->sPitch;
+		pbDst += (uint32_t)pbufDst->sPitch;
 		}
 		
 	// Copy colors (assume 256 of them)

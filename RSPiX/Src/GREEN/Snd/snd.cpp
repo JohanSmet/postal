@@ -520,7 +520,7 @@ int32_t RSnd::GetTime(void)
 //////////////////////////////////////////////////////////////////////////////
 void* RSnd::StreamCall(RMix::Msg	msg, 
 								void*		pData, 
-								ULONG*	pulBufSize,
+								uint32_t*	pulBufSize,
 								intptr_t		ulUser,
 								UCHAR*		pucVolume,
 								UCHAR*		pucVol2)
@@ -641,7 +641,7 @@ void* RSnd::StreamCall(RMix::Msg	msg,
 //////////////////////////////////////////////////////////////////////////////
 void* RSnd::PlayCall(RMix::Msg	msg,
 							void*			pData, 
-							ULONG*		pulBufSize,
+							uint32_t*		pulBufSize,
 							UCHAR*		pucVolume,
 							UCHAR*		pucVol2)
 	{
@@ -666,7 +666,7 @@ void* RSnd::PlayCall(RMix::Msg	msg,
 				pData = (UCHAR*)(m_psample->m_pData) + (m_ulSampleSize - m_ulRemaining);
 
 				// Get next buffer size.
-				(*pulBufSize) = MIN((ULONG)m_lBufSize, m_ulRemaining);
+				(*pulBufSize) = MIN((uint32_t)m_lBufSize, m_ulRemaining);
 
 				if (*pulBufSize > 0)
 					{
@@ -686,7 +686,7 @@ void* RSnd::PlayCall(RMix::Msg	msg,
 					if (m_sLoop == FALSE)
 						{
 						// If we were NOT looping a sub region . . .
-						if (m_ulSampleSize == (ULONG)m_psample->m_lBufSize)
+						if (m_ulSampleSize == (uint32_t)m_psample->m_lBufSize)
 							{
 							// Clear pointer.
 							pData		= NULL;
@@ -790,7 +790,7 @@ void* RSnd::PlayCall(RMix::Msg	msg,
 //////////////////////////////////////////////////////////////////////////////
 void* RSnd::StreamCallStatic(	RMix::Msg	msg, 
 										void*			pData, 
-										ULONG*		pulBufSize, 
+										uint32_t*		pulBufSize, 
 										intptr_t	ulUser,
 										UCHAR*		pucVolume,
 										UCHAR*		pucVol2)
@@ -808,7 +808,7 @@ void* RSnd::StreamCallStatic(	RMix::Msg	msg,
 //////////////////////////////////////////////////////////////////////////////
 void* RSnd::PlayCallStatic(RMix::Msg	msg, 
 									void*			pData, 
-									ULONG*		pulBufSize, 
+									uint32_t*		pulBufSize, 
 									intptr_t	ulUser,
 									UCHAR*		pucVolume,
 									UCHAR*		pucVol2)

@@ -322,7 +322,7 @@ int16_t CPerson::Load(				// Returns 0 if successfull, non-zero otherwise
 	RFile* pFile,						// In:  File to load from
 	bool bEditMode,					// In:  True for edit mode, false otherwise
 	int16_t sFileCount,					// In:  File count (unique per file, never 0)
-	ULONG	ulFileVersion)				// In:  Version of file format to load.
+	uint32_t	ulFileVersion)				// In:  Version of file format to load.
 {
 	int16_t sResult = 0;
 	sResult = CDoofus::Load(pFile, bEditMode, sFileCount, ulFileVersion);
@@ -1112,7 +1112,7 @@ int16_t CPerson::EditModify(void)
 				if (pGuiItem != NULL)
 				{
 					pGuiItem->m_lId = PERSONALITY_ITEM_ID_BASE + i;
-					pGuiItem->m_ulUserData = (ULONG) i;
+					pGuiItem->m_ulUserData = (uint32_t) i;
 				}
 			}
 

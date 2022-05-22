@@ -907,7 +907,7 @@ int16_t RPrint::SetFont(int16_t sCellH,RFont* pFont)
 	return SUCCESS;
 	}
 
-int16_t RPrint::SetColor(ULONG ulForeColor,ULONG ulBackColor,ULONG ulShadowColor)
+int16_t RPrint::SetColor(uint32_t ulForeColor,uint32_t ulBackColor,uint32_t ulShadowColor)
 	{
 	m_ForegroundColor = ulForeColor;
 	if (ulBackColor) m_BackgroundColor = ulBackColor;

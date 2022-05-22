@@ -76,7 +76,6 @@ using namespace std;
 ////////////////////////////////////////////////////////////////////////////////
 #ifndef BASETYPES
 #define BASETYPES
-typedef uint32_t ULONG;
 typedef uint16_t USHORT;
 typedef unsigned char UCHAR;
 #endif // !BASETYPES

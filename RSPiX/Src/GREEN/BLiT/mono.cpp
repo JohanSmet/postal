@@ -185,7 +185,7 @@ int16_t rspBlitToMono(
 
 // mono rect ....
 //
-int16_t rspRectToMono(ULONG ulColor,RImage* pimDst,int16_t sX,int16_t sY,
+int16_t rspRectToMono(uint32_t ulColor,RImage* pimDst,int16_t sX,int16_t sY,
 						int16_t sW,int16_t sH)
 	{
 #ifdef _DEBUG

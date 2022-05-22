@@ -25,7 +25,7 @@
 	char* print(RImage* pimDst,int16_t sX,int16_t sY,char* pszFormat,...);
 	int16_t SetEffectAbs(Effect eEffect,int16_t sVal); // absolute:
 	int16_t SetEffect(Effect eEffect,double dVal); // relative:
-	int16_t SetColor(ULONG ulForeColor,ULONG ulBackColor=0,ULONG ulShadowColor=0);
+	int16_t SetColor(uint32_t ulForeColor,uint32_t ulBackColor=0,uint32_t ulShadowColor=0);
 	int16_t SetDestination(RImage* pimDst,RRect* prColumn = NULL);
 	void SetJustifyRight();
 	void SetJustifyCenter();
@@ -84,7 +84,7 @@ public:
 	char* print(RImage* pimDst,int16_t sX,int16_t sY,const char* pszFormat,...);
 	int16_t SetEffectAbs(Effect eEffect,int16_t sVal); // absolute:
 	int16_t SetEffect(Effect eEffect,double dVal); // relative:
-	int16_t SetColor(ULONG ulForeColor,ULONG ulBackColor=0,ULONG ulShadowColor=0);
+	int16_t SetColor(uint32_t ulForeColor,uint32_t ulBackColor=0,uint32_t ulShadowColor=0);
 	int16_t SetDestination(RImage* pimDst,RRect* prColumn = NULL);
 	int16_t SetColumn(int16_t sX,int16_t sY,int16_t sW,int16_t sH);
 	void SetJustifyRight();

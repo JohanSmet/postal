@@ -34,7 +34,7 @@ extern int16_t gsBufferLocked;
 // NOTE: These represent ONLY compressed types BLiT can access.  Use ImageIsUncompressed
 // otherwise.
 //
-inline int16_t ImageIsCompressed(ULONG ulType) // an image type
+inline int16_t ImageIsCompressed(uint32_t ulType) // an image type
 	{
 	int16_t	sRet = 0; // 0 if it is NOT a supported compressed type, else 1!
 	
@@ -51,7 +51,7 @@ inline int16_t ImageIsCompressed(ULONG ulType) // an image type
 
 // NOTE: These represent ONLY uncompressed types BLiT can access.  
 //
-inline int16_t ImageIsUncompressed(ULONG ulType) // an image type
+inline int16_t ImageIsUncompressed(uint32_t ulType) // an image type
 	{
 	int16_t	sRet = 0; // 0 if it is NOT a supported uncompressed type, else 1!
 	
@@ -82,7 +82,7 @@ public:
 	USHORT	usASCII;	// = ascii value
 	USHORT	usSourceType;	// uncompressed Image pre-compressed type
 	UCHAR*	pCode;		// It's all in one buffer for this one
-	ULONG		ulSize;		// Size of compressed buffer
+	uint32_t		ulSize;		// Size of compressed buffer
 
 	CCompressedMono()
 		{

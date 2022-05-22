@@ -97,7 +97,7 @@ class EXE2DLL CRSPiXBlue : public CStatic
 		// BCRITIC.H
 		int16_t Blu_RemoveCritical(CRITICALL cc)	
 			{ return ::Blu_RemoveCritical(cc); }
-		int16_t Blu_AddCritical(CRITICALL cc, ULONG ulUser)
+		int16_t Blu_AddCritical(CRITICALL cc, uint32_t ulUser)
 			{ return ::Blu_AddCritical(cc, ulUser); }
 		// BDEBUG.H
 		#undef TRACE	// We will use MFC's TRACE
@@ -224,7 +224,7 @@ class EXE2DLL CRSPiXBlue : public CStatic
 			{ return ::Blu_GetSoundOutPaneSize(); }
 		void Blu_SetSoundOutPaneSize(long lPaneSize)
 			{ ::Blu_SetSoundOutPaneSize(lPaneSize); }
-		int16_t Blu_OpenSoundOut(	ULONG		ulSampleRate,
+		int16_t Blu_OpenSoundOut(	uint32_t		ulSampleRate,
 										USHORT	usBitsPerSample,
 										USHORT	usNumChannels)
 			{
@@ -235,7 +235,7 @@ class EXE2DLL CRSPiXBlue : public CStatic
 		int16_t Blu_CloseSoundOut(void)
 			{ return ::Blu_CloseSoundOut(); }
 		int16_t Blu_StartSoundOut(BLU_SND_CALLBACK callback,
-										ULONG ulUser)
+										uint32_t ulUser)
 			{ return ::Blu_StartSoundOut(callback, ulUser); }
 		int16_t Blu_IsSoundOutOpen(void)
 			{ return ::Blu_IsSoundOutOpen(); }

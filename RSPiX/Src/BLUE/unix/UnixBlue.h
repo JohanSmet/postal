@@ -584,7 +584,7 @@ typedef int16_t (*RSP_SND_CALLBACK)(UCHAR*	pucBuffer,	// Data buffer to be fille
 																		// silence if necessary)
 											int32_t		lDataPos,	// Data's starting position
 																		// in sound out data stream
-											ULONG*	pulUser);	// For use by user (can be
+											uint32_t*	pulUser);	// For use by user (can be
 																		// changed as desired)
 
 extern int16_t rspSetSoundOutMode(				// Returns 0 if successfull, non-zero otherwise
@@ -594,7 +594,7 @@ extern int16_t rspSetSoundOutMode(				// Returns 0 if successfull, non-zero othe
 	int32_t lCurBufferTime,							// In:  Current buffer time (in ms.)
 	int32_t lMaxBufferTime,							// In:  Maximum buffer time (in ms.)
 	RSP_SND_CALLBACK callback,					// In:  Callback function
-	ULONG ulUser);									// In:  User-defined value to pass to callback
+	uint32_t ulUser);									// In:  User-defined value to pass to callback
 	
 extern int16_t rspGetSoundOutMode(				// Returns 0 if successfull, non-zero otherwise
 	int32_t* plSampleRate,							// Out: Sample rate or -1 (unless NULL)

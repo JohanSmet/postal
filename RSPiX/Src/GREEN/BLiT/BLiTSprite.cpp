@@ -55,8 +55,8 @@ class RCompressedImageData
 	{
 public:
 	USHORT	usCompType;	// = FSPR8 image type
-	ULONG		m_lBufSize;		// Size of the pixel data
-	ULONG		m_lCodeSize;	// Size of the control block
+	uint32_t		m_lBufSize;		// Size of the pixel data
+	uint32_t		m_lCodeSize;	// Size of the control block
 	USHORT	usSourceType;	// uncompressed Image pre-compressed type
 	UCHAR*	pCBuf;		// Start of compressed picture data, 128-aligned, NULL for monochrome
 	UCHAR*	pCMem;
@@ -342,7 +342,7 @@ int16_t   ConvertToFSPR8(RImage*  pImage)
 	ASSERT( ((pucCPos - pHeader->pCBuf)) < 2*1024*1024); // just in case something flakey happens!
 	ASSERT( ((pucCPos - pHeader->pCBuf)) > 0); // just in case something flakey happens!
 	// NOTE THE SIZE:
-	pHeader->m_lBufSize = ULONG(pucCPos - pHeader->pCBuf);
+	pHeader->m_lBufSize = uint32_t(pucCPos - pHeader->pCBuf);
 		
 	// Shrink the Compressed buffer:
 	if (pucCPos == pHeader->pCBuf)
@@ -436,7 +436,7 @@ int16_t   ConvertToFSPR8(RImage*  pImage)
 	// Store the size of the Control Block Buffer:
 	pHeader->pCtlArry[sH] = (UCHAR*)(size_t)(pucConBlk - pHeader->pControlBlock);
 	// NOTE THE SIZE:
-	pHeader->m_lCodeSize = ULONG(pucConBlk - pHeader->pControlBlock);
+	pHeader->m_lCodeSize = uint32_t(pucConBlk - pHeader->pControlBlock);
 
 	// Shrink the Control Block buffer:
 	pHeader->pControlBlock = (UCHAR*)realloc((void*)pHeader->pControlBlock,

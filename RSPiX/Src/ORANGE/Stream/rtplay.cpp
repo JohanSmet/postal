@@ -269,7 +269,7 @@ int16_t CRtPlay::RtInfoCall(	UCHAR* puc, long lSize, USHORT usType, UCHAR ucFlag
 	if (file.Open(puc, lSize, ENDIAN_BIG) == 0)
 		{
 		USHORT	usCmd;
-		ULONG		ulChannels;
+		uint32_t		ulChannels;
 		long		lTimeVal;
 		long		lVal;
 

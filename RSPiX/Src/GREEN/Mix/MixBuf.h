@@ -43,7 +43,7 @@ class RMixBuf
 		// Constructor Especial.
 		RMixBuf(				// Returns whatever it is a constructor returns.
 			UCHAR* pu8Dst,	// In:  Destination buffer.
-			ULONG ulSize);	// In:  Size of destination buffer in bytes.
+			uint32_t ulSize);	// In:  Size of destination buffer in bytes.
 		// Destructor.
 		~RMixBuf();
 
@@ -53,18 +53,18 @@ class RMixBuf
 		
 		// Set size of mix buffer in bytes. (Allocates buffer).
 		// Returns 0 on success.
-		int16_t SetSize(ULONG ulSize);
+		int16_t SetSize(uint32_t ulSize);
 
 		// Set the destination buffer.
 		void SetDest(
 			UCHAR* pu8Dst,	// In:  Destination buffer.
-			ULONG ulSize);	// In:  Size of destination buffer in bytes.
+			uint32_t ulSize);	// In:  Size of destination buffer in bytes.
 
 		// Mix data in.
 		// Returns 0 on success.
-		int16_t Mix(	ULONG		ulStartPos,
+		int16_t Mix(	uint32_t		ulStartPos,
 						U8*		pu8Data, 
-						ULONG		ulSize, 
+						uint32_t		ulSize, 
 						int32_t		lSampleRate,
 						int32_t		lBitsPerSample,
 						int32_t		lNumChannels,
@@ -83,10 +83,10 @@ class RMixBuf
 		void*	GetMixData(void)	{ return m_pu8Mix; }
 
 		// Get size of destination buffer in bytes.
-		ULONG GetDstSize(void)	{ return m_ulDstSize; }
+		uint32_t GetDstSize(void)	{ return m_ulDstSize; }
 
 		// Get size of mix buffer in bytes.
-		ULONG GetMixSize(void)	{ return m_ulMixSize; }
+		uint32_t GetMixSize(void)	{ return m_ulMixSize; }
 
 		// Returns number of RMixBufs allocated.
 		static int16_t Num(void)		{ return ms_sNumBufs; }
@@ -125,8 +125,8 @@ class RMixBuf
 		U8*			m_pu8Mix;				// Mix buffer.
 		U8*			m_pu8Dst;				// Destination buffer.
 		int16_t			m_sOwnMixBuf;			// TRUE if RMixBuf allocated the mix buffer.
-		ULONG			m_ulMixSize;			// Size of mix buffer in bytes.
-		ULONG			m_ulDstSize;			// Size of dst buffer in bytes.
+		uint32_t			m_ulMixSize;			// Size of mix buffer in bytes.
+		uint32_t			m_ulDstSize;			// Size of dst buffer in bytes.
 
 		static int16_t	ms_sNumBufs;		// Number of RMixBufs allocated.
 		static UCHAR	ms_ucGlobalVolume;// Scale all mixes relative to this

@@ -127,7 +127,7 @@ int16_t	RMultiGridIndirect::Alloc(int16_t sW, int16_t sH, int16_t sMaxPlanes,
 
 	m_pucPalette = (UCHAR*) calloc(sMaxPlanes,int32_t(sGridW) * sGridH);
 	ASSERT(m_pucPalette);
-	m_plAccessX = (ULONG*) calloc(sizeof(int32_t),sGridW * sTileW);
+	m_plAccessX = (uint32_t*) calloc(sizeof(int32_t),sGridW * sTileW);
 	ASSERT(m_plAccessX);
 	m_ppucAccessY = (UCHAR**) calloc( sizeof(UCHAR*),int32_t(sGridH)*sTileH );
 	ASSERT(m_ppucAccessY);
@@ -400,7 +400,7 @@ int16_t RMultiGridIndirect::Load(RFile* fp)
 		}
 
 	// Need to hook up all the access variables!
-	m_plAccessX = (ULONG*) calloc(sizeof(int32_t),m_sGridW * m_sTileW);
+	m_plAccessX = (uint32_t*) calloc(sizeof(int32_t),m_sGridW * m_sTileW);
 	ASSERT(m_plAccessX);
 	m_ppucAccessY = (UCHAR**) calloc( sizeof(UCHAR*),int32_t(m_sGridH)*m_sTileH );
 	ASSERT(m_ppucAccessY);

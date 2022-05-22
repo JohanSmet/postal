@@ -225,7 +225,7 @@ void RAttributeMap::FreeMap()
 //		Allocates memory for a map of the given size
 //
 // Parameters:
-//		ULONG ulSize = size of buffer to allocate
+//		uint32_t ulSize = size of buffer to allocate
 //
 // Returns:
 //		SUCCESS if memory was allocated
@@ -233,7 +233,7 @@ void RAttributeMap::FreeMap()
 //
 //////////////////////////////////////////////////////////////////////
 
-int16_t RAttributeMap::AllocateMap(ULONG ulSize, ULONG ulDetailMapSize)
+int16_t RAttributeMap::AllocateMap(uint32_t ulSize, uint32_t ulDetailMapSize)
 {
 	// int16_t sReturn = SUCCESS;
 
@@ -258,8 +258,8 @@ int16_t RAttributeMap::AllocateMap(ULONG ulSize, ULONG ulDetailMapSize)
 //		at the given position on the map.
 //
 // Parameters:
-//		ULONG ulX = x position of point
-//		ULONG ulY = y position of point
+//		uint32_t ulX = x position of point
+//		uint32_t ulY = y position of point
 //
 // Returns:
 //		USHORT = attribute at the specified point
@@ -502,8 +502,8 @@ int16_t RAttributeMap::Load(char* pszFilename)
 int16_t RAttributeMap::Load(RFile* prf)
 {
 	int16_t sReturn = SUCCESS;
-	ULONG ulFileType;
-	ULONG ulVersion;
+	uint32_t ulFileType;
+	uint32_t ulVersion;
 
 	if (prf && prf->IsOpen())
 	{

@@ -30,7 +30,7 @@
 //						=========			=========
 //						CNFile				RFile
 //						CPal					RPal
-//						ULONG ulType		RPal::Type ulType
+//						uint32_t ulType		RPal::Type ulType
 //						m_bCanDestroyData	m_sCanDestroyData
 //
 //	11/01/96	JMI	Changed all members to be preceded by m_ (e.g., sDepth
@@ -132,7 +132,7 @@ class RPal
 
 	public:	// Member vars.
 		Type		m_type;				// Palette type
-		ULONG		m_ulSize;			// Size of data
+		uint32_t		m_ulSize;			// Size of data
 		int16_t		m_sStartIndex;		// Starting index
 		int16_t		m_sNumEntries;		// Number of entries
 		int16_t		m_sPalEntrySize;	// Number of bytes in each palette entry
@@ -173,10 +173,10 @@ class RPal
 
 		// Create PAL's data using the specified values.
 		int16_t CreateData(	// Returns 0 if successful
-			ULONG	ulSize);	// Size of data
+			uint32_t	ulSize);	// Size of data
 
 		int16_t CreateData(
-			ULONG ulSize, 			// Size of data
+			uint32_t ulSize, 			// Size of data
 			Type	type, 		// Palette type
 			int16_t sPalEntrySize, // Size in bytes of each Pal entry
 			int16_t sStartIndex,	// Starting index of colors

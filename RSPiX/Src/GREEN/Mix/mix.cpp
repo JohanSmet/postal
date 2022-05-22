@@ -84,7 +84,7 @@
 //							provides a complete interface to the sound instead of
 //							the partial one it used to.
 //
-//		09/04/96 MJR	Changed callback from ULONG to long for size parameter.
+//		09/04/96 MJR	Changed callback from uint32_t to long for size parameter.
 //
 //		09/06/96	JMI	I patched Reset() so it might work.
 //
@@ -190,7 +190,7 @@ RMix::State		RMix::ms_sState	= Idle;				// Current state for all
 																	// RMixes.
 int32_t				RMix::ms_lCurPos	= 0L;					// Current play position
 																	// based on absolute start.
-ULONG				RMix::ms_ulBufSize	= 0xFFFFFFFF;	// The size to use when al-
+uint32_t				RMix::ms_ulBufSize	= 0xFFFFFFFF;	// The size to use when al-
 																	// locating RMixBufs.
 
 int16_t				RMix::ms_sReset	= FALSE;				// If TRUE, current user
@@ -308,9 +308,9 @@ int16_t RMix::BlueCall(	// Returns FALSE when done.
 										) );
 			}
 		
-		ULONG ulTotalMixedIn	= 0L;
-		ULONG	ulMixBufSize	= pmb->GetMixSize();
-		ULONG	ulCurMix;
+		uint32_t ulTotalMixedIn	= 0L;
+		uint32_t	ulMixBufSize	= pmb->GetMixSize();
+		uint32_t	ulCurMix;
 
 		// If we were recently reset . . .
 		if (ms_sReset == TRUE)
@@ -419,7 +419,7 @@ int16_t RMix::BlueCallStatic(	// Returns TRUE to continue mixing in this
 	int32_t		lBufSize,			// Size of memory that pucData points to.
 	int32_t		lDataPos,			// Position this buffer will take in the overall
 										// stream.
-	ULONG*	/*pul_ppmixbuf*/)	// An unused user value.
+	uint32_t*	/*pul_ppmixbuf*/)	// An unused user value.
 	{
 	int16_t sBufDone	= TRUE;	// Assume buffer not needed.
 

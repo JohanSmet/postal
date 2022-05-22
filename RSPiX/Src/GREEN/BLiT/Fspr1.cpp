@@ -594,7 +594,7 @@ int16_t		SaveFSPR1(RImage* pImage, RFile* pcf)
 // Make s for an easier transition!
 //
 int16_t rspBlit(
-				  ULONG ulForeColor,
+				  uint32_t ulForeColor,
 				  RImage* pimSrc,
 				  RImage* pimDst,
 				  int16_t sDstX,
@@ -871,7 +871,7 @@ int16_t rspBlit(
 // left up to a higher level.
 //
 int16_t rspBlit(
-				  ULONG ulForeColor, // will draw color 0
+				  uint32_t ulForeColor, // will draw color 0
 				  RImage* pimSrc,
 				  RImage* pimDst,
 				  int16_t sDstX,
@@ -1189,7 +1189,7 @@ int16_t rspBlit(
 // Make s for an easier transition!
 //
 int16_t rspBlit(
-				  ULONG ulForeColor,
+				  uint32_t ulForeColor,
 				  RImage* pimSrc,
 				  RImage* pimDst,
 				  int16_t sDstX,
@@ -1398,7 +1398,7 @@ int16_t rspBlit(
 // left up to a higher level.
 //
 int16_t rspBlit(
-				  ULONG ulForeColor, // will draw color 0
+				  uint32_t ulForeColor, // will draw color 0
 				  RImage* pimSrc,
 				  RImage* pimDst,
 				  int16_t sDstX,

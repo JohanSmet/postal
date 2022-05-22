@@ -67,7 +67,7 @@
 #define AMEM_TELL(pTell, pFile, pMem)	__asm mov pTell, pMem\
 													__asm sub pTell, pFile
 //
-// Call any of these to get a UCHAR, USHORT, or ULONG from the memory area.  The
+// Call any of these to get a UCHAR, USHORT, or uint32_t from the memory area.  The
 // pointer is automatically updated to follow the data that was just read.
 // These macros also hide the byte-ordering on the Mac vs the PC.
 // pDst		== [ptr] or reg to get data
@@ -468,7 +468,7 @@ int16_t CRamFlx::ReadDataBlack(CImage* pimageRead, int16_t* psPixelsModified)
 	for (int16_t y = 0; y < pimageRead->lHeight; y++)
 		{
 		memset(pbMem, 0, pimageRead->lWidth);
-		pbMem += (ULONG)pimageRead->lPitch;
+		pbMem += (uint32_t)pimageRead->lPitch;
 		}
 	
 	// Set modified flag
@@ -513,7 +513,7 @@ int16_t CRamFlx::ReadDataCopy(	CImage* pimageRead, CNFile* pfile,
 		// Increment buffer pointers
 //		m_pCurFlxBuf = MEM_SEEK(m_pCurFlxBuf,m_filehdr.sWidth);
 		pfile->Read(pbMem, pimageRead->lWidth);
-		pbMem += (ULONG)pimageRead->lPitch;
+		pbMem += (uint32_t)pimageRead->lPitch;
 		}
 
 	// Set modified flag
@@ -606,7 +606,7 @@ int16_t CRamFlx::ReadDataBRun(	CImage* pimageRead, CNFile* pfile,
 						// Increment buffer pointers
 //						m_pCurFlxBuf = MEM_SEEK(m_pCurFlxBuf,sCount);
 						pfile->Read(pbPix, sCount);
-						pbPix += (ULONG)sCount;
+						pbPix += (uint32_t)sCount;
 						}
 					else
 						{
@@ -614,7 +614,7 @@ int16_t CRamFlx::ReadDataBRun(	CImage* pimageRead, CNFile* pfile,
 //						bVal = MEM_BYTE(m_pCurFlxBuf);	
 						pfile->Read(&bVal);
 						memset(pbPix, (int)bVal, (size_t)sCount);
-						pbPix += (ULONG)sCount;
+						pbPix += (uint32_t)sCount;
 						}
 					}
 				else
@@ -623,7 +623,7 @@ int16_t CRamFlx::ReadDataBRun(	CImage* pimageRead, CNFile* pfile,
 					}
 				}
 			
-			pbRow += (ULONG)pimageRead->lPitch;
+			pbRow += (uint32_t)pimageRead->lPitch;
 			}
 		#else
 			// Locals needed (b/c we can't use this->).
@@ -672,7 +672,7 @@ int16_t CRamFlx::ReadDataBRun(	CImage* pimageRead, CNFile* pfile,
 
 					// Copy pixels
 					; memcpy(pbPix,m_pCurFlxBuf,sCount);	
-					; pbPix += (ULONG)sCount;
+					; pbPix += (uint32_t)sCount;
 					// Increment buffer pointers
 					; m_pCurFlxBuf = MEM_SEEK(m_pCurFlxBuf,sCount);
 
@@ -689,7 +689,7 @@ int16_t CRamFlx::ReadDataBRun(	CImage* pimageRead, CNFile* pfile,
 					sub	dx, cx				; x += sCount;  ASM version counts down instead of up.
 
 					; memset(pbPix, (int)bVal, (size_t)sCount);
-					; pbPix += (ULONG)sCount;
+					; pbPix += (uint32_t)sCount;
 					rep stos	byte ptr [edi]	; Set pixels.  Does nothing if cx is 0.
 
 					jnz	BRunPacketLoop		; If we do not hit zero (from sub), continue loop.
@@ -698,7 +698,7 @@ int16_t CRamFlx::ReadDataBRun(	CImage* pimageRead, CNFile* pfile,
 				BRunPacketLoopDone:
 
 					mov	edi,	pbRow
-					add	edi,	lPitch				; pbRow += (ULONG)pimageRead->lPitch;
+					add	edi,	lPitch				; pbRow += (uint32_t)pimageRead->lPitch;
 					mov	pbRow, edi					; Remember for next iteration.
 					
 					dec	bx								; Decrement y.
@@ -785,7 +785,7 @@ int16_t CRamFlx::ReadDataLC(	CImage* pimageRead, CNFile* pfile,
 	pfile->Read(&y);
 
 	// Init row pointer to point at start of specified row
-	pbRow = (UCHAR*)pimageRead->pData + ((ULONG)y * (ULONG)pimageRead->lPitch);
+	pbRow = (UCHAR*)pimageRead->pData + ((uint32_t)y * (uint32_t)pimageRead->lPitch);
 
 	// The second word specifies the number of lines in this chunk.
 //	lines = MEM_WORD(m_pCurFlxBuf);	
@@ -837,7 +837,7 @@ int16_t CRamFlx::ReadDataLC(	CImage* pimageRead, CNFile* pfile,
 				// Adjust pixel pointer to skip that number of pixels.
 //				bVal = MEM_BYTE(m_pCurFlxBuf);	
 				pfile->Read(&bVal);
-				pbPix = pbPix + (ULONG)bVal;
+				pbPix = pbPix + (uint32_t)bVal;
   			
 				// Second byte of each packet is type/size.  If bit 7 is 0, bits 6-0
 				// are number of pixels to be copied.  If bit 7 is 1, bits 6-0 are
@@ -854,7 +854,7 @@ int16_t CRamFlx::ReadDataLC(	CImage* pimageRead, CNFile* pfile,
 //					memcpy(pbPix,m_pCurFlxBuf,sCount);	
 //					m_pCurFlxBuf = MEM_SEEK(m_pCurFlxBuf,sCount);
 					pfile->Read(pbPix, sCount);
-					pbPix += (ULONG)sCount;
+					pbPix += (uint32_t)sCount;
 					}
 				else
 					{
@@ -862,7 +862,7 @@ int16_t CRamFlx::ReadDataLC(	CImage* pimageRead, CNFile* pfile,
 //					bVal = MEM_BYTE(m_pCurFlxBuf);	
 					pfile->Read(&bVal);
 					memset(pbPix, (int)bVal, (size_t)sCount);
-					pbPix += (ULONG)sCount;
+					pbPix += (uint32_t)sCount;
 					}
 				
 				// Adjust remaining packets
@@ -870,7 +870,7 @@ int16_t CRamFlx::ReadDataLC(	CImage* pimageRead, CNFile* pfile,
 				}
 
 			// Move row pointer to start of next row
-			pbRow += (ULONG)pimageRead->lPitch;
+			pbRow += (uint32_t)pimageRead->lPitch;
 		
 			// Adjust remaining lines
 			lines--;
@@ -906,7 +906,7 @@ int16_t CRamFlx::ReadDataLC(	CImage* pimageRead, CNFile* pfile,
 				// The first byte of each packet is a column skip.
 				// Adjust pixel pointer to skip that number of pixels.
 				AMEM_BYTE(bl, esi)				; bVal = MEM_BYTE(m_pCurFlxBuf);	
-				add	edi, ebx						; pbPix = pbPix + (ULONG)bVal;
+				add	edi, ebx						; pbPix = pbPix + (uint32_t)bVal;
   			
 				// Second byte of each packet is type/size.  If bit 7 is 0, bits 6-0
 				// are number of pixels to be copied.  If bit 7 is 1, bits 6-0 are
@@ -921,7 +921,7 @@ int16_t CRamFlx::ReadDataLC(	CImage* pimageRead, CNFile* pfile,
 														; else handle uniques
 				; memcpy(pbPix,m_pCurFlxBuf,sCount);	
 				; m_pCurFlxBuf = MEM_SEEK(m_pCurFlxBuf,sCount);
-				; pbPix += (ULONG)sCount;
+				; pbPix += (uint32_t)sCount;
 
 				rep movs	byte ptr [edi], byte ptr [esi]	; Copy by bytes.  Does nothing if cx is 0.
 				
@@ -932,7 +932,7 @@ int16_t CRamFlx::ReadDataLC(	CImage* pimageRead, CNFile* pfile,
 				// Get repeat pixel.
 				AMEM_BYTE(al, esi)				; bVal = MEM_BYTE(m_pCurFlxBuf);	
 				; memset(pbPix, (int)bVal, (size_t)sCount);
-				; pbPix += (ULONG)sCount;
+				; pbPix += (uint32_t)sCount;
 				rep stos	byte ptr [edi]			; Set pixels.  Does nothing if cx is 0.
 
 			LCNextPacket:				
@@ -943,7 +943,7 @@ int16_t CRamFlx::ReadDataLC(	CImage* pimageRead, CNFile* pfile,
 			LCPacketLoopDone:
 				// Move row pointer to start of next row
 				mov	edi,	pbRow
-				add	edi,	lPitch				; pbRow += (ULONG)pimageRead->lPitch;
+				add	edi,	lPitch				; pbRow += (uint32_t)pimageRead->lPitch;
 				mov	pbRow, edi					; Remember for next iteration.
 
 				// Adjust remaining lines
@@ -1076,7 +1076,7 @@ int16_t CRamFlx::ReadDataSS2(CImage* pimageRead, CNFile* pfile,
 		packets = (int16_t)wVal;
 					
 		// Init pointer to point at start of specified row
-		pbPix = (UCHAR*)pimageRead->pData + ((ULONG)y * (ULONG)pimageRead->lPitch);
+		pbPix = (UCHAR*)pimageRead->pData + ((uint32_t)y * (uint32_t)pimageRead->lPitch);
 		
 		while (packets > 0)
 			{
@@ -1084,7 +1084,7 @@ int16_t CRamFlx::ReadDataSS2(CImage* pimageRead, CNFile* pfile,
 			// Adjust pixel pointer to skip that number of pixels.
 //			bVal = MEM_BYTE(m_pCurFlxBuf);	
 			pfile->Read(&bVal);
-			pbPix = pbPix + (ULONG)bVal;
+			pbPix = pbPix + (uint32_t)bVal;
 			
 			// Second byte of each packet is type/size.  If bit 7 is 0, bits 6-0
 			// are number of pixel pairs to be copied.  If bit 7 is 1, bits 6-0 are
@@ -1099,7 +1099,7 @@ int16_t CRamFlx::ReadDataSS2(CImage* pimageRead, CNFile* pfile,
 //				memcpy(pbPix, m_pCurFlxBuf, sCount);	
 //				m_pCurFlxBuf = MEM_SEEK(m_pCurFlxBuf,sCount);
 				pfile->Read(pbPix, sCount);
-				pbPix += (ULONG)(sCount);
+				pbPix += (uint32_t)(sCount);
 				}
 			else
 				{
@@ -1121,7 +1121,7 @@ int16_t CRamFlx::ReadDataSS2(CImage* pimageRead, CNFile* pfile,
 		if (bLastByte == TRUE)
 			{
 			// Get pointer to end of this row.
-			pbPix = (UCHAR*)pimageRead->pData + (((ULONG)y + 1L) * (ULONG)pimageRead->lPitch) - 1L;
+			pbPix = (UCHAR*)pimageRead->pData + (((uint32_t)y + 1L) * (uint32_t)pimageRead->lPitch) - 1L;
 			// Set pixel at end of row.
 			*pbPix = byLastByte;
 			bLastByte = FALSE;
@@ -1194,7 +1194,7 @@ int16_t CRamFlx::ReadDataSS2(CImage* pimageRead, CNFile* pfile,
 		mov	packets, ax					; packets = (int16_t)wVal;
 							
 		// Init pointer to point at start of specified row
-		;pbPix = (UCHAR*)pimageRead->pData + ((ULONG)y * (ULONG)pimageRead->lPitch);
+		;pbPix = (UCHAR*)pimageRead->pData + ((uint32_t)y * (uint32_t)pimageRead->lPitch);
 
 		mov	eax, lPitch					; pimageRead->lPitch
 		mul	ebx							; Multiply by y.  Counting on edx getting 0000.
@@ -1213,7 +1213,7 @@ int16_t CRamFlx::ReadDataSS2(CImage* pimageRead, CNFile* pfile,
 		// The first byte of each packet is a column skip.
 		// Adjust pixel pointer to skip that number of pixels.
 		AMEM_BYTE(dl, esi)				; bVal = MEM_BYTE(pCurFlxBuf);	
-		add	edi, edx						; pbPix = pbPix + (ULONG)bVal;
+		add	edi, edx						; pbPix = pbPix + (uint32_t)bVal;
 
 		xor	ecx, ecx						; Clear ecx just in case.
 			
@@ -1232,7 +1232,7 @@ int16_t CRamFlx::ReadDataSS2(CImage* pimageRead, CNFile* pfile,
 												
 		; memcpy(pbPix, pCurFlxBuf, sCount);	
 		; pCurFlxBuf = MEM_SEEK(pCurFlxBuf,sCount);
-		; pbPix += (ULONG)(sCount);
+		; pbPix += (uint32_t)(sCount);
 		rep movs	dword ptr [edi], dword ptr [esi]	; Copy by dwords.  Does nothing if cx is 0.
 
 		jnc	SS2RunDone								; If no carry from shr
@@ -1545,8 +1545,8 @@ void CRamFlx::CopyBuf(CImage* pimageDst, CImage* pimageSrc)
 	for (int16_t y = 0; y < pimageSrc->lHeight; y++)
 		{
 		memcpy(pbDst, pbSrc, pimageSrc->lWidth);
-		pbSrc += (ULONG)pimageSrc->lPitch;
-		pbDst += (ULONG)pimageDst->lPitch;
+		pbSrc += (uint32_t)pimageSrc->lPitch;
+		pbDst += (uint32_t)pimageDst->lPitch;
 		}                                          
 		                             
    // Copy initial CPal member variables
@@ -1591,8 +1591,8 @@ int16_t CRamFlx::CreateFramePointers(void)
 //			lSizeFrame = MEM_DWORD(m_pCurFlxBuf);
 			m_file.Read(&lSizeFrame);
 			// Seek to beginning of next frame
-//			m_pCurFlxBuf = MEM_SEEK(m_pCurFlxBuf,lSizeFrame - sizeof(ULONG)); 
-			m_file.Seek(lSizeFrame - sizeof(ULONG), SEEK_CUR);
+//			m_pCurFlxBuf = MEM_SEEK(m_pCurFlxBuf,lSizeFrame - sizeof(uint32_t)); 
+			m_file.Seek(lSizeFrame - sizeof(uint32_t), SEEK_CUR);
 			}
 		}
 		 

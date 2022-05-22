@@ -236,23 +236,23 @@ extern	int16_t	rspGeneralLock(RImage* pimDst);
 extern	int16_t	rspGeneralUnlock(RImage* pimDst);
 
 /* archaic
-extern	void	rspSetConvertToFSPR1(ULONG ulLassoBackCol = 0,ULONG ulComprBackCol = 0,
+extern	void	rspSetConvertToFSPR1(uint32_t ulLassoBackCol = 0,uint32_t ulComprBackCol = 0,
 								int16_t sTrimT = 0,int16_t sMaxH = 0,UCHAR ucASCII = 0);
 
-extern	void	rspSetConvertFromFSPR1(ULONG ulFrontCol,ULONG ulBackCol = 1);
+extern	void	rspSetConvertFromFSPR1(uint32_t ulFrontCol,uint32_t ulBackCol = 1);
 */
 
 /* Archaic
-extern	int16_t	rspBlit(ULONG ulForeColor,ULONG ulBackColor,RImage* pimSrc,RImage* pimDst,
+extern	int16_t	rspBlit(uint32_t ulForeColor,uint32_t ulBackColor,RImage* pimSrc,RImage* pimDst,
 								  int16_t sDstX,int16_t sDstY,const RRect* prDst = NULL,int16_t sAddW = 0);
-extern	int16_t	rspBlit(ULONG ulForeColor,ULONG ulBackColor,RImage* pimSrc,RImage* pimDst,
+extern	int16_t	rspBlit(uint32_t ulForeColor,uint32_t ulBackColor,RImage* pimSrc,RImage* pimDst,
 	int16_t sDstX,int16_t sDstY,int16_t sDstW,int16_t sDstH,const RRect* prDst=NULL,int16_t sAddW=0,
 	int16_t *psItalics=NULL);
 	*/
 
 //============================  The modern version FSPR1 =================================
 extern	int16_t rspBlit(
-				  ULONG ulForeColor, // will draw in color 0!
+				  uint32_t ulForeColor, // will draw in color 0!
 				  RImage* pimSrc,
 				  RImage* pimDst,
 				  int16_t sDstX,
@@ -261,7 +261,7 @@ extern	int16_t rspBlit(
 				  ); // no scaling, clipping, or text effects.
 
 extern	int16_t rspBlit(
-				  ULONG ulForeColor, // will draw color 0
+				  uint32_t ulForeColor, // will draw color 0
 				  RImage* pimSrc,
 				  RImage* pimDst,
 				  int16_t sDstX,
@@ -272,7 +272,7 @@ extern	int16_t rspBlit(
 				  ); // no clipping or text effects, but scaling.
 
 extern	int16_t rspBlit(
-				  ULONG ulForeColor,
+				  uint32_t ulForeColor,
 				  RImage* pimSrc,
 				  RImage* pimDst,
 				  int16_t sDstX,
@@ -281,7 +281,7 @@ extern	int16_t rspBlit(
 				  );	// No clipping ever, text effects, no scaling.
 
 extern	int16_t rspBlit(
-				  ULONG ulForeColor, // will draw color 0
+				  uint32_t ulForeColor, // will draw color 0
 				  RImage* pimSrc,
 				  RImage* pimDst,
 				  int16_t sDstX,
@@ -302,18 +302,18 @@ extern	int16_t rspAddRotationPadding(RImage* pimSrc,int16_t sHotX,int16_t sHotY)
 
 
 /* archaic
-extern	int16_t	_rspBlit(ULONG ulClrLTR,ULONG ulClrBKD,RImage* pimSrc,RImage* pimDst,
+extern	int16_t	_rspBlit(uint32_t ulClrLTR,uint32_t ulClrBKD,RImage* pimSrc,RImage* pimDst,
 				  int16_t sDstX,int16_t sDstY,int16_t sW,int16_t sH,
 				  int16_t sAddW=0,u16Frac* frSkipY=NULL,u16Frac* frSkipX=NULL);
-extern	int16_t	_rspBlit(ULONG ulForeColor,ULONG ulBackColor,RImage* pimSrc,RImage* pimDst,
+extern	int16_t	_rspBlit(uint32_t ulForeColor,uint32_t ulBackColor,RImage* pimSrc,RImage* pimDst,
 								  int16_t sDstX,int16_t sDstY,const RRect* prDst = NULL,int16_t sAddW = 0);
 
-extern	int16_t	_rspBlit(ULONG ulForeColor,ULONG ulBackColor,RImage* pimSrc,RImage* pimDst,
+extern	int16_t	_rspBlit(uint32_t ulForeColor,uint32_t ulBackColor,RImage* pimSrc,RImage* pimDst,
 								  int16_t sDstX,int16_t sDstY,int16_t sDstW,int16_t sDstH,
 								  const RRect* prDst = NULL,int16_t sAddW = 0);
 */
 
-extern	int16_t rspRectToMono(ULONG ulColor,RImage* pimDst,int16_t sX,int16_t sY,
+extern	int16_t rspRectToMono(uint32_t ulColor,RImage* pimDst,int16_t sX,int16_t sY,
 						int16_t sW,int16_t sH);
 
 //****************************************************************************************
@@ -552,7 +552,7 @@ extern	int16_t rspBlitToMono(
 // if prSrc == NULL, no source clipping will occure
 // if prDst == NULL, it will clip to the RImage
 //
-extern	int16_t	rspBlitT(ULONG ucTransparent,RImage* pimSrc,RImage* pimDst,int16_t sSrcX,int16_t sSrcY,int16_t sDstX,
+extern	int16_t	rspBlitT(uint32_t ucTransparent,RImage* pimSrc,RImage* pimDst,int16_t sSrcX,int16_t sSrcY,int16_t sDstX,
 			  int16_t sDstY,int16_t sW,int16_t sH,const RRect* prDst,const RRect* prSrc);
 
 extern	int16_t rspBlitT(RImage* pimSrc,RImage* pimDst,int16_t sDstX,int16_t sDstY,

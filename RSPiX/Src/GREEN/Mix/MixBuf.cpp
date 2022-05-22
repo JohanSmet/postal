@@ -568,7 +568,7 @@ RMixBuf::RMixBuf(void)
 //////////////////////////////////////////////////////////////////////////////
 RMixBuf::RMixBuf(
 	UCHAR* pu8Dst,	// In:  Destination buffer.
-	ULONG ulSize)	// In:  Size of destination buffer in bytes.
+	uint32_t ulSize)	// In:  Size of destination buffer in bytes.
 	{
 	ms_sNumBufs++;
 
@@ -674,7 +674,7 @@ void RMixBuf::Silence(void)
 // Returns 0 on success.
 //
 //////////////////////////////////////////////////////////////////////////////
-int16_t RMixBuf::SetSize(ULONG ulSize)
+int16_t RMixBuf::SetSize(uint32_t ulSize)
 	{
 	int16_t sRes = 0;	// Assume success.
 
@@ -723,7 +723,7 @@ int16_t RMixBuf::SetSize(ULONG ulSize)
 //////////////////////////////////////////////////////////////////////////////
 void RMixBuf::SetDest(	// Returns nothing.
 	UCHAR* pu8Dst,			// In:  Destination buffer.
-	ULONG ulSize)			// In:  Size of destination buffer in bytes.
+	uint32_t ulSize)			// In:  Size of destination buffer in bytes.
 	{
 	// If mix is using dest . . .
 	if (m_pu8Mix == m_pu8Dst)
@@ -848,9 +848,9 @@ CDVA::CDVA()	// Create the tables!
 // Returns 0 on success.
 //
 //////////////////////////////////////////////////////////////////////////////
-int16_t RMixBuf::Mix(	ULONG		ulStartPos,
+int16_t RMixBuf::Mix(	uint32_t		ulStartPos,
 							U8*		pu8Data, 
-							ULONG		ulSize, 
+							uint32_t		ulSize, 
 							int32_t		lSampleRate,
 							int32_t		lBitsPerSample,
 							int32_t		lNumChannels,
@@ -899,7 +899,7 @@ int16_t RMixBuf::Mix(	ULONG		ulStartPos,
 
 		ASSERT(ulSize <= (m_ulMixSize - ulStartPos) );
 		
-		ULONG ulNum	= MIN(ulSize, m_ulMixSize - ulStartPos);
+		uint32_t ulNum	= MIN(ulSize, m_ulMixSize - ulStartPos);
 
 		if (ulNum > 0)
 			{
