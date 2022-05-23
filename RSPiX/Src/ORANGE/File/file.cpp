@@ -219,9 +219,9 @@ RFile::CritiCall	RFile::ms_criticall		= NULL;
 
 // For hooking Open(char*, ...) calls.
 RFile::OpenHook	RFile::ms_hOpen			= NULL;
-int32_t					RFile::ms_lOpenUser		= 0L;
+intptr_t			RFile::ms_lOpenUser		= 0L;
 RFile::CloseHook	RFile::ms_hClose			= NULL;
-int32_t					RFile::ms_lCloseUser		= 0L;
+intptr_t			RFile::ms_lCloseUser		= 0L;
 
 // Used to byte swap by Write().
 U8					RFile::ms_au8SwapBuf[RFILE_SWAP_SIZE];

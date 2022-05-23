@@ -492,7 +492,7 @@ void CSoundThing::Render(void)
 	//	here.
 
 	// Adjust volume of last play instance.  Clip just in case.
-	SetInstanceVolume(m_siChannel, MIN(255L, m_lCollectiveVolume) );
+	SetInstanceVolume(m_siChannel, MIN((int32_t)255, m_lCollectiveVolume) );
 
 	// Reset volume.
 	m_lCollectiveVolume	= 0;

@@ -246,7 +246,7 @@ int16_t RProtocolBSDIP::Startup(void)
 				ms_callback = 0;
 				
 				// Set our blocking hook function
-				if (WSASetBlockingHook(RProtocolBSDIP::BlockingHook) != NULL)
+				if (WSASetBlockingHook((FARPROC) RProtocolBSDIP::BlockingHook) != NULL)
 					{
 					ms_bWSASetBlockingHook = true;
 					
@@ -386,7 +386,7 @@ int16_t RProtocolBSDIP::Open(							// Returns 0 if successful, non-zero otherwi
 					// Check if they want blocking turned off
 					if (sOptionFlags & RSocket::optDontBlock)
 						{
-						uint32_t ulEnableNonBlockingMode = 1;
+						unsigned long ulEnableNonBlockingMode = 1;
 						if (ioctlsocket(m_sock, FIONBIO, &ulEnableNonBlockingMode) == SOCKET_ERROR)
 							{
 							sResult = -1;
@@ -1286,7 +1286,7 @@ int32_t RProtocolBSDIP::CheckReceivableBytes(void)
 #if PLATFORM_UNIX
     return(0);  // !!! FIXME
 #else
-	int32_t lResult = 0;
+	unsigned long lResult = 0;
 	
 	if (m_sock != INVALID_SOCKET)
 		{
@@ -1297,7 +1297,7 @@ int32_t RProtocolBSDIP::CheckReceivableBytes(void)
 			
 			// Get amount of data available for reading
 			ms_funcnum = RSocket::OtherFunc;
-			if (ioctlsocket(m_sock, FIONREAD, (uint32_t*)&lResult) == SOCKET_ERROR)
+			if (ioctlsocket(m_sock, FIONREAD, &lResult) == SOCKET_ERROR)
 				{
 				lResult = 0;
 				TRACE("RProtocolBSDIP::GetAvailableForReceive(): Error returned by ioctrlsocket(): %ld\n", WSAGetLastError());
@@ -1315,7 +1315,7 @@ int32_t RProtocolBSDIP::CheckReceivableBytes(void)
 		TRACE("RProtocolBSDIP::CanReceiveWithoutBlocking(): Socket is not open!\n");
 		}
 	
-	return lResult;
+	return (int32_t) lResult;
 #endif
 	}
 

@@ -686,11 +686,11 @@ class RFile
 		// Hook stuff.
 		int32_t							m_lUser;			// Instantiable hook value.
 		static OpenHook			ms_hOpen;		// Hook for calls to Open(char*...).
-		static int32_t					ms_lOpenUser;	// User value passed to m_hOpen.
+		static intptr_t					ms_lOpenUser;	// User value passed to m_hOpen.
 		int16_t							m_sOpenSem;		// Semaphore to block recursion greater
 															// than 1.
 		static CloseHook			ms_hClose;		// Hook for calls to Close().
-		static int32_t					ms_lCloseUser;	// User value passed to m_hClose.
+		static intptr_t					ms_lCloseUser;	// User value passed to m_hClose.
 		int16_t							m_sCloseSem;	// Semaphore to block recursion greater
 															// than 1.
 	#ifdef ALLOW_RFILE_REOPEN

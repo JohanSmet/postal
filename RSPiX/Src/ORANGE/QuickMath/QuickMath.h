@@ -194,8 +194,8 @@ inline void rspDivModA(T num,T den,T &div, T &mod) // does NOT check if (den == 
 // This is MACHINE specific and handles temporary overflows:
 inline void rspDivModA64(S64 num,S32 den,S32 &div,S32 &mod) // does NOT check if (den == 0)
 {	// Algorithm not verified for neqative denominator!!!!
-	div = num / den;
-	mod = num - div * den;
+	div = (S32) (num / den);
+	mod = (S32) (num - div * den);
 	if (mod) {
 		if (div < 0) {
 			div--;
