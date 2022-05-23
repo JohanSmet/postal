@@ -312,8 +312,8 @@ int16_t ConvertToFSPR1(RImage* pImage)
 	*pCode++ = 255;
 
 	//****************** SHRINK THE BUFFER!
-	int32_t lCompressedSize = pCode - pCodeBuf + 1;
-	int32_t lAlignSize = (lCompressedSize + 15) & ~15;
+	intptr_t lCompressedSize = pCode - pCodeBuf + 1;
+	intptr_t lAlignSize = (lCompressedSize + 15) & ~15;
 	uint8_t* pNewCodeBuf = (uint8_t*) calloc(1,lAlignSize); //+ Free problem
 	if (pNewCodeBuf == NULL)
 		{
@@ -1057,9 +1057,9 @@ int16_t rspBlit(
 	// Let's scale it, baby! (pre-clipping)
 	int16_t sDenX = pimSrc->m_sWidth; 
 	int16_t sDenY = pimSrc->m_sHeight; 
-	RFracU16 frX = {.set = 0};
-	RFracU16 frOldX = {.set = 0};
-	RFracU16 frOldY = {.set = 0},frY = {.set = 0};
+	RFracU16 frX = RFracU16_zero;
+	RFracU16 frOldX = RFracU16_zero;
+	RFracU16 frOldY = RFracU16_zero,frY = RFracU16_zero;
 
 	RFracU16 *afrSkipX=NULL,*afrSkipY=NULL;
 	afrSkipX = rspfrU16Strafe256(sDstW,sDenX);
@@ -1529,9 +1529,9 @@ int16_t rspBlit(
 	// Let's scale it, baby! (pre-clipping)
 	int16_t sDenX = pimSrc->m_sWidth; 
 	int16_t sDenY = pimSrc->m_sHeight; 
-	RFracU16 frX = {.set = 0};
-	RFracU16 frOldX = {.set = 0};
-	RFracU16 frOldY = {.set = 0},frY = {.set = 0};
+	RFracU16 frX = RFracU16_zero;
+	RFracU16 frOldX = RFracU16_zero;
+	RFracU16 frOldY = RFracU16_zero,frY = RFracU16_zero;
 
 	RFracU16 *afrSkipX=NULL,*afrSkipY=NULL;
 	afrSkipX = rspfrU16Strafe256(sDstW,sDenX);

@@ -68,7 +68,7 @@ inline void rspfrAdd32(&lVal,&lNum,&lDel,&lInc,&lDen,&lAdd,IMPROPER,NEGATIVE)
 inline void rspfrAdd32(&lVal,&lNum,&lDel,&lInc,&lDen,&lPixSize)
 ****************************************************************/
 
-  typedef union
+typedef union
 	{
 	struct {
 	U16 mod;
@@ -96,6 +96,8 @@ typedef union	{
 		int32_t frac;
 		};
 	} RFracS32; // good for compound fractions
+
+extern RFracU16 RFracU16_zero;
 
 //************* ALERT ALERT!!! FRACTION STUFF HERE!!!!!  *******************
 // There should be more functions to handle simplified cases!

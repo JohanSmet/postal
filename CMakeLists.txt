@@ -181,6 +181,7 @@ target_sources(${TARGET_POSTAL} PRIVATE
 	RSPiX/Src/ORANGE/Debug/profile.cpp
 	RSPiX/Src/ORANGE/GUI/PushBtn.cpp
 	RSPiX/Src/ORANGE/QuickMath/QuickMath.cpp
+	RSPiX/Src/ORANGE/QuickMath/Fractions.cpp
 	RSPiX/Src/ORANGE/GameLib/Region.cpp
 	RSPiX/Src/ORANGE/RString/rstring.cpp
 	RSPiX/Src/ORANGE/GUI/scrollbar.cpp
