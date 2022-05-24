@@ -753,7 +753,7 @@ static ACTION m_action;
 static int32_t m_lDemoBaseTime;
 static int32_t m_lDemoTimeOut;
 static char	m_szRealmFile[RSP_MAX_PATH+1];
-static char m_szDemoFile[RSP_MAX_PATH+1];
+static char m_szDemoFile[RSP_MAX_PATH*3+1];
 static int16_t m_sRealmNum;
 static bool m_bJustOneRealm;
 
