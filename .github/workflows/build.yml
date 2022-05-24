@@ -9,18 +9,28 @@ env:
   BUILD_TYPE: Release
 
 jobs:
-  build_linux:
-    runs-on: ubuntu-latest
+  build_unix:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macOS-latest]
 
     steps:
       - name: Checkout source
         uses: actions/checkout@v1
 
-      - name: Install dependencies
+      - name: Install dependencies (Linux)
         run: |
-            sudo add-apt-repository -y "deb http://archive.ubuntu.com/ubuntu `lsb_release -sc` main universe restricted multiverse"
-            sudo apt-get update -y -qq
-            sudo apt-get install libsdl2-dev
+          sudo add-apt-repository -y "deb http://archive.ubuntu.com/ubuntu `lsb_release -sc` main universe restricted multiverse"
+          sudo apt-get update -y -qq
+          sudo apt-get install libsdl2-dev
+        if: matrix.os == 'ubuntu-latest'
+
+      - name: Install dependencies (MacOS)
+        run: |
+          brew install SDL2
+        if: matrix.os == 'macOS-latest'
 
       - name: Configure build
         shell: bash
@@ -33,6 +43,6 @@ jobs:
       - name: Archive artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: dist_linux
+          name: dist_${{ matrix.os }}
           path: ${{runner.workspace}}/_build/postal
 
