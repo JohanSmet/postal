@@ -46,3 +46,35 @@ jobs:
           name: dist_${{ matrix.os }}
           path: ${{runner.workspace}}/_build/postal
 
+  build_windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v1
+
+      - name: Create build directory
+        run: cmake -E make_directory ${{runner.workspace}}/_build
+
+      - name: Install dependencies
+        uses: actions/checkout@v1
+        with:
+          repository: JohanSmet/sdl2_vc_ci
+          ref: 2.0.22
+          path: _sdl2
+
+      - name: Configure build
+        shell: bash
+        working-directory: ${{runner.workspace}}/_build
+        run: cmake -DSDL2_DIR=../_sdl2 $GITHUB_WORKSPACE
+
+      - name: Build
+        shell: bash
+        working-directory: ${{runner.workspace}}/_build
+        run: cmake --build . --config $BUILD_TYPE
+
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist_windows
+          path: ${{runner.workspace}}/_build/Release/postal.exe
