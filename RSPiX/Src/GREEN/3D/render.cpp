@@ -206,7 +206,7 @@ void	DrawTri_ZColorFog(uint8_t* pDstOffset,int32_t lDstP,
 
 	// Draw the upper triangle! (Assuming fx2inc < fx3inc.....)
 	int16_t x,y;
-	RFixedS32	fz,fzinc; // for tracing across each scan line:
+	RFixedS32	fz,fzinc = {0}; // for tracing across each scan line:
 	int16_t xdel;
 
 //////////////////////////////////////////////////////////////////
@@ -564,7 +564,7 @@ void	DrawTri_ZColor(uint8_t* pDstOffset,int32_t lDstP,
 
 	// Draw the upper triangle! (Assuming fx2inc < fx3inc.....)
 	int16_t x,y;
-	RFixedS32	fz,fzinc; // for tracing across each scan line:
+	RFixedS32	fz,fzinc = {0}; // for tracing across each scan line:
 	int16_t xdel;
 
 //////////////////////////////////////////////////////////////////

@@ -4574,7 +4574,7 @@ void CDude::ArmWeapon(							// Returns nothing.
 			}
 
 		// Get current weapon and stockpile.
-		int16_t*	psNumLeft;
+		int16_t*	psNumLeft = NULL;
 		GetWeaponInfo(weapon, &m_eWeaponType, &psNumLeft);
 
 		uint32_t weaponFlag = 0;
@@ -4730,7 +4730,7 @@ CWeapon* CDude::ShootWeapon(					// Returns the weapon ptr or NULL.
 		{
 		// Get the weapon info.
 		ClassIDType	idWeapon;
-		int16_t*	psNumLeft;
+		int16_t*	psNumLeft = NULL;
 		GetWeaponInfo(m_weaponShooting, &idWeapon, &psNumLeft);
 
 //		ASSERT(idWeapon == m_eWeaponType);
@@ -5297,7 +5297,7 @@ void CDude::OnExecute(void)		// Returns nothing.
 		&dMuzzleZ);														// Out: Point speicfied.
 
 	// Get current weapon and stockpile.
-	int16_t*		psNumLeft;
+	int16_t*		psNumLeft = NULL;
 	ClassIDType	idWeapon;
 	GetWeaponInfo(SemiAutomatic, &idWeapon, &psNumLeft);
 	if (*psNumLeft > 0)

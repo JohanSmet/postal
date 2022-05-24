@@ -354,7 +354,7 @@ TrianglesIntersectLineSegment(
 	RP3d pt0A, pt1A, pt2A;
 	RP3d t_pt1A, t_pt2A;
 	float fBigA=-1;
-	RP3d ptclosest, ptwork;
+	RP3d ptclosest = {{0}}, ptwork;
 	float fclosest=(float)INT_MAX, fdist;
 	bool bhit=false;
 

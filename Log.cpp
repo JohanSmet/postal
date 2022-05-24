@@ -104,10 +104,10 @@ int16_t WriteTimeStamp(char *pszCaller,						// Name of calling routine
 	if ((ucMsgType == NetMsg::START_REALM)&&(bReceived))
 		{
 		g_GameSettings.m_lStartRealmTime = lTime;
-		_ltoa(lTime, szTime, 10);
+		itoa(lTime, szTime, 10);
 		}
 
-	_ltoa(lTime - g_GameSettings.m_lStartRealmTime, szTime, 10);
+	itoa(lTime - g_GameSettings.m_lStartRealmTime, szTime, 10);
 
 #ifdef SYS_ENDIAN_BIG
 	RFile::Endian endian = RFile::BigEndian;
@@ -148,7 +148,7 @@ int16_t WriteTimeStamp(char *pszCaller,						// Name of calling routine
 
 	// Write package ID
 	char szPackageID[256];
-	ltoa((int32_t)u16PackageID, szPackageID, 10);
+	itoa((int32_t)u16PackageID, szPackageID, 10);
 	prfLog->Write(szPackageID);
 	prfLog->Write(" ");
 
@@ -162,7 +162,7 @@ int16_t WriteTimeStamp(char *pszCaller,						// Name of calling routine
 	prfLog->Write(" ");
 
 	// Write number of sequences sent/received
-	ltoa(sNum, szNum, 10);
+	itoa(sNum, szNum, 10);
 	prfLog->Write(szNum);
 	prfLog->Write(" ");
 
@@ -301,7 +301,7 @@ int16_t WriteInputData(U32 *input)
 	// For convenience
 	RFile *prfLog = &(g_GameSettings.m_rfNetSyncLog);
 	
-	ltoa(*input, szInput, 16);
+	itoa(*input, szInput, 16);
 
 	prfLog->Write(szInput);
 	prfLog->Write("\n");

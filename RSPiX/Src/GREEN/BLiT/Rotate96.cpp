@@ -893,9 +893,9 @@ int16_t rspStrafeRotate(void *pReturnArray,	// Output
 
 #endif
 
-	union { int16_t *pL; uint8_t *pB; } pHotX,pHotY;
-	union { int16_t **ppL; uint8_t *pB; } ppLinkX,ppLinkY;
-	union { RImage **ppI; uint8_t *pB; } ppBuf;
+	union { int16_t *pL; uint8_t *pB; } pHotX = {0},pHotY = {0};
+	union { int16_t **ppL; uint8_t *pB; } ppLinkX = {0},ppLinkY = {0};
+	union { RImage **ppI; uint8_t *pB; } ppBuf = {0};
 
 	// IN PREVIOUS VERSIONS, THE USER COULD NOT UINPUT VALUES,
 	// And then I would fill in a CStrafe for them.

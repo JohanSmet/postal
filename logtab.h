@@ -1002,7 +1002,7 @@ int16_t CLogTab<usertype>::Load(						// Returns 0 if successfull, non-zero othe
 								if (m_cellTable[m_sRows][sColumn].operand != DontCare)
 									{
 									// Use this column's var to convert text into value
-									int16_t sVal;
+									int16_t sVal = 0;
 									CLogTabVar<usertype>* pVar = m_apVars[sColumn];
 									sResult = pVar->TextToVal(&(acText[sOffset]), &sVal);
 									if (sResult == 0)

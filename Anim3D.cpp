@@ -186,7 +186,7 @@ int16_t CAnim3D::Get(					// Returns 0 on success.
 											// in this anim.
 	{
 	int16_t	sRes;
-	char	szResName[RSP_MAX_PATH];
+	char	szResName[RSP_MAX_PATH*2];
 	sprintf(szResName, "%s.sop", pszBaseFileName);
 	sRes	=  rspGetResource(&g_resmgrGame, szResName, &m_psops);
 	if (sRes == 0)

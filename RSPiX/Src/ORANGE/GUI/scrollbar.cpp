@@ -905,14 +905,14 @@ inline void DrawArrow(	// Returns nothing.
 		int16_t	sCurY	= sY;
 		int16_t	sCurW	= 1;
 		int16_t	sCurH	= 1;
-		int16_t* psCurLine;
-		int16_t* psCurLinePos;
-		int16_t* psCurLineLen;
-		int16_t	sLineLenInc;
-		int16_t	sLinePosDec;
-		int16_t sMaxLineLen;
-		int16_t	sMaxLine;
-		int16_t	sMinLinePos;
+		int16_t* psCurLine = NULL;
+		int16_t* psCurLinePos = NULL;
+		int16_t* psCurLineLen = NULL;
+		int16_t	sLineLenInc = 0;
+		int16_t	sLinePosDec = 0;
+		int16_t sMaxLineLen = 0;
+		int16_t	sMaxLine = 0;
+		int16_t	sMinLinePos = 0;
 
 		switch (sDirection)
 			{

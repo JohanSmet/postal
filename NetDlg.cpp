@@ -2447,7 +2447,7 @@ extern int16_t DoNetGameDialog(							// Returns 0 if successfull, non-zero othe
 								bool bServerDone = pserver ? false : true;
 								bool bClientDone = false;
 								bool bUserAbortNow = false;
-								int32_t lCancelDelay;
+								int32_t lCancelDelay = 0;
 								DLG_ACTION action;
 								NetMsg msg;
 								while (!(bClientDone && bServerDone && (bAbort || bStart || bRetry)) && !bUserAbortNow)
