@@ -205,7 +205,7 @@ if (MSVC)
 	target_compile_definitions(${TARGET_POSTAL} PRIVATE _CRT_SECURE_NO_WARNINGS)
 else()
 	target_compile_options(${TARGET_POSTAL} PRIVATE -fsigned-char)
-	target_compile_options(${TARGET_POSTAL} PRIVATE -Wall -Werror -Wno-overloaded-virtual)
+	target_compile_options(${TARGET_POSTAL} PRIVATE -Wall -Werror -Wno-overloaded-virtual -Wno-deprecated-declarations)
 endif()
 
 target_compile_definitions(${TARGET_POSTAL} PRIVATE ${PLATFORM_DETECTION})
