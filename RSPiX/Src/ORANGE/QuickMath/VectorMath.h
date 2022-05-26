@@ -105,7 +105,7 @@ union RP3d
 
 inline int operator==(const RP3d& lhs, const RP3d& rhs)
 	{
-	if (lhs.v == rhs.v)
+	if (memcmp(lhs.v, rhs.v, sizeof(lhs.v)) == 0)
 		return 1;
 	return 0;
 	}
@@ -231,7 +231,7 @@ public:
 
 	int operator==(const RTransform& rhs) const
 		{
-		if (T == rhs.T)
+		if (memcmp(T, rhs.T, sizeof(T)) == 0)
 			return 1;
 		return 0;
 		}
