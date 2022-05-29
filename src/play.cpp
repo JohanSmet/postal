@@ -2596,7 +2596,9 @@ class CPlayStatus : public CPlay
 	};
 
 
+#if PLATFORM_UNIX
 #include <sys/stat.h>
+#include <time.h>
 static void EnumSaveGamesSlots(Menu *menu)
 {
     char gamename[RSP_MAX_PATH];
@@ -3476,7 +3478,6 @@ class CPlayInput : public CPlay
 				// User save choice.
 				case MenuActionSaveGame:
 					{
-					// int16_t sResult;
 					// Static so dialog will "remember" the previously-used name
 					static char	szFile[RSP_MAX_PATH]	= "";
 
@@ -3485,7 +3486,7 @@ class CPlayInput : public CPlay
 						strcpy(szFile, FullPathHD(SAVEGAME_DIR));
 
 					// Display open dialog to let user choose a file
-					#if 1 //PLATFORM_UNIX
+					#if PLATFORM_UNIX
 					if (PickFile("Choose Game Slot", EnumSaveGamesSlots, szFile, sizeof(szFile)) == 0)
                     {
 #ifdef MOBILE
@@ -3530,7 +3531,7 @@ class CPlayInput : public CPlay
 						#if WITH_STEAMWORKS
 						#error You need to switch over from this code to the in-game file UI first.
 						#endif
-					sResult = rspSaveBox(g_pszSaveGameTitle, szFile, szFile, sizeof(szFile), SAVEGAME_EXT);
+					int16_t sResult = rspSaveBox(g_pszSaveGameTitle, szFile, szFile, sizeof(szFile), SAVEGAME_EXT);
 					if (sResult == 0)
 						{
 						if (Game_SavePlayersGame(szFile, pinfo->Realm()->m_flags.sDifficulty) != SUCCESS)

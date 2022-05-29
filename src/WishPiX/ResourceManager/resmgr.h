@@ -373,7 +373,7 @@ class CResourceBlock
 
 };
 
-#if _MSC_VER >= 1020 || __MWERKS__ >= 0x1100
+#if (_MSC_VER >= 1020 || __MWERKS__ >= 0x1100) && !defined(PLATFORM_NXDK)
 	#if __MWERKS__ >= 0x1100
 		ITERATOR_TRAIT(const RString);
 	#endif
