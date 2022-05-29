@@ -25,7 +25,7 @@
 #ifndef CYAN
 #define CYAN
 
-#ifndef WIN32
+#ifdef PLATFORM_UNIX
 #include <sys/param.h>
 #endif
 
@@ -178,7 +178,7 @@ extern int16_t rspExec(			// Returns 0 on success.
 // File Path API
 ///////////////////////////////////////////////////////////////////////////////
 
-#ifdef WIN32
+#if defined(WIN32) || defined(PLATFORM_NXDK)
 #ifndef PATH_MAX  // !!! FIXME: where is this really defined?
 #define PATH_MAX 260
 #endif

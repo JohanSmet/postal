@@ -556,6 +556,7 @@
 #include <time.h>
 #ifdef WIN32
 	#include <direct.h>
+#elif defined(PLATFORM_NXDK)
 #else
 	#include <unistd.h>
 #endif
@@ -859,7 +860,7 @@ int Stat_LevelsPlayed = 0;
 
 uint32_t Flag_Achievements = 0;
 
-#if 1 //PLATFORM_UNIX
+#if PLATFORM_UNIX
 #include <sys/stat.h>
 static void EnumExistingSaveGames(Menu *menu)
 {
@@ -2094,7 +2095,7 @@ static int16_t GameCore(void)		// Returns 0 on success.
 						strcpy(szFileSaved, FullPathHD(SAVEGAME_DIR));
 
 					// Display option dialog to let user choose a realm file
-					#if 1 //PLATFORM_UNIX
+					#if PLATFORM_UNIX
                     // char tmp[RSP_MAX_PATH];
 					if (PickFile("Choose Game Slot", EnumExistingSaveGames, szFileSaved, sizeof(szFileSaved)) == 0)
                     {
@@ -4484,6 +4485,9 @@ int16_t CorrectifyBasePath(								// Returns 0 if successfull, non-zero otherwi
 	{
 	int16_t sResult = 0;
 
+#ifdef PLATFORM_NXDK
+#warning Implement CorrectifyBasePath
+#else
 	// Make sure they aren't passing an empty string, which should be be left alone
 	if (strlen(pszBasePath) > 0)
 		{
@@ -4581,7 +4585,7 @@ int16_t CorrectifyBasePath(								// Returns 0 if successfull, non-zero otherwi
 			TRACE("CorrectifyBasePath(): Specified path is already longer than the specified maximum length!\n");
 			}
 		}
-
+#endif
 	return sResult;
 	}
 
