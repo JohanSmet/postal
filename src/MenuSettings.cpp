@@ -55,6 +55,7 @@
 
 #include "MenuSettings.h"
 #include "menus.h"
+#include "CompileOptions.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // Module specific macros.
@@ -87,7 +88,9 @@ static Menu*	ms_apmenus[]	=
 	&g_menuVerifyQuitGame,
 	&menuStart,       
 	&menuStartSingle, 
+#ifndef MULTIPLAYER_REMOVED
 	&menuStartMulti,  
+#endif // MULTIPLAYER_REMOVED
 	&menuStartDemo,
 	&menuChallenge,
 	&menuOptions,     
@@ -96,7 +99,9 @@ static Menu*	ms_apmenus[]	=
 	&menuMouse,       
 	&menuJoystick,    
 	&menuVerifyExit,  
+#ifndef MULTIPLAYER_REMOVED
 	&menuMultiOptions,
+#endif // MULTIPLAYER_REMOVED
 	&menuFeatures,    
 	&menuChallenge,   
 	&menuVolumes,

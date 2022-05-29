@@ -280,9 +280,12 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
+
 #include "RSPiX.h"
 
 #include "CompileOptions.h"
+
+#ifndef MULTIPLAYER_REMOVED
 #include "GameSettings.h"
 #include "game.h"
 #include "play.h"
@@ -3449,6 +3452,7 @@ extern void ClearNetProb(void)
 	m_bNetWatchdogExpired = false;
 	}
 
+#endif // MULTIPLAYER_REMOVED
 
 ///////////////////////////////////////////////////////////////////////////////
 // EOF

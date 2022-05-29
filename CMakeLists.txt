@@ -36,17 +36,11 @@ target_sources(${TARGET_POSTAL} PRIVATE
 	src/IdBank.cpp
 	src/InputSettings.cpp
 	src/InputSettingsDlg.cpp
-	src/Log.cpp
 	src/MemFileFest.cpp
 	src/MenuSettings.cpp
 	src/MenuTrans.cpp
-	src/NetBrowse.cpp
-	src/NetClient.cpp
-	src/NetDlg.cpp
-	src/NetServer.cpp
 	src/Personatorium.cpp
 	src/PowerUp.cpp
-	src/ProtoBSDIP.cpp
 	src/SampleMaster.cpp
 	src/SndRelay.cpp
 	src/SoundThing.cpp
@@ -96,7 +90,6 @@ target_sources(${TARGET_POSTAL} PRIVATE
 	src/napalm.cpp
 	src/navnet.cpp
 	src/net.cpp
-	src/netmsgr.cpp
 	src/organ.cpp
 	src/ostrich.cpp
 	src/person.cpp
@@ -109,7 +102,6 @@ target_sources(${TARGET_POSTAL} PRIVATE
 	src/sentry.cpp
 	src/settings.cpp
 	src/smash.cpp
-	src/socket.cpp
 	src/thing.cpp
 	src/title.cpp
 	src/toolbar.cpp
@@ -200,6 +192,18 @@ target_sources(${TARGET_POSTAL} PRIVATE
 	src/WishPiX/Spry/spry.cpp
 )
 
+# remove multiplayer specific sources
+#target_sources(${TARGET_POSTAL} PRIVATE
+#	src/Log.cpp
+#	src/NetBrowse.cpp
+#	src/NetClient.cpp
+#	src/NetDlg.cpp
+#	src/NetServer.cpp
+#	src/ProtoBSDIP.cpp
+#	src/netmsgr.cpp
+#	src/socket.cpp
+#)
+
 if (MSVC)
 	target_compile_options(${TARGET_POSTAL} PRIVATE /W3 /wd"4100" /wd"4200" /wd"4201" /wd"4204")
 	target_compile_definitions(${TARGET_POSTAL} PRIVATE _CRT_SECURE_NO_WARNINGS)
@@ -214,6 +218,7 @@ target_compile_definitions(${TARGET_POSTAL} PRIVATE TARGET=POSTAL_2015)
 target_compile_definitions(${TARGET_POSTAL} PRIVATE ALLOW_TWINSTICK)
 target_compile_definitions(${TARGET_POSTAL} PRIVATE "$<$<CONFIG:DEBUG>:_DEBUG>")
 target_compile_definitions(${TARGET_POSTAL} PRIVATE EDITOR_DISABLED)
+target_compile_definitions(${TARGET_POSTAL} PRIVATE MULTIPLAYER_DISABLED MULTIPLAYER_REMOVED)
 
 target_include_directories(${TARGET_POSTAL} PRIVATE
 	src

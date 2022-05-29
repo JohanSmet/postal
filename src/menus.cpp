@@ -376,7 +376,9 @@
 #include "input.h"
 #include "MenuSettings.h"
 #include "InputSettingsDlg.h"
+#ifndef MULTIPLAYER_REMOVED
 #include "socket.h"
+#endif // MULTIPLAYER_REMOVED
 #include "organ.h"
 #include "net.h"
 #include "CompileOptions.h"	// For ALLOW_JOYSTICK macro.
@@ -536,6 +538,7 @@ static int16_t StartSingleInit(	// Returns 0 on success, non-zero to cancel menu
 	Menu*	pmenuCur,				// Current menu.
 	int16_t	sInit);					// TRUE, if initializing; FALSE, if killing.
 
+#ifndef MULTIPLAYER_REMOVED
 static bool StartMultiMenu(	// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,			// Current menu.
 	int16_t	sMenuItem);				// Item chosen.
@@ -559,6 +562,7 @@ static bool HostMultiMenu(		// Returns true to accept, false to deny choice.
 static int16_t HostMultiInit(	// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,				// Current menu.
 	int16_t	sInit);					// TRUE, if initializing; FALSE, if killing.
+#endif // MULTIPLAYER_REMOVED
 
 static bool StartDemoMenu(		// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,			// Current menu.
@@ -648,6 +652,7 @@ static bool JoyChoice(			// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,			// Current menu.
 	int16_t	sMenuItem);				// Item chosen.
 
+#ifndef MULTIPLAYER_REMOVED
 static int16_t MultiOptionsInit(	// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,					// Current menu.
 	int16_t	sInit);						// TRUE, if initializing; FALSE, if killing.
@@ -655,6 +660,7 @@ static int16_t MultiOptionsInit(	// Returns 0 on success, non-zero to cancel men
 static bool MultiOptionsChoice(	// Returns true to accept, false to deny choice.
 	Menu*	pmenuCur,					// Current menu.
 	int16_t	sMenuItem);					// Item chosen.
+#endif // MULTIPLAYER_REMOVED
 
 static int16_t FeaturesInit(		// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,				// Current menu.
@@ -694,12 +700,13 @@ CMenuSettings	g_MenuSettings;
 // Controls.
 static RScrollBar*	ms_psbGamma					= NULL;
 
+#ifndef MULTIPLAYER_REMOVED
 static REdit*			ms_peditConnect	= NULL;
 static REdit*			ms_peditHostName	= NULL;
 static REdit*			ms_peditName	= NULL;
 static RTxt*			ms_ptxtColor	= NULL;
 static RTxt*			ms_ptxtProto  = NULL;
-
+#endif // MULTIPLAYER_REMOVED
 static RMultiBtn*		ms_pmbCheckBox	= NULL;
 
 static RScrollBar*	ms_psbDifficulty			= NULL;
@@ -707,7 +714,9 @@ static RScrollBar*	ms_psbDifficulty			= NULL;
 static RScrollBar*	ms_psbMouseSensitivityX	= NULL;
 static RScrollBar*	ms_psbMouseSensitivityY	= NULL;
 
+#ifndef MULTIPLAYER_REMOVED
 static RTxt*			ms_ptxtBandwidth	= NULL;
+#endif // MULTIPLAYER_REMOVED
 
 static SampleMaster::SoundInstance		ms_siLastSamplePlayed	= 0;	// Last sample played.
 
@@ -2607,6 +2616,7 @@ Menu	menuChallenge =
 		},
 	};
 
+#ifndef MULTIPLAYER_REMOVED
 // Multiplayer start menu.
 Menu	menuStartMulti =
 	{
@@ -2853,6 +2863,8 @@ Menu	menuHostMulti =
 		},
 	};
 
+#endif // MULTIPLAYER_REMOVED
+
 // Single player start menu.
 Menu	menuStartDemo =
 	{
@@ -2937,6 +2949,7 @@ Menu	menuStartDemo =
 	};
 
 // Multiplayer options menu.
+#ifndef MULTIPLAYER_REMOVED
 Menu	menuMultiOptions =
 	{
 	MULTIPLAYER_OPTIONS_MENU_ID,
@@ -3019,6 +3032,7 @@ Menu	menuMultiOptions =
 			{NULL}							// Terminates list.
 		},
 	};
+#endif // MULTIPLAYER_REMOVED
 
 ////////////////////////////////////////////////////////////////////////////////
 // Menu callbacks.
@@ -3272,6 +3286,7 @@ static bool StartSingleMenu(	// Returns true to accept, false to deny choice.
 	return bAcceptChoice;
 	}
 
+#ifndef MULTIPLAYER_REMOVED
 ////////////////////////////////////////////////////////////////////////////////
 //
 // Called to init or kill the Start Multiplayer Game menu.
@@ -3358,6 +3373,7 @@ static int16_t JoinMultiInit(	// Returns 0 on success, non-zero to cancel menu.
 // Called by the menu API when an item is chosen in menuJoinMulti.
 //
 ////////////////////////////////////////////////////////////////////////////////
+
 static bool JoinMultiMenu(	// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,			// Current menu.
 	int16_t	sMenuItem)				// Item chosen.
@@ -3429,6 +3445,7 @@ static int16_t HostMultiInit(	// Returns 0 on success, non-zero to cancel menu.
 // Called by the menu API when an item is chosen in menuHostMulti.
 //
 ////////////////////////////////////////////////////////////////////////////////
+
 static bool HostMultiMenu(		// Returns true to accept, false to deny choice.
 	Menu*	pmenuCurrent,			// Current menu.
 	int16_t	sMenuItem)				// Item chosen.
@@ -3451,6 +3468,7 @@ static bool HostMultiMenu(		// Returns true to accept, false to deny choice.
 	return bAcceptChoice;
 	}
 
+#endif  // MULTIPLAYER_REMOVED
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -4265,6 +4283,7 @@ static bool RotationChoice(	// Returns true to accept, false to deny choice.
 // Called to init or kill the multiplyaer options menu.
 //
 ////////////////////////////////////////////////////////////////////////////////
+#ifndef MULTIPLAYER_REMOVED
 static int16_t MultiOptionsInit(	// Returns 0 on success, non-zero to cancel menu.
 	Menu*	pmenuCur,					// Current menu.
 	int16_t	sInit)						// TRUE, if initializing; FALSE, if killing.
@@ -4455,6 +4474,8 @@ static bool MultiOptionsChoice(	// Returns true to accept, false to deny choice.
 
 	return bAcceptChoice;
 	}
+
+#endif // MULTIPLAYER_REMOVED
 
 ////////////////////////////////////////////////////////////////////////////////
 //

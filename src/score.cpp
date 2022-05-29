@@ -452,11 +452,15 @@ bool ScoreUpdateDisplay(RImage* pim, RRect* prc, CRealm* pRealm, CNetClient* pcl
 		if (pHood) rspBlit(pHood->m_pimTopBar,pim,0,0,sDstX,sDstY,
 			pHood->m_pimTopBar->m_sWidth,pHood->m_pimTopBar->m_sHeight);
 		
+		#ifndef MULTIPLAYER_REMOVED
 		int16_t sNumDudes = pRealm->m_asClassNumThings[CThing::CDudeID];	
 		int16_t i;
+		#endif // MULTIPLAYER_REMOVED
 
 		switch (pRealm->m_ScoringMode)
 		{
+
+			#ifndef MULTIPLAYER_REMOVED
 			case CRealm::MPFrag:
 				ms_print.SetFont(MP_FONT_SIZE, &g_fontBig);
 				rcBox.sY = prc->sY + MP_PRINT_Y1;
@@ -585,6 +589,7 @@ bool ScoreUpdateDisplay(RImage* pim, RRect* prc, CRealm* pRealm, CNetClient* pcl
 
 			case CRealm::MPLastManTimedFrag:
 				break;
+			#endif // MULTIPLAYER_REMOVED
 
 			case CRealm::Standard:
 				ms_print.SetDestination(pim, &rcDst);
@@ -1092,6 +1097,7 @@ void ScoreDisplayHighScores(	// Returns nothing.
 			int16_t	sIndex;
 			for (sIndex = 0; sIndex < MAX_HIGH_SCORES ; sIndex++)
 				{
+				#ifndef MULTIPLAYER_REMOVED
 				if (sIndex < pRealm->m_asClassNumThings[CThing::CDudeID])
 					{
 					strncpy(astrTempNames[sIndex], pclient->GetPlayerName(sIndex), MAX_PLAYER_NAME_LEN);
@@ -1102,6 +1108,7 @@ void ScoreDisplayHighScores(	// Returns nothing.
 					alTempScores[sIndex]	= g_scoreboard.m_asScores[sIndex];
 					}
 				else
+				#endif // MULTIPLAYER_REMOVED
 					{
 					astrTempNames[sIndex][0]	= '\0';
 					alTempScores[sIndex]			= S32_MIN + 1;
@@ -1153,11 +1160,13 @@ void ScoreDisplayHighScores(	// Returns nothing.
 				abAlreadyCopied[sHighestScoreIndex]	= true;
 
 				// If this is us . . .
+				#ifndef MULTIPLAYER_REMOVED
 				if (sHighestScoreIndex == pclient->GetID() )
 					{
 					// Remember our position (placement) so we can highlight it.
 					sPlayersScorePosition	= sDstIndex;
 					}
+				#endif // MULTIPLAYER_REMOVED
 				}
 
 			// Note that Player's score position stays -1 since there's no name to enter.

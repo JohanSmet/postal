@@ -148,7 +148,9 @@
 #include "game.h"
 #include "net.h"
 #include "SampleMaster.h"
+#ifndef MULTIPLAYER_DISABLED
 #include "socket.h"
+#endif
 #include "dude.h"	// For MaxTextures.
 
 //////////////////////////////////////////////////////////////////////////////
@@ -211,6 +213,7 @@ CGameSettings::CGameSettings(void)
 	m_sViolence						= 11;
 	m_sCrossHair					= TRUE;
 										
+#ifndef MULTIPLAYER_DISABLED
 	m_szServerName[0]				= 0;
 	m_usServerPort					= 61663;
 	m_usProtocol					= RSocket::FirstProtocol;
@@ -238,6 +241,7 @@ CGameSettings::CGameSettings(void)
 /*** 01/14/98 SPA ***/
 	m_lPeerDropMaxWaitTime		= 10000;			// Default to 10 seconds
 /*** 01/14/98 SPA ***/
+#endif // MULTIPLAYER_DISABLED
 
 	m_lInitialDemoTimeOut		= 10000;
 	m_lPersistentDemoTimeOut	= 60000;
@@ -391,6 +395,7 @@ int16_t CGameSettings::LoadPrefs(
 		m_sViolence = 11;
 	pPrefs->GetVal("Game", "UseCrossHair", m_sCrossHair, &m_sCrossHair);
 
+#ifndef MULTIPLAYER_DISABLED
 	pPrefs->GetVal("Multiplayer", "Server", m_szServerName, m_szServerName);
 	pPrefs->GetVal("Multiplayer", "Port", m_usServerPort, &m_usServerPort);
 	pPrefs->GetVal("Multiplayer", "Protocol", m_usProtocol, &m_usProtocol);
@@ -439,6 +444,8 @@ int16_t CGameSettings::LoadPrefs(
 	pPrefs->GetVal("Multiplayer", "PeerDropMaxWaitTime", m_lPeerDropMaxWaitTime, &m_lPeerDropMaxWaitTime);
 	m_lPeerDropMaxWaitTime *= 1000;			// Change to milliseconds
 /*** 01/14/98 SPA ***/
+
+#endif // MULTIPLAYER_DISABLED
 
 	pPrefs->GetVal("Demo", "InitialTimeOut", m_lInitialDemoTimeOut, &m_lInitialDemoTimeOut);
 	pPrefs->GetVal("Demo", "PersistentTimeOut", m_lPersistentDemoTimeOut, &m_lPersistentDemoTimeOut);
