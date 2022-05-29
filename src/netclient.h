@@ -28,6 +28,8 @@
 #ifndef NETCLIENT_H
 #define NETCLIENT_H
 
+#ifndef MULTIPLAYER_REMOVED
+
 #include "RSPiX.h"
 #include "socket.h"
 #include "net.h"
@@ -552,6 +554,7 @@ class CNetClient
 		void SendToPeer(Net::ID id, Net::SEQ seqStart, bool bSeqReq);
 	};
 
+#endif // MULTIPLAYER_REMOVED
 
 #endif //NETCLIENT_H
 ////////////////////////////////////////////////////////////////////////////////

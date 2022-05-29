@@ -348,7 +348,9 @@
 #include "menus.h"
 #include "SampleMaster.h"
 #include "reality.h"
+#ifndef MULTIPLAYER_REMOVED
 #include "NetDlg.h"
+#endif // MULTIPLAYER_REMOVED
 #include "cutscene.h"
 #include "play.h"
 #include "warp.h"
@@ -1509,6 +1511,7 @@ class CPlayGroup
 // Client Play Module
 //
 ////////////////////////////////////////////////////////////////////////////////
+#ifndef MULTIPLAYER_REMOVED
 class CPlayNet : public CPlay
 	{
 	//------------------------------------------------------------------------------
@@ -2271,6 +2274,7 @@ class CPlayNet : public CPlay
 			}
 	};
 
+#endif // MULTIPLAYER_REMOVED
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -2293,8 +2297,10 @@ class CPlayStatus : public CPlay
 		int32_t				m_lNumFrames;
 		int32_t				m_lLastIterationTime;
 		/* 12/3/97 AJC */
+		#ifndef MULTIPLAYER_REMOVED
 		Net::SEQ			m_seqPrevFrameSeq;
 		Net::SEQ			m_seqCurrFrameSeq;
+		#endif
 		int32_t				m_lFramePerSecond;
 		int32_t				m_lPrevSeqTime;
 		/* 12/3/97 AJC */
@@ -2348,10 +2354,12 @@ class CPlayStatus : public CPlay
 				pinfo->m_lSumUpdateDisplayTimes = 0;
 
 				/*** 12/3/97 AJC ***/
-				m_seqCurrFrameSeq = 0;
 				m_lFramePerSecond = 0;
+				#ifndef MULTIPLAYER_REMOVED
+				m_seqCurrFrameSeq = 0;
 				if (pinfo->IsMP())
 					m_seqPrevFrameSeq = pinfo->Client()->GetInputSeqNotYetSent();
+				#endif // MULTIPLAYER_REMOVED
 				m_lPrevSeqTime	= rspGetMilliseconds();
 				/*** 12/3/97 AJC ***/
 
@@ -2442,6 +2450,7 @@ class CPlayStatus : public CPlay
 			if (!pinfo->m_bBadRealmMP)
 				{
 
+				#ifndef MULTIPLAYER_REMOVED
 				/**** 12/3/97  AJC ****/
 				if (pinfo->IsMP())
 					{
@@ -2460,6 +2469,7 @@ class CPlayStatus : public CPlay
 						}
 					}
 				/**** 12/3/97  AJC ****/
+				#endif // MULTIPLAYER_REMOVED
 
 				//==============================================================================
 				// Check for death stuff
@@ -2586,7 +2596,6 @@ class CPlayStatus : public CPlay
 	};
 
 
-#if 1 //PLATFORM_UNIX
 #include <sys/stat.h>
 static void EnumSaveGamesSlots(Menu *menu)
 {
@@ -2819,6 +2828,7 @@ class CPlayInput : public CPlay
 								switch (pie->lKey & 0x0000FFFF)
 									{
 									case KEY_NEXT_LEVEL:
+										#ifndef MULTIPLAYER_REMOVED
 										if (pinfo->IsMP())
 											{
 											// Only the server's local user can advance to the next level, but even
@@ -2828,6 +2838,7 @@ class CPlayInput : public CPlay
 												pinfo->m_bNextRealmMP = true;
 											}
 										else
+										#endif // MULTIPLAYER_REMOVED
 											{
 											// If sales demo cheat is enabled, we can go to the next level
 											#if defined(SALES_DEMO)
@@ -2929,6 +2940,7 @@ class CPlayInput : public CPlay
 									}
 
 								// If in talk mode . . .
+								#ifndef MULTIPLAYER_REMOVED
 								if (pinfo->m_bChatting == true && m_peditChatIn && pinfo->IsMP() )
 									{
 									switch (pie->lKey)
@@ -2985,6 +2997,7 @@ class CPlayInput : public CPlay
 											break;
 										}
 									}
+								#endif // MULTIPLAYER_REMOVED
 								}
 							else
 								{
@@ -3087,6 +3100,7 @@ class CPlayInput : public CPlay
 					// may require that the user pressed the end-of-level key.
 					//==============================================================================
 
+					#ifndef MULTIPLAYER_REMOVED
 					if (pinfo->IsMP())
 						{
 						if (pinfo->IsServer() && pinfo->Client()->IsPlaying())
@@ -3096,6 +3110,7 @@ class CPlayInput : public CPlay
 							}
 						}
 					else
+					#endif // MULTIPLAYER_REMOVED
 						{
 						if (prealm->IsEndOfLevelGoalMet(bEndLevelKey))
 							{
@@ -4146,6 +4161,7 @@ class CPlayRealm : public CPlay
 				// Setup warp pointers
 				CListNode<CThing>*	plnWarpHead	= &(prealm->m_aclassHeads[CThing::CWarpID]);
 				CListNode<CThing>*	plnWarp		= plnWarpHead->m_pnNext;
+				#ifndef MULTIPLAYER_REMOVED
 				CListNode<CThing>*	plnWarpTail	= &(prealm->m_aclassTails[CThing::CWarpID]);
 
 				// Multiplayer mode is handled separately
@@ -4206,6 +4222,7 @@ class CPlayRealm : public CPlay
 						}
 					}
 				else
+				#endif // MULTIPLAYER_REMOVED
 					{
 					// Use the first warp
 					pwarp	= (CWarp*)plnWarp->m_powner;
@@ -4861,7 +4878,9 @@ extern int16_t Play(										// Returns 0 if successfull, non-zero otherwise
 	SeedRand(1);
 
 	// Create all the play modules
+#ifndef MULTIPLAYER_REMOVED
 	CPlayNet			playNet;
+#endif // MULTIPLAYER_REMOVED
 	CPlayStatus		playStatus;
 	CPlayRealm		playRealm;
 	CPlayInput		playInput;
@@ -4870,7 +4889,9 @@ extern int16_t Play(										// Returns 0 if successfull, non-zero otherwise
 
 	// Create play group and add all the modules to it
 	CPlayGroup playgroup;
+#ifndef MULTIPLAYER_REMOVED
 	playgroup.AddModule(&playNet);
+#endif // MULTIPLAYER_REMOVED
 	playgroup.AddModule(&playStatus);
 	playgroup.AddModule(&playRealm);
 	playgroup.AddModule(&playInput);
@@ -4948,7 +4969,7 @@ extern int16_t Play(										// Returns 0 if successfull, non-zero otherwise
 
 
 					/*** 12/5/97 AJC ***/
-	#ifdef WIN32
+	#if defined(WIN32) && !defined(MULTIPLAYER_REMOVED)
 					if (info.IsMP())
 						OpenLogFile();
 	#endif
@@ -5290,7 +5311,7 @@ extern int16_t Play(										// Returns 0 if successfull, non-zero otherwise
 						} while (!sResult && !info.IsGameOver() && !g_bLastLevelDemo);
 
 					/*** 12/5/97 AJC ***/
-	#ifdef WIN32
+	#if defined(WIN32) && !defined(MULTIPLAYER_REMOVED)
 					if (info.IsMP())
 						CloseLogFile();
 	#endif

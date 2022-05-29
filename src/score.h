@@ -52,7 +52,9 @@
 #include "game.h"
 #include "realm.h"
 #include "net.h"
+#ifndef MULTIPLAYER_REMOVED
 #include "netclient.h"
+#endif // MULTIPLAYER_REMOVED
 
 
 class CScoreboard

@@ -68,8 +68,11 @@
 
 #include "RSPiX.h"
 #include "menus.h"
+#include "net.h"
+#ifndef MULTIPLAYER_REMOVED
 #include "netclient.h"
 #include "netserver.h"
+#endif
 #include "input.h"
 #include "camera.h"
 #include "dude.h"

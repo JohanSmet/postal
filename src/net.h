@@ -288,6 +288,12 @@ class Net
 	};
 
 
+// JS - this isn't the place for this but it will do for now
+#ifdef MULTIPLAYER_REMOVED
+typedef void *	CNetClient;
+typedef void *	CNetServer;
+#endif // MULTIPLAYER_REMOVED
+
 #endif //NET_H
 ////////////////////////////////////////////////////////////////////////////////
 // EOF

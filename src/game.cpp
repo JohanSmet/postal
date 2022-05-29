@@ -577,7 +577,9 @@
 #include "MenuTrans.h"
 #include "SampleMaster.h"
 #include "net.h"
+#ifndef MULTIPLAYER_REMOVED
 #include "NetDlg.h"
+#endif
 #include "input.h"
 #include "InputSettingsDlg.h"
 #include "encrypt.h"

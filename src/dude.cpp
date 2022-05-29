@@ -1118,8 +1118,8 @@
 #include "chunk.h"
 #include "warp.h"
 #include "score.h"
-#include "CompileOptions.h"	// For sales cheat.
 #include "play.h"
+#include "CompileOptions.h"	// For sales cheat.
 
 //#ifdef MOBILE
 bool demoCompat = false; //Set in Play.cpp
