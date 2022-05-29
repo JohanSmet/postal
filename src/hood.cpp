@@ -522,6 +522,7 @@ void CHood::Render(void)
 ////////////////////////////////////////////////////////////////////////////////
 // User callback on btn released within button.
 ////////////////////////////////////////////////////////////////////////////////
+#ifndef EDITOR_DISABLED
 static void BrowseBtnUp(	// Returns nothing.  Called on button released in
 									// m_hot when active.
 	RGuiItem* pgui)			// this.
@@ -589,6 +590,8 @@ static void BrowseBtnUp(	// Returns nothing.  Called on button released in
 		}
 	}
 
+#endif // EDITOR_DISABLED
+
 ////////////////////////////////////////////////////////////////////////////////
 // Called by editor to init new object at specified position
 ////////////////////////////////////////////////////////////////////////////////
@@ -598,6 +601,8 @@ int16_t CHood::EditNew(									// Returns 0 if successfull, non-zero otherwise
 	int16_t sZ)												// In:  New z coord
 	{
 	int16_t sResult = 0;
+
+#ifndef EDITOR_DISABLED
 	char	szScale3d[256];
 	char	szShadowLength[256];
 
@@ -788,6 +793,7 @@ int16_t CHood::EditNew(									// Returns 0 if successfull, non-zero otherwise
 		sResult	= -1;
 		}
 
+#endif // EDITOR_DISABLED
 	return sResult;
 	}
 
