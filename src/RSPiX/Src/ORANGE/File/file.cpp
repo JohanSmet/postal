@@ -135,10 +135,11 @@
 // Headers.
 //////////////////////////////////////////////////////////////////////////////
 #include <stdlib.h>
-#include <memory.h>
 #include <string.h>
 #include <limits.h>
 #include <float.h>	// For float and double limits.
+
+#include <SDL.h>
 
 #if PLATFORM_UNIX
 #include <unistd.h>
@@ -163,6 +164,13 @@
 #define R_OK 04
 #endif
 typedef HRESULT (WINAPI *fnSHGetFolderPathW)(HWND hwnd, int nFolder, HANDLE hToken, DWORD dwFlags, LPWSTR pszPath);
+#endif
+
+#ifdef PLATFORM_NXDK
+#define PATH_MAX 2048
+#define	F_OK	0
+#define access(a,b)	0		// hmm, temporary just to make it compile
+#define mkdir(a)			// hmm, temporary just to make it compile
 #endif
 
 #include "Blue.h"
@@ -351,7 +359,7 @@ static void locateCorrectCase(char *buf)
 
 extern const char *FindCorrectFile(const char *_pszName, const char *pszMode)
 {
-    char *pszName = (char *) alloca(strlen(_pszName) + 1);
+    char *pszName = SDL_stack_alloc(char, strlen(_pszName) + 1);
     strcpy(pszName, _pszName);
 
     static bool initialized = false;
@@ -405,6 +413,8 @@ extern const char *FindCorrectFile(const char *_pszName, const char *pszMode)
             if (prefpath[strlen(prefpath)-1] != '/') strcat(prefpath, "/");
 
             strcat(prefpath, "Library/Application Support/Postal Plus/");
+			#elif defined (PLATFORM_NXDK)
+			#warning Implement FindCorrectFile
             #else
             const char *homedir = getenv("HOME");
             const char *xdghomedir = getenv("XDG_DATA_HOME");
@@ -484,7 +494,7 @@ extern const char *FindCorrectFile(const char *_pszName, const char *pszMode)
                 if (access(finalname, F_OK) == -1)
                 {
                     TRACE("Making directory \"%s\"\n", finalname);
-                    #ifdef WIN32
+                    #if defined(WIN32) || defined(PLATFORM_NXDK)
                     mkdir(finalname);
                     #else
                     mkdir(finalname, S_IRWXU);
@@ -524,6 +534,8 @@ extern const char *FindCorrectFile(const char *_pszName, const char *pszMode)
             locateCorrectCase(finalname);
         }
     }
+
+	SDL_stack_free(pszName);
 
     return finalname;
 }
