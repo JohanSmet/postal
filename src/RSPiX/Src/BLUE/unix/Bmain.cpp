@@ -38,7 +38,6 @@
 
 #ifndef WIN32
 #include <unistd.h>
-#include <sys/param.h>
 #endif
 
 #include <time.h>
@@ -207,7 +206,7 @@ extern int rspCommandLine(const char *cmd)
         if (*arg == '-') arg++;
         if (*arg == '-') arg++;
 
-        if (strcasecmp(cmd, arg) == 0)
+        if (SDL_strcasecmp(cmd, arg) == 0)
             return i;
     }
 
