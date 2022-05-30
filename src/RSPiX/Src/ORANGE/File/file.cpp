@@ -414,7 +414,7 @@ extern const char *FindCorrectFile(const char *_pszName, const char *pszMode)
 
             strcat(prefpath, "Library/Application Support/Postal Plus/");
 			#elif defined (PLATFORM_NXDK)
-			#warning Implement FindCorrectFile
+				nohomedir = true;
             #else
             const char *homedir = getenv("HOME");
             const char *xdghomedir = getenv("XDG_DATA_HOME");
