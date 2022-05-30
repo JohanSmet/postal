@@ -182,6 +182,21 @@ int16_t RPrefs::Open(					// Returns 0 if successfull, non-zero otherwise
 
 extern const char *FindCorrectFile(const char *pszName, const char *mode);
 
+static inline const char *FixFileMode(const char *mode) {
+#ifndef WIN32
+	static char new_mode[16] = "";
+	char *ptr = new_mode;
+	for (size_t i = 0, n = strlen(mode); i < n; ++i) {
+		if (mode[i] != 't') {
+			*ptr++ = mode[i];
+		}
+	}
+	return new_mode;
+#else
+	return mode;
+#endif
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 int16_t RPrefs::Open(					// Returns 0 if successfull, non-zero otherwise
 	const char* pszFile,						// In:  Name of preference file
@@ -201,7 +216,9 @@ int16_t RPrefs::Open(					// Returns 0 if successfull, non-zero otherwise
 		m_sReadOnly = 1;
 
 	// Attempt to open file
-	m_pFile = fopen(FindCorrectFile(pszFile, pszMode), pszMode);
+	auto mode = FixFileMode(pszMode);
+
+	m_pFile = fopen(FindCorrectFile(pszFile, mode), mode);
 	if (m_pFile != NULL)
 		{
 		// Make a copy of the file name
@@ -212,9 +229,9 @@ int16_t RPrefs::Open(					// Returns 0 if successfull, non-zero otherwise
 
 		// Make a copy of the file mode
 		delete []m_pszFileMode;
-		m_pszFileMode = new char[strlen(pszMode) + 1];
+		m_pszFileMode = new char[strlen(mode) + 1];
 		ASSERT(m_pszFileMode);
-		strcpy(m_pszFileMode, pszMode);
+		strcpy(m_pszFileMode, mode);
 
 		// Clear error status
 		m_sErrorStatus = 0;
