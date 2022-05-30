@@ -40,6 +40,10 @@
 #include <unistd.h>
 #endif
 
+#ifdef PLATFORM_NXDK
+#include <hal/video.h>
+#endif
+
 #include <time.h>
 
 // Blue //////////////////////////////////////////////////////////////////////
@@ -254,6 +258,8 @@ extern void rspPlatformInit(void)
     }
 
     chdir(realbuf);  // go there.
+#elif PLATFORM_NXDK
+	XVideoSetMode(640, 480, 32, REFRESH_DEFAULT);
 #endif
 }
 
