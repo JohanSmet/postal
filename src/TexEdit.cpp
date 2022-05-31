@@ -1399,7 +1399,7 @@ CTexEdit::AdjustCall(RGuiItem* pgui)
 	char	szText[GUI_MAX_STR];
 	m_pguiRoot->GetText(c_lIdAmount, szText, sizeof(szText) );
 
-	float	fAdjust	= strtod(szText, NULL);
+	float	fAdjust	= SDL_strtod(szText, NULL);
 
 	// Get palette to work with.
 	U8	au8Red[256];

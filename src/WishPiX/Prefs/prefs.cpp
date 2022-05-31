@@ -1130,7 +1130,7 @@ int16_t RPrefs::GetVal(							// Returns 0 if successfull, non-zero otherwise
 	m_sErrorStatus = GetVal(pszSection, pszVariable, pszDefault, pszValue);
 	if (m_sErrorStatus == 0)
 		{
-		dRes = strtod(pszValue, &pszEndPtr);
+		dRes = SDL_strtod(pszValue, &pszEndPtr);
 		if (((*pszEndPtr == '\0') || isspace(*pszEndPtr)) && 
 				dRes >= S32_MIN && dRes <= S32_MAX)
 			*s32Value = (S32) dRes;
@@ -1161,7 +1161,7 @@ int16_t RPrefs::GetVal(							// Returns 0 if successfull, non-zero otherwise
 	m_sErrorStatus = GetVal(pszSection, pszVariable, pszDefault, pszValue);
 	if (m_sErrorStatus == 0)
 		{
-		dRes = strtod(pszValue, &pszEndPtr);
+		dRes = SDL_strtod(pszValue, &pszEndPtr);
 		if (((*pszEndPtr == '\0') || isspace(*pszEndPtr)) 
 				&& dRes >= U32_MIN && dRes <= U32_MAX)
 			*u32Value = (U32) dRes;
@@ -1192,7 +1192,7 @@ int16_t RPrefs::GetVal(							// Returns 0 if successfull, non-zero otherwise
 	m_sErrorStatus = GetVal(pszSection, pszVariable, pszDefault, pszValue);
 	if (m_sErrorStatus == 0)
 		{
-		dRes = strtod(pszValue, &pszEndPtr);
+		dRes = SDL_strtod(pszValue, &pszEndPtr);
 		if (((*pszEndPtr == '\0') || isspace(*pszEndPtr)) && dRes >= FLT_MIN && dRes <= FLT_MAX)
 			*fValue = (float) dRes;
 		else
@@ -1222,7 +1222,7 @@ int16_t RPrefs::GetVal(							// Returns 0 if successfull, non-zero otherwise
 	m_sErrorStatus = GetVal(pszSection, pszVariable, pszDefault, pszValue);
 	if (m_sErrorStatus == 0)
 		{
-		dRes = strtod(pszValue, &pszEndPtr);
+		dRes = SDL_strtod(pszValue, &pszEndPtr);
 		if ((*pszEndPtr == '\0') || isspace(*pszEndPtr))
 			*dValue = dRes;
 		else

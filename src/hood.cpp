@@ -761,7 +761,7 @@ int16_t CHood::EditNew(									// Returns 0 if successfull, non-zero otherwise
 
 				if (pguiKillsPercentGoal != NULL)
 					{
-					m_pRealm->m_dKillsPercentGoal	= strtod(pguiKillsPercentGoal->m_szText, NULL);
+					m_pRealm->m_dKillsPercentGoal	= SDL_strtod(pguiKillsPercentGoal->m_szText, NULL);
 					}
 
 				// Init the hood
