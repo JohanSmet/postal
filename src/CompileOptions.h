@@ -344,35 +344,41 @@
 // Preference file name (in other words, the all important .ini file).
 ////////////////////////////////////////////////////////////////////////////////
 
+#if defined (PLATFORM_NXDK)
+	#define PREFS_PREFIX "D:\\"
+#else
+	#define PREF_PREFIX ""
+#endif
+
 #if defined(TARGET) && defined(LOCALE)
 
 	#if LOCALE == US
 		#if TARGET == POSTAL_PLUS
 			#if defined(SPAWN)
-				#define PREFS_FILE	"Postal Plus MP.ini"
+				#define PREFS_FILE PREFS_PREFIX	"Postal Plus MP.ini"
 			#elif defined (DEMO)
-				#define PREFS_FILE	"Postal Plus Demo.ini"
+				#define PREFS_FILE PREFS_PREFIX	"Postal Plus Demo.ini"
 			#else
 				#if PLATFORM_UNIX
-					#define PREFS_FILE	"postal_plus.ini"
+					#define PREFS_FILE PREFS_PREFIX	"postal_plus.ini"
 				#else
-					#define PREFS_FILE	"Postal Plus.ini"
+					#define PREFS_FILE PREFS_PREFIX	"Postal Plus.ini"
 				#endif
 			#endif
 		#else
-			#define PREFS_FILE	"POSTAL.INI"
+			#define PREFS_FILE PREFS_PREFIX	"POSTAL.INI"
 		#endif
 	#elif LOCALE == UK
-		#define PREFS_FILE	"PostalUK.INI"
+		#define PREFS_FILE PREFS_PREFIX	"PostalUK.INI"
 	#elif LOCALE == FRENCH
-		#define PREFS_FILE	"PostalFr.INI"
+		#define PREFS_FILE PREFS_PREFIX	"PostalFr.INI"
 	#elif LOCALE == GERMAN
-		#define PREFS_FILE	"PostalGr.INI"
+		#define PREFS_FILE PREFS_PREFIX	"PostalGr.INI"
 	#elif LOCALE == JAPAN
 		#if TARGET == JAPAN_ADD_ON
-			#define PREFS_FILE	"Postal Japan Add On.ini"
+			#define PREFS_FILE PREFS_PREFIX	"Postal Japan Add On.ini"
 		#elif TARGET == SUPER_POSTAL
-			#define PREFS_FILE	"Super Postal.ini"
+			#define PREFS_FILE PREFS_PREFIX	"Super Postal.ini"
 		#endif
 	#endif
 
