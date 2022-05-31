@@ -4486,7 +4486,9 @@ int16_t CorrectifyBasePath(								// Returns 0 if successfull, non-zero otherwi
 	int16_t sResult = 0;
 
 #ifdef PLATFORM_NXDK
-#warning Implement CorrectifyBasePath
+	ASSERT(pszBasePath[0] == '.' && pszBasePath[1] == '\0');
+	ASSERT(sMaxPathLen >= 4);
+	strcpy(pszBasePath, "D:\\");
 #else
 	// Make sure they aren't passing an empty string, which should be be left alone
 	if (strlen(pszBasePath) > 0)
