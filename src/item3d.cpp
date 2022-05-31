@@ -513,8 +513,8 @@ int16_t CItem3d::EditModify(void)					// Returns 0 if successfull, non-zero othe
 				strcpy(m_szChildAnimBaseName, peditChildName->m_szText);
 
 				// Get new rotation velocities.
-				m_dExtRotVelY	= strtod(peditRotY->m_szText, NULL);
-				m_dExtRotVelZ	= strtod(peditRotZ->m_szText, NULL);
+				m_dExtRotVelY	= SDL_strtod(peditRotY->m_szText, NULL);
+				m_dExtRotVelZ	= SDL_strtod(peditRotZ->m_szText, NULL);
 				}
 			else
 				{

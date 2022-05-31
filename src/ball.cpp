@@ -485,15 +485,15 @@ int16_t CBall::EditModify(void)
 				// Set values.
 				if (pguiEditX != NULL)
 					{
-					m_dDX	= strtod(pguiEditX->m_szText, NULL);
+					m_dDX	= SDL_strtod(pguiEditX->m_szText, NULL);
 					}
 				if (pguiEditY != NULL)
 					{
-					m_dDY	= strtod(pguiEditY->m_szText, NULL);
+					m_dDY	= SDL_strtod(pguiEditY->m_szText, NULL);
 					}
 				if (pguiEditZ != NULL)
 					{
-					m_dDZ	= strtod(pguiEditZ->m_szText, NULL);
+					m_dDZ	= SDL_strtod(pguiEditZ->m_szText, NULL);
 					}
 				
 				// Load resources.
