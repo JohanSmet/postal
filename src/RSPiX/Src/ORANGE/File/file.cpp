@@ -354,6 +354,15 @@ static void locateCorrectCase(char *buf)
 	/* check final element... */
 	locateOneElement(buf);
 #endif
+
+#if PLATFORM_NXDK
+	char *ptr = buf;
+
+	while ((ptr = strchr(ptr, '/')))
+	{
+		*ptr = '\\';
+	}
+#endif // PLATFORM_NXDK
 }
 
 
