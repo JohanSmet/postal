@@ -347,7 +347,7 @@
 #if defined (PLATFORM_NXDK)
 	#define PREFS_PREFIX "D:\\"
 #else
-	#define PREF_PREFIX ""
+	#define PREFS_PREFIX
 #endif
 
 #if defined(TARGET) && defined(LOCALE)
