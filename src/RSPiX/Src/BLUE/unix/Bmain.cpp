@@ -36,8 +36,9 @@
 #include <string.h>
 
 
-#ifndef WIN32
+#ifdef PLATFORM_UNIX
 #include <unistd.h>
+#include <sys/param.h>
 #endif
 
 #ifdef PLATFORM_NXDK
