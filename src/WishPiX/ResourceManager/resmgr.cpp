@@ -373,7 +373,11 @@ int16_t RResMgr::GetInstance(						// Returns 0 on success.
 		// If SAK file fails try loading from disk.
 		if (!pfileSrc)
 			{
+			#ifndef PLATFORM_NXDK
 			if (fileNoSak.Open(/*FromSystempath(strFilename)*/strFilename, "rb", endian ) == 0)
+			#else
+			if (fileNoSak.Open(FromSystempath(strFilename)/*strFilename*/, "rb", endian ) == 0)
+			#endif
 				pfileSrc	= &fileNoSak;
 			else
 				{
