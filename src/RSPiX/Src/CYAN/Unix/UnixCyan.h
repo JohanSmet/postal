@@ -187,7 +187,7 @@ extern int16_t rspExec(			// Returns 0 on success.
 #define RSP_MAX_PATH                        PATH_MAX
 #define RSP_PATH_SEPARATOR				'/'
 
-#ifdef WIN32
+#if defined(WIN32) || defined(PLATFORM_NXDK)
 #define RSP_SYSTEM_PATH_SEPARATOR	'\\'
 #else
 #define RSP_SYSTEM_PATH_SEPARATOR	'/'
