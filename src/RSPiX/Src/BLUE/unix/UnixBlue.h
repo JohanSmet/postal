@@ -88,7 +88,12 @@ extern int32_t macReserveMemBytes;
 
 #if defined(_DEBUG) || defined(TRACENASSERT)
 	// TRACE macro, the preferred method of sending output to debug window
-	#define STRACE			rspTrace
+	#if defined(PLATFORM_NXDK)
+		#include <hal/debug.h>
+		#define STRACE		debugPrint
+	#else
+		#define STRACE		rspTrace
+	#endif
 	#define TRACE			STRACE("%s(%d):", __FILE__, __LINE__),STRACE
 
 	// ASSERT macro, the preferred method of asserting that expressions are true.
