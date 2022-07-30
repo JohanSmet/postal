@@ -2147,7 +2147,7 @@ static int16_t GameCore(void)		// Returns 0 on success.
 				// Oooops
 				//------------------------------------------------------------------------------
 				default:
-					TRACE("GameCore(): Unrecognized action: %ld!\n", (int32_t)m_action);
+					TRACE("GameCore(): Unrecognized action: %d!\n", (int32_t)m_action);
 					break;
 				}
 
@@ -2508,7 +2508,7 @@ static int16_t OpenSaks(void)
 		lSamplesPerSec = 44100;
 	else
 		{
-		TRACE("OpenSaks(): Unsupported sample rate: %ld!\n", (int32_t)lSamplesPerSec);
+		TRACE("OpenSaks(): Unsupported sample rate: %d!\n", (int32_t)lSamplesPerSec);
 		ASSERT(0);
 		}
 

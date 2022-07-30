@@ -348,7 +348,7 @@ int16_t Verify(char *szSource,int16_t sLength,uint16_t usCRC)
 
 	if(ms_usCRC!=usCRC)
 		{
-		TRACE("Error: CRC failure !!!  Old CRC: %hu  New CRC: %hu\n");
+		TRACE("Error: CRC failure !!!  Old CRC: %hu  New CRC: %hu\n", usCRC, ms_usCRC);
 		rc=-1;
 		}
 

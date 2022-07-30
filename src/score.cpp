@@ -1275,14 +1275,14 @@ void ScoreDisplayHighScores(	// Returns nothing.
 								}
 							else
 								{
-								TRACE("ScoreDisplayHighScores(): Missing items in this instance of \"%d\".\n",
+								TRACE("ScoreDisplayHighScores(): Missing items in this instance of \"%s\".\n",
 									HIGHSCORE_ITEM_FILE);
 								bGotAllScoreItems	= false;
 								}
 							}
 						else
 							{
-							TRACE("ScoreDisplayHighScores(): Failed to get instance of \"%d\".\n",
+							TRACE("ScoreDisplayHighScores(): Failed to get instance of \"%s\".\n",
 								HIGHSCORE_ITEM_FILE);
 							bGotAllScoreItems	= false;
 							}

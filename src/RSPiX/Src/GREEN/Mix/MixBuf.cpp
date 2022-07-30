@@ -657,7 +657,7 @@ void RMixBuf::Silence(void)
 				break;
 
 			default:
-				TRACE("Silence(): Unsupported mixing bits per sample: %ld.\n",
+				TRACE("Silence(): Unsupported mixing bits per sample: %d.\n",
 						ms_lMixBitsPerSample);
 				break;
 			}
@@ -709,7 +709,7 @@ int16_t RMixBuf::SetSize(uint32_t ulSize)
 		}
 	else
 		{
-		TRACE("SetSize(%lu): Unable to allocate buffer.\n", ulSize);
+		TRACE("SetSize(%u): Unable to allocate buffer.\n", ulSize);
 		sRes = -1;
 		}
 
@@ -761,7 +761,7 @@ void RMixBuf::SetDest(	// Returns nothing.
 				}
 			else
 				{
-				TRACE("SetDest(): Unable to set size to %ld.\n", lSize);
+				TRACE("SetDest(): Unable to set size to %d.\n", lSize);
 				}
 			}
 		}
@@ -934,7 +934,7 @@ int16_t RMixBuf::Mix(	uint32_t		ulStartPos,
 						break;
 
 					default:
-						TRACE("Mix(): Unsupported bits per sample: %ld.\n",
+						TRACE("Mix(): Unsupported bits per sample: %d.\n",
 								lBitsPerSample);
 						sRes = -1;
 						break;

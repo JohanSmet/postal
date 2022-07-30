@@ -713,7 +713,7 @@ int16_t RFile::Open(		// Returns 0 on success.
 		}
 	else
 		{
-		TRACE("Open(%08lX, %ld, %s): File already open.\n",
+		TRACE("Open(%p, %d, %s): File already open.\n",
 				pFile, lSize,
 				ms_apszEndian[endian]);
 		sRes = -2;
@@ -765,7 +765,7 @@ int16_t RFile::Open(	// Returns 0 on success.
 			}
 		else
 			{
-			TRACE("Open(%ld, %ld, %s): File too large for free memory.\n",
+			TRACE("Open(%d, %d, %s): File too large for free memory.\n",
 					lSize, lGrowSize,
 					ms_apszEndian[endian]);
 			sRes = -3;
@@ -773,7 +773,7 @@ int16_t RFile::Open(	// Returns 0 on success.
 		}
 	else
 		{
-		TRACE("Open(%ld, %ld, %s): File already open.\n",
+		TRACE("Open(%d, %d, %s): File already open.\n",
 				lSize, lGrowSize,
 				ms_apszEndian[endian]);
 		sRes = -2;
@@ -815,7 +815,7 @@ int16_t RFile::Open(		// Returns 0 on success.
 		}
 	else
 		{
-		TRACE("Open(0x%08lX, %s): Invalid FILE*.\n",
+		TRACE("Open(0x%p, %s): Invalid FILE*.\n",
 				fs,
 				ms_apszEndian[endian]);
 		sRes	= -1;
