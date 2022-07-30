@@ -705,7 +705,7 @@ int16_t RPal::GetEntries(
 	if ((sStart < m_sStartIndex) || ((sStart + sCount - 1) > (m_sStartIndex + m_sNumEntries - 1)))
 		{
 		TRACE("RPal::GetEntries(): Specified range (%d to %d) exceeds palette's range (%d to %d)!\n",
-			sStart, m_sStartIndex, m_sStartIndex + m_sNumEntries - 1);
+			sStart, sStart + sCount - 1, m_sStartIndex, m_sStartIndex + m_sNumEntries - 1);
 		return FAILURE;
 		}
 	if (sCount < 0)
@@ -860,7 +860,7 @@ int16_t RPal::SetEntries(
 	if ((sStart < m_sStartIndex) || ((sStart + sCount - 1) > (m_sStartIndex + m_sNumEntries - 1)))
 		{
 		TRACE("RPal::PutEntries(): Specified range (%d to %d) exceeds palette's range (%d to %d)!\n",
-			sStart, m_sStartIndex, m_sStartIndex + m_sNumEntries - 1);
+			sStart, sStart + sCount - 1, m_sStartIndex, m_sStartIndex + m_sNumEntries - 1);
 		return FAILURE;
 		}
 	if (sCount < 0)

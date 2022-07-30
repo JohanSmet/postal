@@ -1055,7 +1055,7 @@ int16_t CRealm::Load(										// Returns 0 if successfull, non-zero otherwise
 				else
 					{
 					sResult = -1;
-					TRACE("CRealm::Load(): Incorrect file version (should be 0x%lx or less, was 0x%lx)!\n", CRealm::FileVersion, ulFileVersion);
+					TRACE("CRealm::Load(): Incorrect file version (should be 0x%x or less, was 0x%x)!\n", CRealm::FileVersion, ulFileVersion);
 					}
 				}
 			else
@@ -1067,7 +1067,7 @@ int16_t CRealm::Load(										// Returns 0 if successfull, non-zero otherwise
 		else
 			{
 			sResult = -1;
-			TRACE("CRealm::Load(): Incorrect file ID (should be 0x%lx, was 0x%lx)!\n", CRealm::FileID, ulFileID);
+			TRACE("CRealm::Load(): Incorrect file ID (should be 0x%x, was 0x%x)!\n", CRealm::FileID, ulFileID);
 			}
 		}
 	else

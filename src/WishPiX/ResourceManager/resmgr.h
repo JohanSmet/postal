@@ -507,7 +507,7 @@ class RResMgr
 					}
 				else
 					{
-					TRACE("RResMgr::FromSak - m_rfSak.Seek(%ld, SEEK_SET) failed.\n", 
+					TRACE("RResMgr::FromSak - m_rfSak.Seek(%d, SEEK_SET) failed.\n",
 						lResSeekPos);
 					}
 				}

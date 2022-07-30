@@ -632,7 +632,7 @@ extern int16_t EndTitle(void)				// Returns 0 if successfull, non-zero otherwise
 		{
 		// Display this stuff so we can easily tune the total units based on the
 		// actual units that were passed to this module.
-		TRACE("EndTitle(): lTotalUnits = %ld, lCummUnits = %ld\n", m_lTotalUnits, m_lCummUnits);
+		TRACE("EndTitle(): lTotalUnits = %d, lCummUnits = %d\n", m_lTotalUnits, m_lCummUnits);
 
 		// Always pretend we made it, even if we didn't.
 		DoTitle(ABS(m_lTotalUnits - m_lCummUnits) );

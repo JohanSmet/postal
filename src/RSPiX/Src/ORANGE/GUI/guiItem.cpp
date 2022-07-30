@@ -1001,7 +1001,7 @@ int16_t RGuiItem::SetText(	// Returns 0 if item found, non-zero otherwise.
 		}
 	else
 		{
-		TRACE("SetText(): No such ID %ld.\n", lId);
+		TRACE("SetText(): No such ID %d.\n", lId);
 		sRes	= -1;
 		}
 
@@ -2587,7 +2587,7 @@ int16_t RGuiItem::GetText(	// Returns 0 on success.
 		}
 	else
 		{
-		TRACE("GetText(): No such ID %ld.\n", lId);
+		TRACE("GetText(): No such ID %d.\n", lId);
 		sRes	= -1;
 		}
 
@@ -2621,7 +2621,7 @@ int32_t RGuiItem::GetVal(	// Returns value.
 		}
 	else
 		{
-		TRACE("GetVal(): No such ID %ld.\n", lId);
+		TRACE("GetVal(): No such ID %d.\n", lId);
 		}
 
 	return lRes;

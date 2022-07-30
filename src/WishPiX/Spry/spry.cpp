@@ -171,7 +171,7 @@ int16_t RSpry::Load(
 				else
 					{
 					sResult = -1;
-					TRACE("RSpry::Load(): Incorrect file version (should be 0x%lx, was 0x%lx)!\n", RSpry::FileVersion, ulFileVersion);
+					TRACE("RSpry::Load(): Incorrect file version (should be 0x%x, was 0x%x)!\n", RSpry::FileVersion, ulFileVersion);
 					}
 				}
 			else
@@ -183,7 +183,7 @@ int16_t RSpry::Load(
 		else
 			{
 			sResult = -1;
-			TRACE("RSpry::Load(): Incorrect file ID (should be 0x%lx, was 0x%lx)!\n", RSpry::FileID, ulFileID);
+			TRACE("RSpry::Load(): Incorrect file ID (should be 0x%x, was 0x%x)!\n", RSpry::FileID, ulFileID);
 			}
 		}
 	else

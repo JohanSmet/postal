@@ -1015,7 +1015,7 @@ if (g_bSceneDontBlit == false)
 				}
 
 			strcat(szMsg, " would exceed the Z buffer, if rendered.  Not gonna do it.\n");
-			TRACE(szMsg);
+			TRACE("%s", szMsg);
 			}
 		}
 
