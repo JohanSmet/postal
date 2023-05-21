@@ -169,8 +169,18 @@ typedef HRESULT (WINAPI *fnSHGetFolderPathW)(HWND hwnd, int nFolder, HANDLE hTok
 #ifdef PLATFORM_NXDK
 #define PATH_MAX 2048
 #define	F_OK	0
-#define access(a,b)	0		// hmm, temporary just to make it compile
+#define R_OK	0
 #define mkdir(a)			// hmm, temporary just to make it compile
+
+int access(const char *pathname, int mode) {
+	FILE *fp = fopen(pathname, "r");
+	if (fp) {
+		fclose(fp);
+		return 0;
+	}
+	return -1;
+}
+
 #endif
 
 #include "Blue.h"
