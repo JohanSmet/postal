@@ -169,11 +169,6 @@ typedef HRESULT (WINAPI *fnSHGetFolderPathW)(HWND hwnd, int nFolder, HANDLE hTok
 #ifdef PLATFORM_NXDK
 #define PATH_MAX 2048
 #include "../../../../../xbox_nxdk/nxdk_file_utils.h"
-		return 0;
-	}
-	return -1;
-}
-
 #endif
 
 #include "Blue.h"

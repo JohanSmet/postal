@@ -16,3 +16,7 @@ int nxdk_file_access(const char *pathname, int mode) {
 	}
 }
 
+int nxdk_mkdir(const char *newdir) {
+	return CreateDirectoryA(newdir, NULL) ? 0 : -1;
+}
+
