@@ -421,7 +421,7 @@ extern const char *FindCorrectFile(const char *_pszName, const char *pszMode)
 
             strcat(prefpath, "Library/Application Support/Postal Plus/");
 			#elif defined (PLATFORM_NXDK)
-				nohomedir = true;
+				strcpy(prefpath, "E:\\UDATA\\Postal\\");
             #else
             const char *homedir = getenv("HOME");
             const char *xdghomedir = getenv("XDG_DATA_HOME");
@@ -475,6 +475,13 @@ extern const char *FindCorrectFile(const char *_pszName, const char *pszMode)
     if (nohomedir)
         strcpy(finalname, pszName);
 
+#if PLATFORM_NXDK
+	else if (pszName[0] != '\0' && pszName[1] == ':') {
+		// do not mess with an absolute path
+        strcpy(finalname, pszName);
+	}
+#endif // PLATFORM_NXDK
+
     else if ((strlen(pszName) + strlen(prefpath)) > sizeof (finalname))
         strcpy(finalname, pszName); // oh well.
 
@@ -507,7 +514,11 @@ extern const char *FindCorrectFile(const char *_pszName, const char *pszMode)
                     mkdir(finalname, S_IRWXU);
                     #endif
                 }
+				#if defined(PLATFORM_NXDK)
+                *ptr = '\\';
+				#else
                 *ptr = '/';
+				#endif
             }
         }
 
