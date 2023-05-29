@@ -377,6 +377,11 @@
 #include "steam/steam_api.h"
 #endif
 
+#if defined(PLATFORM_NXDK)
+	#include "../xbox_nxdk/nxdk_file_utils.h"
+	#include <time.h>
+#endif
+
 //#define RSP_PROFILE_ON
 //#include "ORANGE/Debug/profile.h"
 
@@ -2641,6 +2646,43 @@ static void EnumSaveGamesSlots(Menu *menu)
 }
 #endif
 
+#if PLATFORM_NXDK
+
+static void EnumSaveGamesSlots(Menu *menu)
+{
+    char gamename[RSP_MAX_PATH];
+    int Max = (sizeof(menu->ami) / sizeof(menu->ami[0])) - 1;
+    if (Max > MAX_SAVE_SLOTS)
+        Max = MAX_SAVE_SLOTS;
+
+    for (int i = 0; i < Max; i++)
+    {
+        snprintf(gamename, sizeof (gamename), "%s/%d.gme", SAVEGAME_DIR, i);
+        const char *fname = FindCorrectFile(gamename, "w");
+
+		struct tm mod_time;
+        const char *str = "unknown";
+		char timebuf[32];
+
+		if (!nxdk_file_last_write_time(fname, &mod_time)) {
+            str = "available";
+		} else {
+			if (mod_time.tm_year != 0) {
+				strftime(timebuf, sizeof (timebuf), "%m/%d/%y %H:%M", &mod_time);
+				str = timebuf;
+			}
+        }
+
+        snprintf(gamename, sizeof (gamename), "%s/%d.gme [%s]", SAVEGAME_DIR, i, str);
+        menu->ami[i].pszText = strdup(gamename);
+
+        menu->ami[i].sEnabled = (menu->ami[i].pszText != NULL);
+        if (!menu->ami[i].sEnabled)
+            break;
+    }
+}
+#endif
+
 #ifdef MOBILE
 static	bool continueIsRestart; //This is to make the continue button actually restart the level
 #endif
@@ -3486,7 +3528,7 @@ class CPlayInput : public CPlay
 						strcpy(szFile, FullPathHD(SAVEGAME_DIR));
 
 					// Display open dialog to let user choose a file
-					#if PLATFORM_UNIX
+					#if PLATFORM_UNIX || PLATFORM_NXDK
 					if (PickFile("Choose Game Slot", EnumSaveGamesSlots, szFile, sizeof(szFile)) == 0)
                     {
 #ifdef MOBILE
