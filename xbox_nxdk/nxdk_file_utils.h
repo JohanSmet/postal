@@ -3,6 +3,7 @@
 
 int nxdk_file_access(const char *pathname, int mode);
 int nxdk_mkdir(const char *newdir);
+bool nxdk_file_last_write_time(const char *filename, struct tm *mod_time);
 
 #define	F_OK	00
 #define R_OK	04
