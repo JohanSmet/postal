@@ -166,6 +166,7 @@ SRCS =	\
 	../src/WishPiX/Prefs/prefs.cpp \
 	../src/WishPiX/ResourceManager/resmgr.cpp \
 	../src/WishPiX/Spry/spry.cpp \
+	nxdk_file_utils.cpp	\
 
 #	../src/Log.cpp \
 #	../src/NetBrowse.cpp \
