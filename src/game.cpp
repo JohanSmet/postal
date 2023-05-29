@@ -557,6 +557,7 @@
 #ifdef WIN32
 	#include <direct.h>
 #elif defined(PLATFORM_NXDK)
+	#include "../xbox_nxdk/nxdk_file_utils.h"
 #else
 	#include <unistd.h>
 #endif
@@ -950,6 +951,41 @@ static void EnumExistingSaveGames(Menu *menu)
 #endif
 }
 #endif
+
+#if PLATFORM_NXDK
+
+static void EnumExistingSaveGames(Menu *menu)
+{
+    char gamename[RSP_MAX_PATH];
+    int i = 0;
+    int Max = (sizeof(menu->ami) / sizeof(menu->ami[0])) - 1;
+    if (Max > MAX_SAVE_SLOTS)
+        Max = MAX_SAVE_SLOTS;
+
+	for (i = 0; i < Max; i++)
+	{
+		snprintf(gamename, sizeof (gamename), "%s/%d.gme", SAVEGAME_DIR, i);
+		const char *fname = FindCorrectFile(gamename, "w");
+
+		const char *str = "unused";
+		struct tm mod_time;
+		char timebuf[32];
+		menu->ami[i].sEnabled = nxdk_file_last_write_time(fname, &mod_time);
+		if (menu->ami[i].sEnabled)
+		{
+			if (mod_time.tm_year == 0) {
+				str = "unknown";
+			} else {
+				strftime(timebuf, sizeof (timebuf), "%m/%d/%y %H:%M", &mod_time);
+				str = timebuf;
+			}
+		}
+		snprintf(gamename, sizeof (gamename), "%s/%d.gme [%s]", SAVEGAME_DIR, i, str);
+
+		menu->ami[i].pszText = strdup(gamename);
+	}
+}
+#endif // PLATFORM_NXDK
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -2095,7 +2131,7 @@ static int16_t GameCore(void)		// Returns 0 on success.
 						strcpy(szFileSaved, FullPathHD(SAVEGAME_DIR));
 
 					// Display option dialog to let user choose a realm file
-					#if PLATFORM_UNIX
+					#if PLATFORM_UNIX || PLATFORM_NXDK
                     // char tmp[RSP_MAX_PATH];
 					if (PickFile("Choose Game Slot", EnumExistingSaveGames, szFileSaved, sizeof(szFileSaved)) == 0)
                     {
