@@ -15,7 +15,6 @@ Source code of Postal by Running With Scissors, imported from their GPL [release
 
 ### Xbox - nxdk (branch wip/xbox)
 - no sound with latest nxdk. With older nxdk: sound works on Xemu but SDL_init() hangs on real hardware.
-- no saved games
 - no multiplayer
 - even less tested than 64-bit PC port
 - menu needs to be cleaned to remove invalid options on console (keyboard mapping, ...)
