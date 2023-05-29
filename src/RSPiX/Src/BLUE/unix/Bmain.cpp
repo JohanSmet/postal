@@ -43,6 +43,7 @@
 
 #ifdef PLATFORM_NXDK
 #include <hal/video.h>
+#include <nxdk/mount.h>
 #endif
 
 #include <time.h>
@@ -261,6 +262,13 @@ extern void rspPlatformInit(void)
     chdir(realbuf);  // go there.
 #elif PLATFORM_NXDK
 	XVideoSetMode(640, 480, 32, REFRESH_DEFAULT);
+
+	// mount the 'E'-drive (savegames)
+	BOOL ret = nxMountDrive('E', "\\Device\\Harddisk0\\Partition1\\");
+    if (!ret) {
+		// [TODO|JS]: do something profound when mounting the harddrive fails (like showing an error message)
+        return;
+    }
 #endif
 }
 
