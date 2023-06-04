@@ -1,0 +1,47 @@
+name: Build Xbox (nxdk)
+
+on:
+  push:
+    paths-ignore:
+      - '**.md'
+
+env:
+  BUILD_TYPE: Release
+  NXDK_DIR: ${{github.workspace}}/_nxdk
+
+jobs:
+  build_xbox:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+
+      - name: Checkout nxdk source
+        uses: actions/checkout@v3
+        with:
+          repository: XboxDev/nxdk
+          path: _nxdk
+          submodules: recursive
+
+      - name: Install dependencies
+        run: |
+          sudo add-apt-repository -y "deb http://archive.ubuntu.com/ubuntu `lsb_release -sc` main universe restricted multiverse"
+          sudo apt-get update -y -qq
+          sudo apt-get install llvm lld
+
+      # this (together with the NXDK_DEV-env entry) emulates the functionality of $NXDK_DIR/bin/activate
+      - name: Setup nxdk path
+        run: |
+          echo "$NXDK_DIR/bin" >> $GITHUB_PATH
+
+      - name: Build
+        shell: bash
+        working-directory: ${{github.workspace}}/xbox_nxdk
+        run: make
+
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist_xbox_nxdk
+          path: ${{github.workspace}}/xbox_nxdk/bin/default.xbe
