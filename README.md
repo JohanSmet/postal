@@ -22,3 +22,6 @@ Source code of Postal by Running With Scissors, imported from their GPL [release
 ## Future plans
 - ports to other systems (Xbox, M1 macs)
 - actually properly testing the game.
+
+## Obtaining the game
+The actual game and its resources are not included in this repository. If you don't have original disks, the game is still available on current digital storefronts. Last I looked it was even available for free on [GOG.com](https://www.gog.com/en/game/postal_classic_and_uncut).
