@@ -18,7 +18,6 @@ Source code of Postal by Running With Scissors, imported from their GPL [release
 - no multiplayer
 - even less tested than 64-bit PC port
 - menu needs to be cleaned to remove invalid options on console (keyboard mapping, ...)
-- add build instructions (+ improve packaging workflow)
 
 ## Future plans
 - ports to other systems (Xbox, M1 macs)
