@@ -5714,7 +5714,7 @@ void Play_GetApplicationDescriptor(			// Returns nothing.
 #endif
 
 #ifdef TRACENASSERT
-	if (strlen(pszText) + strlen(TRACENASSERT_STR) < sMaxBytes)
+	if (strlen(pszText) + strlen(TRACENASSERT_STR) < (size_t) sMaxBytes)
 		{
 		strcat(pszText, TRACENASSERT_STR);
 		}

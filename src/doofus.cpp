@@ -2153,7 +2153,7 @@ void CDoofus::Logic_PositionSet(void)
 		int16_t sVarRot = GetRandom() % 40;
 		double dTargetDist = SQDistanceToDude();
 		double dTestAngle;
-		double dAngleTurn;
+		double dAngleTurn = 0.0;
 
 		// If he is out of range now, reset desired range to the middle value.
 		if (dTargetDist < ms_dMinFightDistanceSQ || dTargetDist > ms_dMaxFightDistanceSQ)

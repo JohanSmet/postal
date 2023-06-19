@@ -178,7 +178,7 @@ extern int16_t rspExec(			// Returns 0 on success.
 // File Path API
 ///////////////////////////////////////////////////////////////////////////////
 
-#if defined(WIN32) || defined(PLATFORM_NXDK)
+#if defined(WIN32) || defined(PLATFORM_NXDK) || defined(__SWITCH__)
 #ifndef PATH_MAX  // !!! FIXME: where is this really defined?
 #define PATH_MAX 260
 #endif
