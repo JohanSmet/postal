@@ -171,6 +171,11 @@ typedef HRESULT (WINAPI *fnSHGetFolderPathW)(HWND hwnd, int nFolder, HANDLE hTok
 #include "../../../../../xbox_nxdk/nxdk_file_utils.h"
 #endif
 
+#ifdef PLATFORM_SWITCH
+#include <unistd.h>
+#include <sys/stat.h>
+#endif
+
 #include "Blue.h"
 
 #ifdef PATHS_IN_INCLUDES
@@ -488,7 +493,8 @@ extern const char *FindCorrectFile(const char *_pszName, const char *pszMode)
     else
     {
         bail_early = false;
-        sprintf(finalname, "%s%s", prefpath, pszName);
+		strcpy(finalname, prefpath);
+		strcat(finalname, pszName);
     }
 
     locateCorrectCase(finalname);
