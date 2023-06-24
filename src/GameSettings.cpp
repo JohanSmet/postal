@@ -389,6 +389,9 @@ int16_t CGameSettings::LoadPrefs(
 		rspMsgBox(RSP_MB_ICN_STOP | RSP_MB_BUT_OK, g_pszCriticalErrorTitle, g_pszBadPath_s_s, "Hoods", "Paths");
 
 	pPrefs->GetVal("Paths", "NoSakDir", "", m_szNoSakDir);
+#if defined(PLATFORM_SWITCH)
+	strcpy(m_szNoSakDir, "romfs:/");
+#endif
 	sResult = (strlen(m_szNoSakDir) + 1) <= RSP_MAX_PATH ? 0 : -1;
 	if (sResult == 0)
 		sResult = CorrectifyBasePath(m_szNoSakDir, sizeof(m_szNoSakDir));
