@@ -308,6 +308,8 @@ int16_t CGameSettings::LoadPrefs(
 	strcpy(m_pszCDPath, ".");
 #elif defined(PLATFORM_NXDK)
 	strcpy(m_pszCDPath, "D:\\");
+#elif defined(PLATFORM_SWITCH)
+	strcpy(m_pszCDPath, "romfs:/");
 #endif
 
 	sResult = (strlen(m_pszCDPath) + 1) <= RSP_MAX_PATH ? 0 : -1;
@@ -321,6 +323,8 @@ int16_t CGameSettings::LoadPrefs(
 	strcpy(m_pszHDPath, ".");
 #elif defined(PLATFORM_NXDK)
 	strcpy(m_pszHDPath, "D:\\");
+#elif defined(PLATFORM_SWITCH)
+	strcpy(m_pszHDPath, "romfs:/");
 #endif
 	sResult = (strlen(m_pszHDPath) + 1) <= RSP_MAX_PATH ? 0 : -1;
 	if (sResult == 0)
@@ -333,6 +337,8 @@ int16_t CGameSettings::LoadPrefs(
 	strcpy(m_pszVDPath, ".");
 #elif defined(PLATFORM_NXDK)
 	strcpy(m_pszVDPath, "D:\\");
+#elif defined(PLATFORM_SWITCH)
+	strcpy(m_pszVDPath, "romfs:/");
 #endif
 	sResult = (strlen(m_pszVDPath) + 1) <= RSP_MAX_PATH ? 0 : -1;
 	if (sResult == 0)
@@ -345,6 +351,8 @@ int16_t CGameSettings::LoadPrefs(
 	strcpy(m_pszSoundPath, ".");
 #elif defined(PLATFORM_NXDK)
 	strcpy(m_pszSoundPath, "D:\\");
+#elif defined(PLATFORM_SWITCH)
+	strcpy(m_pszSoundPath, "romfs:/");
 #endif
 	sResult = (strlen(m_pszSoundPath) + 1) <= RSP_MAX_PATH ? 0 : -1;
 	if (sResult == 0)
@@ -357,6 +365,8 @@ int16_t CGameSettings::LoadPrefs(
 	strcpy(m_pszGamePath, ".");
 #elif defined(PLATFORM_NXDK)
 	strcpy(m_pszGamePath, "D:\\");
+#elif defined(PLATFORM_SWITCH)
+	strcpy(m_pszGamePath, "romfs:/");
 #endif
 	sResult = (strlen(m_pszGamePath) + 1) <= RSP_MAX_PATH ? 0 : -1;
 	if (sResult == 0)
@@ -369,6 +379,8 @@ int16_t CGameSettings::LoadPrefs(
 	strcpy(m_pszHoodsPath, ".");
 #elif defined(PLATFORM_NXDK)
 	strcpy(m_pszHoodsPath, "D:\\");
+#elif defined(PLATFORM_SWITCH)
+	strcpy(m_pszHoodsPath, "romfs:/");
 #endif
 	sResult = (strlen(m_pszHoodsPath) + 1) <= RSP_MAX_PATH ? 0 : -1;
 	if (sResult == 0)
