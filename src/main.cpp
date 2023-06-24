@@ -1044,6 +1044,7 @@ rspProfileOff();
 		rspMsgBox(RSP_MB_ICN_STOP | RSP_MB_BUT_OK, g_pszCriticalErrorTitle, g_pszPrefOpenError);
 		}
 
+	rspPlatformExit();
     return 0;
 	}
 

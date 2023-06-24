@@ -654,6 +654,7 @@ extern void rspSetForegroundCallback(
 
 extern int rspCommandLine(const char *cmd);
 extern void rspPlatformInit(void);
+extern void rspPlatformExit(void);
 
 #endif // UNIXBLUE_H
 

@@ -46,6 +46,10 @@
 #include <nxdk/mount.h>
 #endif
 
+#ifdef PLATFORM_SWITCH
+#include <switch.h>
+#endif
+
 #include <time.h>
 
 // Blue //////////////////////////////////////////////////////////////////////
@@ -269,6 +273,19 @@ extern void rspPlatformInit(void)
 		// [TODO|JS]: do something profound when mounting the harddrive fails (like showing an error message)
         return;
     }
+#elif PLATFORM_SWITCH
+	Result res = romfsInit();
+    if (R_FAILED(res)) {
+        diagAbortWithResult(res);
+	}
+#endif
+}
+
+extern void rspPlatformExit(void)
+{
+#if PLATFORM_SWITCH
+
+	romfsExit();
 #endif
 }
 
