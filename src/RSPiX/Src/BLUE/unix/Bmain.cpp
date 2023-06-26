@@ -48,6 +48,8 @@
 
 #ifdef PLATFORM_SWITCH
 #include <switch.h>
+#include <unistd.h>
+static int nxlink_sock = -1;
 #endif
 
 #include <time.h>
@@ -278,12 +280,23 @@ extern void rspPlatformInit(void)
     if (R_FAILED(res)) {
         diagAbortWithResult(res);
 	}
+
+	#ifdef TRACENASSERT
+		socketInitializeDefault();
+		nxlink_sock = nxlinkStdio();
+	#endif
 #endif
 }
 
 extern void rspPlatformExit(void)
 {
 #if PLATFORM_SWITCH
+	#ifdef TRACENASSERT
+		if (nxlink_sock != -1) {
+			close(nxlink_sock);
+		}
+		socketExit();
+	#endif
 
 	romfsExit();
 #endif
