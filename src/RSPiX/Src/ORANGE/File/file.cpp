@@ -156,7 +156,6 @@
 #include <io.h>
 #include <direct.h>
 #include <malloc.h>
-#define PATH_MAX MAX_PATH
 #ifndef F_OK
 #define F_OK 00
 #endif
@@ -167,7 +166,6 @@ typedef HRESULT (WINAPI *fnSHGetFolderPathW)(HWND hwnd, int nFolder, HANDLE hTok
 #endif
 
 #ifdef PLATFORM_NXDK
-#define PATH_MAX 2048
 #include "../../../../../xbox_nxdk/nxdk_file_utils.h"
 #endif
 
@@ -179,8 +177,10 @@ typedef HRESULT (WINAPI *fnSHGetFolderPathW)(HWND hwnd, int nFolder, HANDLE hTok
 #include "Blue.h"
 
 #ifdef PATHS_IN_INCLUDES
+	#include "CYAN/cyan.h"
 	#include "ORANGE/File/file.h"
 #else
+	#include "cyan.h"
 	#include "file.h"
 #endif	// PATHS_IN_INCLUDES
 
@@ -376,7 +376,7 @@ extern const char *FindCorrectFile(const char *_pszName, const char *pszMode)
 
     static bool initialized = false;
     static bool nohomedir = false;
-    static char prefpath[PATH_MAX*2];
+    static char prefpath[RSP_MAX_PATH*2];
     if (!initialized)
     {
         TRACE("FindCorrectFile initializing...\n");
@@ -403,7 +403,7 @@ extern const char *FindCorrectFile(const char *_pszName, const char *pszMode)
                 fnSHGetFolderPathW pSHGetFolderPathW = (fnSHGetFolderPathW) GetProcAddress(lib, "SHGetFolderPathW");
                 if (pSHGetFolderPathW != NULL)
                 {
-        			WCHAR path[MAX_PATH];
+        			WCHAR path[RSP_MAX_PATH];
                     if (SUCCEEDED(pSHGetFolderPathW(NULL, 0x001a/*CSIDL_APPDATA*/ | 0x8000/*CSIDL_FLAG_CREATE*/, NULL, 0, path)))
                     {
                         // !!! FIXME: screwed if there's a unicode path for now.
@@ -447,7 +447,7 @@ extern const char *FindCorrectFile(const char *_pszName, const char *pszMode)
 
             if (homedir != NULL)
             {
-                char oldpath[PATH_MAX];
+                char oldpath[RSP_MAX_PATH];
                 snprintf(oldpath, sizeof (oldpath), "%s/.postal1", homedir);
                 if (access(oldpath, F_OK) == 0)
                 {
@@ -474,7 +474,7 @@ extern const char *FindCorrectFile(const char *_pszName, const char *pszMode)
         initialized = true;
     }
 
-    static char finalname[PATH_MAX*3];
+    static char finalname[RSP_MAX_PATH*3];
     static bool bail_early = true;
 
     if (nohomedir)
