@@ -1,2 +1,4 @@
 romfs/*
-build/
+
+.gdbinit
+.gdb_history
