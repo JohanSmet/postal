@@ -238,7 +238,7 @@ extern int16_t rspGetLastMouseEvent(	// Returns 0 if no event was available, non
 	{
 	int16_t	sRes	= TRUE;	// Assume success.
 
-	PRSP_MOUSE_EVENT	peEvent;
+	PRSP_MOUSE_EVENT	peEvent = NULL;
 	int16_t					sNumEvents	= ms_qmeEvents.NumItems();
 
 	// Are there any events?

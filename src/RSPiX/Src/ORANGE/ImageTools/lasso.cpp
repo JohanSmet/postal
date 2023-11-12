@@ -722,8 +722,8 @@ int16_t rspLassoNext(	// Returns 0 if a polygon found,
 			int16_t	sSrcX2	= sSrcX + sSrcW - 1;
 			int16_t	sSrcY2	= sSrcY + sSrcH - 1;
 
-			int16_t		sX;
-			int16_t		sY;
+			int16_t		sX = 0;
+			int16_t		sY = 0;
 			int16_t		sFoundShape	= FALSE;
 			// Look for non-separator color.
 			for (sY = 0; sY < sSrcH; sY++)

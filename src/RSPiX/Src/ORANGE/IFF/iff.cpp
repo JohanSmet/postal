@@ -344,7 +344,7 @@ int16_t RIff::Find(const char* pszPath)	// Returns 0 on success.
 		}
 
 	FCC	fccFind;
-	FCC	fccNext;
+	FCC	fccNext = 0;
 	while (sRes == 0 && *pszPath != '\0')
 		{
 		// If IFF . . .
