@@ -268,10 +268,17 @@ extern void rspUpdateJoy(int16_t sJoy)
 //#endif
 
         ms_ajsCurr[sJoy].u32Buttons = 0;
+#ifdef PLATFORM_SWITCH
+        calcButton(controller, SDL_CONTROLLER_BUTTON_A, &ms_ajsCurr[sJoy].u32Buttons, RSP_JOY_BUT_2);
+        calcButton(controller, SDL_CONTROLLER_BUTTON_B, &ms_ajsCurr[sJoy].u32Buttons, RSP_JOY_BUT_1);
+        calcButton(controller, SDL_CONTROLLER_BUTTON_X, &ms_ajsCurr[sJoy].u32Buttons, RSP_JOY_BUT_4);
+        calcButton(controller, SDL_CONTROLLER_BUTTON_Y, &ms_ajsCurr[sJoy].u32Buttons, RSP_JOY_BUT_3);
+#else
         calcButton(controller, SDL_CONTROLLER_BUTTON_A, &ms_ajsCurr[sJoy].u32Buttons, RSP_JOY_BUT_1);
         calcButton(controller, SDL_CONTROLLER_BUTTON_B, &ms_ajsCurr[sJoy].u32Buttons, RSP_JOY_BUT_2);
         calcButton(controller, SDL_CONTROLLER_BUTTON_X, &ms_ajsCurr[sJoy].u32Buttons, RSP_JOY_BUT_3);
         calcButton(controller, SDL_CONTROLLER_BUTTON_Y, &ms_ajsCurr[sJoy].u32Buttons, RSP_JOY_BUT_4);
+#endif
         calcButton(controller, SDL_CONTROLLER_BUTTON_BACK, &ms_ajsCurr[sJoy].u32Buttons, RSP_JOY_BUT_5);
         calcButton(controller, SDL_CONTROLLER_BUTTON_GUIDE, &ms_ajsCurr[sJoy].u32Buttons, RSP_JOY_BUT_6);
         calcButton(controller, SDL_CONTROLLER_BUTTON_START, &ms_ajsCurr[sJoy].u32Buttons, RSP_JOY_BUT_7);
