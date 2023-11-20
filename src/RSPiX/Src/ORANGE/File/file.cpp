@@ -427,6 +427,8 @@ extern const char *FindCorrectFile(const char *_pszName, const char *pszMode)
             strcat(prefpath, "Library/Application Support/Postal Plus/");
 			#elif defined (PLATFORM_NXDK)
 				strcpy(prefpath, "E:\\UDATA\\Postal\\");
+			#elif defined (PLATFORM_SWITCH)
+				strcpy(prefpath, "sdmc://switch/PostalPlus/");
             #else
             const char *homedir = getenv("HOME");
             const char *xdghomedir = getenv("XDG_DATA_HOME");
@@ -486,6 +488,13 @@ extern const char *FindCorrectFile(const char *_pszName, const char *pszMode)
         strcpy(finalname, pszName);
 	}
 #endif // PLATFORM_NXDK
+
+#if PLATFORM_SWITCH
+	else if (strlen(pszName) >= 7 && strncmp(pszName, "romfs:/", 7) == 0) {
+		// do not mess with an absolute path
+        strcpy(finalname, pszName);
+	}
+#endif // PLATFORM_SWITCH
 
     else if ((strlen(pszName) + strlen(prefpath)) > sizeof (finalname))
         strcpy(finalname, pszName); // oh well.
@@ -554,8 +563,13 @@ extern const char *FindCorrectFile(const char *_pszName, const char *pszMode)
     {
         if (access(finalname, R_OK) == -1)  // favor prefpath?
         {
-            strcpy(finalname, pszName); // nope, use original name.
-            locateCorrectCase(finalname);
+			#ifdef PLATFORM_SWITCH
+				strcpy(finalname, "romfs:/");
+				strcat(finalname, pszName);
+			#else
+				strcpy(finalname, pszName); // nope, use original name.
+			#endif
+			locateCorrectCase(finalname);
         }
     }
 

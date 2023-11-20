@@ -346,8 +346,6 @@
 
 #if defined (PLATFORM_NXDK)
 	#define PREFS_PREFIX "D:\\"
-#elif defined (PLATFORM_SWITCH)
-	#define PREFS_PREFIX "romfs:/"
 #else
 	#define PREFS_PREFIX
 #endif
