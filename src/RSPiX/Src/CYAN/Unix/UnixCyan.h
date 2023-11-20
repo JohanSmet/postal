@@ -178,11 +178,14 @@ extern int16_t rspExec(			// Returns 0 on success.
 // File Path API
 ///////////////////////////////////////////////////////////////////////////////
 
+// don't rely on a consistent definition of PATH_MAX
+// for example: switch homebrew (devkitpro) defines PATH_MAX as 4096 or 1024 depending on which header is included
+
+#define RSP_MAX_PATH				4096
 #ifdef PATH_MAX
-#define RSP_MAX_PATH				PATH_MAX
-#else
-#define RSP_MAX_PATH				2048
+static_assert(RSP_MAX_PATH >= PATH_MAX, "Manually defined RSP_MAX_PATH is insufficient.");
 #endif
+
 
 #define RSP_PATH_SEPARATOR			'/'
 
