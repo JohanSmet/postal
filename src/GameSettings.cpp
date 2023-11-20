@@ -541,6 +541,8 @@ int16_t CGameSettings::SavePrefs(
 	pPrefs->SetVal("Game", "RecentViolence", m_sViolence);
 	pPrefs->SetVal("Game", "UseCrossHair", m_sCrossHair);
 
+	pPrefs->SetVal("Realms", "File", m_pszRealmPrefsFile);
+
 	pPrefs->SetVal("Multiplayer", "Server", m_szServerName);
 	pPrefs->SetVal("Multiplayer", "Port", m_usServerPort);
 	pPrefs->SetVal("Multiplayer", "Protocol", m_usProtocol);

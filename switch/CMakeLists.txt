@@ -182,6 +182,9 @@ target_sources(${TARGET_POSTAL} PRIVATE
 	../src/WishPiX/Prefs/prefs.cpp
 	../src/WishPiX/ResourceManager/resmgr.cpp
 	../src/WishPiX/Spry/spry.cpp
+
+	../src/HardwareSettings.cpp
+	../src/HardwareSettings.h
 )
 
 # remove multiplayer specific sources
