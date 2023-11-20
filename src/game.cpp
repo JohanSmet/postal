@@ -861,7 +861,7 @@ int Stat_LevelsPlayed = 0;
 
 uint32_t Flag_Achievements = 0;
 
-#if PLATFORM_UNIX
+#if PLATFORM_UNIX || PLATFORM_SWITCH
 #include <sys/stat.h>
 static void EnumExistingSaveGames(Menu *menu)
 {
@@ -2131,7 +2131,7 @@ static int16_t GameCore(void)		// Returns 0 on success.
 						strcpy(szFileSaved, FullPathHD(SAVEGAME_DIR));
 
 					// Display option dialog to let user choose a realm file
-					#if PLATFORM_UNIX || PLATFORM_NXDK
+					#if PLATFORM_UNIX || PLATFORM_NXDK || PLATFORM_SWITCH
                     // char tmp[RSP_MAX_PATH];
 					if (PickFile("Choose Game Slot", EnumExistingSaveGames, szFileSaved, sizeof(szFileSaved)) == 0)
                     {
