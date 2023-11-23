@@ -233,6 +233,10 @@ target_include_directories(${TARGET_POSTAL} PRIVATE
 
 target_link_libraries(${TARGET_POSTAL} PRIVATE ${SDL2_LIBRARIES})
 
+set (META_AUTHOR "Running With Scissors - Port by JS")
+set (META_VERSION "202311-0")
+SET (META_ICON "switch_icon.jpg")
+
 set (NACP_OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/${TARGET_POSTAL}.nacp")
-nx_generate_nacp(OUTPUT ${NACP_OUTPUT})
-nx_create_nro("PostalSwitch" TARGET ${TARGET_POSTAL} NACP ${NACP_OUTPUT} ROMFS romfs)
+nx_generate_nacp(OUTPUT ${NACP_OUTPUT} AUTHOR ${META_AUTHOR} VERSION ${META_VERSION})
+nx_create_nro("PostalSwitch" TARGET ${TARGET_POSTAL} NACP ${NACP_OUTPUT} ICON ${META_ICON} ROMFS romfs)
